@@ -62,7 +62,7 @@
     ],
     "priority": "P0",
     "guideTitle": "Choose the required donation slots",
-    "guideText": "Track full donations and quantities separately. Optional bundles need only the stated number of slots, not every candidate. Use season and room filters to plan the next collection trip. Remixed bundles remain unsupported.",
+    "guideText": "Track standard donations and quantities separately. Optional bundles need only the stated number of qualifying slots. Use season and room filters, or record the actual requirements of your remixed bundle in the separate manual checklist.",
     "researchClusterSize": 12
   },
   {
@@ -94,7 +94,7 @@
     ],
     "priority": "P0",
     "guideTitle": "Find missing artifacts and minerals",
-    "guideText": "Discovery is not donation. Use the source filter to identify missing items associated with a geode or artifact route, then mark donations after the in-game action. Reward eligibility does not confirm a reward was claimed.",
+    "guideText": "Discovery is not donation. Use acquisition filters and reward milestones, then arrange items on an original practice display grid. This is not the exact in-game museum floor plan.",
     "researchClusterSize": 18
   },
   {
@@ -245,7 +245,7 @@
     ],
     "priority": "P1",
     "guideTitle": "Find fish for your collection",
-    "guideText": "Filter by common acquisition season and search fish names or locations. Conditions are representative routes, not a complete weather or bait simulator. Record catches manually; challenge-only legendary variants are excluded.",
+    "guideText": "Filter recorded main-route season, location, weather, time and acquisition method. Missing conditions remain unspecified, not guaranteed. Record actual catches; challenge-only legendary variants are excluded.",
     "researchClusterSize": 6
   },
   {

@@ -49,7 +49,7 @@
       ],
       [
         "Are remixed bundles automatically detected?",
-        "No. Standard bundle progress is not applied to unknown remixed or modded combinations."
+        "No. Enter the actual requirements in the separate remixed checklist. The standard tracker is never applied automatically."
       ]
     ]
   },
@@ -64,8 +64,8 @@
         "Record an item as found when acquired and as donated only after delivering it to Gunther."
       ],
       [
-        "Check the next reward",
-        "Review donation milestones and export progress."
+        "Check rewards and plan a display",
+        "Review donation milestones, arrange a practice display grid and export progress."
       ]
     ],
     "example": "Mark one newly found mineral as Found only. The ready-to-donate count increases but the museum donation total does not. Mark Donated after delivering it.",
@@ -195,8 +195,8 @@
         "Search names and recorded acquisition conditions."
       ],
       [
-        "Filter common seasons",
-        "Select a main-route season and distinguish found from caught entries."
+        "Filter recorded conditions",
+        "Select main-route season, location, listed time, weather or crab-pot sources. Unspecified conditions remain explicit."
       ],
       [
         "Export missing progress",
