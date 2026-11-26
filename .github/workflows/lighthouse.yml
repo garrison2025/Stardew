@@ -1,0 +1,39 @@
+name: Mobile Lighthouse evidence
+on:
+  pull_request:
+    paths:
+      - 'scripts/lighthouse-report.mjs'
+      - '.github/workflows/lighthouse.yml'
+  workflow_dispatch:
+    inputs:
+      expected_revision:
+        description: 'Optional full deployed commit SHA'
+        required: false
+        type: string
+permissions:
+  contents: read
+jobs:
+  lighthouse:
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: npm install --global lighthouse@13.6.0
+      - run: google-chrome --version
+      - name: Three mobile measurements per core route
+        env:
+          EXPECTED_REVISION: ${{ inputs.expected_revision }}
+        run: node scripts/lighthouse-report.mjs ${{ matrix.shard }} 4
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-shard-${{ matrix.shard }}
+          path: lighthouse-reports/
+          if-no-files-found: warn
