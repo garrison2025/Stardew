@@ -102,7 +102,7 @@
     "path": "/predictor/",
     "h1": "Stardew Valley Seed Predictor",
     "title": "Stardew Valley Seed Predictor | Field & Farm",
-    "description": "Check prediction support and plan missing museum items by geode or artifact trove source. No verified RNG predictions.",
+    "description": "Try an experimental PC 1.6.15 geode opener with example IDs, then compare possible finds with the museum checklist.",
     "primaryKeyword": "stardew valley seed predictor",
     "volume": 140,
     "kd": 15,
@@ -123,8 +123,8 @@
       "/crop-calculator/"
     ],
     "priority": "P0",
-    "guideTitle": "Plan geode collection without predicting RNG",
-    "guideText": "Select a container and review matching undonated museum entries. This is a source planner, not an opening order, probability calculator or random-seed predictor. A verified version-specific adapter is required for actual prediction.",
+    "guideTitle": "Try the 1.6.15 geode opener",
+    "guideText": "Select a container and enter how many openings the example farmer has completed. Review the next 20 candidate slots, or open the private workspace to enter your own fields locally. Independent game verification is pending.",
     "researchClusterSize": 11
   },
   {
@@ -187,7 +187,7 @@
     ],
     "priority": "P0",
     "guideTitle": "Compare planting and processing plans",
-    "guideText": "Set a seed budget, season and available plots; review harvest dates, crop choices and seed spending. The economy model accounts for shared inventory and daily machine collection under simplified timing assumptions. It excludes construction and labor costs.",
+    "guideText": "Choose a planting day, tiles and planting budget. Compare guaranteed yields and raw sales, optionally test two seasons or a fixed fertilizer and quality scenario, then check cash and machine capacity in the economy tool.",
     "researchClusterSize": 45
   },
   {

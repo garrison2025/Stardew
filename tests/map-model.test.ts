@@ -1,4 +1,4 @@
-import test from 'node:test';import assert from 'node:assert/strict';import {MAPS,ITEMS,originalMap,newPlan,demoPlan,decodePlan,decodeMap,placementError,moveSelection,occupancy,irrigation,blankLocalMap,paintTerrain,validateCalibration,type Placed} from '../src/lib/map-model.ts';
+import test from 'node:test';import assert from 'node:assert/strict';import {scarecrowCoverage,MAPS,ITEMS,originalMap,newPlan,demoPlan,decodePlan,decodeMap,placementError,moveSelection,occupancy,irrigation,blankLocalMap,paintTerrain,validateCalibration,type Placed} from '../src/lib/map-model.ts';
 test('original terrain packs have deterministic size and blocked terrain',()=>{for(const m of MAPS){const a=originalMap(m.id);assert.equal(a.tiles.length,m.w*m.h);assert.ok(a.tiles.includes('water'));assert.ok(a.tiles.includes('forest'));assert.deepEqual(a,originalMap(m.id))}});
 test('sample scene is valid and roundtrips',()=>{for(const m of MAPS){const p=demoPlan(m.id);assert.ok(p.objects.length>0);assert.deepEqual(decodePlan(JSON.parse(JSON.stringify(p))),p)}});
 test('catalog footprint collision and blocked terrain',()=>{const p=newPlan();const a:Placed={id:'a',itemId:'barn',x:19,y:12,rotation:0};assert.equal(placementError(p.map,[],a),null);assert.match(placementError(p.map,[a],{...a,id:'b',x:20})!,/Overlaps/);assert.match(placementError(p.map,[],{...a,x:0,y:0})!,/Blocked/);assert.match(placementError(p.map,[],{...a,x:63,y:41})!,/Blocked|Outside/);assert.equal(occupancy([a]).size,15)});
@@ -12,3 +12,16 @@ test('screenshot calibration validates image bounds',()=>{const map=blankLocalMa
 
 test('pressure nozzle sprinkler coverage is 8, 24 and 48',()=>{for(const [itemId,n] of [['nozzle-basic',8],['nozzle-quality',24],['nozzle-iridium',48]] as const){const p={...newPlan(),map:blankLocalMap(16,16),objects:[{id:'a',itemId,x:7,y:7,rotation:0 as const}]};assert.equal(irrigation(p).size,n)}});
 test('documented building dimensions preserve old projects and reject rotation',()=>{const p=newPlan();for(const [itemId,n] of [['game-barn',28],['game-coop',18],['game-shed',21],['game-silo',9]] as const){const a:Placed={id:'a',itemId,x:19,y:12,rotation:0};assert.equal(occupancy([a]).size,n);assert.match(placementError(p.map,[],{...a,rotation:1})!,/fixed orientation/)}assert.equal(occupancy([{id:'a',itemId:'barn',x:19,y:12,rotation:0}]).size,15)});
+
+test('regular scarecrow radius has 248 surrounding tiles, with edge clipping and overlap deduplication',()=>{
+ const map=blankLocalMap(30,30,'Reference');
+ const a={id:'a',itemId:'scarecrow',x:15,y:15,rotation:0 as const};
+ const protect=(objects:typeof a[])=>scarecrowCoverage({schema:2,map,season:'spring',objects});
+ const centered=protect([a]);
+ assert.equal(centered.size,248);
+ assert.equal(centered.has('21,21'),true);
+ assert.equal(centered.has('22,22'),false);
+ assert.equal(centered.has('15,15'),false);
+ assert.ok(protect([{...a,x:0,y:0}]).size<centered.size);
+ assert.equal(protect([a,{...a,id:'b'}]).size,248);
+});

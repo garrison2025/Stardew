@@ -8,3 +8,19 @@ test('optimizer equals independent exhaustive combinations on a tiny input',()=>
 test('unsupported winter and exhausted budget produce an empty plan',()=>{assert.equal(optimizeSeason({...input,season:'winter'}).planted,0);assert.equal(optimizeSeason({...input,budget:0}).profit,0);assert.throws(()=>optimizeSeason({...input,plots:101}));assert.throws(()=>optimizeSeason({...input,start:29}))});
 
 test('extended shop reference requires unlock confirmation and stock-limited winter is feasible',()=>{assert.equal(SEASON_CROPS.length,34);assert.equal(cycles(get('starfruit'),1,false)[0].profit,350);const winter=ownedSeedPlan('powdermelon','winter',1,5,3,0);assert.deepEqual(winter,{planted:3,days:[8],cost:0,revenue:180,profit:180});assert.throws(()=>ownedSeedPlan('powdermelon','summer',1,5,3,0));assert.equal(ownedSeedPlan('ancient-fruit','spring',1,5,3,0).planted,0)});
+
+test('late summer corn crosses into fall; a summer-only crop stops at the boundary',()=>{
+ const options={season:'summer',crossSeason:true} as const;
+ assert.deepEqual(cycles(get('corn'),25,false,options)[0].days,[39,43,47,51,55]);
+ assert.deepEqual(cycles(get('blueberry'),25,false,options),[]);
+ assert.deepEqual(cycles(get('corn'),25,false),[]);
+});
+test('fertilizer is paid once and fixed quality and Tiller price the harvest',()=>{
+ const budget={...input,start:25,plots:1,budget:27,quality:2,tiller:true,fertilizer:{cropId:'parsnip',growthDays:3,cost:7}} as const;
+ const r=optimizeSeason(budget);
+ assert.equal(r.spent,27);
+ assert.equal(r.revenue,57);
+ assert.equal(r.profit,30);
+ assert.deepEqual(r.allocation[0].cycle.days,[28]);
+ assert.equal(optimizeSeason({...budget,budget:26}).planted,0);
+});

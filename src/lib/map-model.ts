@@ -120,3 +120,18 @@ export function validateCalibration(c:Calibration,map:FarmMap,image:{width:numbe
  if(![c.x,c.y,c.tileWidth,c.tileHeight,c.opacity].every(Number.isFinite)||c.x<0||c.y<0||c.tileWidth<1||c.tileHeight<1||c.opacity<0||c.opacity>1||c.x+map.w*c.tileWidth>image.width+.01||c.y+map.h*c.tileHeight>image.height+.01)throw Error('Grid calibration extends outside the image or has invalid dimensions.');
  return c
 }
+
+/** Regular scarecrow radius: 248 surrounding tiles on an open map. */
+export function scarecrowCoverage(plan:Plan){
+ const protectedTiles=new Set<string>();
+ for(const o of plan.objects){
+  if(o.itemId!=='scarecrow')continue;
+  for(let dy=-8;dy<=8;dy++)for(let dx=-8;dx<=8;dx++){
+   const distance=dx*dx+dy*dy;
+   if(distance===0||distance>=81)continue;
+   const x=o.x+dx,y=o.y+dy;
+   if(x>=0&&x<plan.map.w&&y>=0&&y<plan.map.h)protectedTiles.add(posKey(x,y));
+  }
+ }
+ return protectedTiles;
+}
