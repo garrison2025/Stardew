@@ -12,7 +12,13 @@ const guide=toolGuides[page.slug as keyof typeof toolGuides];
 const workspace=import.meta.env.MODE==='workspace';
 function validOrigin(value:unknown){if(typeof value!=='string'||!value)return undefined;try{const u=new URL(value);return u.protocol==='https:'&&u.pathname==='/'&&!u.search&&!u.hash&&!u.username&&!u.password?u.origin:undefined}catch{return undefined}}
 const publicOrigin=validOrigin(import.meta.env.PUBLIC_SITE_ORIGIN);
-const workspaceOrigin=validOrigin(import.meta.env.PUBLIC_WORKSPACE_ORIGIN);
+// The paired Git previews use separate Cloudflare Pages projects.
+const pairedPreview=process.env.CF_PAGES==='1'&&
+ process.env.CF_PAGES_BRANCH==='codex/mobile-map-and-navigation'&&
+ validOrigin(process.env.CF_PAGES_URL)?.endsWith('.stardew-67b.pages.dev')
+ ? 'https://codex-mobile-map-and-navigat.stardew-local-workspace.pages.dev'
+ : undefined;
+const workspaceOrigin=pairedPreview??validOrigin(import.meta.env.PUBLIC_WORKSPACE_ORIGIN);
 const workspaceUrl=!workspace&&workspaceOrigin&&workspaceOrigin!==publicOrigin?new URL(page.path,workspaceOrigin).href:undefined;
 const revision=process.env.CF_PAGES_COMMIT_SHA||process.env.GITHUB_SHA||'';
 const buildRevision=/^[0-9a-f]{40}$/i.test(revision)?revision:undefined;
@@ -68,7 +74,7 @@ const related=pages.filter(p=>p.path!==page.path && (page.relatedPaths||[]).incl
   {!workspace&&workspaceUrl&&<a href={workspaceUrl}>Open private workspace <span aria-hidden="true">↗</span></a>}
  </div>}
 {page.slug==='tracker'&&!workspace&&<section class="workspace-entry" aria-label="Private save workspace"><div><h2>Track your own farm</h2><p>Keep your save file on your device. Inspect supported fields and merge recognized collection progress in the separate private workspace.</p><small>{workspaceUrl?'No upload to our servers · no account · no ads':'Private workspace is not connected to this preview yet. Use the individual tools manually below.'}</small></div>{workspaceUrl&&<a href={workspaceUrl}>Open private save workspace</a>}</section>}
-<Tool slug={page.slug} workspace={workspace} client:load/>
+<Tool slug={page.slug} workspace={workspace} workspaceUrl={workspaceUrl} client:load/>
 <details class="journal-preview-note"><summary>Preview data and limitations</summary><p>Built-in farm maps are original practice scenes. Rules and game data may have incomplete coverage. Game version and tool-specific limitations appear in the tool guide.</p></details>
 <div class="journal-reading"><section class="guide"><div class="guide-header"><h2>{page.guideTitle}</h2><p>{page.guideText}</p></div><div class="guide-steps">{guide.steps.map(([heading,body])=><div><h3>{heading}</h3><p>{body}</p></div>)}</div><div class="tool-example"><h3>Worked example</h3><p>{guide.example}</p></div><div class="tool-faq"><h3>Frequently asked questions</h3>{guide.faq.map(([question,answer])=><details><summary>{question}</summary><p>{answer}</p></details>)}</div><details class="version-details"><summary>Game version &amp; preview limitations</summary><p>1.6: {release.adapters['1.6']}. 1.7: {release.adapters['1.7']}. Approved data and independent test fixtures are required before production release.</p></details></section>
 <section class="related"><h2>Related tools</h2><div class="related-grid">{(related.length?related:pages.filter(p=>p.group===page.group&&p.slug!==page.slug)).map(p=><a href={p.path}><span class="related-icon"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d={icons[p.slug]||icons['']}/></svg></span><div><strong>{short(p)}</strong><small>{p.description}</small></div><span aria-hidden="true">↗</span></a>)}</div></section>

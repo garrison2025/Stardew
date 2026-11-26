@@ -278,3 +278,43 @@ body {font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
   min-height:44px;color:var(--green-deep);font-size:14px;font-weight:650;
   text-underline-offset:3px
 }
+
+.journal-content .map-extra-tools {display:contents}
+.journal-content .map-toolbar .mobile-map-action {display:none}
+.journal-content .map-import-link {
+ display:flex;align-items:center;min-height:35px;padding:6px 8px;color:#fff5ef;font-size:13px
+}
+.journal-content .map-enter-building {
+ position:absolute;z-index:4;top:42px;left:8px;min-height:44px;
+ background:#ffca8c;color:#382940;border-color:#ffca8c
+}
+.journal-content .map-share-preview {
+ display:grid;grid-template-columns:minmax(0,1fr) minmax(0,280px);gap:12px;
+ align-items:start;padding:12px;background:#faf2ee;color:#342941
+}
+.journal-content .map-share-preview h3,.journal-content .map-share-preview p {margin:0 0 6px}
+.journal-content .map-share-preview canvas {display:block;width:100%;height:auto;image-rendering:pixelated;border-radius:6px}
+.journal-content .map-share-preview-actions {display:flex;flex-wrap:wrap;gap:8px}
+.journal-content .planting-decision {
+ padding:12px;margin-bottom:10px;background:#f2e9f6;border:1px solid #e5d7e7;border-radius:10px
+}
+.journal-content .planting-decision h3,.journal-content .planting-decision p {margin:0 0 7px}
+.journal-content .planting-shopping-list {margin:6px 0;padding-left:20px}
+@media(max-width:700px){
+ .journal-content .immersive-studio .map-toolbar {
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;
+  overflow:visible;padding:4px
+ }
+ .journal-content .map-toolbar .map-modes {display:contents}
+ .journal-content .map-toolbar .mobile-map-action {display:inline-flex;justify-content:center}
+ .journal-content .immersive-studio .map-toolbar .map-modes button,.journal-content .immersive-studio .map-toolbar .mobile-map-action {
+  min-width:0;min-height:44px;padding:3px 1px;font-size:11px;white-space:normal
+ }
+ .journal-content .map-actions .map-history button[aria-label=Undo],.journal-content .map-extra-tools,.journal-content .map-mode-extra,.journal-content .desktop-map-fit {display:none}
+ .journal-content .map-toolbar[data-more=true] .map-mode-extra {display:block;grid-column:span 3;order:1}
+ .journal-content .map-toolbar[data-more=true] .map-extra-tools {
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:5px;grid-column:1/-1;order:2
+ }
+ .journal-content .immersive-studio:not(.map-focus) .map-viewport {min-height:clamp(245px,34dvh,325px)}
+ .journal-content .map-share-preview {grid-template-columns:minmax(0,1fr)}
+}
