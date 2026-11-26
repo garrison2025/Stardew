@@ -1,4 +1,5 @@
 // Independently authored terrain and object model. None of these maps or footprints are official game data.
+import {GAME_CROPS} from './crop-data.ts';
 export const TERRAIN=['grass','soil','water','cliff','forest','road'] as const;
 export type Terrain=typeof TERRAIN[number];
 export const SEASONS=['spring','summer','autumn','winter'] as const;
@@ -41,6 +42,7 @@ export const ITEMS:Item[]=[
 {id:'flowerbed',name:'Flower bed',category:'Nature',w:1,h:1,art:'flower',color:'#e6a3c8'},
 {id:'rock',name:'Decorative rock',category:'Nature',w:1,h:1,art:'rock',color:'#8f9992'}
 ];
+ITEMS.push(...GAME_CROPS.map(c=>({id:'crop-'+c.id,name:c.name+' (crop)',category:'Crops',w:1,h:1,art:c.trellis?'trellis':'crop',color:c.color,documented:true})));
 export const itemById=new Map(ITEMS.map(i=>[i.id,i]));
 export const MAPS=[{id:'orchard',name:'Orchard valley',w:64,h:42},{id:'riverbend',name:'River bend',w:64,h:44},{id:'woodland',name:'Woodland clearing',w:60,h:44},{id:'hilltop',name:'Terraced hills',w:64,h:44}] as const;
 export function originalMap(id:string):FarmMap{
