@@ -83,27 +83,27 @@
   "predictor": {
     "steps": [
       [
-        "Check the required inputs",
-        "Review version and platform requirements before attempting seed prediction."
+        "Select a container",
+        "Choose one of four geode types or an Artifact Trove."
       ],
       [
-        "Choose a geode source",
-        "Select a geode or artifact trove to see possible missing museum entries."
+        "Set the opening count",
+        "Use the number already cracked. Each row represents one subsequent count for the selected container."
       ],
       [
-        "Use the collection tracker",
-        "Record verified donations in the museum tool; do not use the source list as an opening-order forecast."
+        "Compare with your museum checklist",
+        "Use the collection section for possible sources and record donations only after confirming them in the game."
       ]
     ],
-    "example": "Selecting Geode lists entries that have a recorded geode source. It does not say which item will appear in your next geode.",
+    "example": "With zero geodes previously opened, the first row is opening number 1. Switch the container to see how the same slot changes.",
     "faq": [
       [
-        "Can I predict my next geode?",
-        "Not in this preview. No approved RNG adapter or independent game fixture is available."
+        "Can I enter my own game IDs?",
+        "Use the separate private workspace. Its form processes the IDs locally. This PC 1.6.15 model is experimental and lacks independent in-game fixtures."
       ],
       [
-        "Is this a world seed generator?",
-        "No. Seed prediction and map generation are different tasks."
+        "Do the rows cover every opener?",
+        "This model targets Clint’s geode service. Geode Crushers and other container types are outside its scope."
       ]
     ]
   },

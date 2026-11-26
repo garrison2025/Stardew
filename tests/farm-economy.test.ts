@@ -7,3 +7,17 @@ test('raw baseline and no duplicate inventory',()=>{const r=simulateEconomy(inpu
 test('replant seed purchases and budget conservation',()=>{const i:SeasonInput={...input,season:'spring',plots:1,budget:120,replant:true};const alloc=[{cycle:cycles(cropById.get('parsnip')!,1,true).at(-1)!,tiles:1}];const r=simulateEconomy(i,alloc,{...settings,initialCash:120,strategy:'raw'});assert.deepEqual(r.ledger.filter(d=>d.seedCost).map(d=>d.day),[1,5,9,13,17,21]);assert.equal(r.seedSpend,120);assert.equal(r.totalHarvest,6);assert.throws(()=>simulateEconomy(i,alloc,{...settings,initialCash:119}));assert.throws(()=>simulateEconomy(i,[{...alloc[0],cycle:{...alloc[0].cycle,days:[2]}}],{...settings,initialCash:120}))});
 test('mixed plan and zero inventory conservation, artisan affects output only',()=>{const i={...input,plots:20,budget:1000,replant:true};const a=optimizeSeason(i).allocation;const raw=simulateEconomy(i,a,{...settings,initialCash:1000,strategy:'raw'}),r=simulateEconomy(i,a,{...settings,initialCash:1000,kegs:4,jars:6,artisan:true});assert.equal(r.rawBaseline,raw.totalSales);assert.equal(r.totalHarvest,r.totalProcessed+r.totalRawSold);assert.ok(r.net>=raw.net);assert.equal(r.ledger.at(-1)!.inventory,0);assert.equal(r.ledger.at(-1)!.inFlight,0);assert.equal(simulateEconomy(input,[],settings).net,0)});
 test('farm equipment counts exclude blocked machines',()=>{const p=demoPlan(),b=p.objects.find(o=>o.itemId==='barn')!;const next=attachInterior(p,b.id,{...emptyInterior('barn'),cells:{'12':'keg','13':'jar','24':'chest'}});const v=farmMachines(next);assert.equal(v.rooms,1);assert.equal(v.kegs+v.blockedKegs,1);assert.equal(v.jars+v.blockedJars,1);assert.equal(farmMachines(p).rooms,0)});
+
+test('fertilizer costs, fixed quality and next-season harvests reach the economic ledger',()=>{
+ const i:SeasonInput={...input,start:25,plots:1,budget:157,crossSeason:true,quality:2,tiller:true,
+  fertilizer:{cropId:'corn',growthDays:12,cost:7}};
+ const crop=cropById.get('corn')!;
+ const cycle=cycles(crop,i.start,false,i)[0];
+ const r=simulateEconomy(i,[{cycle,tiles:1}],{...settings,initialCash:157,strategy:'raw',tiller:true,tailDays:0});
+ assert.equal(r.horizon,56);
+ assert.equal(r.seedSpend,157);
+ assert.equal(r.ledger[24].seedCost,157);
+ assert.equal(r.ledger[36].harvested,1);
+ assert.equal(r.totalSales,cycle.revenue);
+ assert.equal(r.net,cycle.profit);
+});
