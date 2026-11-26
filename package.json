@@ -1,0 +1,30 @@
+{
+  "name": "field-and-farm",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "build:workspace": "astro build --mode workspace",
+    "check": "astro check",
+    "test": "node --experimental-strip-types --test tests/*.test.ts",
+    "verify": "npm run check && npm test && npm run build && npm run build:workspace"
+  },
+  "dependencies": {
+    "astro": "5.16.0",
+    "@astrojs/react": "4.4.2",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.5",
+    "typescript": "5.8.3",
+    "@types/react": "19.1.12",
+    "@types/react-dom": "19.1.9",
+    "@types/node": "22.15.30"
+  },
+  "engines": {
+    "node": ">=22.13.0"
+  }
+}

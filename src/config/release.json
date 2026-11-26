@@ -1,0 +1,15 @@
+{
+  "brand": "Field & Farm",
+  "status": "development-preview",
+  "rightsApproved": false,
+  "dataApproved": false,
+  "fixturesApproved": false,
+  "serpApproved": false,
+  "adsEnabled": false,
+  "gameVersions": [],
+  "adapters": {
+    "1.6": "not verified",
+    "1.7": "reserved; unsupported"
+  },
+  "dataPolicy": "No original game sprites, maps, copied Wiki data or verified game claims in preview."
+}

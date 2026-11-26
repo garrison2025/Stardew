@@ -1,0 +1,28 @@
+---
+import pages from '../config/pages.json';
+import release from '../config/release.json';
+import Tool from '../ui/Tool';
+import '../styles/global.css';
+export function getStaticPaths(){return pages.map(page=>({params:{route:page.slug||undefined},props:{page}}))}
+const {page}=Astro.props;
+const workspace=import.meta.env.MODE==='workspace';
+const workspaceOrigin=import.meta.env.PUBLIC_WORKSPACE_ORIGIN;
+const workspaceUrl=workspaceOrigin && /^https:\/\//.test(workspaceOrigin) ? new URL(page.path,workspaceOrigin).href : undefined;
+const groups=['Plan','Calculate','Progress','Collect'];
+---
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>{page.title}</title><meta name="description" content={page.description}/>
+<meta name="robots" content="noindex,nofollow"/>
+<meta name="theme-color" content="#214e3b"/>
+</head>
+<body>
+<header><div class="top"><a class="brand" href="/"><span class="brandmark" aria-hidden="true">✿</span>Field &amp; Farm</a><span class="badge">{workspace?'Private workspace · No ads':'Development preview · No ads'}</span>{!workspace&&workspaceUrl&&<a href={workspaceUrl}>Open private workspace</a>}</div></header>
+<div class="shell"><nav class="side" aria-label="Tools">{groups.map(group=><div><strong>{group}</strong>{pages.filter(p=>p.group===group).map(p=><a href={p.path} aria-current={p.path===page.path?'page':undefined}>{p.h1.replace('Stardew Valley ','')}</a>)}</div>)}</nav>
+<main id="main"><div class="eyebrow">{page.group} / Local tools</div><h1>{page.h1}</h1><p class="muted">{page.description}</p><div class="notice"><strong>Development preview.</strong> Original schematic graphics and manual inputs only. No verified Stardew game data, real maps, scoring rules or prediction support. Results are illustrative; not a claim of game accuracy.</div>
+<Tool slug={page.slug} workspace={workspace} client:load/>
+<section class="panel"><h2>How to use this preview</h2><p>Enter your own assumptions or use the explicitly illustrative examples. Keep private files in the isolated workspace. Export a backup before clearing local browser storage.</p><p>Game version support: {release.adapters['1.6']}; {release.adapters['1.7']}. Official game data and independent test fixtures are required before production release.</p><h2>Related tools</h2><div class="links">{pages.filter(p=>p.group===page.group&&p.slug!==page.slug).map(p=><a href={p.path}>{p.h1.replace('Stardew Valley ','')}</a>)}</div></section>
+</main></div><footer><div class="top">Independent fan-tool development project. Not affiliated with ConcernedApe. No original game assets included. No third-party scripts or ads. <a href="/privacy/">Privacy</a></div></footer>
+</body></html>
