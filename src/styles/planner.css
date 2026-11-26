@@ -161,3 +161,73 @@
   .immersive-studio .catalog-items { grid-template-columns: repeat(4,minmax(0,1fr)); max-height: 185px; }
   .map-water-status button, .map-landscape-confirm button { min-height: 44px; }
 }
+
+.tool-finder-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 5px 8px;
+  white-space: nowrap;
+  font-size: 12px;
+}
+.tool-finder-trigger[hidden], .tool-finder-results li[hidden] { display: none; }
+.tool-finder-trigger kbd {
+  padding: 2px 4px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted);
+  font: inherit;
+  font-size: 10px;
+}
+.tool-finder {
+  width: min(540px, calc(100vw - 28px));
+  max-height: min(680px, calc(100dvh - 28px));
+  padding: 17px;
+  border: 1px solid #b9cbbd;
+  border-radius: 16px;
+  background: #fafbf6;
+  color: var(--ink);
+  box-shadow: 0 20px 70px #10261d42;
+}
+.tool-finder::backdrop { background: #14271fd0; }
+.tool-finder-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.tool-finder-header h2 { margin: 0; font-size: 21px; }
+.tool-finder-header button { min-width: 44px; min-height: 44px; font-size: 20px; }
+.tool-finder-label { display: block; margin: 8px 0 5px; font-size: 13px; }
+.tool-finder input { width: 100%; min-height: 44px; font-size: 16px; }
+.tool-finder-status { margin: 8px 0 4px; color: var(--muted); font-size: 12px; }
+.tool-finder-results {
+  display: grid;
+  gap: 4px;
+  max-height: min(54dvh, 475px);
+  margin: 0;
+  padding: 3px;
+  overflow: auto;
+  list-style: none;
+}
+.tool-finder-results a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 48px;
+  padding: 8px;
+  border: 1px solid #dce4d7;
+  border-radius: 8px;
+  background: white;
+  color: var(--ink);
+  text-decoration: none;
+}
+.tool-finder-results a:hover, .tool-finder-results a:focus-visible { background: #e9f1e2; }
+.tool-finder-results strong, .tool-finder-results small { display: block; }
+.tool-finder-results small { margin-top: 3px; color: var(--muted); }
+.tool-finder-group { color: #40634d; font-size: 11px; }
+@media (max-width: 900px) {
+  .tool-finder-trigger { min-height: 44px; }
+  .tool-finder-trigger kbd { display: none; }
+}
+@media (max-width: 560px) {
+  .topbar .status-tag { display: none; }
+  .tool-finder-results small { font-size: 11px; }
+}

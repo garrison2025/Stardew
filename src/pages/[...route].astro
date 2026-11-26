@@ -41,7 +41,9 @@ const related=pages.filter(p=>p.path!==page.path && (page.relatedPaths||[]).incl
 <div class="side-bottom"><div class="local-card"><span class="live-dot"/><div><strong>Local-first tools</strong><small>Free · no account required</small></div></div><a href="/privacy/">Privacy &amp; data</a></div>
 </aside>
 <div class="app-main">
-<header class="topbar">{page.slug===''&&<div class="desktop-map-nav"><a class="mini-brand" href="/"><span>✿</span> Field &amp; Farm</a><details><summary>All tools <span>⌄</span></summary><div class="desktop-tool-menu">{groups.map(group=><div><strong>{group}</strong>{pages.filter(p=>p.group===group).map(p=><a href={p.path} aria-current={p.path===page.path?'page':undefined}>{short(p)}</a>)}</div>)}</div></details></div>}<div class="breadcrumb"><a href="/">Toolkit</a><span>/</span><span>{page.group}</span><span>/</span><strong>{short(page)}</strong></div><div class="top-actions"><span class="status-tag"><span class="live-dot"/>{workspace?'Private workspace':'Development preview'}</span>{!workspace&&workspaceUrl&&<a class="top-link" href={workspaceUrl}>Private workspace ↗</a>}<a class="top-link" href="/privacy/" aria-label="Privacy and data">Privacy</a></div></header>
+<header class="topbar">{page.slug===''&&<div class="desktop-map-nav"><a class="mini-brand" href="/"><span>✿</span> Field &amp; Farm</a><details><summary>All tools <span>⌄</span></summary><div class="desktop-tool-menu">{groups.map(group=><div><strong>{group}</strong>{pages.filter(p=>p.group===group).map(p=><a href={p.path} aria-current={p.path===page.path?'page':undefined}>{short(p)}</a>)}</div>)}</div></details></div>}<div class="breadcrumb"><a href="/">Toolkit</a><span>/</span><span>{page.group}</span><span>/</span><strong>{short(page)}</strong></div><div class="top-actions"><button class="tool-finder-trigger" type="button" hidden aria-haspopup="dialog" aria-controls="tool-finder" data-tool-finder-open>
+<svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><span>Find a tool</span><kbd aria-hidden="true">Ctrl K</kbd>
+</button><span class="status-tag"><span class="live-dot"/>{workspace?'Private workspace':'Development preview'}</span>{!workspace&&workspaceUrl&&<a class="top-link" href={workspaceUrl}>Private workspace ↗</a>}<a class="top-link" href="/privacy/" aria-label="Privacy and data">Privacy</a></div></header>
 <nav class="mobile-nav" aria-label="Mobile tools"><div class="mobile-brand"><a href="/">Field &amp; Farm</a>{!workspace&&workspaceUrl&&<a class="top-link" href={workspaceUrl}>Private workspace ↗</a>}</div><details><summary><span>Explore all 16 tools</span><span aria-hidden="true">⌄</span></summary><div class="mobile-nav-links">{groups.map(group=><div><strong>{group}</strong>{pages.filter(p=>p.group===group).map(p=><a href={p.path} aria-current={p.path===page.path?'page':undefined}>{short(p)}</a>)}</div>)}</div></details></nav>
 <main id="main" class:list={['content',page.slug===''?'planner-page':'tool-page']}>
 {page.slug===''&&<Tool slug={page.slug} workspace={workspace} client:load/>}
@@ -53,4 +55,22 @@ const related=pages.filter(p=>p.path!==page.path && (page.relatedPaths||[]).incl
 <section class="related"><div class="eyebrow">Keep exploring</div><h2>Related tools</h2><div class="related-grid">{(related.length?related:pages.filter(p=>p.group===page.group&&p.slug!==page.slug)).map(p=><a href={p.path}><span class="related-icon"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d={icons[p.slug]||icons['']}/></svg></span><div><strong>{short(p)}</strong><small>{p.description}</small></div><span aria-hidden="true">↗</span></a>)}</div></section>
 <footer><div>Field &amp; Farm · Independent fan-tool development project.</div><p>Not affiliated with ConcernedApe. No original game assets or third-party advertising scripts. <a href="/art/credits.html">Artwork credits</a> · <a href="/privacy/">Privacy</a></p></footer>
 </main></div></div>
+<dialog id="tool-finder" class="tool-finder" aria-labelledby="tool-finder-heading">
+  <div class="tool-finder-header">
+    <h2 id="tool-finder-heading">Find a tool</h2>
+    <form method="dialog"><button aria-label="Close tool search">×</button></form>
+  </div>
+  <label class="tool-finder-label" for="tool-finder-query">Search by tool or task</label>
+  <input id="tool-finder-query" type="search" autocomplete="off" placeholder="Try crops, fishing or layout" autofocus />
+  <p class="tool-finder-status" role="status"></p>
+  <ul class="tool-finder-results">
+    {pages.map(p=><li data-search={`${p.h1} ${p.path.replaceAll('-', ' ')} ${p.group} ${p.description}`}>
+      <a href={p.path} aria-current={p.path===page.path?'page':undefined}>
+        <span><strong>{short(p)}</strong><small>{p.description}</small></span>
+        <span class="tool-finder-group">{p.group}</span>
+      </a>
+    </li>)}
+  </ul>
+</dialog>
+<script is:inline src="/tool-finder.js" defer></script>
 </body></html>
