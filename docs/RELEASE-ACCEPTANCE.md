@@ -11,3 +11,14 @@ Landscape switching offers empty and example plans, keeps the selected season, p
 
 ### Save geometry acceptance
 Recognized save records now suggest a lower bound for the import grid, including full building footprints and a separate out-of-capacity warning. No unsupported records are used to infer the map size; no official terrain is reconstructed. Regression includes coordinates beyond the previous 80 × 65 default.
+
+### Consolidated V2.0 completion branch
+- Quantity-constrained exact Fair optimization over user-entered inventory candidates; independent exhaustive small test. Not a raw inventory parser.
+- Perfection unknown counts produce a lower/upper interval, not a fabricated zero; manual reset to unknown.
+- Latest recognized XP, lifetime earnings and walnut counters are stored separately from manual records after explicit confirmation; skills and Grandpa prefill require a second explicit action. Multi-farm identity remains unsupported.
+- Custom remixed bundle checklist validates confirmed slot counts and quantities; no automatic generation/donation extraction. Museum display is an original practice grid. Fishing filters use recorded main-route conditions, including explicitly unspecified weather/time; no exact bait or alternate-route model.
+- 34 shop-price crop options and nine separate owned-seed scenarios, with Year 2/Oasis availability. No exact fertilizer, quality probability or cross-season growth simulation. Original map marker IDs and processing subset retained.
+- 16 task-specific instructions, worked examples and FAQs; frozen 16 primary keywords and 86 initial auxiliary phrases are compared with source configuration, and all 311 mapped cluster counts checked. Raw private keyword report is not redistributed. Complete search intent coverage and live SERP acceptance remain pending.
+- Production-only build guard generates canonical, WebApplication/BreadcrumbList, robots and a 16-URL sitemap only after explicit release approval and custom domains. Default public preview and private builds stay noindex; no ads enabled. Verify Pages mirror redirect and actual host headers before deployment.
+- Corrected Cloudflare credits 308 handling; public-only live audit passed on the previous consolidated revision. Actual final branch CI and deployment must be verified separately.
+Remaining release blockers: rights, exact official geometry, independently validated real saves and RNG, complete 1.6.15 rule/data manifests, full multi-farm and multiplayer state, exact crop/collection rule coverage, live private workspace, SERP, Lighthouse and formal approval. Never label this branch as a fully accepted production release until those gates pass.

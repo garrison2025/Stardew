@@ -29,7 +29,8 @@
     ],
     "priority": "P0",
     "guideTitle": "Plan a layout before building",
-    "guideText": "Choose one of eight original landscape templates or import a private terrain package. Place objects, inspect water coverage and arrange linked building interiors. Export JSON to retain editable data; PNG is a visual snapshot. Built-in landscapes are not extracted game maps."
+    "guideText": "Choose one of eight original landscape templates or import a private terrain package. Place objects, inspect water coverage and arrange linked building interiors. Export JSON to retain editable data; PNG is a visual snapshot. Built-in landscapes are not extracted game maps.",
+    "researchClusterSize": 89
   },
   {
     "slug": "bundles",
@@ -61,7 +62,8 @@
     ],
     "priority": "P0",
     "guideTitle": "Choose the required donation slots",
-    "guideText": "Track full donations and quantities separately. Optional bundles need only the stated number of slots, not every candidate. Use season and room filters to plan the next collection trip. Remixed bundles remain unsupported."
+    "guideText": "Track standard donations and quantities separately. Optional bundles need only the stated number of qualifying slots. Use season and room filters, or record the actual requirements of your remixed bundle in the separate manual checklist.",
+    "researchClusterSize": 12
   },
   {
     "slug": "museum",
@@ -92,7 +94,8 @@
     ],
     "priority": "P0",
     "guideTitle": "Find missing artifacts and minerals",
-    "guideText": "Discovery is not donation. Use the source filter to identify missing items associated with a geode or artifact route, then mark donations after the in-game action. Reward eligibility does not confirm a reward was claimed."
+    "guideText": "Discovery is not donation. Use acquisition filters and reward milestones, then arrange items on an original practice display grid. This is not the exact in-game museum floor plan.",
+    "researchClusterSize": 18
   },
   {
     "slug": "predictor",
@@ -121,7 +124,8 @@
     ],
     "priority": "P0",
     "guideTitle": "Plan geode collection without predicting RNG",
-    "guideText": "Select a container and review matching undonated museum entries. This is a source planner, not an opening order, probability calculator or random-seed predictor. A verified version-specific adapter is required for actual prediction."
+    "guideText": "Select a container and review matching undonated museum entries. This is a source planner, not an opening order, probability calculator or random-seed predictor. A verified version-specific adapter is required for actual prediction.",
+    "researchClusterSize": 11
   },
   {
     "slug": "tracker",
@@ -150,7 +154,8 @@
     ],
     "priority": "P0",
     "guideTitle": "Inspect a save without uploading it",
-    "guideText": "The private workspace reads selected main-player XML fields and provides explicit merging for recognized crafting observations. Missing values are unknown. Manual collection records and imported observations are not a complete in-game save reconstruction."
+    "guideText": "The separate private workspace reads selected main-player XML fields, merges recognized collection observations in one local transaction and allows explicit XP and earnings prefill. Missing values remain unknown; this is not a complete game save reconstruction.",
+    "researchClusterSize": 15
   },
   {
     "slug": "crop-calculator",
@@ -182,7 +187,8 @@
     ],
     "priority": "P0",
     "guideTitle": "Compare planting and processing plans",
-    "guideText": "Set a seed budget, season and available plots; review harvest dates, crop choices and seed spending. The economy model accounts for shared inventory and daily machine collection under simplified timing assumptions. It excludes construction and labor costs."
+    "guideText": "Set a seed budget, season and available plots; review harvest dates, crop choices and seed spending. The economy model accounts for shared inventory and daily machine collection under simplified timing assumptions. It excludes construction and labor costs.",
+    "researchClusterSize": 45
   },
   {
     "slug": "fair-calculator",
@@ -213,7 +219,8 @@
     ],
     "priority": "P0",
     "guideTitle": "Build a nine-slot grange display",
-    "guideText": "Enter actual sale values, quality and Fair categories. The score separates quantity, variety and item points. Compare candidate items before the fair; do not multiply the entered sale value by quality a second time."
+    "guideText": "Enter actual sale values, quality and Fair categories, or supply a quantity-limited list of available candidates to optimize the nine-slot display. The score separates quantity, variety and item points. Do not apply sale-value multipliers twice.",
+    "researchClusterSize": 27
   },
   {
     "slug": "fishing",
@@ -238,7 +245,8 @@
     ],
     "priority": "P1",
     "guideTitle": "Find fish for your collection",
-    "guideText": "Filter by common acquisition season and search fish names or locations. Conditions are representative routes, not a complete weather or bait simulator. Record catches manually; challenge-only legendary variants are excluded."
+    "guideText": "Filter recorded main-route season, location, weather, time and acquisition method. Missing conditions remain unspecified, not guaranteed. Record actual catches; challenge-only legendary variants are excluded.",
+    "researchClusterSize": 6
   },
   {
     "slug": "perfection",
@@ -272,7 +280,8 @@
     ],
     "priority": "P1",
     "guideTitle": "Estimate your weighted completion",
-    "guideText": "Enter the observed progress for each category. Three goals award all-or-nothing points; others award proportional credit. The private workspace can load saved manual counts, which may differ from in-game totals."
+    "guideText": "Enter observed category counts and distinguish unknown from a confirmed zero. The weighted range shows a known lower bound and maximum possible completion. The private workspace can load saved manual collection counts.",
+    "researchClusterSize": 13
   },
   {
     "slug": "crafting",
@@ -303,7 +312,8 @@
     ],
     "priority": "P1",
     "guideTitle": "Prepare a batch of crafting recipes",
-    "guideText": "Select recipes and batch quantities, then inspect direct ingredients, stock shortages and estimated costs. Batch outputs may contain multiple items. Intermediate recipes and profession-specific ingredient substitutions are not automatically expanded."
+    "guideText": "Select recipes and batch quantities, then inspect direct ingredients, stock shortages and estimated costs. Batch outputs may contain multiple items. Intermediate recipes and profession-specific ingredient substitutions are not automatically expanded.",
+    "researchClusterSize": 15
   },
   {
     "slug": "shipping",
@@ -333,7 +343,8 @@
     ],
     "priority": "P1",
     "guideTitle": "Review items not yet shipped",
-    "guideText": "Filter the 154 reference entries and mark an item only after shipping it in the game. Finding or owning an item is not the same as shipping it. Export your checklist for later use."
+    "guideText": "Filter the 154 reference entries and mark an item only after shipping it in the game. Finding or owning an item is not the same as shipping it. Export your checklist for later use.",
+    "researchClusterSize": 8
   },
   {
     "slug": "cooking",
@@ -359,7 +370,8 @@
     ],
     "priority": "P1",
     "guideTitle": "Plan dishes and ingredient purchases",
-    "guideText": "Select recipes, enter batch quantities, and compare required ingredients against current inventory. Unlock hints identify common learning routes. Unknown prices remain unknown; intermediate dishes are not recursively expanded."
+    "guideText": "Select recipes, enter batch quantities, and compare required ingredients against current inventory. Unlock hints identify common learning routes. Unknown prices remain unknown; intermediate dishes are not recursively expanded.",
+    "researchClusterSize": 6
   },
   {
     "slug": "golden-walnuts",
@@ -381,7 +393,8 @@
     ],
     "priority": "P1",
     "guideTitle": "Track lifetime finds separately from spending",
-    "guideText": "Record repeated drops individually and fixed rewards as complete tasks. The upgrade ledger subtracts purchases from recorded balance, not lifetime collection. Puzzle hints can be revealed when needed."
+    "guideText": "Record repeated drops individually and fixed rewards as complete tasks. The upgrade ledger subtracts purchases from recorded balance, not lifetime collection. Puzzle hints can be revealed when needed.",
+    "researchClusterSize": 2
   },
   {
     "slug": "farm-comparison",
@@ -412,7 +425,8 @@
     ],
     "priority": "P1",
     "guideTitle": "Choose a farm for your priorities",
-    "guideText": "Compare eight farm types by reference area and characteristics. Water, obstacles and sprinkler restrictions affect practical capacity. The original design templates are illustrative, not pixel-accurate game maps."
+    "guideText": "Compare eight farm types by reference area and characteristics. Water, obstacles and sprinkler restrictions affect practical capacity. The original design templates are illustrative, not pixel-accurate game maps.",
+    "researchClusterSize": 37
   },
   {
     "slug": "grandpa-calculator",
@@ -436,7 +450,8 @@
     ],
     "priority": "P2",
     "guideTitle": "Calculate the four-candle threshold",
-    "guideText": "Enter lifetime earnings, skill levels, friendships and completed milestones. Four candles require at least 12 points in the reference model. Record community center completion and its ceremony separately."
+    "guideText": "Enter lifetime earnings, skill levels, friendships and completed milestones. Four candles require at least 12 points in the reference model. Record community center completion and its ceremony separately.",
+    "researchClusterSize": 6
   },
   {
     "slug": "skills",
@@ -458,6 +473,7 @@
     ],
     "priority": "P2",
     "guideTitle": "Plan the next skill level",
-    "guideText": "Enter skill experience and mastery points to compare against thresholds. The overnight level-up event determines actual profession rewards. Mastery points are separate from the five base skill experience values."
+    "guideText": "Enter skill experience and mastery points to compare against thresholds. The overnight level-up event determines actual profession rewards. Mastery points are separate from the five base skill experience values.",
+    "researchClusterSize": 1
   }
 ]
