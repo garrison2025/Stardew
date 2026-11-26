@@ -1,5 +1,5 @@
-import {GAME_CROPS,type GameCrop,type CropSeason} from './crop-data.ts';
-export type SeasonInput={season:CropSeason;start:number;plots:number;budget:number;replant:boolean;strawberry:boolean;trellis:boolean};
+import {SEASON_CROPS,OWNED_CROPS,type GameCrop,type CropSeason} from './crop-data.ts';
+export type SeasonInput={season:CropSeason;start:number;plots:number;budget:number;replant:boolean;strawberry:boolean;trellis:boolean;year2?:boolean;oasis?:boolean};
 export type Cycle={crop:GameCrop;days:number[];seeds:number;cost:number;revenue:number;profit:number};
 export type Allocation={cycle:Cycle;tiles:number};
 function checkDay(day:number){if(!Number.isInteger(day)||day<1||day>28)throw Error('Planting day must be 1–28.')}
@@ -11,7 +11,7 @@ export function cycles(crop:GameCrop,start:number,replant:boolean):Cycle[]{
  // For single-harvest crops allow shorter repeated schedules under limited budgets.
  return crop.regrow?[make(days)]:days.map((_,i)=>make(days.slice(0,i+1)));
 }
-export function eligible(input:SeasonInput){return GAME_CROPS.filter(c=>c.seasons.includes(input.season)&&(!c.special||input.strawberry)&&(!c.trellis||input.trellis))}
+export function eligible(input:SeasonInput){return SEASON_CROPS.filter(c=>c.seasons.includes(input.season)&&(!c.special||c.special==='festival'&&input.strawberry||c.special==='year2'&&input.year2||c.special==='oasis'&&input.oasis)&&(!c.trellis||input.trellis))}
 export function optimizeSeason(input:SeasonInput){
  checkDay(input.start);if(!Number.isInteger(input.plots)||input.plots<0||input.plots>100||!Number.isInteger(input.budget)||input.budget<0||input.budget>20000)throw Error('Optimizer supports 0–100 tiles and 0–20,000g total seed budget.');
  if(!['spring','summer','autumn','winter'].includes(input.season))throw Error('Unknown season');
@@ -27,3 +27,5 @@ export function optimizeSeason(input:SeasonInput){
  const spent=allocation.reduce((n,a)=>n+a.cycle.cost*a.tiles,0),revenue=allocation.reduce((n,a)=>n+a.cycle.revenue*a.tiles,0),planted=allocation.reduce((n,a)=>n+a.tiles,0);
  return {allocation,spent,revenue,profit:revenue-spent,planted,unused:input.plots-planted};
 }
+
+export function ownedSeedPlan(id:string,season:CropSeason,start:number,stock:number,plots:number,seedCost:number){checkDay(start);const crop=OWNED_CROPS.find(c=>c.id===id);if(!crop||!crop.seasons.includes(season)||![stock,plots,seedCost].every(n=>Number.isSafeInteger(n)&&n>=0&&n<=1000000))throw Error('Invalid owned seed scenario');const cycle=cycles({...crop,seed:seedCost},start,false)[0];const planted=cycle?Math.min(stock,plots):0;return {planted,days:cycle?.days??[],cost:(cycle?.cost??0)*planted,revenue:(cycle?.revenue??0)*planted,profit:(cycle?.profit??0)*planted}}
