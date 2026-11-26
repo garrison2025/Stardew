@@ -1,5 +1,6 @@
 // Independently authored terrain and object model. None of these maps or footprints are official game data.
 import {GAME_CROPS} from './crop-data.ts';
+import {decodeInterior,type Interior,type RoomId} from './indoor-model.ts';
 export const TERRAIN=['grass','soil','water','cliff','forest','road'] as const;
 export type Terrain=typeof TERRAIN[number];
 export const SEASONS=['spring','summer','autumn','winter'] as const;
@@ -62,7 +63,9 @@ export function originalMap(id:string):FarmMap{
   tiles.push(t)
  }return {...m,tiles,source:'original'}
 }
-export type Placed={id:string;itemId:string;x:number;y:number;rotation:0|1};
+export type Placed={id:string;itemId:string;x:number;y:number;rotation:0|1;interior?:Interior};
+export function roomForItem(itemId:string):RoomId|null{switch(itemId){case 'shed':case 'game-shed':return 'shed';case 'barn':case 'game-barn':return 'barn';case 'coop':case 'game-coop':return 'coop';case 'greenhouse':return 'greenhouse';default:return null}}
+export function attachInterior(plan:Plan,buildingId:string,input:Interior):Plan{const b=plan.objects.find(o=>o.id===buildingId),room=decodeInterior(input);if(!b||roomForItem(b.itemId)!==room.room)throw Error('Room does not match this building');return {...plan,objects:plan.objects.map(o=>o.id===buildingId?{...o,interior:room}:o)}}
 export type Plan={schema:2;map:FarmMap;season:Season;objects:Placed[]};
 export type Point={x:number;y:number};
 export function dimensions(o:Pick<Placed,'itemId'|'rotation'>){const i=itemById.get(o.itemId);if(!i)throw Error('Unknown item');return o.rotation?{w:i.h,h:i.w}:{w:i.w,h:i.h}}
@@ -94,7 +97,7 @@ export function decodeMap(input:unknown):FarmMap{
 export function decodePlan(input:unknown):Plan{
  const v=input as Partial<Plan>|null;if(!v||v.schema!==2||!v.map||!SEASONS.includes(v.season as Season)||!Array.isArray(v.objects)||v.objects.length>4096)throw Error('Invalid scene plan');
  if(v.map.source!=='original'&&v.map.source!=='local')throw Error('Unknown map source');const map=v.map.source==='original'?originalMap(v.map.id):decodeMap(v.map);const result:Placed[]=[],ids=new Set<string>();
- for(const o of v.objects){if(!o||typeof o.id!=='string'||o.id.length>100||ids.has(o.id)||!itemById.has(o.itemId)||!Number.isInteger(o.x)||!Number.isInteger(o.y)||(o.rotation!==0&&o.rotation!==1))throw Error('Invalid object');const clean:Placed={id:o.id,itemId:o.itemId,x:o.x,y:o.y,rotation:o.rotation};const error=placementError(map,result,clean);if(error)throw Error(error);result.push(clean);ids.add(o.id)}return {schema:2,map,season:v.season!,objects:result}
+ for(const o of v.objects){if(!o||typeof o.id!=='string'||o.id.length>100||ids.has(o.id)||!itemById.has(o.itemId)||!Number.isInteger(o.x)||!Number.isInteger(o.y)||(o.rotation!==0&&o.rotation!==1))throw Error('Invalid object');const clean:Placed={id:o.id,itemId:o.itemId,x:o.x,y:o.y,rotation:o.rotation};if(o.interior!==undefined){const room=decodeInterior(o.interior);if(roomForItem(o.itemId)!==room.room)throw Error('Room does not match this building');clean.interior=room}const error=placementError(map,result,clean);if(error)throw Error(error);result.push(clean);ids.add(o.id)}return {schema:2,map,season:v.season!,objects:result}
 }
 
 export function blankLocalMap(w:number,h:number,name='Private screenshot map'):FarmMap{
