@@ -95,9 +95,11 @@ export default function MapStudio({workspace}:{workspace:boolean}){
   setInspectorOpen(true);
   requestAnimationFrame(()=>document.querySelector(section)?.scrollIntoView({block:'nearest'}));
  }
- function closeProjectMenu(){
+ function closeProjectMenu(restoreFocus=false){
   const menu=projectMenu.current;
-  if(menu)menu.open=false;
+  if(!menu)return;
+  menu.open=false;
+  if(restoreFocus)menu.querySelector('summary')?.focus();
  }
  function choose(id:string){setItem(id);setMode('place');setRotation(0);setRecent(v=>[id,...v.filter(i=>i!==id)].slice(0,6))}
  function locate(e:React.PointerEvent<HTMLCanvasElement>):Point{const r=e.currentTarget.getBoundingClientRect(),v=viewRef.current;return {x:Math.floor((e.clientX-r.left-v.x)/(TILE*v.scale)),y:Math.floor((e.clientY-r.top-v.y)/(TILE*v.scale))}}
@@ -181,14 +183,14 @@ export default function MapStudio({workspace}:{workspace:boolean}){
    </div>
    <button className="map-focus-toggle" onClick={()=>setFocus(v=>!v)}>{focus?'Exit focus':'Focus'}</button>
    <details className="map-project-menu" ref={projectMenu}
-    onKeyDown={e=>{if(e.key==='Escape'){e.preventDefault();closeProjectMenu();e.currentTarget.querySelector('summary')?.focus()}}}
+    onKeyDown={e=>{if(e.key==='Escape'){e.preventDefault();closeProjectMenu(true)}}}
     onBlur={e=>{if(!e.currentTarget.contains(e.relatedTarget))closeProjectMenu()}}>
     <summary>Project <span aria-hidden="true">⌄</span></summary>
     <div>
      <select aria-label="Open building interior" className="building-picker" value="" disabled={!ready||saving} onChange={e=>{if(e.target.value){closeProjectMenu();setInside(e.target.value);setFocus(false)}}}><option value="">Building interiors…</option>{plan.objects.filter(o=>roomForItem(o.itemId)).map(o=><option key={o.id} value={o.id}>{itemById.get(o.itemId)?.name} · {o.x+1},{o.y+1}{o.interior?" · saved layout":""}</option>)}</select>
-     <button onClick={()=>{closeProjectMenu();openInspector('.scene-share')}}>Share layout</button>
-     <button onClick={()=>{closeProjectMenu();download('farm-scene.json',JSON.stringify(plan))}}>Download JSON</button>
-     <button onClick={()=>{closeProjectMenu();png()}}>Export PNG</button>
+     <button onClick={()=>{closeProjectMenu(true);openInspector('.scene-share')}}>Share layout</button>
+     <button onClick={()=>{closeProjectMenu(true);download('farm-scene.json',JSON.stringify(plan))}}>Download JSON</button>
+     <button onClick={()=>{closeProjectMenu(true);png()}}>Export PNG</button>
     </div>
    </details>
   </div>
