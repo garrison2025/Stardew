@@ -4,7 +4,7 @@ export type Terrain=typeof TERRAIN[number];
 export const SEASONS=['spring','summer','autumn','winter'] as const;
 export type Season=typeof SEASONS[number];
 export type FarmMap={id:string;name:string;w:number;h:number;tiles:Terrain[];source:'original'|'local'};
-export type Item={id:string;name:string;category:string;w:number;h:number;art:string;color:string;radius?:number};
+export type Item={id:string;name:string;category:string;w:number;h:number;art:string;color:string;radius?:number;pattern?:'cross'|'square'};
 export const ITEMS:Item[]=[
 {id:'seedling',name:'Seedling',category:'Crops',w:1,h:1,art:'crop',color:'#9cc85a'},
 {id:'berry',name:'Berry bush',category:'Crops',w:1,h:1,art:'crop',color:'#ca5375'},
@@ -13,6 +13,9 @@ export const ITEMS:Item[]=[
 {id:'trellis',name:'Trellis',category:'Crops',w:1,h:1,art:'trellis',color:'#91ba62'},
 {id:'sprinkler',name:'Small sprinkler',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#9ddce2',radius:1},
 {id:'wide-sprinkler',name:'Wide sprinkler',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#d6b76b',radius:2},
+{id:'basic-sprinkler',name:'Basic sprinkler',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#b9c9d0',radius:1,pattern:'cross'},
+{id:'quality-sprinkler',name:'Quality sprinkler',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#e5c267',radius:1,pattern:'square'},
+{id:'iridium-sprinkler',name:'Iridium sprinkler',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#be9fe0',radius:2,pattern:'square'},
 {id:'scarecrow',name:'Scarecrow',category:'Equipment',w:1,h:1,art:'post',color:'#bca064'},
 {id:'barrel',name:'Barrel',category:'Equipment',w:1,h:1,art:'barrel',color:'#b98955'},
 {id:'chest',name:'Storage chest',category:'Equipment',w:1,h:1,art:'chest',color:'#c39860'},
@@ -66,7 +69,7 @@ export function moveSelection(plan:Plan,ids:Set<string>,x:number,y:number):Plan{
  const dx=x-Math.min(...selected.map(o=>o.x)),dy=y-Math.min(...selected.map(o=>o.y));
  const result=plan.objects.filter(o=>!ids.has(o.id));for(const o of selected){const next={...o,x:o.x+dx,y:o.y+dy};const error=placementError(plan.map,result,next);if(error)throw Error(error);result.push(next)}return {...plan,objects:result}
 }
-export function irrigation(plan:Plan){const out=new Set<string>();for(const o of plan.objects){const r=itemById.get(o.itemId)?.radius;if(!r)continue;for(let y=o.y-r;y<=o.y+r;y++)for(let x=o.x-r;x<=o.x+r;x++){if(x===o.x&&y===o.y)continue;const t=terrainAt(plan.map,x,y);if(t==='grass'||t==='soil')out.add(posKey(x,y))}}return out}
+export function irrigation(plan:Plan){const out=new Set<string>(),occupied=occupancy(plan.objects);for(const o of plan.objects){const i=itemById.get(o.itemId),r=i?.radius;if(!r)continue;for(let y=o.y-r;y<=o.y+r;y++)for(let x=o.x-r;x<=o.x+r;x++){const dx=Math.abs(x-o.x),dy=Math.abs(y-o.y);if(dx+dy===0||(i?.pattern==='cross'&&dx+dy!==1))continue;const t=terrainAt(plan.map,x,y),target=occupied.get(posKey(x,y));if((t==='grass'||t==='soil')&&(!target||itemById.get(target.itemId)?.category==='Crops'))out.add(posKey(x,y))}}return out}
 export function newPlan(id='orchard'):Plan{return {schema:2,map:originalMap(id),season:'spring',objects:[]}}
 export function demoPlan(id='orchard'):Plan{
  const p=newPlan(id);let count=0;
@@ -76,11 +79,28 @@ export function demoPlan(id='orchard'):Plan{
  for(let x=8;x<18;x++)add('stone-path',x,9);add('oak',8,12);add('pine',12,14);add('flowerbed',15,10);add('chest',17,12);add('barrel',17,13);return p
 }
 export function decodeMap(input:unknown):FarmMap{
- const v=input as Partial<FarmMap>|null;if(!v||typeof v.id!=='string'||v.id.length>80||typeof v.name!=='string'||!v.name.trim()||v.name.length>100||!Number.isInteger(v.w)||!Number.isInteger(v.h)||v.w!<8||v.h!<8||v.w!>96||v.h!>96||!Array.isArray(v.tiles)||v.tiles.length!==v.w!*v.h!||v.tiles.some(t=>!TERRAIN.includes(t)))throw Error('Invalid map package: expected 8–96 tiles per dimension and known terrain codes.');
+ const v=input as Partial<FarmMap>|null;if(!v||typeof v.id!=='string'||v.id.length>80||typeof v.name!=='string'||!v.name.trim()||v.name.length>100||!Number.isInteger(v.w)||!Number.isInteger(v.h)||v.w!<8||v.h!<8||v.w!>160||v.h!>160||!Array.isArray(v.tiles)||v.tiles.length!==v.w!*v.h!||v.tiles.some(t=>!TERRAIN.includes(t)))throw Error('Invalid map package: expected 8–160 tiles per dimension and known terrain codes.');
  return {id:v.id,name:v.name,w:v.w!,h:v.h!,tiles:[...v.tiles],source:'local'}
 }
 export function decodePlan(input:unknown):Plan{
  const v=input as Partial<Plan>|null;if(!v||v.schema!==2||!v.map||!SEASONS.includes(v.season as Season)||!Array.isArray(v.objects)||v.objects.length>4096)throw Error('Invalid scene plan');
  const map=v.map.source==='original'?originalMap(v.map.id):decodeMap(v.map);const result:Placed[]=[],ids=new Set<string>();
  for(const o of v.objects){if(!o||typeof o.id!=='string'||o.id.length>100||ids.has(o.id)||!itemById.has(o.itemId)||!Number.isInteger(o.x)||!Number.isInteger(o.y)||(o.rotation!==0&&o.rotation!==1))throw Error('Invalid object');const clean:Placed={id:o.id,itemId:o.itemId,x:o.x,y:o.y,rotation:o.rotation};const error=placementError(map,result,clean);if(error)throw Error(error);result.push(clean);ids.add(o.id)}return {schema:2,map,season:v.season!,objects:result}
+}
+
+export function blankLocalMap(w:number,h:number,name='Private screenshot map'):FarmMap{
+ if(!Number.isInteger(w)||!Number.isInteger(h)||w<8||h<8||w>160||h>160)throw Error('Map dimensions must be 8–160 whole tiles.');
+ return {id:'private-screenshot',name,w,h,tiles:Array(w*h).fill('grass'),source:'local'}
+}
+export function paintTerrain(plan:Plan,point:Point,t:Terrain):Plan{
+ if(!TERRAIN.includes(t)||!terrainAt(plan.map,point.x,point.y))return plan;
+ const index=point.y*plan.map.w+point.x;if(plan.map.tiles[index]===t)return plan;
+ const occupied=occupancy(plan.objects).get(posKey(point.x,point.y));
+ if(occupied&&(t==='water'||t==='forest'||t==='cliff'||(t==='road'&&itemById.get(occupied.itemId)?.category!=='Paths & fences')))throw Error('Remove the object before marking this tile as blocked.');
+ const tiles=plan.map.tiles.slice();tiles[index]=t;return {...plan,map:{...plan.map,source:'local',tiles}}
+}
+export type Calibration={x:number;y:number;tileWidth:number;tileHeight:number;opacity:number};
+export function validateCalibration(c:Calibration,map:FarmMap,image:{width:number;height:number}){
+ if(![c.x,c.y,c.tileWidth,c.tileHeight,c.opacity].every(Number.isFinite)||c.x<0||c.y<0||c.tileWidth<1||c.tileHeight<1||c.opacity<0||c.opacity>1||c.x+map.w*c.tileWidth>image.width+.01||c.y+map.h*c.tileHeight>image.height+.01)throw Error('Grid calibration extends outside the image or has invalid dimensions.');
+ return c
 }
