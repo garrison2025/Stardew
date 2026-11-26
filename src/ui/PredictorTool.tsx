@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{useEffect,useState} from 'react';
 import {MUSEUM_ITEMS} from '../lib/museum-data';
 import {decodeMuseum} from '../lib/museum-progress';
 import {readLocal} from '../lib/local';
@@ -7,6 +7,8 @@ const demo:GeodeInput={gameId:'123456789',playerId:'987654321',opened:0,mineLeve
 const empty:GeodeInput={...demo,gameId:'',playerId:''};
 export default function PredictorTool({workspace}:{workspace:boolean}){
  const [route,setRoute]=useState<GeodeType>('Geode'),[input,setInput]=useState(workspace?empty:demo),[result,setResult]=useState<ReturnType<typeof predictGeodes>>([]),[error,setError]=useState('');
+ const [ready,setReady]=useState(false);
+ useEffect(()=>setReady(true),[]);
  const [donated,setDonated]=useState<string[]>([]),[status,setStatus]=useState('');
  const items=MUSEUM_ITEMS.filter(i=>i.sources.includes(route)&&!donated.includes(i.id));
  function change<K extends keyof GeodeInput>(key:K,value:GeodeInput[K]){
@@ -32,7 +34,7 @@ export default function PredictorTool({workspace}:{workspace:boolean}){
  <label>Container type<select aria-label="Geode container type" value={route} onChange={e=>{setRoute(e.target.value as GeodeType);setResult([]);setError('')}}>{GEODE_TYPES.map(x=><option key={x}>{x}</option>)}</select></label>
  </div>
  <div className="crop-checks"><label><input type="checkbox" checked={input.legacy} onChange={e=>change('legacy',e.target.checked)}/> Legacy randomization enabled</label><label><input type="checkbox" checked={input.qiBeans} onChange={e=>change('qiBeans',e.target.checked)}/> Qi’s Crop quest active</label></div>
- <button className="primary" onClick={calculate}>Calculate next 20 openings</button>
+ <button className="primary" disabled={!ready} onClick={calculate}>{ready?'Calculate next 20 openings':'Loading calculator…'}</button>
  {error&&<p role="alert" className="error">{error}</p>}
  {result.length>0&&<div className="tablewrap"><table><caption>Alternate outcomes for opening the selected container at each index</caption><thead><tr><th>Opening</th><th>Item</th><th>Quantity</th></tr></thead><tbody>{result.map(r=><tr key={r.opening}><td>{r.opening}</td><td>{r.name}</td><td>{r.quantity}</td></tr>)}</tbody></table></div>}
  <h3>Geode collection planning</h3><p>Find which undonated museum entries have a recorded source in a selected geode or trove. These are possible sources, not probabilities, opening order or guaranteed outcomes.</p>{workspace&&<button onClick={()=>void load()}>Load saved museum donations</button>}<p role="status">{status}</p><div className="metrics"><div className="metric"><small>Undonated matching entries</small><b>{items.length}</b></div></div><div className="rules-grid">{items.map(i=><article className="rule-card" key={i.id}><strong>{i.name}</strong><small>{i.hint}</small></article>)}</div><a href="/museum/">Open museum collection tracker</a></section>}
