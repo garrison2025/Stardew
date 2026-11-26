@@ -1,5 +1,10 @@
-import test from 'node:test';import assert from 'node:assert/strict';import {decodeLayout,emptyLayout,paintLine} from '../src/lib/layout.ts';
+import test from 'node:test';import assert from 'node:assert/strict';import {decodeLayout,emptyLayout,paintLine,placeBuilding,resizeLayout,buildings,decodeLibrary} from '../src/lib/layout.ts';
 test('continuous drawing fills gaps and erases cells',()=>{const row=paintLine([],0,0,4,0,'crop');assert.equal(row.length,5);assert.equal(paintLine(row,1,0,3,0,'erase').length,2)});
 test('full settings survive roundtrip',()=>{const p={...emptyLayout(),w:24,radius:3,cells:paintLine([],0,0,2,2,'crop')};assert.deepEqual(decodeLayout(JSON.parse(JSON.stringify(p))),p)});
 test('old arrays migrate without clipping',()=>{const p=decodeLayout([{x:24,y:20,kind:'path'}]);assert.equal(p.w,25);assert.equal(p.h,21)});
 test('reject bad coordinates and duplicate entries',()=>{assert.throws(()=>decodeLayout({...emptyLayout(),cells:[{x:99,y:0,kind:'crop'}]}));assert.throws(()=>decodeLayout({...emptyLayout(),cells:[{x:0,y:0,kind:'crop'},{x:0,y:0,kind:'path'}]}))});
+
+test('buildings occupy full rectangular footprints and rotate by swapping dimensions',()=>{const a=placeBuilding(emptyLayout(),1,1,3,2);assert.equal(a.cells.length,6);assert.deepEqual(buildings(a.cells),[{id:'b-1-1-3-2',x:1,y:1,w:3,h:2}]);assert.equal(placeBuilding(a,7,1,2,3).cells.length,12);assert.deepEqual(decodeLayout(JSON.parse(JSON.stringify(a))),a)});
+test('building collision and boundary rejection are atomic',()=>{const a=placeBuilding(emptyLayout(),1,1,3,2);assert.throws(()=>placeBuilding(a,2,1,2,2));assert.throws(()=>placeBuilding(a,15,11,2,2));assert.equal(a.cells.length,6);assert.equal(paintLine(a.cells,1,1,1,1,'crop').length,6);assert.equal(paintLine(a.cells,2,1,2,1,'erase').length,0)});
+test('resize removes clipped group and rejects corrupted imported footprint',()=>{const a=placeBuilding(emptyLayout(),13,1,3,2);assert.equal(resizeLayout(a,14,12).cells.length,0);assert.throws(()=>decodeLayout({...a,cells:a.cells.slice(1)}))});
+test('project library preserves scene and validates entries',()=>{const a={...emptyLayout(),scene:'winter' as const};const p={id:'test',name:'Farm',updatedAt:'2026-11-26',layout:a};assert.deepEqual(decodeLibrary([p]),[p]);assert.throws(()=>decodeLibrary([p,p]))});

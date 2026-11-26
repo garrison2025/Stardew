@@ -1,4 +1,4 @@
-export type Cell = {x:number;y:number;kind:'crop'|'sprinkler'|'path'|'building'};
+export type Cell = {x:number;y:number;kind:'crop'|'sprinkler'|'path'|'building';buildingId?:string};
 export function integer(n:number,min:number,max:number){if(!Number.isSafeInteger(n)||n<min||n>max)throw new Error('Enter a whole number between '+min+' and '+max);return n;}
 export const key=(x:number,y:number)=>x+','+y;
 export function coverage(w:number,h:number,cells:Cell[],radius:number){
