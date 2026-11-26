@@ -1,0 +1,236 @@
+/* The editor uses its own surfaces so the map and artwork keep their contrast. */
+.immersive-studio {
+  --editor-shell: #172822;
+  --editor-divider: #3f544a;
+  --editor-paper: #f6f6ee;
+  --editor-ink: #20362c;
+  position: relative;
+  background: var(--editor-paper);
+  border-color: var(--editor-divider);
+  border-radius: 15px;
+}
+
+.immersive-studio.map-focus { position: fixed; }
+.immersive-studio .map-header {
+  padding: 8px 12px;
+  gap: 8px;
+  background: var(--editor-shell);
+  border-color: var(--editor-divider);
+}
+.immersive-studio .map-title h2 { font-size: 15px; }
+.immersive-studio .map-title small { display: block; margin-top: 2px; }
+.immersive-studio .map-brand-mark {
+  width: 32px;
+  height: 32px;
+  font-size: 19px;
+  background: #385d4b;
+}
+.immersive-studio .map-actions {
+  width: auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.map-action-group { display: flex; align-items: center; gap: 4px; }
+.immersive-studio .map-history button { min-width: 34px; font-size: 16px; line-height: 1; }
+
+.map-project-menu { position: relative; flex: none; }
+.map-project-menu summary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-height: 35px;
+  padding: 6px 12px;
+  border: 1px solid #d5e0b6;
+  border-radius: 7px;
+  color: #20362c;
+  background: #d5e0b6;
+  font-size: 12px;
+  font-weight: 700;
+  list-style: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.map-project-menu summary::-webkit-details-marker { display: none; }
+.map-project-menu > div {
+  position: absolute;
+  z-index: 31;
+  top: calc(100% + 6px);
+  right: 0;
+  display: grid;
+  gap: 4px;
+  width: 190px;
+  padding: 6px;
+  border: 1px solid var(--editor-divider);
+  border-radius: 9px;
+  background: var(--editor-shell);
+  box-shadow: 0 12px 25px #15282055;
+}
+.immersive-studio .map-project-menu .building-picker { max-width: none; width: 100%; }
+.immersive-studio .map-project-menu button { text-align: left; justify-content: flex-start; }
+.map-project-menu summary:focus-visible { outline: 2px solid #f8e5a0; outline-offset: 2px; }
+
+.immersive-studio .map-quickbar { padding: 5px 10px; background: var(--editor-paper); }
+.immersive-studio .map-quickbar select { background: #fff; }
+.immersive-studio .map-center { background: var(--editor-shell); }
+.immersive-studio .map-toolbar {
+  padding: 5px 8px;
+  gap: 6px;
+  background: #23372e;
+  border-color: var(--editor-divider);
+}
+.immersive-studio .map-toolbar button { font-size: 12px; }
+.immersive-studio .map-viewport { height: clamp(390px, calc(100dvh - 225px), 1080px); }
+.immersive-studio .map-viewport canvas:focus-visible { outline-color: #fff3af; }
+.immersive-studio .map-bottom { color: #e0e8d9; }
+.immersive-studio .map-bottom span:first-child { font-variant-numeric: tabular-nums; }
+
+.immersive-studio .map-catalog,
+.immersive-studio .map-inspector { background: var(--editor-paper); }
+.catalog-heading { display: flex; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 6px; }
+.catalog-heading h3 { margin: 0; font-size: 14px; color: var(--editor-ink); }
+.catalog-heading button { min-width: 30px; min-height: 30px; padding: 0; font-size: 18px; line-height: 1; }
+.immersive-studio .catalog-top { padding: 10px; }
+.immersive-studio .catalog-tabs { gap: 4px; padding-inline: 10px; }
+.immersive-studio .catalog-tabs button {
+  min-height: 30px;
+  background: transparent;
+  border-color: #ccd7c8;
+  font-size: 11px;
+}
+.immersive-studio .catalog-tabs button[aria-pressed=true],
+.immersive-studio .catalog-items button[aria-pressed=true] {
+  background: #dce8cf;
+  border-color: #6b8964;
+}
+.immersive-studio .catalog-items { padding: 6px 10px 10px; }
+.immersive-studio .catalog-items button { min-height: 78px; font-size: 11px; }
+.catalog-empty { grid-column: 1 / -1; padding: 8px; color: var(--editor-ink); font-size: 13px; }
+.catalog-empty p { margin: 0 0 8px; }
+.catalog-empty button { min-height: 36px; padding: 4px 9px; }
+
+.immersive-studio .map-landscape-confirm,
+.immersive-studio .map-water-status {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 0;
+  padding: 7px 10px;
+  border-radius: 0;
+  background: #e5eddb;
+  color: #213a2d;
+  font-size: 12px;
+}
+.map-landscape-confirm p { flex: 1 1 235px; margin: 0; }
+.map-water-status { justify-content: space-between; font-variant-numeric: tabular-nums; }
+.map-water-status button, .map-landscape-confirm button { min-height: 36px; }
+.map-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+@media (min-width: 1050px) {
+  .immersive-studio .map-workspace.catalog-open { grid-template-columns: 210px minmax(0, 1fr); }
+  .immersive-studio .map-workspace.catalog-open.inspector-open { grid-template-columns: 210px minmax(0, 1fr) 246px; }
+  .immersive-studio .map-workspace.inspector-open:not(.catalog-open) { grid-template-columns: minmax(0, 1fr) 246px; }
+  .immersive-studio .map-quickbar .quick-brush { min-width: 130px; }
+}
+
+@media (max-width: 700px) {
+  .immersive-studio .map-actions { width: 100%; justify-content: space-between; flex-wrap: nowrap; gap: 4px; }
+  .immersive-studio .map-actions button,
+  .map-project-menu summary { min-height: 44px; }
+  .immersive-studio .map-actions button { padding-inline: 5px; font-size: 11px; }
+  .immersive-studio .map-action-group { flex: none; }
+  .immersive-studio .map-history button { min-width: 32px; font-size: 16px; }
+  .map-project-menu summary { padding-inline: 7px; font-size: 11px; }
+  .immersive-studio .map-quickbar { padding: 5px; }
+  .immersive-studio .map-quickbar button,
+  .immersive-studio .map-quickbar select,
+  .immersive-studio .quick-help summary,
+  .catalog-heading button { min-height: 44px; }
+  .immersive-studio .map-viewport { height: auto; }
+  .immersive-studio .map-catalog { order: -1; border-bottom: 1px solid #ccd7c8; }
+  .immersive-studio .catalog-tabs button { min-height: 44px; }
+  .immersive-studio .catalog-items { grid-template-columns: repeat(4,minmax(0,1fr)); max-height: 185px; }
+  .map-water-status button, .map-landscape-confirm button { min-height: 44px; }
+}
+
+.tool-finder-trigger {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 36px;
+  padding: 5px 8px;
+  white-space: nowrap;
+  font-size: 12px;
+}
+.tool-finder-trigger[hidden], .tool-finder-results li[hidden] { display: none; }
+.tool-finder-trigger kbd {
+  position: static;
+  padding: 2px 4px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--muted);
+  font: inherit;
+  font-size: 10px;
+}
+.tool-finder {
+  width: min(540px, calc(100vw - 28px));
+  max-height: min(680px, calc(100dvh - 28px));
+  padding: 17px;
+  border: 1px solid #b9cbbd;
+  border-radius: 16px;
+  background: #fafbf6;
+  color: var(--ink);
+  box-shadow: 0 20px 70px #10261d42;
+}
+.tool-finder::backdrop { background: #14271fd0; }
+.tool-finder-header { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.tool-finder-header h2 { margin: 0; font-size: 21px; }
+.tool-finder-header button { min-width: 44px; min-height: 44px; font-size: 20px; }
+.tool-finder-label { display: block; margin: 8px 0 5px; font-size: 13px; }
+.tool-finder input { width: 100%; min-height: 44px; font-size: 16px; }
+.tool-finder-status { margin: 8px 0 4px; color: var(--muted); font-size: 12px; }
+.tool-finder-results {
+  display: grid;
+  gap: 4px;
+  max-height: min(54dvh, 475px);
+  margin: 0;
+  padding: 3px;
+  overflow: auto;
+  list-style: none;
+}
+.tool-finder-results a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 48px;
+  padding: 8px;
+  border: 1px solid #dce4d7;
+  border-radius: 8px;
+  background: white;
+  color: var(--ink);
+  text-decoration: none;
+}
+.tool-finder-results a:hover, .tool-finder-results a:focus-visible { background: #e9f1e2; }
+.tool-finder-results strong, .tool-finder-results small { display: block; }
+.tool-finder-results small { margin-top: 3px; color: var(--muted); }
+.tool-finder-group { color: #40634d; font-size: 11px; }
+@media (max-width: 900px) {
+  .tool-finder-trigger { min-height: 44px; }
+  .tool-finder-trigger kbd { display: none; }
+}
+@media (max-width: 560px) {
+  .topbar .status-tag { display: none; }
+  .tool-finder-results small { font-size: 11px; }
+}
