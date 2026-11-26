@@ -1,4 +1,4 @@
-import manifest from '../config/art-packs.json';
+import manifest from '../config/art-packs.json' with {type:'json'};
 export type ArtMode='hybrid'|'original';
 export type ArtPack=typeof manifest.packs[number];
 export type TileSpec={col:number;row:number;columns?:number;rows?:number};
