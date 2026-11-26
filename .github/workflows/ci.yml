@@ -2,11 +2,15 @@ name: Preview verification
 on:
   push:
   pull_request:
+concurrency:
+  group: preview-${{ github.ref }}
+  cancel-in-progress: true
 permissions:
   contents: read
 jobs:
   verify:
     runs-on: ubuntu-24.04
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -21,8 +25,9 @@ jobs:
       - run: npm run build:workspace
       - run: node scripts/audit-preview.mjs dist-workspace
       - run: node scripts/audit-size.mjs dist-workspace
-      - run: npx playwright install --with-deps chromium
+      - run: npx playwright install --with-deps chromium firefox webkit
       - run: npm run test:browser
+      - run: node scripts/browser-release.mjs
       - uses: actions/upload-artifact@v4
         with:
           name: public-preview-build
