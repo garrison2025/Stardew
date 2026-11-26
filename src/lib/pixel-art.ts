@@ -69,9 +69,9 @@ const cropShapes:Record<string,CropShape>={
  parsnip:'root',potato:'root',cauliflower:'round','green-bean':'vine',kale:'leaf',strawberry:'berry',blueberry:'berry',melon:'round',corn:'stalk',tomato:'vine','hot-pepper':'vine',radish:'root',wheat:'stalk',cranberries:'berry',pumpkin:'round',eggplant:'vine',yam:'root','bok-choy':'leaf',grape:'berry',berry:'berry',sunflower:'flower',flowerbed:'flower',trellis:'vine',seedling:'leaf'
 };
 export function cropShape(id:string):CropShape{return cropShapes[id.replace(/^crop-/,'')]||'leaf'}
-function crop(c:Ctx,id:string,color:string){
+function crop(c:Ctx,id:string,color:string,season:Season){
  const p={d:'#385b32',l:'#6c9948',h:'#a8c66a',f:color,s:shade(color,-31),b:shade(color,24),t:'#78553b',w:'#d5b582'};
- rect(c,0,1,16,15,'#93673f');rect(c,1,2,14,1,'#b88b55');rect(c,1,13,14,2,'#78543b');rect(c,2,6,2,1,'#b48753');rect(c,12,10,2,1,'#b48753');
+ const soil=palettes[season].soil;rect(c,0,1,16,15,shade(soil,-10));rect(c,1,2,14,1,shade(soil,25));rect(c,1,13,14,2,shade(soil,-29));rect(c,2,6,2,1,shade(soil,17));rect(c,12,10,2,1,shade(soil,17));
  const shape=cropShape(id);
  if(shape==='round')pixel(c,2,2,['.....dh.....','....dlh.....','...dllld....','..ssfsfs....','.sfbbfffs...','sfbfff ff s'.replaceAll(' ',''),'sfffffff fs'.replaceAll(' ',''),'sfffffff fs'.replaceAll(' ',''),'.sfffffs....','..sssss.....'],p);
  else if(shape==='berry')pixel(c,2,1,['.....h......','..dhhld.....','.dlhhlhld...','dlldlllldd..','dlfllflfld..','dllsfslld...','.dflldfld...','..dsfsdd....','....td......','...dld......'],p);
@@ -93,7 +93,7 @@ function house(c:Ctx,w:number,h:number,id:string,color:string,glass:boolean,seas
  const barn=id.includes('barn'),coop=id.includes('coop'),shed=id.includes('shed'),doorW=w*(barn?.32:shed?.25:.17),dx=(w-doorW)/2,dy=h*.64;
  rect(c,dx-2,dy-2,doorW+4,h*.27+2,dark);rect(c,dx,dy,doorW,h*.26,barn?'#a76c49':'#79583c');if(barn||shed){rect(c,w*.5,dy,1,h*.26,'#d2a879');rect(c,dx+2,dy+3,doorW-4,1,'#d6ac7c')}
  for(const xx of [w*.19,w*.7]){const ww=Math.max(6,w*.12),yy=h*.62;rect(c,xx-1,yy-1,ww+2,10,dark);rect(c,xx,yy,ww,8,'#517c87');rect(c,xx+1,yy+1,ww-2,2,'#a3c4ba');rect(c,xx+ww/2,yy,1,8,'#e6c78e');rect(c,xx,yy+4,ww,1,'#e6c78e')}
- if(coop)rect(c,w*.12,h*.83,w*.18,3,'#b78e5f');
+ if(coop){rect(c,w*.12,h*.83,w*.18,3,'#b78e5f');for(let j=0;j<4;j++)rect(c,w*.12+j*2,h*.88+j,2,2,'#806044')}if(barn){rect(c,w*.43,ry+rh*.45,w*.14,Math.max(5,h*.08),dark);rect(c,w*.46,ry+rh*.47,w*.08,Math.max(3,h*.04),'#d7b680')}if(shed){rect(c,w*.12,h*.78,w*.17,h*.1,'#7a9b91');rect(c,w*.13,h*.78,w*.15,1,'#c4d5bb')}if(id==='cottage'){rect(c,w*.74,ry-3,w*.09,h*.16,'#8d6c53');rect(c,w*.72,ry-3,w*.13,3,'#c3a18a');rect(c,w*.39,h*.9,w*.23,3,'#ac946b')}
  if(glass){rect(c,w*.15,h*.16,w*.7,h*.31,'#7aafb1');for(let j=0;j<6;j++)rect(c,w*.16+j*w*.115,h*.16,1,h*.31,'#e2eee1');rect(c,w*.15,h*.3,w*.7,2,'#d7e8dd')}
  if(season==='winter'){rect(c,w*.15,ry,w*.7,3,'#e9f0e6');rect(c,w*.22,ry+3,w*.5,2,'#d1e1df')}
 }
@@ -121,7 +121,7 @@ export function sprite(o:Placed,season:Season):HTMLCanvasElement|null{
  else if(i.art==='pond'){oval(c,0,1,w,h-2,'#806d50');oval(c,2,2,w-4,h-5,'#c6b78c');oval(c,5,5,w-10,h-11,i.color);rect(c,w*.23,h*.3,w*.4,1,'#b1d7d6');rect(c,w*.4,h*.57,w*.3,1,'#a2cbd3')}
  else if(i.art==='path')surface(c,o.itemId,i.color);
  else if(i.art==='fence'){rect(c,0,5,16,3,'#b8915d');rect(c,0,10,16,2,'#8a6545');for(const x of [1,12]){rect(c,x,1,3,14,'#795838');rect(c,x,1,1,12,'#b28a55')}}
- else if(i.art==='crop'||i.art==='flower'||i.art==='trellis')crop(c,o.itemId,i.color);
+ else if(i.art==='crop'||i.art==='flower'||i.art==='trellis')crop(c,o.itemId,i.color,season);
  else equipment(c,o.itemId,i.art,i.color);
  if(cache.size>=512)cache.delete(cache.keys().next().value!);cache.set(k,canvas);return canvas
 }
