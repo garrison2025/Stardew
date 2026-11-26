@@ -156,13 +156,16 @@ body {font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}button{transition:none}}
 
-.journal-home .journal-content {padding-top:14px}
+.journal-home .journal-content {padding-top:10px}
+@media(min-width:901px){
+ .journal-home .journal-nav {min-height:56px}
+}
 .journal-home .journal-intro {
-  min-height:0;gap:8px 24px;flex-wrap:wrap;padding:5px 0 12px;
+  min-height:0;gap:8px 24px;flex-wrap:wrap;padding:3px 0 8px;
   border:0;border-radius:0;background:none
 }
 .journal-home .journal-intro::after {content:none}
-.journal-home .journal-intro h1 {font-size:clamp(29px,3.2vw,42px);line-height:1.05;margin-bottom:5px}
+.journal-home .journal-intro h1 {font-size:clamp(29px,3vw,39px);line-height:1.05;margin-bottom:4px}
 .journal-home .journal-tool-meta {min-height:0;gap:8px 14px}
 .journal-home .journal-tool-meta a {min-height:36px;padding:5px 10px;border:1px solid var(--border);border-radius:8px;background:var(--panel)}
 .journal-home .journal-tool-meta a:hover {border-color:#a182ad}
@@ -174,6 +177,7 @@ body {font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
   background:#302f47;border-color:#504b68
 }
 .journal-home .immersive-studio .map-quickbar label {color:#eee5f3}
+.journal-home .immersive-studio .map-quickbar select {color:#29283d}
 .journal-home .immersive-studio .map-quickbar button:not(.quick-brush) {
   border-color:#6a627f;background:#403d57;color:#faf1f5
 }
@@ -226,7 +230,9 @@ body {font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
 .journal-content .map-footer .quick-help[open]>div {top:auto;bottom:calc(100% + 7px);left:0;right:auto}
 .journal-content .map-footer>span {min-width:0}
 @media(max-width:700px){
+ .journal-home .journal-content {padding-top:8px}
  .journal-home .journal-intro {padding-block:2px 8px}
+ .journal-home .journal-intro p {line-height:1.4}
  .journal-home .journal-intro h1 {font-size:clamp(25px,6.9vw,36px);text-wrap:initial}
  .journal-home .journal-tool-meta a {min-height:44px}
  .journal-home .immersive-studio .map-title {
