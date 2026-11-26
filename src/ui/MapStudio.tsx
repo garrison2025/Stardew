@@ -35,6 +35,7 @@ export default function MapStudio({workspace}:{workspace:boolean}){
  const canvas=useRef<HTMLCanvasElement>(null),host=useRef<HTMLDivElement>(null),search=useRef<HTMLInputElement>(null),terrain=useRef<HTMLCanvasElement|null>(null),viewRef=useRef<View>({x:0,y:0,scale:1}),[view,setView]=useState<View>({x:0,y:0,scale:1}),[size,setSize]=useState({w:800,h:500});
  const pointer=useRef<{id:number;x:number;y:number;start:View;before:Plan;latest:Plan;last:string;pan:boolean;changed:boolean}|null>(null);
  const catalogOpen=catalogPreference??(wideEditor&&!focus);
+ const [viewControlsOpen,setViewControlsOpen]=useState(false);
  const [keyboardTile,setKeyboardTile]=useState<Point|null>(null);
  const projectMenu=useRef<HTMLDetailsElement>(null);
  const catalogToggle=useRef<HTMLButtonElement>(null);
@@ -103,7 +104,13 @@ export default function MapStudio({workspace}:{workspace:boolean}){
   menu.open=false;
   if(restoreFocus)menu.querySelector('summary')?.focus();
  }
- function choose(id:string){setItem(id);setMode('place');setRotation(0);setRecent(v=>[id,...v.filter(i=>i!==id)].slice(0,6))}
+ function choose(id:string){
+  setItem(id);setMode('place');setRotation(0);setRecent(v=>[id,...v.filter(i=>i!==id)].slice(0,6));
+  if(window.matchMedia('(max-width: 700px)').matches){
+   setCatalogPreference(false);
+   requestAnimationFrame(()=>canvas.current?.focus({preventScroll:true}));
+  }
+ }
  function locate(e:React.PointerEvent<HTMLCanvasElement>):Point{const r=e.currentTarget.getBoundingClientRect(),v=viewRef.current;return {x:Math.floor((e.clientX-r.left-v.x)/(TILE*v.scale)),y:Math.floor((e.clientY-r.top-v.y)/(TILE*v.scale))}}
  function apply(p:Plan,point:Point):Plan{if(mode==='terrain'){try{const next=paintTerrain(p,point,terrainBrush);setError('');return next}catch(e){setError(String(e));return p}}if(mode==='erase'){const found=occupancy(p.objects).get(posKey(point.x,point.y));return found?{...p,objects:p.objects.filter(o=>o.id!==found.id)}:p}if(p.objects.length>=4096){setError('Project limit: 4,096 placed objects');return p}const o:Placed={id:crypto.randomUUID(),itemId:item,...point,rotation};const err=placementError(p.map,p.objects,o);if(err){setError(err);return p}setError('');return {...p,objects:[...p.objects,o]}}
  function touchPoint(e:React.PointerEvent<HTMLCanvasElement>):ScreenPoint{const r=e.currentTarget.getBoundingClientRect();return {x:e.clientX-r.left,y:e.clientY-r.top}}
@@ -198,11 +205,13 @@ export default function MapStudio({workspace}:{workspace:boolean}){
   </div>
  </div>
  <div className="map-quickbar" aria-label="Quick planning controls">
+ <button className="map-view-toggle" type="button" aria-controls="map-view-controls" aria-expanded={viewControlsOpen} onClick={()=>setViewControlsOpen(open=>!open)}>Map view <span aria-hidden="true">⌄</span></button>
  <button className="quick-brush" disabled={!ready||saving} onClick={openCatalog}><ItemIcon id={item} season={plan.season} atlas={atlas}/><span><small>Current brush · /</small><strong>{current.name}</strong></span><span aria-hidden="true">⌕</span></button>
+ <div id="map-view-controls" className="map-view-controls" data-expanded={viewControlsOpen}>
  <label>Landscape<select aria-label="Quick landscape" value={plan.map.source==='original'?plan.map.id:''} disabled={!ready||saving} onChange={e=>{if(e.target.value&&e.target.value!==plan.map.id){setPendingMap(e.target.value)}}}><option value="" disabled>Local terrain</option>{MAPS.map(m=><option key={m.id} value={m.id}>{m.name}</option>)}</select></label>
  <label>Season<select aria-label="Quick season" disabled={!ready||saving} value={plan.season} onChange={e=>commit({...plan,season:e.target.value as Season})}>{SEASONS.map(s=><option key={s} value={s}>{s[0].toUpperCase()+s.slice(1)}</option>)}</select></label>
  <button aria-pressed={grid} disabled={!ready||saving} onClick={()=>setGrid(v=>!v)}>Grid</button><button aria-pressed={water} disabled={!ready||saving} onClick={()=>setWater(v=>!v)}>Water coverage</button><button aria-pressed={protection} disabled={!ready||saving} onClick={()=>setProtection(v=>!v)}>Scarecrows</button>
- 
+ </div>
  </div>
  {pendingMap&&<div className="map-confirm map-landscape-confirm" role="region" aria-label="Confirm landscape change"><p>Start a new layout on {MAPS.find(m=>m.id===pendingMap)?.name}. Your current layout can be restored with Undo.</p><button className="primary" onClick={()=>switchLandscape(false)}>Start empty</button><button onClick={()=>switchLandscape(true)}>Load example</button><button onClick={()=>setPendingMap(null)}>Cancel</button></div>}
  <div aria-busy={saving} inert={saving} className={"map-workspace "+(catalogOpen?"catalog-open ":"")+(inspectorOpen?"inspector-open":"")}>

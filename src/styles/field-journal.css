@@ -210,3 +210,26 @@ body {font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
  .journal-content .map-footer {align-items:flex-start}
  .journal-content .map-footer .quick-help summary {min-height:44px}
 }
+
+.journal-content .map-view-toggle {display:none}
+.journal-content .map-view-controls {display:contents}
+.journal-support {width:min(100%,920px);padding-bottom:24px}
+.journal-support .journal-support-card {margin-top:18px}
+.journal-support-card h2:not(:first-child) {margin-top:25px}
+.journal-support-card p {font-size:15px}
+.journal-return {display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 15px;border-radius:8px;background:#4e3868;color:#fff9ef;text-decoration:none;font-weight:650}
+.journal-return:hover {background:#3d2a55}
+@media(max-width:480px){
+ .journal-directory-grid {width:min(620px,calc(100vw - 48px));right:-48px}
+}
+@media(max-width:700px){
+ .journal-content .map-quickbar {display:flex;align-items:stretch;gap:5px}
+ .journal-content .map-quickbar .quick-brush {order:0;flex:1 1 0}
+ .journal-content .map-view-toggle {display:inline-flex;order:1;flex:0 0 auto;padding-inline:10px}
+ .journal-content .map-view-controls {display:none}
+ .journal-content .map-view-controls[data-expanded=true] {
+  order:2;display:grid;flex:0 0 100%;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px
+ }
+ .journal-content .map-view-controls label {grid-column:span 3}
+ .journal-content .map-view-controls button {grid-column:span 2}
+}

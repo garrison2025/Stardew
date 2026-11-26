@@ -1,3 +1,22 @@
+const directory = document.querySelector('.journal-directory');
+const directoryToggle = directory?.querySelector('summary');
+
+if (directory && directoryToggle) {
+  document.addEventListener('pointerdown', event => {
+    if (directory.open && !directory.contains(event.target)) directory.open = false;
+  });
+  directory.addEventListener('focusout', event => {
+    if (!directory.contains(event.relatedTarget)) directory.open = false;
+  });
+  directory.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && directory.open) {
+      event.preventDefault();
+      directory.open = false;
+      directoryToggle.focus();
+    }
+  });
+}
+
 const finder = document.getElementById('tool-finder');
 const finderTrigger = document.querySelector('[data-tool-finder-open]');
 
@@ -22,6 +41,7 @@ if (finder?.showModal && finderTrigger) {
 
   function openFinder() {
     if (finder.open) return;
+    if (directory) directory.open = false;
     query.value = '';
     filterTools();
     finder.showModal();
