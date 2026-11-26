@@ -4,7 +4,7 @@ export type Terrain=typeof TERRAIN[number];
 export const SEASONS=['spring','summer','autumn','winter'] as const;
 export type Season=typeof SEASONS[number];
 export type FarmMap={id:string;name:string;w:number;h:number;tiles:Terrain[];source:'original'|'local'};
-export type Item={id:string;name:string;category:string;w:number;h:number;art:string;color:string;radius?:number;pattern?:'cross'|'square'};
+export type Item={id:string;name:string;category:string;w:number;h:number;art:string;color:string;radius?:number;pattern?:'cross'|'square';fixedOrientation?:boolean;documented?:boolean};
 export const ITEMS:Item[]=[
 {id:'seedling',name:'Seedling',category:'Crops',w:1,h:1,art:'crop',color:'#9cc85a'},
 {id:'berry',name:'Berry bush',category:'Crops',w:1,h:1,art:'crop',color:'#ca5375'},
@@ -13,9 +13,12 @@ export const ITEMS:Item[]=[
 {id:'trellis',name:'Trellis',category:'Crops',w:1,h:1,art:'trellis',color:'#91ba62'},
 {id:'sprinkler',name:'Small sprinkler',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#9ddce2',radius:1},
 {id:'wide-sprinkler',name:'Wide sprinkler',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#d6b76b',radius:2},
-{id:'basic-sprinkler',name:'Basic sprinkler',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#b9c9d0',radius:1,pattern:'cross'},
-{id:'quality-sprinkler',name:'Quality sprinkler',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#e5c267',radius:1,pattern:'square'},
-{id:'iridium-sprinkler',name:'Iridium sprinkler',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#be9fe0',radius:2,pattern:'square'},
+{id:'basic-sprinkler',name:'Basic sprinkler',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#b9c9d0',radius:1,pattern:'cross',documented:true},
+{id:'quality-sprinkler',name:'Quality sprinkler',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#e5c267',radius:1,pattern:'square',documented:true},
+{id:'iridium-sprinkler',name:'Iridium sprinkler',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#be9fe0',radius:2,pattern:'square',documented:true},
+{id:'nozzle-basic',name:'Basic sprinkler + nozzle',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#9fd8cb',radius:1,pattern:'square',documented:true},
+{id:'nozzle-quality',name:'Quality sprinkler + nozzle',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#f1ce7d',radius:2,pattern:'square',documented:true},
+{id:'nozzle-iridium',name:'Iridium sprinkler + nozzle',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#d7b9ee',radius:3,pattern:'square',documented:true},
 {id:'scarecrow',name:'Scarecrow',category:'Equipment',w:1,h:1,art:'post',color:'#bca064'},
 {id:'barrel',name:'Barrel',category:'Equipment',w:1,h:1,art:'barrel',color:'#b98955'},
 {id:'chest',name:'Storage chest',category:'Equipment',w:1,h:1,art:'chest',color:'#c39860'},
@@ -25,6 +28,10 @@ export const ITEMS:Item[]=[
 {id:'shed',name:'Workshop',category:'Buildings',w:3,h:2,art:'house',color:'#607f79'},
 {id:'greenhouse',name:'Greenhouse',category:'Buildings',w:4,h:3,art:'glass',color:'#a9d1ac'},
 {id:'pond',name:'Garden pond',category:'Buildings',w:3,h:3,art:'pond',color:'#6fadb8'},
+{id:'game-barn',name:'Barn (game footprint)',category:'Buildings',w:7,h:4,art:'house',color:'#935040',fixedOrientation:true,documented:true},
+{id:'game-coop',name:'Coop (game footprint)',category:'Buildings',w:6,h:3,art:'house',color:'#d5a75f',fixedOrientation:true,documented:true},
+{id:'game-shed',name:'Shed (game footprint)',category:'Buildings',w:7,h:3,art:'house',color:'#607f79',fixedOrientation:true,documented:true},
+{id:'game-silo',name:'Silo (game footprint)',category:'Buildings',w:3,h:3,art:'house',color:'#af785b',fixedOrientation:true,documented:true},
 {id:'stone-path',name:'Stone path',category:'Paths & fences',w:1,h:1,art:'path',color:'#a8aaa0'},
 {id:'wood-path',name:'Wood path',category:'Paths & fences',w:1,h:1,art:'path',color:'#c2a06d'},
 {id:'brick-path',name:'Brick path',category:'Paths & fences',w:1,h:1,art:'path',color:'#b97a62'},
@@ -62,7 +69,7 @@ export const posKey=(x:number,y:number)=>x+','+y;
 export function occupancy(objects:Placed[]){const out=new Map<string,Placed>();for(const o of objects)for(const p of footprint(o))out.set(posKey(p.x,p.y),o);return out}
 export function terrainAt(map:FarmMap,x:number,y:number):Terrain|undefined{return x>=0&&y>=0&&x<map.w&&y<map.h?map.tiles[y*map.w+x]:undefined}
 export function placementError(map:FarmMap,objects:Placed[],o:Placed):string|null{
- const occupied=occupancy(objects);for(const p of footprint(o)){const t=terrainAt(map,p.x,p.y);if(!t)return 'Outside map boundary';if(t==='water'||t==='cliff'||t==='forest')return 'Blocked terrain: '+t;if(t==='road'&&itemById.get(o.itemId)?.category!=='Paths & fences')return 'Road reserved for paths and fences';if(occupied.has(posKey(p.x,p.y)))return 'Overlaps an existing object'}return null;
+ if(o.rotation&&itemById.get(o.itemId)?.fixedOrientation)return 'This game footprint has a fixed orientation';const occupied=occupancy(objects);for(const p of footprint(o)){const t=terrainAt(map,p.x,p.y);if(!t)return 'Outside map boundary';if(t==='water'||t==='cliff'||t==='forest')return 'Blocked terrain: '+t;if(t==='road'&&itemById.get(o.itemId)?.category!=='Paths & fences')return 'Road reserved for paths and fences';if(occupied.has(posKey(p.x,p.y)))return 'Overlaps an existing object'}return null;
 }
 export function moveSelection(plan:Plan,ids:Set<string>,x:number,y:number):Plan{
  const selected=plan.objects.filter(o=>ids.has(o.id));if(!selected.length)throw Error('Select objects first');
