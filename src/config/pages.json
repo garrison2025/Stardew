@@ -11,7 +11,23 @@
     "group": "Plan",
     "releaseStatus": "preview",
     "indexable": false,
-    "adsEnabled": false
+    "adsEnabled": false,
+    "secondaryKeywords": [
+      "stardew valley farm planner",
+      "stardew farm planner",
+      "planner stardew",
+      "stardew valley farm layout planner",
+      "stardew valley farm layouts",
+      "stardew valley map planner",
+      "stardew valley layout planner",
+      "farm planner stardew"
+    ],
+    "relatedPaths": [
+      "/farm-comparison/",
+      "/crop-calculator/",
+      "/tracker/"
+    ],
+    "priority": "P0"
   },
   {
     "slug": "bundles",
@@ -25,7 +41,23 @@
     "group": "Collect",
     "releaseStatus": "preview",
     "indexable": false,
-    "adsEnabled": false
+    "adsEnabled": false,
+    "secondaryKeywords": [
+      "stardew valley community center bundles",
+      "stardew valley bundle tracker",
+      "bundle stardew",
+      "stardew valley bundle checklist",
+      "stardew valley bundle",
+      "stardew bundle checklist",
+      "stardew community center bundles",
+      "stardew valley bundles checklist"
+    ],
+    "relatedPaths": [
+      "/tracker/",
+      "/fishing/",
+      "/perfection/"
+    ],
+    "priority": "P0"
   },
   {
     "slug": "museum",
@@ -39,7 +71,22 @@
     "group": "Collect",
     "releaseStatus": "preview",
     "indexable": false,
-    "adsEnabled": false
+    "adsEnabled": false,
+    "secondaryKeywords": [
+      "museum stardew",
+      "stardew valley museum collection",
+      "museum collection stardew",
+      "stardew museum layout",
+      "stardew museum collection",
+      "all museum items stardew",
+      "stardew valley museum checklist",
+      "sdv museum"
+    ],
+    "relatedPaths": [
+      "/tracker/",
+      "/perfection/"
+    ],
+    "priority": "P0"
   },
   {
     "slug": "predictor",
@@ -53,7 +100,20 @@
     "group": "Calculate",
     "releaseStatus": "preview",
     "indexable": false,
-    "adsEnabled": false
+    "adsEnabled": false,
+    "secondaryKeywords": [
+      "stardew seed predictor",
+      "stardew valley geode predictor",
+      "stardew geode predictor",
+      "stardew valley seed checker",
+      "blade map predictor 1.6",
+      "stardew valley does luck affect geodes"
+    ],
+    "relatedPaths": [
+      "/tracker/",
+      "/crop-calculator/"
+    ],
+    "priority": "P0"
   },
   {
     "slug": "tracker",
@@ -67,7 +127,20 @@
     "group": "Progress",
     "releaseStatus": "preview",
     "indexable": false,
-    "adsEnabled": false
+    "adsEnabled": false,
+    "secondaryKeywords": [
+      "stardew tracker",
+      "how many steps have i taken stardew",
+      "stardew how many steps have you taken",
+      "tracker stardew valley"
+    ],
+    "relatedPaths": [
+      "/perfection/",
+      "/bundles/",
+      "/museum/",
+      "/fishing/"
+    ],
+    "priority": "P0"
   },
   {
     "slug": "crop-calculator",
@@ -81,7 +154,23 @@
     "group": "Calculate",
     "releaseStatus": "preview",
     "indexable": false,
-    "adsEnabled": false
+    "adsEnabled": false,
+    "secondaryKeywords": [
+      "stardew crop profit",
+      "stardew valley crop calculator",
+      "stardew valley crop profits",
+      "crop calculator stardew valley",
+      "stardew crop planner",
+      "stardew valley crop planner",
+      "stardew valley profit calculator",
+      "crop planner stardew valley"
+    ],
+    "relatedPaths": [
+      "/",
+      "/farm-comparison/",
+      "/crafting/"
+    ],
+    "priority": "P0"
   },
   {
     "slug": "fair-calculator",
@@ -95,7 +184,22 @@
     "group": "Calculate",
     "releaseStatus": "preview",
     "indexable": false,
-    "adsEnabled": false
+    "adsEnabled": false,
+    "secondaryKeywords": [
+      "stardew fair calculator",
+      "stardew valley grange display",
+      "stardew grange display",
+      "grange display calculator",
+      "stardew valley grange display calculator",
+      "grange display stardew valley",
+      "stardew grange",
+      "stardew valley fair grange display"
+    ],
+    "relatedPaths": [
+      "/tracker/",
+      "/crop-calculator/"
+    ],
+    "priority": "P0"
   },
   {
     "slug": "fishing",
@@ -109,7 +213,16 @@
     "group": "Collect",
     "releaseStatus": "preview",
     "indexable": false,
-    "adsEnabled": false
+    "adsEnabled": false,
+    "secondaryKeywords": [
+      "stardew fish prices"
+    ],
+    "relatedPaths": [
+      "/bundles/",
+      "/perfection/",
+      "/tracker/"
+    ],
+    "priority": "P1"
   },
   {
     "slug": "perfection",
@@ -123,7 +236,25 @@
     "group": "Progress",
     "releaseStatus": "preview",
     "indexable": false,
-    "adsEnabled": false
+    "adsEnabled": false,
+    "secondaryKeywords": [
+      "stardew perfection checklist",
+      "stardew perfection",
+      "stardew valley perfection",
+      "perfection stardew",
+      "perfection stardew valley",
+      "stardew valley 100 checklist",
+      "stardew valley perfection tracker",
+      "sdv perfection tracker"
+    ],
+    "relatedPaths": [
+      "/tracker/",
+      "/crafting/",
+      "/shipping/",
+      "/cooking/",
+      "/golden-walnuts/"
+    ],
+    "priority": "P1"
   },
   {
     "slug": "crafting",
@@ -137,7 +268,22 @@
     "group": "Collect",
     "releaseStatus": "preview",
     "indexable": false,
-    "adsEnabled": false
+    "adsEnabled": false,
+    "secondaryKeywords": [
+      "crafting recipes stardew",
+      "stardew crafting recipes",
+      "stardew valley crafting",
+      "all crafting recipes stardew",
+      "stardew valley crafting recipes",
+      "stardew crafting",
+      "craft every item stardew",
+      "stardew valley all crafting recipes"
+    ],
+    "relatedPaths": [
+      "/perfection/",
+      "/shipping/"
+    ],
+    "priority": "P1"
   },
   {
     "slug": "shipping",
@@ -151,7 +297,21 @@
     "group": "Collect",
     "releaseStatus": "preview",
     "indexable": false,
-    "adsEnabled": false
+    "adsEnabled": false,
+    "secondaryKeywords": [
+      "stardew items shipped",
+      "stardew shipping list",
+      "stardew valley shipping list",
+      "shipped items stardew",
+      "stardew valley items shipped",
+      "stardew shipped items",
+      "items shipped stardew valley"
+    ],
+    "relatedPaths": [
+      "/perfection/",
+      "/crop-calculator/"
+    ],
+    "priority": "P1"
   },
   {
     "slug": "cooking",
@@ -165,7 +325,17 @@
     "group": "Collect",
     "releaseStatus": "preview",
     "indexable": false,
-    "adsEnabled": false
+    "adsEnabled": false,
+    "secondaryKeywords": [
+      "stardew recipes",
+      "stardew cooking",
+      "all recipes stardew valley"
+    ],
+    "relatedPaths": [
+      "/perfection/",
+      "/fishing/"
+    ],
+    "priority": "P1"
   },
   {
     "slug": "golden-walnuts",
@@ -179,7 +349,13 @@
     "group": "Collect",
     "releaseStatus": "preview",
     "indexable": false,
-    "adsEnabled": false
+    "adsEnabled": false,
+    "secondaryKeywords": [],
+    "relatedPaths": [
+      "/perfection/",
+      "/tracker/"
+    ],
+    "priority": "P1"
   },
   {
     "slug": "farm-comparison",
@@ -193,7 +369,22 @@
     "group": "Plan",
     "releaseStatus": "preview",
     "indexable": false,
-    "adsEnabled": false
+    "adsEnabled": false,
+    "secondaryKeywords": [
+      "stardew farm map",
+      "stardew valley farm map",
+      "stardew valley farm maps",
+      "farm maps stardew valley",
+      "stardew valley standard farm",
+      "stardew valley farms types",
+      "stardew farm maps",
+      "hilltop farm stardew"
+    ],
+    "relatedPaths": [
+      "/",
+      "/crop-calculator/"
+    ],
+    "priority": "P1"
   },
   {
     "slug": "grandpa-calculator",
@@ -207,7 +398,15 @@
     "group": "Calculate",
     "releaseStatus": "preview",
     "indexable": false,
-    "adsEnabled": false
+    "adsEnabled": false,
+    "secondaryKeywords": [
+      "grandpa evaluation stardew"
+    ],
+    "relatedPaths": [
+      "/tracker/",
+      "/skills/"
+    ],
+    "priority": "P2"
   },
   {
     "slug": "skills",
@@ -221,6 +420,12 @@
     "group": "Progress",
     "releaseStatus": "preview",
     "indexable": false,
-    "adsEnabled": false
+    "adsEnabled": false,
+    "secondaryKeywords": [],
+    "relatedPaths": [
+      "/tracker/",
+      "/crop-calculator/"
+    ],
+    "priority": "P2"
   }
 ]
