@@ -18,6 +18,7 @@ export default function ScreenshotBounds({image,bounds,onChange}:{
  useEffect(()=>{
   const ctx=canvas.current?.getContext('2d');
   if(!ctx)return;
+  ctx.clearRect(0,0,width,height);
   ctx.drawImage(image,0,0,width,height);
   const region=draft??bounds;
   if(!region)return;
