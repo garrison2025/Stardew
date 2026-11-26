@@ -1,0 +1,36 @@
+{
+  "schema": 1,
+  "policy": "Only original or verified freely licensed artwork; official game assets excluded pending permission.",
+  "packs": [
+    {
+      "id": "kenney-outdoor",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source": "https://kenney.nl/assets/roguelike-rpg-pack",
+      "mirror": "https://github.com/superdevgit/MobileRPG/blob/main/roguelikeSheet_transparent.png",
+      "gitBlob": "79b13326ceb8557a98b2b78aa5e8e7b9269f6693",
+      "path": "/art/kenney-outdoor.png",
+      "width": 968,
+      "height": 526,
+      "tile": 16,
+      "stride": 17
+    },
+    {
+      "id": "kenney-indoor",
+      "author": "Kenney",
+      "license": "CC0-1.0",
+      "source": "https://kenney.nl/assets/roguelike-indoors",
+      "mirror": "https://github.com/pavja2/distanced/blob/main/roguelikeIndoor_transparent.png",
+      "gitBlob": "ca6347a204e84dac0727a9914041a6e53b1577b9",
+      "path": "/art/kenney-indoor.png",
+      "width": 1832,
+      "height": 1220,
+      "tile": 64,
+      "stride": 68
+    }
+  ],
+  "officialAssets": {
+    "enabled": false,
+    "permission": null
+  }
+}

@@ -1,0 +1,14 @@
+Subject: Permission request — Stardew Valley fan planner with display advertising
+
+Hello ConcernedApe team,
+
+I'm developing Field & Farm, an independent, free browser-based toolkit for Stardew Valley players. It includes farm layout planning, crop and crafting calculators, and collection trackers. The project is currently a development preview, not an official or affiliated product.
+
+May I have written permission to use selected Stardew Valley farm map images, building sprites, crop sprites, and item icons within this free web toolkit, including user-created layout image exports? I intend to support hosting and maintenance through display advertising (such as Google AdSense), while keeping the tools free. I would credit ConcernedApe prominently, identify the site as unofficial, and avoid distributing standalone downloadable copies of the game's asset files.
+
+If permission is possible, could you please let me know the permitted scope, attribution requirements, any restrictions on advertising or exports, and whether there are specific assets or licensing terms I should follow? I will continue using independent or CC0 graphics unless and until the requested use is approved.
+
+Thank you for creating Stardew Valley and for considering this request.
+
+Best regards,
+Field & Farm project maintainer
