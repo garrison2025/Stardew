@@ -1,0 +1,2 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {screenshotGrids} from '../src/lib/screenshot-grids.ts';
+test('square grid suggestions are exact divisibility candidates, not guesses',()=>{const g=screenshotGrids(1024,768);assert.deepEqual(g[0],{w:64,h:48,tile:16});for(const x of g){assert.equal(x.w*x.tile,1024);assert.equal(x.h*x.tile,768);assert.ok(x.w>=8&&x.w<=160&&x.h>=8&&x.h<=160)}assert.deepEqual(screenshotGrids(1021,769),[]);assert.deepEqual(screenshotGrids(9000,9000),[]);assert.deepEqual(screenshotGrids(-1,16),[])});

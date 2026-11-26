@@ -10,7 +10,9 @@
     "check": "astro check",
     "test": "node --experimental-strip-types --test tests/*.test.ts",
     "verify": "npm run check && npm test && npm run build && npm run build:workspace",
-    "test:browser": "node scripts/browser-smoke.mjs"
+    "test:browser": "node scripts/browser-smoke.mjs",
+    "audit:live": "node scripts/audit-live-preview.mjs",
+    "audit:size": "node scripts/audit-size.mjs"
   },
   "dependencies": {
     "astro": "5.16.0",
