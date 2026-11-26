@@ -157,8 +157,39 @@ body {font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}button{transition:none}}
 
 .journal-home .journal-content {padding-top:14px}
-.journal-home .journal-intro {min-height:112px;padding-block:17px}
-.journal-home .journal-intro h1 {font-size:clamp(33px,4.2vw,56px)}
+.journal-home .journal-intro {
+  min-height:0;gap:8px 24px;flex-wrap:wrap;padding:5px 0 12px;
+  border:0;border-radius:0;background:none
+}
+.journal-home .journal-intro::after {content:none}
+.journal-home .journal-intro h1 {font-size:clamp(29px,3.2vw,42px);line-height:1.05;margin-bottom:5px}
+.journal-home .journal-tool-meta {min-height:0;gap:8px 14px}
+.journal-home .journal-tool-meta a {min-height:36px;padding:5px 10px;border:1px solid var(--border);border-radius:8px;background:var(--panel)}
+.journal-home .journal-tool-meta a:hover {border-color:#a182ad}
+.journal-home .immersive-studio .map-header {min-height:52px;padding-block:6px}
+.journal-home .immersive-studio .map-title h2 {font-size:20px}
+.journal-home .map-viewport {height:clamp(390px,calc(100dvh - 275px),900px)}
+.journal-home .map-focus .map-viewport {height:clamp(400px,calc(100dvh - 155px),1080px)}
+.journal-home .immersive-studio .map-quickbar {
+  background:#302f47;border-color:#504b68
+}
+.journal-home .immersive-studio .map-quickbar label {color:#eee5f3}
+.journal-home .immersive-studio .map-quickbar button:not(.quick-brush) {
+  border-color:#6a627f;background:#403d57;color:#faf1f5
+}
+.journal-home .immersive-studio .map-quickbar button[aria-pressed=true],
+.journal-home .immersive-studio .map-quickbar .map-view-toggle[aria-expanded=true] {
+  background:var(--journal-sun);border-color:var(--journal-sun);color:#382940
+}
+.journal-home .immersive-studio .map-quickbar button:focus-visible,
+.journal-home .immersive-studio .map-quickbar select:focus-visible {
+  outline-color:#ffdcab
+}
+.journal-content .catalog-reference {
+  display:flex;align-items:center;gap:8px;padding:4px 0;min-height:38px;
+  color:#51455d;font-size:12px;font-weight:650;cursor:pointer
+}
+.journal-content .catalog-reference input {width:16px;height:16px;margin:0;accent-color:#584373}
 .journal-home .journal-emblem {width:clamp(48px,6vw,78px)}
 .journal-home .journal-tool-meta {min-height:36px}
 .journal-content .journal-crop-workbench {
@@ -183,11 +214,6 @@ body {font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
  .journal-content .journal-crop-workbench {grid-template-columns:minmax(0,1fr)}
  .journal-crop-results {min-height:0}
 }
-@media(max-width:700px){
- .journal-home .journal-intro {min-height:92px}
- .journal-home .journal-intro h1 {font-size:clamp(32px,7.5vw,48px)}
-}
-
 .journal-header .tool-finder-trigger kbd {background:#403c59;color:#fff5ef}
 .journal-content .immersive-studio .map-actions .map-action-group button[aria-expanded="true"] {
  background-color:#595170;border-color:#8b7ba4;color:#fff7ef
@@ -200,9 +226,9 @@ body {font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
 .journal-content .map-footer .quick-help[open]>div {top:auto;bottom:calc(100% + 7px);left:0;right:auto}
 .journal-content .map-footer>span {min-width:0}
 @media(max-width:700px){
- .journal-home .journal-intro {padding-block:12px}
- .journal-home .journal-emblem {display:none}
- .journal-home .journal-tool-meta {min-height:32px}
+ .journal-home .journal-intro {padding-block:2px 8px}
+ .journal-home .journal-intro h1 {font-size:clamp(25px,6.9vw,36px);text-wrap:initial}
+ .journal-home .journal-tool-meta a {min-height:44px}
  .journal-home .immersive-studio .map-title {
   position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap
  }

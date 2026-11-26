@@ -56,12 +56,17 @@ const related=pages.filter(p=>p.path!==page.path && (page.relatedPaths||[]).incl
    <h1>{page.h1}</h1>
    <p>{page.description}</p>
   </div>
-  <div class="journal-emblem" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d={selectedIcon}/></svg></div>
+  {page.slug==='' ?
+   <div class="journal-tool-meta">
+    <span><i aria-hidden="true"></i>{workspace?'Private workspace':'Development preview'}</span>
+    {!workspace&&workspaceUrl&&<a href={workspaceUrl}>Open private workspace <span aria-hidden="true">↗</span></a>}
+   </div>
+   : <div class="journal-emblem" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d={selectedIcon}/></svg></div>}
  </header>
- <div class="journal-tool-meta">
+ {page.slug!==''&&<div class="journal-tool-meta">
   <span><i aria-hidden="true"></i>{workspace?'Private workspace':'Development preview'}</span>
   {!workspace&&workspaceUrl&&<a href={workspaceUrl}>Open private workspace <span aria-hidden="true">↗</span></a>}
- </div>
+ </div>}
 {page.slug==='tracker'&&!workspace&&<section class="workspace-entry" aria-label="Private save workspace"><div><h2>Track your own farm</h2><p>Keep your save file on your device. Inspect supported fields and merge recognized collection progress in the separate private workspace.</p><small>{workspaceUrl?'No upload to our servers · no account · no ads':'Private workspace is not connected to this preview yet. Use the individual tools manually below.'}</small></div>{workspaceUrl&&<a href={workspaceUrl}>Open private save workspace</a>}</section>}
 <Tool slug={page.slug} workspace={workspace} client:load/>
 <details class="journal-preview-note"><summary>Preview data and limitations</summary><p>Built-in farm maps are original practice scenes. Rules and game data may have incomplete coverage. Game version and tool-specific limitations appear in the tool guide.</p></details>
