@@ -27,7 +27,9 @@
       "/crop-calculator/",
       "/tracker/"
     ],
-    "priority": "P0"
+    "priority": "P0",
+    "guideTitle": "Plan a layout before building",
+    "guideText": "Choose one of eight original landscape templates or import a private terrain package. Place objects, inspect water coverage and arrange linked building interiors. Export JSON to retain editable data; PNG is a visual snapshot. Built-in landscapes are not extracted game maps."
   },
   {
     "slug": "bundles",
@@ -57,7 +59,9 @@
       "/fishing/",
       "/perfection/"
     ],
-    "priority": "P0"
+    "priority": "P0",
+    "guideTitle": "Choose the required donation slots",
+    "guideText": "Track full donations and quantities separately. Optional bundles need only the stated number of slots, not every candidate. Use season and room filters to plan the next collection trip. Remixed bundles remain unsupported."
   },
   {
     "slug": "museum",
@@ -86,7 +90,9 @@
       "/tracker/",
       "/perfection/"
     ],
-    "priority": "P0"
+    "priority": "P0",
+    "guideTitle": "Find missing artifacts and minerals",
+    "guideText": "Discovery is not donation. Use the source filter to identify missing items associated with a geode or artifact route, then mark donations after the in-game action. Reward eligibility does not confirm a reward was claimed."
   },
   {
     "slug": "predictor",
@@ -113,7 +119,9 @@
       "/tracker/",
       "/crop-calculator/"
     ],
-    "priority": "P0"
+    "priority": "P0",
+    "guideTitle": "Plan geode collection without predicting RNG",
+    "guideText": "Select a container and review matching undonated museum entries. This is a source planner, not an opening order, probability calculator or random-seed predictor. A verified version-specific adapter is required for actual prediction."
   },
   {
     "slug": "tracker",
@@ -140,7 +148,9 @@
       "/museum/",
       "/fishing/"
     ],
-    "priority": "P0"
+    "priority": "P0",
+    "guideTitle": "Inspect a save without uploading it",
+    "guideText": "The private workspace reads selected main-player XML fields and provides explicit merging for recognized crafting observations. Missing values are unknown. Manual collection records and imported observations are not a complete in-game save reconstruction."
   },
   {
     "slug": "crop-calculator",
@@ -170,7 +180,9 @@
       "/farm-comparison/",
       "/crafting/"
     ],
-    "priority": "P0"
+    "priority": "P0",
+    "guideTitle": "Compare planting and processing plans",
+    "guideText": "Set a seed budget, season and available plots; review harvest dates, crop choices and seed spending. The economy model accounts for shared inventory and daily machine collection under simplified timing assumptions. It excludes construction and labor costs."
   },
   {
     "slug": "fair-calculator",
@@ -199,7 +211,9 @@
       "/tracker/",
       "/crop-calculator/"
     ],
-    "priority": "P0"
+    "priority": "P0",
+    "guideTitle": "Build a nine-slot grange display",
+    "guideText": "Enter actual sale values, quality and Fair categories. The score separates quantity, variety and item points. Compare candidate items before the fair; do not multiply the entered sale value by quality a second time."
   },
   {
     "slug": "fishing",
@@ -222,7 +236,9 @@
       "/perfection/",
       "/tracker/"
     ],
-    "priority": "P1"
+    "priority": "P1",
+    "guideTitle": "Find fish for your collection",
+    "guideText": "Filter by common acquisition season and search fish names or locations. Conditions are representative routes, not a complete weather or bait simulator. Record catches manually; challenge-only legendary variants are excluded."
   },
   {
     "slug": "perfection",
@@ -254,7 +270,9 @@
       "/cooking/",
       "/golden-walnuts/"
     ],
-    "priority": "P1"
+    "priority": "P1",
+    "guideTitle": "Estimate your weighted completion",
+    "guideText": "Enter the observed progress for each category. Three goals award all-or-nothing points; others award proportional credit. The private workspace can load saved manual counts, which may differ from in-game totals."
   },
   {
     "slug": "crafting",
@@ -283,7 +301,9 @@
       "/perfection/",
       "/shipping/"
     ],
-    "priority": "P1"
+    "priority": "P1",
+    "guideTitle": "Prepare a batch of crafting recipes",
+    "guideText": "Select recipes and batch quantities, then inspect direct ingredients, stock shortages and estimated costs. Batch outputs may contain multiple items. Intermediate recipes and profession-specific ingredient substitutions are not automatically expanded."
   },
   {
     "slug": "shipping",
@@ -311,7 +331,9 @@
       "/perfection/",
       "/crop-calculator/"
     ],
-    "priority": "P1"
+    "priority": "P1",
+    "guideTitle": "Review items not yet shipped",
+    "guideText": "Filter the 154 reference entries and mark an item only after shipping it in the game. Finding or owning an item is not the same as shipping it. Export your checklist for later use."
   },
   {
     "slug": "cooking",
@@ -335,7 +357,9 @@
       "/perfection/",
       "/fishing/"
     ],
-    "priority": "P1"
+    "priority": "P1",
+    "guideTitle": "Plan dishes and ingredient purchases",
+    "guideText": "Select recipes, enter batch quantities, and compare required ingredients against current inventory. Unlock hints identify common learning routes. Unknown prices remain unknown; intermediate dishes are not recursively expanded."
   },
   {
     "slug": "golden-walnuts",
@@ -355,7 +379,9 @@
       "/perfection/",
       "/tracker/"
     ],
-    "priority": "P1"
+    "priority": "P1",
+    "guideTitle": "Track lifetime finds separately from spending",
+    "guideText": "Record repeated drops individually and fixed rewards as complete tasks. The upgrade ledger subtracts purchases from recorded balance, not lifetime collection. Puzzle hints can be revealed when needed."
   },
   {
     "slug": "farm-comparison",
@@ -384,7 +410,9 @@
       "/",
       "/crop-calculator/"
     ],
-    "priority": "P1"
+    "priority": "P1",
+    "guideTitle": "Choose a farm for your priorities",
+    "guideText": "Compare eight farm types by reference area and characteristics. Water, obstacles and sprinkler restrictions affect practical capacity. The original design templates are illustrative, not pixel-accurate game maps."
   },
   {
     "slug": "grandpa-calculator",
@@ -406,7 +434,9 @@
       "/tracker/",
       "/skills/"
     ],
-    "priority": "P2"
+    "priority": "P2",
+    "guideTitle": "Calculate the four-candle threshold",
+    "guideText": "Enter lifetime earnings, skill levels, friendships and completed milestones. Four candles require at least 12 points in the reference model. Record community center completion and its ceremony separately."
   },
   {
     "slug": "skills",
@@ -426,6 +456,8 @@
       "/tracker/",
       "/crop-calculator/"
     ],
-    "priority": "P2"
+    "priority": "P2",
+    "guideTitle": "Plan the next skill level",
+    "guideText": "Enter skill experience and mastery points to compare against thresholds. The overnight level-up event determines actual profession rewards. Mastery points are separate from the five base skill experience values."
   }
 ]

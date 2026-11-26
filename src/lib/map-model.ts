@@ -45,7 +45,7 @@ export const ITEMS:Item[]=[
 ];
 ITEMS.push(...GAME_CROPS.map(c=>({id:'crop-'+c.id,name:c.name+' (crop)',category:'Crops',w:1,h:1,art:c.trellis?'trellis':'crop',color:c.color,documented:true})));
 export const itemById=new Map(ITEMS.map(i=>[i.id,i]));
-export const MAPS=[{id:'orchard',name:'Orchard valley',w:64,h:42},{id:'riverbend',name:'River bend',w:64,h:44},{id:'woodland',name:'Woodland clearing',w:60,h:44},{id:'hilltop',name:'Terraced hills',w:64,h:44}] as const;
+export const MAPS=[{id:'orchard',name:'Orchard valley',w:64,h:42},{id:'riverbend',name:'River bend',w:64,h:44},{id:'woodland',name:'Woodland clearing',w:60,h:44},{id:'hilltop',name:'Terraced hills',w:64,h:44},{id:'four-gardens',name:'Four gardens',w:64,h:64},{id:'coastal',name:'Coastal meadow',w:72,h:48},{id:'wild-grove',name:'Wild grove',w:64,h:48},{id:'pasture',name:'Pasture estate',w:68,h:48}] as const;
 export function originalMap(id:string):FarmMap{
  const m=MAPS.find(v=>v.id===id);if(!m)throw Error('Unknown original map');
  const tiles:Terrain[]=[];
@@ -57,6 +57,10 @@ export function originalMap(id:string):FarmMap{
   else if(id==='riverbend'&&Math.abs(x-(m.w*.53+7*Math.sin(y*.14)))<2.6)t='water';
   else if(id==='woodland'&&((x-13)**2+(y-14)**2<45||(x-47)**2+(y-30)**2<58))t='forest';
   else if(id==='hilltop'&&((y>15&&y<19&&x>23&&x<51)||(y>29&&y<32&&x>8&&x<36)))t='cliff';
+  else if(id==='four-gardens'&&((Math.abs(x-32)<=1&&Math.abs(y-32)>4)||(Math.abs(y-32)<=1&&Math.abs(x-32)>4)))t='cliff';
+  else if(id==='coastal'&&(x<10+3*Math.sin(y*.15)||y>m.h-6-2*Math.cos(x*.2)))t='water';
+  else if(id==='wild-grove'&&(((x-15)/5)**2+((y-26)/9)**2<1||((x-46)/6)**2+((y-35)/4)**2<1))t='forest';
+  else if(id==='pasture'&&((x-43)/10)**2+((y-13)/5)**2<1)t='soil';
   else if(((x-12)/7)**2+((y-(m.h-11))/5)**2<1)t='water';
   else if((y===7&&x>6&&x<m.w-6)||(x===m.w-9&&y>=7&&y<m.h-5))t='road';
   else if(x>=18&&x<=30&&y>=12&&y<=21)t='soil';
