@@ -3,3 +3,6 @@ CI exports separate public-preview-build and private-workspace-preview-build art
 
 ## Transfer and live acceptance
 CI checks total compressed JS/CSS, maximum compressed HTML, and bundled PNG sizes. These are transfer-size budgets, not measured Core Web Vitals. After deploying two distinct HTTPS preview origins, run `npm run audit:live -- https://PUBLIC_ORIGIN https://PRIVATE_ORIGIN` from the repository. It checks all 16 paths, noindex header, CSP, robots, PNG MIME and signature, artwork credits, 404 and private save input separation. No live URL or deployment is assumed. The private reference now offers exact integer screenshot dimension candidates and an editable terrain JSON export, but does not detect game tiles. Production release gates remain closed.
+
+## Actual public preview
+Owner-provided deployment: https://stardew-67b.pages.dev/ . Public tracker requires a separately deployed private workspace URL; never point both builds at the same origin. Set PUBLIC_SITE_ORIGIN to the actual public HTTPS origin and PUBLIC_WORKSPACE_ORIGIN to the distinct private HTTPS origin. The public build now emits a build-revision meta tag when Cloudflare or GitHub provides a valid commit SHA, so deployed HTML can be compared with the intended commit. No production indexing or ads were enabled.

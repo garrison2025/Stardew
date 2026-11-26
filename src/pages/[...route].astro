@@ -6,8 +6,12 @@ import '../styles/global.css';
 export function getStaticPaths(){return pages.map(page=>({params:{route:page.slug||undefined},props:{page}}))}
 const {page}=Astro.props;
 const workspace=import.meta.env.MODE==='workspace';
-const workspaceOrigin=import.meta.env.PUBLIC_WORKSPACE_ORIGIN;
-const workspaceUrl=workspaceOrigin && /^https:\/\//.test(workspaceOrigin) ? new URL(page.path,workspaceOrigin).href : undefined;
+function validOrigin(value:unknown){if(typeof value!=='string'||!value)return undefined;try{const u=new URL(value);return u.protocol==='https:'&&u.pathname==='/'&&!u.search&&!u.hash&&!u.username&&!u.password?u.origin:undefined}catch{return undefined}}
+const publicOrigin=validOrigin(import.meta.env.PUBLIC_SITE_ORIGIN);
+const workspaceOrigin=validOrigin(import.meta.env.PUBLIC_WORKSPACE_ORIGIN);
+const workspaceUrl=!workspace&&workspaceOrigin&&workspaceOrigin!==publicOrigin?new URL(page.path,workspaceOrigin).href:undefined;
+const revision=process.env.CF_PAGES_COMMIT_SHA||process.env.GITHUB_SHA||'';
+const buildRevision=/^[0-9a-f]{40}$/i.test(revision)?revision:undefined;
 const groups=['Plan','Calculate','Progress','Collect'];
 const icons:Record<string,string>={'':'M3 3h18v18H3z M3 9h18M3 15h18M9 3v18M15 3v18','bundles':'M4 7h16v14H4zM3 3h18v4H3zM12 3v18M4 11h16','museum':'M3 8 12 3l9 5M3 21h18M5 10v9m7-9v9m7-9v9','predictor':'M12 2 14.5 9.5 22 12 14.5 14.5 12 22 9.5 14.5 2 12 9.5 9.5z','tracker':'M4 4h16v16H4zM7 15l3-4 3 2 4-6','crop-calculator':'M5 3h14v18H5zM8 7h8M8 11h2m4 0h2M8 15h2m4 0h2','fair-calculator':'M6 3h12v4c0 5-3 8-6 8S6 12 6 7zM6 5H3v3c0 3 2 4 4 4M18 5h3v3c0 3-2 4-4 4M12 15v4m-5 2h10','fishing':'M3 12c4-5 10-6 14 0l4-3v6l-4-3c-4 6-10 5-14 0zM7 11h.1','perfection':'M12 3 21 8v8l-9 5-9-5V8zM8 12l3 3 5-6','crafting':'M5 3h14v18H5zM8 8h8M8 12h8M8 16h5','shipping':'M3 7h18v14H3zM3 7l4-4h10l4 4M9 7v5h6V7','cooking':'M4 10h16v8H4zM2 13h2m16 0h2M8 3v4m4-4v4m4-4v4','golden-walnuts':'M12 3c5 0 8 5 8 9s-3 9-8 9-8-5-8-9 3-9 8-9zM12 3v18','farm-comparison':'M3 5h8v14H3zM14 5h7v14h-7z','grandpa-calculator':'M12 3 21 8v8l-9 5-9-5V8zM8 12h8M12 8v8','skills':'M4 20v-6h4v6M10 20V9h4v11M16 20V4h4v16'};
 const short=(p:typeof page)=>p.h1.replace('Stardew Valley ','');
@@ -19,7 +23,7 @@ const related=pages.filter(p=>p.path!==page.path && (page.relatedPaths||[]).incl
 <head>
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>{page.title}</title><meta name="description" content={page.description}/>
-<meta name="robots" content="noindex,nofollow"/>
+<meta name="robots" content="noindex,nofollow"/>{buildRevision&&<meta name="build-revision" content={buildRevision}/>}
 <meta name="theme-color" content="#f5f6f1"/>
 <meta property="og:title" content={page.title}/><meta property="og:description" content={page.description}/><meta property="og:type" content="website"/>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
@@ -40,6 +44,7 @@ const related=pages.filter(p=>p.path!==page.path && (page.relatedPaths||[]).incl
 {page.slug===''&&<Tool slug={page.slug} workspace={workspace} client:load/>}
 <div class="page-heading"><div class="heading-icon"><svg aria-hidden="true" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d={selectedIcon}/></svg></div><div class="heading-copy"><div class="eyebrow">{page.group} / Player tools</div><h1>{page.h1}</h1><p>{page.description}</p></div><div class="heading-meta"><span>LOCAL PROCESSING</span><strong>No ads · No sign-in</strong></div></div>
 <div class="notice"><svg aria-hidden="true" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.1"/></svg><div><strong>Development preview.</strong> Manual inputs, original schematic maps and freely licensed decorative graphics. Game data, maps and rules are not verified; results are illustrative.</div></div>
+{page.slug==='tracker'&&!workspace&&<section class="workspace-entry" aria-label="Private save workspace"><div><h2>Track your own farm</h2><p>Keep your save file on your device. Inspect supported fields and merge recognized collection progress in the separate private workspace.</p><small>{workspaceUrl?'No upload to our servers · no account · no ads':'Private workspace is not connected to this preview yet. Use the individual tools manually below.'}</small></div>{workspaceUrl&&<a href={workspaceUrl}>Open private save workspace</a>}</section>}
 {page.slug!==''&&<Tool slug={page.slug} workspace={workspace} client:load/>}
 <section class="guide"><div class="guide-header"><div class="eyebrow">Toolkit guide</div><h2>{page.guideTitle}</h2><p>{page.guideText}</p></div><div class="guide-steps"><div><span>01</span><h3>Choose a tool</h3><p>Start with the planner or a calculator and enter your own assumptions.</p></div><div><span>02</span><h3>Explore your options</h3><p>Compare layouts, calculations or manual progress before committing.</p></div><div><span>03</span><h3>Keep a backup</h3><p>Export your results and use the isolated workspace for private files.</p></div></div><details class="version-details"><summary>Game version &amp; preview limitations</summary><p>1.6: {release.adapters['1.6']}. 1.7: {release.adapters['1.7']}. Approved data and independent test fixtures are required before production release.</p></details></section>
 <section class="related"><div class="eyebrow">Keep exploring</div><h2>Related tools</h2><div class="related-grid">{(related.length?related:pages.filter(p=>p.group===page.group&&p.slug!==page.slug)).map(p=><a href={p.path}><span class="related-icon"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d={icons[p.slug]||icons['']}/></svg></span><div><strong>{short(p)}</strong><small>{p.description}</small></div><span aria-hidden="true">↗</span></a>)}</div></section>
