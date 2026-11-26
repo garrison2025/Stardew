@@ -4,6 +4,7 @@ import release from '../config/release.json';
 import toolGuides from '../config/tool-guides.json';
 import Tool from '../ui/Tool';
 import '../styles/global.css';
+import '../styles/planner.css';
 export function getStaticPaths(){return pages.map(page=>({params:{route:page.slug||undefined},props:{page}}))}
 const {page}=Astro.props;
 const guide=toolGuides[page.slug as keyof typeof toolGuides];
