@@ -8,3 +8,6 @@ Compact mobile layout with aspect-ratio viewport, horizontally scrollable contro
 
 ### Planner and tracker workflow refinement
 Landscape switching offers empty and example plans, keeps the selected season, preserves Undo, and hides any existing screenshot overlay rather than deleting it. Private save import merges recognized positive collection and crafting observations in one IndexedDB transaction. A successful merge refreshes the private collection dashboard, which also loads automatically on entry. No cross-farm identity, exact RNG, game map or raw XML persistence is inferred. Independent real save fixtures remain a release gate.
+
+### Save geometry acceptance
+Recognized save records now suggest a lower bound for the import grid, including full building footprints and a separate out-of-capacity warning. No unsupported records are used to infer the map size; no official terrain is reconstructed. Regression includes coordinates beyond the previous 80 × 65 default.
