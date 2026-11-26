@@ -5,6 +5,7 @@ import toolGuides from '../config/tool-guides.json';
 import Tool from '../ui/Tool';
 import '../styles/global.css';
 import '../styles/planner.css';
+import '../styles/field-journal.css';
 export function getStaticPaths(){return pages.map(page=>({params:{route:page.slug||undefined},props:{page}}))}
 const {page}=Astro.props;
 const guide=toolGuides[page.slug as keyof typeof toolGuides];
@@ -27,34 +28,47 @@ const related=pages.filter(p=>p.path!==page.path && (page.relatedPaths||[]).incl
 <meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>{page.title}</title><meta name="description" content={page.description}/>
 <meta name="robots" content="noindex,nofollow"/>{buildRevision&&<meta name="build-revision" content={buildRevision}/>}
-<meta name="theme-color" content="#f5f6f1"/>
+<meta name="theme-color" content="#fff9ef"/>
 <meta property="og:title" content={page.title}/><meta property="og:description" content={page.description}/><meta property="og:type" content="website"/>
 <link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to tool</a>
-<div class:list={['app-layout',page.slug===''?'map-home':'']}>
-<aside class="app-sidebar">
-<a class="brand" href="/"><span class="brandmark"><svg width="25" height="25" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21v-9M12 14C5 14 3 9 4 4c5 0 8 3 8 8M12 16c0-6 4-9 8-9 0 6-3 9-8 9"/></svg></span><span>Field<span class="brand-and">&amp;</span>Farm<small>PLAYER TOOLKIT</small></span></a>
-<div class="nav-caption">WORKSPACE <span>16 tools</span></div>
-<nav class="side" aria-label="Tools">{groups.map(group=><div class="nav-group"><strong>{group}</strong>{pages.filter(p=>p.group===group).map(p=><a href={p.path} aria-current={p.path===page.path?'page':undefined}><svg aria-hidden="true" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.55" stroke-linecap="round" stroke-linejoin="round"><path d={icons[p.slug]||icons['']}/></svg><span>{short(p)}</span>{p.path===page.path&&<span class="nav-active-dot"/>}</a>)}</div>)}</nav>
-<div class="side-bottom"><div class="local-card"><span class="live-dot"/><div><strong>Local-first tools</strong><small>Free · no account required</small></div></div><a href="/privacy/">Privacy &amp; data</a></div>
-</aside>
-<div class="app-main">
-<header class="topbar">{page.slug===''&&<div class="desktop-map-nav"><a class="mini-brand" href="/"><span>✿</span> Field &amp; Farm</a><details><summary>All tools <span>⌄</span></summary><div class="desktop-tool-menu">{groups.map(group=><div><strong>{group}</strong>{pages.filter(p=>p.group===group).map(p=><a href={p.path} aria-current={p.path===page.path?'page':undefined}>{short(p)}</a>)}</div>)}</div></details></div>}<div class="breadcrumb"><a href="/">Toolkit</a><span>/</span><span>{page.group}</span><span>/</span><strong>{short(page)}</strong></div><div class="top-actions"><button class="tool-finder-trigger" type="button" hidden aria-haspopup="dialog" aria-controls="tool-finder" data-tool-finder-open>
-<svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><span>Find a tool</span><kbd aria-hidden="true">Ctrl K</kbd>
-</button><span class="status-tag"><span class="live-dot"/>{workspace?'Private workspace':'Development preview'}</span>{!workspace&&workspaceUrl&&<a class="top-link" href={workspaceUrl}>Private workspace ↗</a>}<a class="top-link" href="/privacy/" aria-label="Privacy and data">Privacy</a></div></header>
-<nav class="mobile-nav" aria-label="Mobile tools"><div class="mobile-brand"><a href="/">Field &amp; Farm</a>{!workspace&&workspaceUrl&&<a class="top-link" href={workspaceUrl}>Private workspace ↗</a>}</div><details><summary><span>Explore all 16 tools</span><span aria-hidden="true">⌄</span></summary><div class="mobile-nav-links">{groups.map(group=><div><strong>{group}</strong>{pages.filter(p=>p.group===group).map(p=><a href={p.path} aria-current={p.path===page.path?'page':undefined}>{short(p)}</a>)}</div>)}</div></details></nav>
-<main id="main" class:list={['content',page.slug===''?'planner-page':'tool-page']}>
-{page.slug===''&&<Tool slug={page.slug} workspace={workspace} client:load/>}
-<div class="page-heading"><div class="heading-icon"><svg aria-hidden="true" viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d={selectedIcon}/></svg></div><div class="heading-copy"><div class="eyebrow">{page.group} / Player tools</div><h1>{page.h1}</h1><p>{page.description}</p></div><div class="heading-meta"><span>LOCAL PROCESSING</span><strong>No ads · No sign-in</strong></div></div>
-<div class="notice"><svg aria-hidden="true" viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="9"/><path d="M12 11v6m0-10v.1"/></svg><div><strong>Development preview.</strong> Manual inputs, original schematic maps and freely licensed decorative graphics. Game data, maps and rules are not verified; results are illustrative.</div></div>
+<div class:list={['journal-shell',page.slug===''?'journal-home':'']}>
+<header class="journal-header">
+ <div class="journal-nav">
+  <a class="journal-brand" href="/"><span class="journal-brandmark" aria-hidden="true">✿</span><span>Field <i>&amp;</i> Farm</span></a>
+  <nav aria-label="Main tools">
+   {pages.filter(p=>['','crop-calculator','tracker'].includes(p.slug)).map(p=><a href={p.path} aria-current={p.path===page.path?'page':undefined}>{short(p)}</a>)}
+  </nav>
+  <div class="journal-actions">
+   <details class="journal-directory"><summary>All tools <span aria-hidden="true">⌄</span></summary>
+    <nav class="journal-directory-grid" aria-label="All tools">{groups.map(group=><div><strong>{group}</strong>{pages.filter(p=>p.group===group).map(p=><a href={p.path} aria-current={p.path===page.path?'page':undefined}>{short(p)}</a>)}</div>)}</nav>
+   </details>
+   <button class="tool-finder-trigger" type="button" hidden aria-haspopup="dialog" aria-controls="tool-finder" data-tool-finder-open aria-label="Find a tool"><span aria-hidden="true" class="journal-search-icon"></span><span>Find a tool</span><kbd aria-hidden="true">Ctrl K</kbd></button>
+  </div>
+ </div>
+</header>
+<main id="main" class:list={['journal-content',page.slug===''?'planner-page':'tool-page']}>
+ <header class:list={['journal-intro', 'journal-'+page.group.toLowerCase()]}>
+  <div class="journal-intro-copy">
+   {page.slug!==''&&<p class="journal-crumb"><a href="/">Tools</a><span aria-hidden="true">/</span>{page.group}</p>}
+   <h1>{page.h1}</h1>
+   <p>{page.description}</p>
+  </div>
+  <div class="journal-emblem" aria-hidden="true"><svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.65" stroke-linecap="round" stroke-linejoin="round"><path d={selectedIcon}/></svg></div>
+ </header>
+ <div class="journal-tool-meta">
+  <span><i aria-hidden="true"></i>{workspace?'Private workspace':'Development preview'}</span>
+  {!workspace&&workspaceUrl&&<a href={workspaceUrl}>Open private workspace <span aria-hidden="true">↗</span></a>}
+ </div>
 {page.slug==='tracker'&&!workspace&&<section class="workspace-entry" aria-label="Private save workspace"><div><h2>Track your own farm</h2><p>Keep your save file on your device. Inspect supported fields and merge recognized collection progress in the separate private workspace.</p><small>{workspaceUrl?'No upload to our servers · no account · no ads':'Private workspace is not connected to this preview yet. Use the individual tools manually below.'}</small></div>{workspaceUrl&&<a href={workspaceUrl}>Open private save workspace</a>}</section>}
-{page.slug!==''&&<Tool slug={page.slug} workspace={workspace} client:load/>}
-<section class="guide"><div class="guide-header"><div class="eyebrow">Toolkit guide</div><h2>{page.guideTitle}</h2><p>{page.guideText}</p></div><div class="guide-steps">{guide.steps.map(([heading,body],i)=><div><span>{String(i+1).padStart(2,'0')}</span><h3>{heading}</h3><p>{body}</p></div>)}</div><div class="tool-example"><h3>Worked example</h3><p>{guide.example}</p></div><div class="tool-faq"><h3>Frequently asked questions</h3>{guide.faq.map(([question,answer])=><details><summary>{question}</summary><p>{answer}</p></details>)}</div><details class="version-details"><summary>Game version &amp; preview limitations</summary><p>1.6: {release.adapters['1.6']}. 1.7: {release.adapters['1.7']}. Approved data and independent test fixtures are required before production release.</p></details></section>
-<section class="related"><div class="eyebrow">Keep exploring</div><h2>Related tools</h2><div class="related-grid">{(related.length?related:pages.filter(p=>p.group===page.group&&p.slug!==page.slug)).map(p=><a href={p.path}><span class="related-icon"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d={icons[p.slug]||icons['']}/></svg></span><div><strong>{short(p)}</strong><small>{p.description}</small></div><span aria-hidden="true">↗</span></a>)}</div></section>
+<Tool slug={page.slug} workspace={workspace} client:load/>
+<details class="journal-preview-note"><summary>Preview data and limitations</summary><p>Built-in farm maps are original practice scenes. Rules and game data may have incomplete coverage. Game version and tool-specific limitations appear in the tool guide.</p></details>
+<div class="journal-reading"><section class="guide"><div class="guide-header"><h2>{page.guideTitle}</h2><p>{page.guideText}</p></div><div class="guide-steps">{guide.steps.map(([heading,body])=><div><h3>{heading}</h3><p>{body}</p></div>)}</div><div class="tool-example"><h3>Worked example</h3><p>{guide.example}</p></div><div class="tool-faq"><h3>Frequently asked questions</h3>{guide.faq.map(([question,answer])=><details><summary>{question}</summary><p>{answer}</p></details>)}</div><details class="version-details"><summary>Game version &amp; preview limitations</summary><p>1.6: {release.adapters['1.6']}. 1.7: {release.adapters['1.7']}. Approved data and independent test fixtures are required before production release.</p></details></section>
+<section class="related"><h2>Related tools</h2><div class="related-grid">{(related.length?related:pages.filter(p=>p.group===page.group&&p.slug!==page.slug)).map(p=><a href={p.path}><span class="related-icon"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d={icons[p.slug]||icons['']}/></svg></span><div><strong>{short(p)}</strong><small>{p.description}</small></div><span aria-hidden="true">↗</span></a>)}</div></section>
 <footer><div>Field &amp; Farm · Independent fan-tool development project.</div><p>Not affiliated with ConcernedApe. No original game assets or third-party advertising scripts. <a href="/art/credits.html">Artwork credits</a> · <a href="/privacy/">Privacy</a></p></footer>
-</main></div></div>
+</div></main></div>
 <dialog id="tool-finder" class="tool-finder" aria-labelledby="tool-finder-heading">
   <div class="tool-finder-header">
     <h2 id="tool-finder-heading">Find a tool</h2>
