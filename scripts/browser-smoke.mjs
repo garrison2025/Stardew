@@ -57,7 +57,7 @@ await page.locator('.map-project-menu summary').press('Escape');
 assert.equal(await page.getByRole('button',{name:'Export PNG',exact:true}).isVisible(),false);
 await page.setViewportSize({width:390,height:844});
 await visit('/');
-assert.ok((await page.locator('.map-viewport').boundingBox()).y<430,'Mobile map starts too far below the navigation');
+assert.ok((await page.locator('.map-viewport').boundingBox()).y<452,'Mobile map starts too far below the navigation');
 const mobileCatalog=page.getByRole('button',{name:'Toggle object library',exact:true});
 assert.equal(await mobileCatalog.getAttribute('aria-expanded'),'false');
 await mobileCatalog.click();

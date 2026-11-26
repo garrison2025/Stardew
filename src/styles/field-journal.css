@@ -230,7 +230,10 @@ body {font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
 .journal-content .map-footer .quick-help[open]>div {top:auto;bottom:calc(100% + 7px);left:0;right:auto}
 .journal-content .map-footer>span {min-width:0}
 @media(max-width:700px){
+ .journal-home .journal-nav {min-height:54px;padding-block:5px}
+ .journal-home .journal-nav>nav {display:none}
  .journal-home .journal-content {padding-top:8px}
+ .journal-home .planner-switch button {font-size:11px}
  .journal-home .journal-intro {padding-block:2px 8px}
  .journal-home .journal-intro p {line-height:1.4}
  .journal-home .journal-intro h1 {font-size:clamp(25px,6.9vw,36px);text-wrap:initial}
