@@ -1,7 +1,7 @@
 import {verifySaveText} from './engine';
 import {SEASONS,type Season} from './map-model';
 import {buildingItem,sprinklerItem,supportedVersion,type FarmRecord,type SaveSnapshot} from './save-model';
-import {normalizeSkillXp,normalizeCrafting,safeCount,type SaveProgress,type NamedCount} from './save-progress';
+import {normalizeSkillXp,normalizeCrafting,normalizeObjectCollection,safeCount,type SaveProgress,type NamedCount} from './save-progress';
 const child=(el:Element|undefined|null,name:string)=>el?Array.from(el.children).find(c=>c.localName===name):undefined;
 const text=(el:Element|undefined|null,name:string)=>child(el,name)?.textContent?.trim()??'';
 const num=(s:string):number|null=>/^-?\d+$/.test(s)&&Number.isSafeInteger(Number(s))?Number(s):null;
@@ -17,11 +17,16 @@ function readProgress(root:Element,player:Element|undefined):SaveProgress{
  const crafts=rows('craftingRecipes'),cooking=rows('cookingRecipes');let crafting:SaveProgress['crafting']=null;
  if(crafts)try{crafting=normalizeCrafting(crafts)}catch{warnings.push('Crafting keys are ambiguous.')}
  if(!crafting)warnings.push('Crafting dictionary absent or unsupported.');
+ const collections:NonNullable<SaveProgress['collections']>={};
+ function objectRows(parent:Element|undefined,name:string,array=false,museum=false):NamedCount[]|null{const el=child(parent,name);if(!el||xsi(el,'nil')==='true'||el.children.length>2000)return null;const result:NamedCount[]=[];for(const entry of Array.from(el.children)){if(entry.localName!=='item')return null;const key=child(entry,'key'),value=child(entry,'value'),k=museum?(text(value,'string')||text(value,'int')):(text(key,'string')||text(key,'int')),count=museum?1:array?num(text(child(value,'ArrayOfInt'),'int')):num(text(value,'int'));if(!k||k.length>160||count===null||count<0)return null;result.push({name:k,count})}return result}
+ const observed=[['shipping',objectRows(player,'basicShipped')],['fishing',objectRows(player,'fishCaught',true)],['cooking',objectRows(player,'recipesCooked')]] as const;
+ for(const [kind,rows] of observed){if(rows)collections[kind]=normalizeObjectCollection(kind,rows);else warnings.push(kind+' records absent or unsupported.')}
+ const museums=Array.from(child(root,'locations')?.children??[]).filter(e=>e.localName==='GameLocation'&&text(e,'name')==='ArchaeologyHouse');const donations=objectRows(museums.length===1?museums[0]:undefined,'museumPieces',false,true);if(donations)collections.museum=normalizeObjectCollection('museum',donations);else warnings.push('Museum donation dictionary absent or unsupported.');
  const walnutsFound=read(root,'goldenWalnutsFound',130),walnutsBalance=read(root,'goldenWalnuts',130);
  if(walnutsFound===null||walnutsBalance===null)warnings.push('Walnut counters absent or outside standard range.');
  if(walnutsFound!==null&&walnutsBalance!==null&&walnutsBalance>walnutsFound)warnings.push('Walnut balance exceeds lifetime count; inspect the save in game.');
  if(Array.from(child(root,'farmhands')?.children??[]).some(e=>e.localName==='Farmer'))warnings.push('Multiplayer save: only the main player is summarized; no combined perfection score.');
- return {xp,money:read(player,'money'),lifetimeEarnings:read(player,'totalMoneyEarned'),walnutsFound,walnutsBalance,crafting,learnedCooking:cooking?.length??null,warnings}
+ return {xp,money:read(player,'money'),lifetimeEarnings:read(player,'totalMoneyEarned'),walnutsFound,walnutsBalance,crafting,learnedCooking:cooking?.length??null,collections,warnings}
 }
 export function parseSave(xml:string):SaveSnapshot{
  verifySaveText(xml);const doc=new DOMParser().parseFromString(xml,'application/xml'),root=doc.documentElement;
