@@ -187,3 +187,26 @@ body {font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
  .journal-home .journal-intro {min-height:92px}
  .journal-home .journal-intro h1 {font-size:clamp(32px,7.5vw,48px)}
 }
+
+.journal-header .tool-finder-trigger kbd {background:#403c59;color:#fff5ef}
+.journal-content .immersive-studio .map-actions .map-action-group button[aria-expanded="true"] {
+ background-color:#595170;border-color:#8b7ba4;color:#fff7ef
+}
+.journal-content .map-footer {display:flex;align-items:center;gap:12px}
+.journal-content .map-footer .quick-help {flex:none;margin:0}
+.journal-content .map-footer .quick-help summary {
+ min-height:35px;padding:5px 9px;background:#423d58;color:#faf1f5;border-color:#746684
+}
+.journal-content .map-footer .quick-help[open]>div {top:auto;bottom:calc(100% + 7px);left:0;right:auto}
+.journal-content .map-footer>span {min-width:0}
+@media(max-width:700px){
+ .journal-home .journal-intro {padding-block:12px}
+ .journal-home .journal-emblem {display:none}
+ .journal-home .journal-tool-meta {min-height:32px}
+ .journal-home .immersive-studio .map-title {
+  position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap
+ }
+ .journal-home .immersive-studio .map-header {min-height:0;padding-block:6px}
+ .journal-content .map-footer {align-items:flex-start}
+ .journal-content .map-footer .quick-help summary {min-height:44px}
+}
