@@ -14,7 +14,7 @@ export function proposeIrrigation(plan:Plan,itemId:SprinklerId,limit:number):Irr
  const x=crop.x+dx,y=crop.y+dy,k=posKey(x,y),t=terrainAt(plan.map,x,y);if((t!=='grass'&&t!=='soil')||occupied.has(k))continue;
  let c=candidates.get(k);if(!c){c={x,y,targets:new Set()};candidates.set(k,c)}c.targets.add(target);
  }}
- for(let n=0;n<limit&&missing.size;n++){
+ for(let n=0;n<Math.min(limit,4096-plan.objects.length)&&missing.size;n++){
  let best:{x:number;y:number;targets:Set<string>}|undefined,gain=0;
  for(const c of candidates.values()){let score=0;for(const target of c.targets)if(missing.has(target))score++;if(score>gain||score===gain&&score>0&&best&&(c.y<best.y||c.y===best.y&&c.x<best.x)){gain=score;best=c}}
  if(!best||!gain)break;

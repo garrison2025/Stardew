@@ -14,3 +14,6 @@ export async function writeSceneBook(expected:number|null,value:{revision:number
  t.oncomplete=()=>resolve();t.onabort=()=>reject(problem||t.error||Error('Local project write aborted'));t.onerror=()=>reject(t.error||Error('Local project write failed'));
  });}finally{db.close()}
 }
+
+// Replace only after full schema validation by caller; a single read-write transaction preserves old data on failure.
+export async function restoreProjects(records:Record<string,unknown>){const db=await openDb();try{await new Promise<void>((resolve,reject)=>{const t=db.transaction('projects','readwrite'),store=t.objectStore('projects');const r=store.get('scene-book-v1');r.onsuccess=()=>{const existing=r.result?.revision;const next={...records};const book=next['scene-book-v1'] as {revision:number}|undefined;if(book){const revision=Math.max(Number.isSafeInteger(existing)?existing:0,book.revision)+1;if(!Number.isSafeInteger(revision)){t.abort();return}next['scene-book-v1']={...book,revision}}store.clear();for(const [key,value] of Object.entries(next))store.put(value,key)};t.oncomplete=()=>resolve();t.onerror=()=>reject(t.error||Error('Restore failed'));t.onabort=()=>reject(t.error||Error('Restore aborted'))});}finally{db.close()}}
