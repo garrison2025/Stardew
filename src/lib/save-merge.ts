@@ -1,9 +1,12 @@
+import {observationsOf,decodeSaveObservations,SAVE_OBSERVATIONS_KEY} from './save-observations.ts';
 import type {SaveProgress} from './save-progress.ts';
 import {emptyCollection,decodeCollection,setCollection,type CatalogKind} from './game-collections.ts';
 import {emptyMuseum,decodeMuseum,setMuseumItem} from './museum-progress.ts';
 /** Positive observations only. Existing completions survive partial imports; no raw save data is persisted. */
 export function saveMergeUpdates(progress:SaveProgress){
  const updates:Record<string,(old:unknown)=>unknown>={};
+ const observed=observationsOf(progress);
+ if(observed.xp!==null||observed.lifetimeEarnings!==null||observed.walnutsFound!==null||observed.walnutsBalance!==null)updates[SAVE_OBSERVATIONS_KEY]=old=>{if(old!==undefined)decodeSaveObservations(old);return observed};
  const craft=progress.crafting;
  if(craft?.known.length)updates['collection-v1:crafting']=old=>{
   let state=old===undefined?emptyCollection('crafting'):decodeCollection('crafting',old);

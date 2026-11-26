@@ -1,3 +1,4 @@
+import {decodeSaveObservations,SAVE_OBSERVATIONS_KEY} from './save-observations.ts';
 import {decodeLayout,decodeLibrary} from './layout.ts';
 import {decodePlan} from './map-model.ts';
 import {decodeBook,latestPlan} from './scene-projects.ts';
@@ -14,6 +15,7 @@ export function decodeBackup(raw:unknown){const v=object(raw);if(v.schema!==1||t
  for(const [k,r] of Object.entries(records)){try{if(k==='layout')out[k]=decodeLayout(r);else if(k==='layout-library')out[k]=decodeLibrary(r);else if(k==='scene-plan-v2')out[k]=decodePlan(r);else if(k==='scene-book-v1')out[k]=decodeBook(r);else if(k==='indoor-layouts-v1'){const rooms=object(r),clean:Record<string,unknown>=Object.create(null);for(const [id,room] of Object.entries(rooms)){const d=decodeInterior(room);if(d.room!==id)throw Error('Room ID mismatch');clean[id]=d}out[k]=clean}
  else if(k==='standard-bundles-v1')out[k]=decodeBundleState(r);else if(k==='museum-progress-v1')out[k]=decodeMuseum(r);else if(k==='walnut-progress-v1')out[k]=decodeWalnuts(r);
  else if(['cooking','crafting','shipping','fishing'].some(kind=>k==='collection-v1:'+kind))out[k]=decodeCollection(k.slice(14) as CatalogKind,r);
+ else if(k===SAVE_OBSERVATIONS_KEY)out[k]=decodeSaveObservations(r);
  else if(k==='skills-v1'){const a=object(r);if(!Array.isArray(a.xp)||a.xp.length!==5||typeof a.mastery!=='number')throw Error('Invalid skills');a.xp.forEach(n=>levelAt(n));levelAt(a.mastery,MASTERY);out[k]={xp:a.xp,mastery:a.mastery}}
  else if(k==='perfection-v1'){const a=object(r),values=object(a.values);if(typeof a.waivers!=='number'||Object.keys(values).some(id=>!PERFECTION.some(p=>p.id===id)))throw Error('Invalid perfection');perfection(values as Record<string,number>,a.waivers);out[k]={values,waivers:a.waivers}}
  else if(checklists.has(k))out[k]=legacy(r);else throw Error('Unknown backup record')}catch(e){throw Error(k+': '+String(e))}}
