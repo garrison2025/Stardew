@@ -84,7 +84,7 @@ export function decodeMap(input:unknown):FarmMap{
 }
 export function decodePlan(input:unknown):Plan{
  const v=input as Partial<Plan>|null;if(!v||v.schema!==2||!v.map||!SEASONS.includes(v.season as Season)||!Array.isArray(v.objects)||v.objects.length>4096)throw Error('Invalid scene plan');
- const map=v.map.source==='original'?originalMap(v.map.id):decodeMap(v.map);const result:Placed[]=[],ids=new Set<string>();
+ if(v.map.source!=='original'&&v.map.source!=='local')throw Error('Unknown map source');const map=v.map.source==='original'?originalMap(v.map.id):decodeMap(v.map);const result:Placed[]=[],ids=new Set<string>();
  for(const o of v.objects){if(!o||typeof o.id!=='string'||o.id.length>100||ids.has(o.id)||!itemById.has(o.itemId)||!Number.isInteger(o.x)||!Number.isInteger(o.y)||(o.rotation!==0&&o.rotation!==1))throw Error('Invalid object');const clean:Placed={id:o.id,itemId:o.itemId,x:o.x,y:o.y,rotation:o.rotation};const error=placementError(map,result,clean);if(error)throw Error(error);result.push(clean);ids.add(o.id)}return {schema:2,map,season:v.season!,objects:result}
 }
 
