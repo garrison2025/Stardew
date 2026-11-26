@@ -24,7 +24,7 @@ export default function PredictorTool({workspace}:{workspace:boolean}){
  }
  return <section className="panel rule-tool">
  <h2>Geode opener · PC 1.6.15 reference</h2>
- <p className="muted">Experimental results for unmodded Clint openings. Compared against the upstream reference algorithm. Independent in-game fixtures are pending. Geode Crushers and other containers are outside this model.</p>
+ <p className="muted">Experimental results for unmodded Clint openings. Compared against the upstream reference algorithm. Independent in-game fixtures are pending. Geode Crushers and other containers are outside this model. <a href="/licenses/mouseypounds.txt">Reference attribution and license</a></p>
  <p>{workspace?'Keep IDs local. In the main save, use uniqueIDForThisGame and the selected farmer’s UniqueMultiplayerID. Enter that farmer’s geodesCracked total and deepest Mines floor.':'This preview uses example IDs. Use the separate private workspace for your own save identifiers.'}</p>
  <div className="formgrid">
  {workspace&&<><label>Game ID<input inputMode="numeric" maxLength={21} autoComplete="off" value={input.gameId} onChange={e=>change('gameId',e.target.value)}/></label>
