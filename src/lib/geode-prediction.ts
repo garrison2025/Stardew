@@ -1,6 +1,6 @@
 // Geode roll order and compatibility reference adapted from MouseyPounds/stardew-predictor
 // stardew-predictor.js blob f84c2b30a32a04c3485ddabfba2be57cb0cde596.
-// See docs/MOUSEYPOUNDS-LICENSE.txt. No upstream scripts, art or network requests.
+// See public/licenses/mouseypounds.txt. No upstream scripts, art or network requests.
 export const GEODE_TYPES=['Geode','Frozen Geode','Magma Geode','Omni Geode','Artifact Trove'] as const;
 export type GeodeType=typeof GEODE_TYPES[number];
 export type GeodeInput={gameId:string;playerId:string;opened:number;mineLevel:number;legacy:boolean;qiBeans:boolean};
