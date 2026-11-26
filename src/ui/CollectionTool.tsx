@@ -7,6 +7,9 @@ import MaterialPlanner from './MaterialPlanner';
 export default function CollectionTool({kind,workspace}:{kind:CatalogKind;workspace:boolean}){
  const items=CATALOGS[kind],recipe=kind==='cooking'||kind==='crafting',key='collection-v1:'+kind;
  const [state,setState]=useState(()=>emptyCollection(kind)),[ready,setReady]=useState(!workspace),[busy,setBusy]=useState(false),[query,setQuery]=useState(''),[filter,setFilter]=useState('all'),[season,setSeason]=useState('all'),[fishLocation,setFishLocation]=useState(''),[fishWeather,setFishWeather]=useState('all'),[fishTime,setFishTime]=useState(''),[fishMethod,setFishMethod]=useState('all'),[fishUnknown,setFishUnknown]=useState(true),[batches,setBatches]=useState<Record<string,number>>({}),[message,setMessage]=useState(''),[error,setError]=useState(''),[preview,setPreview]=useState<CollectionState|null>(null);const failed=useRef(false);
+ useEffect(()=>{
+  if(workspace&&window.location.hash==='#unfinished')setFilter('missing');
+ },[workspace]);
  useEffect(()=>{if(!workspace)return;let live=true;readLocal<unknown>(key).then(v=>{if(live&&v!==undefined){setState(decodeCollection(kind,v));setMessage('Collection restored')}}).catch(e=>{if(live){failed.current=true;setError(String(e))}}).finally(()=>{if(live)setReady(true)});return()=>{live=false}},[workspace,key,kind]);
  const timeMinutes=fishTime===''?null:Number(fishTime)*60;
  const done=new Set(state.done),known=new Set(state.known),visible=items.filter(i=>(filter==='all'||filter==='done'&&done.has(i.name)||filter==='missing'&&!done.has(i.name)||filter==='known'&&known.has(i.name)&&!done.has(i.name))&&(season==='all'||i.seasons?.includes(season))&&(kind!=='fishing'||matchesFishReference(i,{location:fishLocation,weather:fishWeather,time:timeMinutes,includeUnknown:fishUnknown,method:fishMethod}))&&(i.name+' '+(i.hint||'')+' '+(i.ingredients||[]).map(v=>v.name).join(' ')).toLowerCase().includes(query.toLowerCase()));

@@ -8,6 +8,9 @@ const KEY='museum-progress-v1';
 function Token({item}:{item:MuseumItem}){const c=item.kind==='artifact'?'#bc9871':item.kind==='gem'?'#79a9a0':item.kind==='foraged'?'#a7c4d0':'#9b8bac';return <svg viewBox="0 0 32 32" aria-hidden="true" shapeRendering="crispEdges"><rect x="3" y="25" width="26" height="3" fill="#45503b22"/>{item.kind==='artifact'?<><path d="M8 7H24V11H27V25H5V11H8Z" fill="#765d44"/><rect x="9" y="9" width="14" height="14" fill={c}/><path d="M9 12h14M9 20h14" stroke="#e6c9a0" strokeWidth="2"/></>:<><path d="M9 3H23L29 13 16 28 3 13Z" fill={c} stroke="#51695e" strokeWidth="1"/><path d="M9 3 12 13 16 28 22 13 23 3M3 13H29" stroke="#edf4db" fill="none" opacity=".8"/></>}</svg>}
 export default function MuseumTracker({workspace}:{workspace:boolean}){
  const [state,setState]=useState(emptyMuseum),[ready,setReady]=useState(!workspace),[saving,setSaving]=useState(false),[query,setQuery]=useState(''),[kind,setKind]=useState('all'),[filter,setFilter]=useState('all'),[source,setSource]=useState<Source|'all'>('all'),[message,setMessage]=useState(''),[error,setError]=useState(''),[preview,setPreview]=useState<MuseumState|null>(null),[rewardsOpen,setRewardsOpen]=useState(false);const failed=useRef(false);
+ useEffect(()=>{
+  if(workspace&&window.location.hash==='#unfinished')setFilter('undonated');
+ },[workspace]);
  useEffect(()=>{if(!workspace)return;let live=true;readLocal<unknown>(KEY).then(v=>{if(live&&v!==undefined){setState(decodeMuseum(v));setMessage('Museum progress restored')}}).catch(e=>{if(live){failed.current=true;setError(String(e))}}).finally(()=>{if(live)setReady(true)});return()=>{live=false}},[workspace]);
  const stats=useMemo(()=>museumStats(state),[state]),rewards=useMemo(()=>museumRewards(state),[state]);
  const found=new Set(state.found),donated=new Set(state.donated),status=(id:string)=>donated.has(id)?'donated':found.has(id)?'found':'missing';

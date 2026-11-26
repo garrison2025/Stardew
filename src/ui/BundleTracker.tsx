@@ -10,6 +10,9 @@ function SlotRow({slot,value,disabled,onChange}:{slot:Slot;value:number;disabled
 export default function BundleTracker({workspace}:{workspace:boolean}){
  const [state,setState]=useState(emptyBundleState),[ready,setReady]=useState(!workspace),[saving,setSaving]=useState(false),[room,setRoom]=useState<RoomId|'all'>('all'),[search,setSearch]=useState(''),[statusFilter,setStatusFilter]=useState('all'),[season,setSeason]=useState<Season|'all'>('all'),[message,setMessage]=useState(''),[error,setError]=useState(''),[preview,setPreview]=useState<BundleState|null>(null);
  const failed=useRef(false),dirty=useRef(false);
+ useEffect(()=>{
+  if(workspace&&window.location.hash==='#unfinished')setStatusFilter('open');
+ },[workspace]);
  useEffect(()=>{if(!workspace)return;let live=true;readLocal<unknown>(KEY).then(v=>{if(live&&v!==undefined){setState(decodeBundleState(v));setMessage('Bundle progress restored')}}).catch(e=>{if(live){failed.current=true;setError(String(e))}}).finally(()=>{if(live)setReady(true)});return()=>{live=false}},[workspace]);
  const totals=useMemo(()=>overview(state),[state]);
  function change(id:string,n:number){if(!ready||saving)return;try{setState(setDonation(state,id,n));dirty.current=true;setMessage('Unsaved progress');setError('')}catch(e){setError(String(e))}}

@@ -268,3 +268,13 @@ body {font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
  .journal-content .map-view-controls label {grid-column:span 3}
  .journal-content .map-view-controls button {grid-column:span 2}
 }
+
+.journal-content .screenshot-bounds {
+  display:block;max-width:100%;height:auto;border-radius:5px;
+  touch-action:none;cursor:crosshair;user-select:none
+}
+.journal-content .tracker-review {
+  display:inline-flex;align-items:center;align-self:flex-start;
+  min-height:44px;color:var(--green-deep);font-size:14px;font-weight:650;
+  text-underline-offset:3px
+}
