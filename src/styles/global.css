@@ -107,3 +107,34 @@ footer{border-top:1px solid var(--border);padding:20px 0 27px;color:var(--muted)
 .save-preview{padding:9px;background:#edf4e8;border:1px solid #d5e4cd;border-radius:8px;font-size:11px;overflow-wrap:anywhere}.save-preview p{margin:5px 0}.save-preview button{width:100%;font-size:10px;margin-top:5px;min-height:32px}.save-issues{max-height:130px;overflow:auto}.save-issues>div{padding:4px 0;border-bottom:1px solid #d5e4cd}
 
 .seasonal-crops .crop-season-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin:16px 0}.crop-season-tabs button{text-transform:capitalize;padding:8px 4px}.crop-checks{display:grid;gap:7px;margin:10px 0 15px;font-size:13px}.crop-checks label{display:flex;align-items:center;gap:8px}.crop-checks input{min-height:18px;width:18px;accent-color:var(--green);margin:0}.crop-link-panel{background:#f1f6ed;border:1px solid var(--border);padding:12px;border-radius:10px;margin:12px 0;font-size:12px}.crop-link-panel a{margin-left:10px}.crop-link-panel p{margin:6px 0}.crop-count-tag{display:inline-block;background:#e0ebda;padding:3px 6px;border-radius:5px;margin:2px}.crop-allocation{border:1px solid var(--border);border-radius:9px;padding:12px;margin:9px 0}.crop-allocation strong,.crop-allocation small{display:block}.crop-allocation small{color:var(--muted);font-size:11px}.crop-days{display:grid;grid-template-columns:repeat(14,minmax(0,1fr));gap:3px;margin-top:9px}.crop-days span{font-size:10px;line-height:25px;text-align:center;background:#f0f3ed;border-radius:4px;color:#677968}.crop-days .harvest{background:#d9eacb;color:#285c42;font-weight:700}.crop-days .past{opacity:.45}.crop-ranking-title{margin-top:24px}.crop-color{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px}.seasonal-crops details{font-size:12px;color:var(--muted)}.seasonal-crops summary{cursor:pointer;font-weight:650;color:var(--ink)}.seasonal-crops details p{margin-top:8px}.seasonal-crops .tablewrap{max-width:100%}@media(max-width:650px){.crop-days span{line-height:23px;font-size:9px}.crop-season-tabs button{font-size:12px}.seasonal-crops .tablewrap table{min-width:480px}}
+
+/* Map-first immersive layout: panels are optional, never cover drawing coordinates. */
+.map-home .planner-page>.page-heading{margin-top:24px}
+.immersive-studio{border-radius:10px;background:#1e2b25;border-color:#344a3b;box-shadow:0 8px 24px #14291d24}
+.immersive-studio .map-header,.immersive-studio .map-toolbar{background:#24382e;color:#ecf2e7;border-color:#3c5143}
+.immersive-studio .map-title small,.immersive-studio .map-zoom span{color:#c1cfbf}
+.immersive-studio .map-header button,.immersive-studio .map-toolbar button{background:#31483a;color:#eaf0e5;border-color:#506452}
+.immersive-studio .map-header button[aria-expanded=true],.immersive-studio .map-toolbar button[aria-pressed=true]{background:#c8d9aa;color:#20382c;border-color:#d7e6b9}
+.immersive-studio .map-header button.primary{background:#d4e2b7;color:#20382c;border-color:#d4e2b7}
+.immersive-studio .map-header button:hover:not(:disabled),.immersive-studio .map-toolbar button:hover:not(:disabled){background:#aec697;color:#20382c}
+.immersive-studio .map-workspace{display:grid;grid-template-columns:minmax(0,1fr);align-items:start}
+.immersive-studio .map-workspace.catalog-open{grid-template-columns:200px minmax(0,1fr)}
+.immersive-studio .map-workspace.inspector-open{grid-template-columns:minmax(0,1fr) 228px}
+.immersive-studio .map-workspace.catalog-open.inspector-open{grid-template-columns:200px minmax(0,1fr) 228px}
+.immersive-studio [hidden]{display:none!important}
+.immersive-studio .map-inspector,.immersive-studio .map-catalog{max-height:calc(100dvh - 145px);grid-column:auto;display:flex;flex-direction:column}
+.immersive-studio .map-catalog{background:#f2f5eb}.immersive-studio .map-section{border-right:0}
+.immersive-studio .map-toolbar{gap:8px}.map-batch{display:flex;gap:4px;flex-wrap:wrap}
+.immersive-studio .map-viewport{height:clamp(460px,calc(100dvh - 220px),1200px)}
+.immersive-studio.map-focus .map-viewport{height:clamp(400px,calc(100dvh - 155px),1200px)}
+.immersive-studio .map-bottom{min-height:32px}.immersive-studio .map-footer{background:#25382e;color:#c2d0c0;border-color:#3c5143}
+.map-minimap{position:absolute;right:12px;bottom:12px;width:170px;background:#182c23e8;color:#e8f1df;border:1px solid #81947b;border-radius:8px;padding:4px;box-shadow:0 4px 15px #12281b55}
+.map-minimap>div{display:flex;align-items:center;justify-content:space-between;font-size:10px;padding:0 3px 3px}
+.map-minimap button{min-height:23px;padding:0 7px;font-size:12px;background:#31483a;color:white;border-color:#526653}
+.map-minimap canvas{display:block;width:160px;max-width:100%;height:auto;cursor:crosshair;image-rendering:pixelated;border-radius:3px}
+.mini-show{position:absolute;bottom:10px;right:10px;background:#31483a;color:white;border-color:#71846e;font-size:11px}
+.immersive-studio .landscape-thumb{width:61px;height:41px;object-fit:contain;image-rendering:pixelated;background:none}
+.immersive-studio .landscape-list button{min-height:52px}
+@media(min-width:901px){.map-home .content{padding-top:9px;padding-inline:12px;max-width:none}.map-home .planner-switch{margin-bottom:6px}}
+@media(max-width:1000px){.immersive-studio .map-workspace.catalog-open{grid-template-columns:155px minmax(0,1fr)}.immersive-studio .map-workspace.inspector-open{grid-template-columns:minmax(0,1fr) 190px}.immersive-studio .map-workspace.catalog-open.inspector-open{grid-template-columns:155px minmax(0,1fr) 190px}}
+@media(max-width:700px){.immersive-studio .map-workspace,.immersive-studio .map-workspace.catalog-open,.immersive-studio .map-workspace.inspector-open,.immersive-studio .map-workspace.catalog-open.inspector-open{display:flex;flex-direction:column}.immersive-studio .map-center,.immersive-studio .map-catalog,.immersive-studio .map-inspector{width:100%;max-height:none}.immersive-studio .map-inspector{display:grid;grid-template-columns:1fr 1fr}.immersive-studio .map-viewport{height:clamp(340px,calc(100dvh - 285px),700px)}.immersive-studio.map-focus .map-viewport{height:54dvh}.map-minimap{width:108px;right:7px;bottom:7px}.map-minimap canvas{width:98px}.map-minimap>div{font-size:8px}.map-minimap button{min-height:20px}.immersive-studio .map-header button{flex:1 1 20%}.immersive-studio .map-toolbar button{min-height:36px}.immersive-studio .map-toolbar{gap:4px}.immersive-studio .map-title small{font-size:10px}}

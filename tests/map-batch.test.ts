@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {newPlan,blankLocalMap,paintTerrain,type Plan} from '../src/lib/map-model.ts';import {selectRect,copyObjects,pasteObjects,fillRect} from '../src/lib/map-batch.ts';
+const base=():Plan=>({...newPlan(),map:blankLocalMap(16,16),objects:[{id:'barn',itemId:'game-barn',x:4,y:4,rotation:0}]});
+test('box selects intersecting multi-tile objects',()=>{assert.deepEqual(selectRect(base(),{from:{x:10,y:7},to:{x:10,y:7}}),['barn'])});
+test('paste is atomic and preserves relative offsets',()=>{const p=base(),c=copyObjects(p,new Set(['barn']));assert.equal(c[0].x,0);assert.throws(()=>pasteObjects(p,c,{x:4,y:4}));assert.equal(p.objects.length,1);assert.equal(pasteObjects(p,c,{x:0,y:10}).objects.length,2)});
+test('fill skips blocked and occupied tiles',()=>{const p=paintTerrain(base(),{x:1,y:1},'water');const result=fillRect(p,{from:{x:0,y:0},to:{x:1,y:1}},'seedling',0);assert.equal(result.added,3);assert.equal(result.skipped,1);assert.equal(p.objects.length,1);assert.throws(()=>fillRect(p,{from:{x:0,y:0},to:{x:1,y:1}},'game-barn',0))});
