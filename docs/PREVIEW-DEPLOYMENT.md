@@ -6,3 +6,6 @@ CI checks total compressed JS/CSS, maximum compressed HTML, and bundled PNG size
 
 ## Actual public preview
 Owner-provided deployment: https://stardew-67b.pages.dev/ . Public tracker requires a separately deployed private workspace URL; never point both builds at the same origin. Set PUBLIC_SITE_ORIGIN to the actual public HTTPS origin and PUBLIC_WORKSPACE_ORIGIN to the distinct private HTTPS origin. The public build now emits a build-revision meta tag when Cloudflare or GitHub provides a valid commit SHA, so deployed HTML can be compared with the intended commit. No production indexing or ads were enabled.
+
+## Public-only live acceptance
+The public preview can be audited independently before the private deployment exists: `npm run audit:live -- https://stardew-67b.pages.dev`. Add the private HTTPS origin when available and `--revision FULL_SHA` to require a particular deployed commit. The audit validates consistent revision metadata across every tool, CSP network isolation, noindex, assets, 404 and save-input separation; the dual-origin check also requires the public tracker link to the private tracker. The dedicated Live public preview acceptance workflow runs the public audit when its code changes and supports manual execution. A public-only pass does not imply private deployment or production release approval.

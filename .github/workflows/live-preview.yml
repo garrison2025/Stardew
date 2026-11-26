@@ -1,0 +1,36 @@
+name: Live public preview acceptance
+on:
+  pull_request:
+    paths:
+      - 'scripts/audit-live-preview.mjs'
+      - '.github/workflows/live-preview.yml'
+  workflow_dispatch:
+    inputs:
+      private_origin:
+        description: 'Optional distinct private HTTPS origin'
+        required: false
+        type: string
+      expected_revision:
+        description: 'Optional full deployed commit SHA'
+        required: false
+        type: string
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Audit real Cloudflare Pages deployment
+        env:
+          PRIVATE_ORIGIN: ${{ inputs.private_origin }}
+          EXPECTED_REVISION: ${{ inputs.expected_revision }}
+        run: |
+          args=(https://stardew-67b.pages.dev)
+          if [[ -n "$PRIVATE_ORIGIN" ]]; then args+=("$PRIVATE_ORIGIN"); fi
+          if [[ -n "$EXPECTED_REVISION" ]]; then args+=(--revision "$EXPECTED_REVISION"); fi
+          node scripts/audit-live-preview.mjs "${args[@]}"
