@@ -1,0 +1,9 @@
+import fs from 'node:fs';import path from 'node:path';import assert from 'node:assert/strict';import {spawnSync} from 'node:child_process';import {approvedOrigins,activateSeo,sitemapFor,canonicalFor} from './production-seo.mjs';
+const release=JSON.parse(fs.readFileSync('src/config/release.json','utf8')),pages=JSON.parse(fs.readFileSync('src/config/pages.json','utf8'));
+const origins=approvedOrigins(release,pages,process.env.PUBLIC_SITE_ORIGIN,process.env.PUBLIC_WORKSPACE_ORIGIN);
+const build=spawnSync(process.platform==='win32'?'npm.cmd':'npm',['run','build'],{stdio:'inherit',env:{...process.env,PUBLIC_SITE_ORIGIN:origins.publicOrigin,PUBLIC_WORKSPACE_ORIGIN:origins.workspaceOrigin}});if(build.status!==0)process.exit(build.status??1);
+const target='dist-production';fs.rmSync(target,{recursive:true,force:true});fs.cpSync('dist',target,{recursive:true});
+for(const p of pages){const file=path.join(target,p.slug,'index.html'),html=activateSeo(fs.readFileSync(file,'utf8'),p,origins.publicOrigin);assert.ok(html.includes(canonicalFor(p,origins.publicOrigin))&&!html.includes('noindex,nofollow'));fs.writeFileSync(file,html)}
+const header=path.join(target,'_headers');const headers=fs.readFileSync(header,'utf8').replace(/^\s*X-Robots-Tag:\s*noindex,\s*nofollow\s*$/im,'');assert.ok(!/X-Robots-Tag:\s*noindex/i.test(headers));fs.writeFileSync(header,headers+'\n/privacy/*\n  X-Robots-Tag: noindex, nofollow\n/404.html\n  X-Robots-Tag: noindex, nofollow\n');
+fs.writeFileSync(path.join(target,'sitemap.xml'),sitemapFor(pages,origins.publicOrigin));fs.writeFileSync(path.join(target,'robots.txt'),'User-agent: *\nAllow: /\nSitemap: '+origins.publicOrigin+'/sitemap.xml\n');
+console.log('Generated approved public-only dist-production. Deploy only after verifying custom-domain routing, private isolation, canonical headers and actual release evidence. Default dist and dist-workspace remain noindex.');

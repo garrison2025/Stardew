@@ -9,3 +9,6 @@ Owner-provided deployment: https://stardew-67b.pages.dev/ . Public tracker requi
 
 ## Public-only live acceptance
 The public preview can be audited independently before the private deployment exists: `npm run audit:live -- https://stardew-67b.pages.dev`. Add the private HTTPS origin when available and `--revision FULL_SHA` to require a particular deployed commit. The audit validates consistent revision metadata across every tool, CSP network isolation, noindex, assets, 404 and save-input separation; the dual-origin check also requires the public tracker link to the private tracker. The dedicated Live public preview acceptance workflow runs the public audit when its code changes and supports manual execution. A public-only pass does not imply private deployment or production release approval.
+
+## Guarded production output
+After all approval evidence is recorded and the real apex / app origins are configured, `npm run build:production` can generate a separate `dist-production` output. The default `npm run build` and workspace build remain preview/noindex. The command currently refuses to run. The Cloudflare Pages project must serve the approved custom domain and redirect the pages.dev mirror and www correctly; do not use the guarded output on an unapproved host. No ads are included. Run full live acceptance on the actual domains before advertising.
