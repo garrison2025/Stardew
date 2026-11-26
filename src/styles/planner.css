@@ -35,7 +35,7 @@
 .map-action-group { display: flex; align-items: center; gap: 4px; }
 .immersive-studio .map-history button { min-width: 34px; font-size: 16px; line-height: 1; }
 
-.map-project-menu { position: relative; }
+.map-project-menu { position: relative; flex: none; }
 .map-project-menu summary {
   display: flex;
   align-items: center;
@@ -50,6 +50,7 @@
   font-size: 12px;
   font-weight: 700;
   list-style: none;
+  white-space: nowrap;
   cursor: pointer;
 }
 .map-project-menu summary::-webkit-details-marker { display: none; }
@@ -147,7 +148,8 @@
   .immersive-studio .map-actions { width: 100%; justify-content: space-between; flex-wrap: nowrap; gap: 4px; }
   .immersive-studio .map-actions button,
   .map-project-menu summary { min-height: 44px; }
-  .immersive-studio .map-actions button { padding-inline: 6px; font-size: 11px; }
+  .immersive-studio .map-actions button { padding-inline: 5px; font-size: 11px; }
+  .immersive-studio .map-action-group { flex: none; }
   .immersive-studio .map-history button { min-width: 32px; font-size: 16px; }
   .map-project-menu summary { padding-inline: 7px; font-size: 11px; }
   .immersive-studio .map-quickbar { padding: 5px; }
@@ -173,6 +175,7 @@
 }
 .tool-finder-trigger[hidden], .tool-finder-results li[hidden] { display: none; }
 .tool-finder-trigger kbd {
+  position: static;
   padding: 2px 4px;
   border: 1px solid var(--border);
   border-radius: 4px;

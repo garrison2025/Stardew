@@ -16,7 +16,7 @@ if (finder?.showModal && finderTrigger) {
     matches = entries.filter(({ search }) => terms.every(term => search.includes(term)));
     const matchingEntries = new Set(matches);
     for (const entry of entries) entry.element.hidden = !matchingEntries.has(entry);
-    status.textContent = matches.length ? `${matches.length} tools found` : 'No tools match your search.';
+    status.textContent = matches.length ? `${matches.length} ${matches.length === 1 ? 'tool' : 'tools'} found` : 'No tools match your search.';
     finder.querySelector('ul').scrollTop = 0;
   }
 
@@ -40,6 +40,11 @@ if (finder?.showModal && finderTrigger) {
   });
 
   finder.addEventListener('keydown', event => {
+    if (event.key === 'Escape') {
+      event.preventDefault();
+      finder.close();
+      return;
+    }
     const activeIndex = matches.findIndex(({ link }) => link === event.target);
     if (event.target !== query && activeIndex === -1) return;
     if (event.target === query && event.key === 'Enter' && matches.length) {
