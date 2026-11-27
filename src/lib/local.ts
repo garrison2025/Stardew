@@ -1,5 +1,6 @@
-const DB='field-and-farm-preview';
-function openDb():Promise<IDBDatabase>{return new Promise((resolve,reject)=>{const r=indexedDB.open(DB,1);r.onupgradeneeded=()=>r.result.createObjectStore('projects');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
+import {activeFarm,farmDatabaseName} from './farm-profiles.ts';
+import {SAVE_BINDING_KEY,keepSaveBinding} from './save-binding.ts';
+function openDb():Promise<IDBDatabase>{return new Promise((resolve,reject)=>{const r=indexedDB.open(farmDatabaseName(activeFarm().id),1);r.onupgradeneeded=()=>r.result.createObjectStore('projects');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
 export async function readLocal<T>(key:string):Promise<T|undefined>{const db=await openDb();try{return await new Promise((resolve,reject)=>{const r=db.transaction('projects','readonly').objectStore('projects').get(key);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}finally{db.close();}}
 export async function writeLocal(key:string,value:unknown){const db=await openDb();try{await new Promise<void>((resolve,reject)=>{const t=db.transaction('projects','readwrite');t.objectStore('projects').put(value,key);t.oncomplete=()=>resolve();t.onerror=()=>reject(t.error);t.onabort=()=>reject(t.error);});}finally{db.close();}}
 export function download(name:string,content:string,type='application/json'){const url=URL.createObjectURL(new Blob([content],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
@@ -19,4 +20,36 @@ export async function writeSceneBook(expected:number|null,value:{revision:number
 export async function restoreProjects(records:Record<string,unknown>){const db=await openDb();try{await new Promise<void>((resolve,reject)=>{const t=db.transaction('projects','readwrite'),store=t.objectStore('projects');const r=store.get('scene-book-v1');r.onsuccess=()=>{const existing=r.result?.revision;const next={...records};const book=next['scene-book-v1'] as {revision:number}|undefined;if(book){const revision=Math.max(Number.isSafeInteger(existing)?existing:0,book.revision)+1;if(!Number.isSafeInteger(revision)){t.abort();return}next['scene-book-v1']={...book,revision}}store.clear();for(const [key,value] of Object.entries(next))store.put(value,key)};t.oncomplete=()=>resolve();t.onerror=()=>reject(t.error||Error('Restore failed'));t.onabort=()=>reject(t.error||Error('Restore aborted'))});}finally{db.close()}}
 
 // Read/validate/merge each independent collection in one transaction; errors leave all existing records unchanged.
-export async function mergeLocalRecords(updates:Record<string,(old:unknown)=>unknown>){const db=await openDb();try{await new Promise<void>((resolve,reject)=>{const t=db.transaction('projects','readwrite'),store=t.objectStore('projects');let problem:unknown;for(const [key,fn] of Object.entries(updates)){const r=store.get(key);r.onsuccess=()=>{try{store.put(fn(r.result),key)}catch(e){problem=e;t.abort()}}}t.oncomplete=()=>resolve();t.onabort=()=>reject(problem||t.error||Error('Merge aborted'));t.onerror=()=>reject(problem||t.error||Error('Merge failed'))});}finally{db.close()}}
+export async function mergeLocalRecords(updates: Record<string, (old: unknown) => unknown>, fingerprint: string | null = null) {
+ const allowAnonymous = activeFarm().id === 'default';
+ const db = await openDb();
+ try {
+  await new Promise<void>((resolve, reject) => {
+   const transaction = db.transaction('projects', 'readwrite'), store = transaction.objectStore('projects');
+   let problem: unknown;
+   function abort(error: unknown) {
+    problem = error;
+    transaction.abort();
+   }
+   const binding = store.get(SAVE_BINDING_KEY);
+   binding.onsuccess = () => {
+    try {
+     const next = keepSaveBinding(binding.result, fingerprint, allowAnonymous);
+     if (next) store.put(next, SAVE_BINDING_KEY);
+    } catch (error) {
+     abort(error);
+     return;
+    }
+    for (const [key, update] of Object.entries(updates)) {
+     const record = store.get(key);
+     record.onsuccess = () => {
+      try { store.put(update(record.result), key); }
+      catch (error) { abort(error); }
+     };
+    }
+   };
+   transaction.oncomplete = () => resolve();
+   transaction.onabort = () => reject(problem || transaction.error || Error('Merge aborted'));
+  });
+ } finally { db.close(); }
+}

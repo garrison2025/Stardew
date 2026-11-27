@@ -99,7 +99,7 @@ const prime1=0x9e3779b1, prime2=0x85ebca77, prime3=0xc2b2ae3d, prime4=0x27d4eb2f
 const rotate=(word:number,count:number)=>(word<<count)|(word>>>(32-count));
 function combine(seed:number,value:number){return Math.imul(rotate(seed+Math.imul(value,prime2),13),prime1)}
 // xxHash32 of exactly five little-endian signed 32-bit words, with zero hash seed.
-function hashWords(a:number,b:number,c:number){
+export function hashWords(a:number,b:number,c:number){
  const lanes=[combine(prime1+prime2,a),combine(prime2,b),combine(0,c),combine(-prime1,0)];
  let hash=(rotate(lanes[0],1)+rotate(lanes[1],7)+rotate(lanes[2],12)+rotate(lanes[3],18)+20)|0;
  hash=Math.imul(rotate(hash,17),prime4);
@@ -107,7 +107,7 @@ function hashWords(a:number,b:number,c:number){
  hash=Math.imul(hash^(hash>>>13),prime3);
  return hash^(hash>>>16);
 }
-function random(seed:number){
+export function random(seed:number){
  const state=new Int32Array(56);
  let previous=161803398-(seed===-2147483648?max:Math.abs(seed)),next=1;
  state[55]=previous;

@@ -84,4 +84,36 @@ await page.getByText(/Main-player fields loaded for this session/).waitFor();
 assert.equal(await page.getByLabel('Geodes previously opened').inputValue(),'8');
 await page.getByRole('button',{name:'Calculate next 20 openings'}).click();
 assert.equal(await page.locator('table tbody tr').count(),20);
+
+await page.getByLabel('Cart game ID',{exact:true}).fill('123456789');
+await page.getByRole('button',{name:'Forecast selected cart offers'}).click();
+await page.getByRole('region',{name:'Traveling Cart forecast'}).getByRole('table').waitFor();
+await visit('/cooking/',priv.origin);
+const profilePanel=page.locator('summary').filter({hasText:'Farm profile'});
+await profilePanel.click();
+await page.getByLabel('New farm name',{exact:true}).fill('Separate farm fixture');
+await Promise.all([page.waitForEvent('load'),page.getByRole('button',{name:'Create farm profile'}).click()]);
+await page.waitForFunction(()=>!document.querySelector('astro-island[ssr]'));
+await page.getByText('Farm profile · Separate farm fixture',{exact:true}).waitFor();
+assert.equal(await page.getByLabel('Progress Fried Egg',{exact:true}).inputValue(),'missing');
+await visit('/tracker/',priv.origin);
+const profileSave=(gameId,hostId)=>'<SaveGame><gameVersion>1.6.15</gameVersion><uniqueIDForThisGame>'+gameId+'</uniqueIDForThisGame><player><UniqueMultiplayerID>'+hostId+'</UniqueMultiplayerID><recipesCooked><item><key><string>(O)194</string></key><value><int>1</int></value></item></recipesCooked></player><farmhands><Farmer><name>Separate observer</name><UniqueMultiplayerID>33</UniqueMultiplayerID><recipesCooked><item><key><string>(O)195</string></key><value><int>1</int></value></item></recipesCooked></Farmer></farmhands></SaveGame>';
+async function mergeProfileSave(id) {
+ await page.getByLabel('Choose main save file',{exact:true}).setInputFiles({name:'profile.xml',mimeType:'text/xml',buffer:Buffer.from(profileSave(id,22))});
+ await page.getByText('Farmhand 1 · observed progress',{exact:true}).waitFor();
+ page.once('dialog',d=>d.accept());
+ await page.getByRole('button',{name:'Merge all recognized progress',exact:true}).click();
+}
+await mergeProfileSave(11);
+await page.getByText('Recognized progress merged locally.',{exact:true}).waitFor();
+await mergeProfileSave(12);
+await page.getByText(/This profile is linked to another farm/).waitFor();
+await visit('/cooking/',priv.origin);
+await page.getByText('Collection restored',{exact:true}).waitFor();
+assert.equal(await page.getByLabel('Progress Omelet',{exact:true}).inputValue(),'missing');
+await profilePanel.click();
+await Promise.all([page.waitForEvent('load'),page.getByLabel('Open farm profile').selectOption('default')]);
+await page.waitForFunction(()=>!document.querySelector('astro-island[ssr]'));
+await page.getByText('Collection restored',{exact:true}).waitFor();
+assert.equal(await page.getByLabel('Progress Fried Egg',{exact:true}).inputValue(),'done');
 assert.deepEqual(errors,[]);assert.deepEqual(foreign,[]);console.log('All 16 routes checked at 1440px and 390px; editor, zoom, coverage, save isolation and backup passed.');}finally{await browser?.close();pub.server.close();priv.server.close();}

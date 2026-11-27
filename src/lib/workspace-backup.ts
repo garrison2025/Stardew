@@ -1,3 +1,4 @@
+import {SAVE_BINDING_KEY,decodeSaveBinding} from './save-binding.ts';
 import {decodeSaveObservations,SAVE_OBSERVATIONS_KEY} from './save-observations.ts';
 import {decodeRemixed,REMIXED_KEY} from './remixed-bundles.ts';
 import {decodeLayout,decodeLibrary} from './layout.ts';
@@ -17,6 +18,7 @@ export function decodeBackup(raw:unknown){const v=object(raw);if(v.schema!==1||t
  else if(k===REMIXED_KEY)out[k]=decodeRemixed(r);
  else if(k==='standard-bundles-v1')out[k]=decodeBundleState(r);else if(k==='museum-progress-v1')out[k]=decodeMuseum(r);else if(k==='walnut-progress-v1')out[k]=decodeWalnuts(r);
  else if(['cooking','crafting','shipping','fishing'].some(kind=>k==='collection-v1:'+kind))out[k]=decodeCollection(k.slice(14) as CatalogKind,r);
+ else if(k===SAVE_BINDING_KEY)out[k]=decodeSaveBinding(r);
  else if(k===SAVE_OBSERVATIONS_KEY)out[k]=decodeSaveObservations(r);
  else if(k==='skills-v1'){const a=object(r);if(!Array.isArray(a.xp)||a.xp.length!==5||typeof a.mastery!=='number')throw Error('Invalid skills');a.xp.forEach(n=>levelAt(n));levelAt(a.mastery,MASTERY);out[k]={xp:a.xp,mastery:a.mastery}}
  else if(k==='perfection-v1'){const a=object(r),values=object(a.values);if(typeof a.waivers!=='number'||Object.keys(values).some(id=>!PERFECTION.some(p=>p.id===id)))throw Error('Invalid perfection');perfection(values as Record<string,number>,a.waivers);out[k]={values,waivers:a.waivers}}
