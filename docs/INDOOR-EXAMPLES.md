@@ -1,0 +1,3 @@
+# Editable indoor design examples
+
+Adds a standalone original 12 × 9 farmhouse practice grid, seven single-tile furniture markers, two home templates, a four-nozzle greenhouse and accessible workshop packing. Interior dimensions for the farmhouse are illustrative; original art, not an extracted game map. Furniture markers do not claim actual footprints or rotation. Walkability uses four-direction adjacency, not a game engine. Existing local indoor schema remains compatible; new room/object IDs validated in imports and backups. Undo/redo and save reuse existing workflows. References: https://stardewvalleywiki.com/Farmhouse and https://stardewvalleywiki.com/Furniture. No paid services.
