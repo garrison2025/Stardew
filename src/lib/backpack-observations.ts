@@ -8,6 +8,9 @@ export type Backpack={scope:'player-backpack';stacks:BackpackStack[];unmapped:nu
 const known=new Map<string,string>();
 for(const kind of ['shipping','fishing','cooking'] as const)for(const [id,name] of Object.entries(SAVE_COLLECTION_IDS[kind]))known.set(id,name);
 for(const [id,key] of Object.entries(SAVE_COLLECTION_IDS.museum)){const item=ITEM_MAP.get(key);if(item)known.set(id,item.name)}
+// Additional recipe inputs, independent factual object ID/name pairs; not collection achievements.
+export const RECIPE_STOCK_IDS:Readonly<Record<string,string>>={"93":"Torch","245":"Sugar","246":"Wheat Flour","247":"Oil","292":"Mahogany Seed","309":"Acorn","310":"Maple Seed","311":"Pine Cone","395":"Coffee","419":"Vinegar","423":"Rice","427":"Tulip Bulb","429":"Jazz Seeds","453":"Poppy Seeds","455":"Spangle Seeds","685":"Bait","770":"Mixed Seeds","852":"Dragon Tooth"};
+for(const [id,name] of Object.entries(RECIPE_STOCK_IDS)){if(known.has(id)&&known.get(id)!==name)throw Error('Conflicting inventory reference '+id);known.set(id,name)}
 export function backpackName(id:string){return known.get(id)}
 const integer=(n:unknown,min:number,max:number):n is number=>typeof n==='number'&&Number.isSafeInteger(n)&&n>=min&&n<=max;
 const quality=(n:unknown):n is BackpackStack['quality']=>n===0||n===1||n===2||n===4;
