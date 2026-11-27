@@ -1,13 +1,17 @@
 import {hashWords, random} from './geode-prediction.ts';
 export const CART_SEASONS = ['spring', 'summer', 'autumn', 'winter'] as const;
 export type CartSeason = typeof CART_SEASONS[number];
-export type CartStart = {gameId: string; legacy: boolean; year: number; season: CartSeason; day: number};
+export type CartStart = {gameId: string; legacy: boolean; year: number; season: CartSeason; day: number; routeComplete?: boolean};
 const max = 2147483647;
-const rules = [
+type Offer = {label: string; hash: number; probability: number; price: number; late?: boolean; routeComplete?: boolean; earliestDay?: number};
+const rules: readonly Offer[] = [
  {label: 'Snowman Rarecrow', hash: 215490858, probability: .4, price: 4000, late: true},
  {label: 'Coffee Bean', hash: -2050093257, probability: .25, price: 2500, late: true},
  {label: 'Red Fez', hash: -527134828, probability: .1, price: 8000, late: false},
- {label: 'Retro Catalogue', hash: -1405208486, probability: .1, price: 110000, late: false},
+ {label: 'Retro Catalogue', hash: -1405208486, probability: .1, price: 110000},
+ {label: 'Joja Catalogue', hash: -1741923356, probability: .1, price: 30000, routeComplete: true},
+ {label: 'Junimo Catalogue', hash: 1000809870, probability: .1, price: 70000, routeComplete: true},
+ {label: 'Tea Set', hash: -1863931622, probability: .1, price: 1000000, earliestDay: 2689},
 ] as const;
 
 // Independent seeded offer slots from the PC 1.6 reference. No game item pools or art.
@@ -23,7 +27,7 @@ export function forecastCart(input: CartStart) {
  return Array.from({length: 28}, (_, index) => first + index).filter(day => day % 7 === 5 || day % 7 === 0).map(absoluteDay => {
   const month = Math.floor((absoluteDay - 1) / 28);
   const offers = rules.filter(rule => {
-   if (rule.late && month % 4 < 2) return false;
+   if ((rule.late && month % 4 < 2) || (rule.routeComplete && !input.routeComplete) || absoluteDay < (rule.earliestDay ?? 1)) return false;
    const seed = input.legacy
     ? (rule.hash % max + gameId % max + absoluteDay) % max
     : hashWords(rule.hash % max, gameId % max, absoluteDay);

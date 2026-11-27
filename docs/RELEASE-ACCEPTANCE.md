@@ -36,3 +36,7 @@ Remaining release blockers: rights, exact official geometry, independently valid
 - Traveling Cart covers four independent Forest Cart offers on Fridays and Sundays with PC 1.6.15 assumptions. Modern and legacy branches are checked against the published MouseyPounds xxHash and CSRandom reference. Full stock pools, festival shops and independent in-game fixtures remain open.
 - Supported official geometry, commercial rights, real save fixture approval, real mobile devices and formal production and US search acceptance remain pending.
 - The homepage has a dedicated planner entry. The classic grid loads when selected, and the local XML parser loads only when a save file is chosen for the farm scene.
+
+### Mobile planner rendering
+Closed object and landscape panels defer their canvas work. Opened landscape thumbnails draw directly at thumbnail resolution. Desktop and mobile browser regressions check panel state, canvas rendering, keyboard navigation and the unchanged export flow.
+- Cart preview adds both route-completion catalogues and the Year 25 Tea Set. The route-completion input is explicit. The item pool, festival shops, and real-game output validation remain outside this preview model.
