@@ -214,6 +214,10 @@
       [
         "Does the outdoor planner compare processing with raw sales?",
         "It compares four planting priorities with raw sales and optional shared processing equipment. Daily receipts settle the next morning, seed supply is finite, and the best tested result includes a raw-only fallback. It assumes compatible user-defined recipes and does not model every game rule."
+      ],
+      [
+        "Can I compare several processing devices and wine aging in one season?",
+        "Yes. The daily economy uses shared raw stock, available kegs, jars, dehydrators, user-confirmed mill throughput and accessible casks. Set the processing tail and wine quality target. The fixed planting schedule and greedy dispatch are not a global optimum."
       ]
     ]
   },

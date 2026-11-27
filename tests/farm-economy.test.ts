@@ -33,3 +33,24 @@ test('capacity comparison reports actual receipt days and never drops the baseli
  assert.equal(without.recommendation,null);
  assert.equal(without.current.net,without.raw.net);
 });
+
+import {dailyRecipes} from '../src/lib/economy-recipes.ts';
+test('dehydrator consumes complete five-fruit batches with leftovers sold and conserved',()=>{
+ const r=simulateEconomy(input,a,{...settings,jars:0,dehydrators:1});
+ assert.equal(r.totalHarvest,12);assert.equal(r.totalProcessed,10);assert.equal(r.totalRawSold,2);assert.equal(r.totalSales,900);assert.equal(r.settledCash,900);
+ assert.equal(r.ledger.at(-1)!.inFlight,0);
+});
+test('wine flows from keg to constrained cask then sells once; no premature age revenue',()=>{
+ const i={...input,budget:80};const alloc=[{cycle:cycles(cropById.get('melon')!,1,false)[0],tiles:1}];
+ const r=simulateEconomy(i,alloc,{...settings,kegs:1,jars:0,casks:1,wineAgeDays:28,tailDays:56});
+ assert.equal(r.wineProduced,1);assert.equal(r.wineSold,1);assert.equal(r.agedSold,1);assert.equal(r.totalSales,1125);assert.equal(r.totalProcessed,1);
+ assert.equal(r.ledger.find(d=>d.agedWineSold)!.day,48);
+ const short=simulateEconomy(i,alloc,{...settings,kegs:1,jars:0,casks:1,wineAgeDays:56,tailDays:0});assert.equal(short.agedSold,0);assert.equal(short.totalSales,750);
+});
+test('real recipe types avoid flowers and support special keg/mill output counts',()=>{
+ const recipes=(id:string)=>dailyRecipes(cropById.get(id)!,1440,false);
+ assert.deepEqual(recipes('poppy'),[]);assert.equal(recipes('wheat').find(r=>r.machine==='Keg')!.price,200);assert.equal(recipes('hops').find(r=>r.machine==='Keg')!.price,300);
+ assert.equal(recipes('beet').find(r=>r.machine==='Mill')!.outputs,3);
+ const i:SeasonInput={...input,season:'autumn',budget:20,oasis:true};const alloc=[{cycle:cycles(cropById.get('beet')!,1,false)[0],tiles:1}];
+ const r=simulateEconomy(i,alloc,{...settings,initialCash:20,jars:0,millDailyLimit:1});assert.equal(r.totalProcessed,1);assert.equal(r.totalSales,150);assert.equal(r.ledger.find(d=>d.processedSold)!.processedSold,3);
+});
