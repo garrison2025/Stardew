@@ -1,0 +1,15 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {PROTECTED_CROPS,protectedPlan,protectedRanking,type ProtectedInput} from '../src/lib/protected-crops.ts';
+import {readPlayerStat} from '../src/lib/save-stats.ts';
+import {parseSaveXml} from '../src/lib/save-xml.ts';
+import {fairReferenceCandidate} from '../src/lib/fair-samples.ts';
+import {optimizeFair} from '../src/lib/fair-optimize.ts';
+import {decodeSaveObservations} from '../src/lib/save-observations.ts';
+const base:ProtectedInput={site:'greenhouse',days:112,plots:1,budget:100000,stock:100,seedCost:400,quality:0,tiller:false,margin:100,growth:{fertilizer:'none',agriculturist:false,irrigated:false,cost:0},replant:true};
+const crop=(id:string)=>PROTECTED_CROPS.find(c=>c.id===id)!;
+test('protected year starfruit and ancient fruit harvest dates and reserved costs',()=>{const s=protectedPlan(crop('starfruit'),base);assert.equal(s.harvests,8);assert.equal(s.seeds,8);assert.equal(s.profit,2800);assert.equal(s.days[0],14);assert.equal(s.days.at(-1),105);const a=protectedPlan(crop('ancient-fruit'),{...base,stock:1,seedCost:0});assert.equal(a.harvests,12);assert.equal(a.days.at(-1),106);assert.equal(a.profit,6600);});
+test('protected boundary, budget, finite seed inventory, margin and zero scenarios',()=>{assert.equal(protectedPlan(crop('starfruit'),{...base,days:13}).tiles,0);assert.equal(protectedPlan(crop('starfruit'),{...base,days:14}).profit,350);assert.equal(protectedPlan(crop('starfruit'),{...base,stock:2}).seeds,2);assert.equal(protectedPlan(crop('ancient-fruit'),{...base,stock:0}).tiles,0);assert.equal(protectedPlan(crop('starfruit'),{...base,margin:25}).profit,0);assert.throws(()=>protectedPlan(crop('starfruit'),{...base,plots:121}));assert.ok(protectedRanking(base,{year2:false,oasis:false,festival:false,trellis:false}).every(x=>!x.crop.special&&!x.crop.trellis));});
+const stat=(rows:string)=>parseSaveXml('<SaveGame><player><stats><Values>'+rows+'</Values></stats></player></SaveGame>').root.children[0];
+const row=(key:string,value:string)=>'<item><key><string>'+key+'</string></key><value><unsignedInt>'+value+'</unsignedInt></value></item>';
+test('steps read only matching explicit per-player uint; unknown and duplicates stay unknown',()=>{assert.equal(readPlayerStat(stat(row('stepsTaken','4294967295')),'StepsTaken'),4294967295);assert.equal(readPlayerStat(stat(row('stepsTaken','0')),'stepsTaken'),0);assert.equal(readPlayerStat(stat(''),'stepsTaken'),null);assert.equal(readPlayerStat(stat(row('stepsTaken','4')+row('StepsTaken','5')),'stepsTaken'),null);assert.equal(readPlayerStat(stat(row('stepsTaken','4294967296')),'stepsTaken'),null);assert.equal(decodeSaveObservations({schema:1,stepsTaken:123,xp:null,lifetimeEarnings:null,walnutsFound:null,walnutsBalance:null}).stepsTaken,123)});
+test('fair reference candidates never imply ownership',()=>{const x=fairReferenceCandidate(0);assert.equal(x.quantity,0);assert.equal(optimizeFair([x]).items.length,0);assert.equal(optimizeFair([{...x,quantity:1}]).items.length,1)});

@@ -1,76 +1,25 @@
-import React, { useState } from 'react';
-
-type PriceTiers = readonly [number, number, number, number];
-type PriceTable = readonly [PriceTiers, PriceTiers, PriceTiers];
-
-// Item reference pages list prices by profession, then by quality.
-const priceTables: Record<string, PriceTable> = {
-  'Anchovy': [[30, 37, 45, 60], [37, 46, 56, 75], [45, 55, 67, 90]],
-  'Blobfish': [[500, 625, 750, 1000], [625, 781, 937, 1250], [750, 937, 1125, 1500]],
-  'Catfish': [[200, 250, 300, 400], [250, 312, 375, 500], [300, 375, 450, 600]],
-  'Largemouth Bass': [[100, 125, 150, 200], [125, 156, 187, 250], [150, 187, 225, 300]],
-  'Lava Eel': [[700, 875, 1050, 1400], [875, 1093, 1312, 1750], [1050, 1312, 1575, 2100]],
-  'Legend': [[5000, 6250, 7500, 10000], [6250, 7812, 9375, 12500], [7500, 9375, 11250, 15000]],
-  'Pufferfish': [[200, 250, 300, 400], [250, 312, 375, 500], [300, 375, 450, 600]],
-  'Salmon': [[75, 93, 112, 150], [93, 116, 140, 187], [112, 139, 168, 225]],
-  'Sardine': [[40, 50, 60, 80], [50, 62, 75, 100], [60, 75, 90, 120]],
-  'Sturgeon': [[200, 250, 300, 400], [250, 312, 375, 500], [300, 375, 450, 600]],
-  'Sunfish': [[30, 37, 45, 60], [37, 46, 56, 75], [45, 55, 67, 90]],
-  'Tuna': [[100, 125, 150, 200], [125, 156, 187, 250], [150, 187, 225, 300]],
-  'Woodskip': [[75, 93, 112, 150], [93, 116, 140, 187], [112, 139, 168, 225]],
-};
-const fishPrices = new Map(Object.entries(priceTables));
-const professions = [
-  { key: 'none', label: 'No price bonus', factor: 100 },
-  { key: 'fisher', label: 'Fisher (+25%)', factor: 125 },
-  { key: 'angler', label: 'Angler (+50%)', factor: 150 },
-] as const;
-const qualities = ['Normal', 'Silver', 'Gold', 'Iridium'];
-
-function fishReference(name: string) {
-  return 'https://stardewvalleywiki.com/' + encodeURIComponent(name.replaceAll(' ', '_'));
-}
-
-export default function FishSalePrices({ names }: { names: readonly string[] }) {
-  const [fish, setFish] = useState('Catfish');
-  const [manual, setManual] = useState('');
-  const [profession, setProfession] = useState('none');
-  const [quality, setQuality] = useState(0);
-  const professionIndex = professions.findIndex(option => option.key === profession);
-  const manualMode = fish === 'custom';
-  const table = fishPrices.get(fish);
-  const amount = Number(manual);
-  const validAmount = Number.isSafeInteger(amount) && amount >= 1 && amount <= 1000000;
-  const price = manualMode && validAmount
-    ? Math.floor(amount * professions[professionIndex].factor / 100)
-    : table?.[professionIndex]?.[quality];
-
-  return <section className="rule-card" id="fish-prices" aria-labelledby="fish-prices-title">
-    <h3 id="fish-prices-title">Stardew Valley fish prices</h3>
-    <p>Compare raw sale prices for {fishPrices.size} reference fish across four quality tiers. Choose any collection entry to open its price reference, or enter a normal-quality base value.</p>
-    <div className="formgrid">
-      <label>Fish<select aria-label="Fish" value={fish} onChange={e => setFish(e.target.value)}>
-        <optgroup label="Compare in this tool">
-          {names.filter(name => fishPrices.has(name)).map(name => <option key={name}>{name}</option>)}
-        </optgroup>
-        <optgroup label="Look up on the wiki">
-          {names.filter(name => !fishPrices.has(name)).map(name => <option key={name}>{name}</option>)}
-        </optgroup>
-        <option value="custom">Enter base price</option>
-      </select></label>
-      {manualMode && <label>Base sale price (g)<input aria-label="Base sale price (g)" type="number" min={1} max={1000000} step={1} value={manual} onChange={e => setManual(e.target.value)}/></label>}
-      {table && <label>Fish quality<select aria-label="Fish quality" value={quality} onChange={e => setQuality(Number(e.target.value))}>
-        {qualities.map((label, index) => <option key={label} value={index}>{label}</option>)}
-      </select></label>}
-      {(manualMode || table) && <label>Fishing profession<select aria-label="Fishing profession" value={profession} onChange={e => setProfession(e.target.value)}>
-        {professions.map(({ key, label }) => <option key={key} value={key}>{label}</option>)}
-      </select></label>}
-    </div>
-    <p aria-live="polite">{price !== undefined
-      ? price.toLocaleString('en-US') + 'g per fish'
-      : manualMode ? 'Enter a whole-gold base price.' : 'Use the item reference to check this entry’s sale price.'}</p>
-    {manualMode
-      ? <p className="muted">Manual entry uses normal quality. See the <a href="https://stardewvalleywiki.com/Fish">fish price reference</a> for item values.</p>
-      : <p className="muted"><a href={fishReference(fish)} target="_blank" rel="noreferrer">{fish} sale price reference</a></p>}
-  </section>;
+import React,{useState} from 'react';
+import {fishReference,fishPrice} from '../lib/fish-reference';
+const professions=[{label:'No price bonus',factor:100},{label:'Fisher (+25%)',factor:125},{label:'Angler (+50%)',factor:150}] as const;
+const qualities=['Normal','Silver','Gold','Iridium'];
+function wiki(name:string){return 'https://stardewvalleywiki.com/'+encodeURIComponent(name.replaceAll(' ','_'))}
+export default function FishSalePrices({names}:{names:readonly string[]}){
+ const [fish,setFish]=useState('Catfish'),[manual,setManual]=useState(''),[profession,setProfession]=useState(0),[quality,setQuality]=useState(0),[quantity,setQuantity]=useState(1),[sort,setSort]=useState<'price'|'difficulty'|'name'>('price');
+ const ref=fishReference(fish),custom=fish==='custom',amount=Number(manual),valid=Number.isSafeInteger(amount)&&amount>=1&&amount<=1000000,validQuantity=Number.isSafeInteger(quantity)&&quantity>=0&&quantity<=1000000;
+ const price=custom&&valid?Math.floor(amount*professions[profession].factor/100):fishPrice(fish,profession,quality);
+ const available=ref?.prices[0].length??1;
+ const ranked=names.map(name=>({name,ref:fishReference(name),price:fishPrice(name,profession,quality)})).sort((a,b)=>sort==='name'?a.name.localeCompare(b.name):sort==='difficulty'?(b.ref?.difficulty??-1)-(a.ref?.difficulty??-1)||a.name.localeCompare(b.name):(b.price??-1)-(a.price??-1)||a.name.localeCompare(b.name));
+ function select(name:string){setFish(name);const next=fishReference(name);if(!next||next.prices.length===1)setProfession(0);if(!next||quality>=next.prices[0].length)setQuality(0)}
+ return <section className="rule-card" id="fish-prices" aria-labelledby="fish-prices-title"><h3 id="fish-prices-title">Stardew Valley fish prices and difficulty</h3><p>Compare all {names.length} collection entries using listed quality and profession tiers. Unavailable combinations are not estimated. Standard sale prices before world sale-margin effects.</p>
+ <div className="formgrid"><label>Fish<select aria-label="Fish" value={fish} onChange={e=>select(e.target.value)}>{['rod','pot','other'].map(method=><optgroup key={method} label={method==='rod'?'Fishing pole':method==='pot'?'Crab pot / foraged shellfish':'Other catchables'}>{names.filter(n=>fishReference(n)?.method===method).map(n=><option key={n}>{n}</option>)}</optgroup>)}<option value="custom">Enter base price</option></select></label>
+ {custom&&<label>Base sale price (g)<input aria-label="Base sale price (g)" type="number" min={1} max={1000000} step={1} value={manual} onChange={e=>setManual(e.target.value)}/></label>}
+ {available>1&&<label>Fish quality<select aria-label="Fish quality" value={quality} onChange={e=>setQuality(Number(e.target.value))}>{qualities.slice(0,available).map((q,i)=><option key={q} value={i}>{q}</option>)}</select></label>}
+ {(custom||(ref?.prices.length??0)>1)&&<label>Fishing profession<select aria-label="Fishing profession" value={profession} onChange={e=>setProfession(Number(e.target.value))}>{professions.map((p,i)=><option key={i} value={i}>{p.label}</option>)}</select></label>}
+ <label>Quantity<input aria-label="Fish quantity" type="number" min={0} max={1000000} step={1} value={quantity} onChange={e=>setQuantity(Number(e.target.value))}/></label></div>
+ <p aria-live="polite">{price!==undefined?price.toLocaleString('en-US')+'g per fish'+(validQuantity?' · '+(price*quantity).toLocaleString('en-US')+'g total':' · Invalid quantity'):custom?'Enter a whole-gold base price.':'Selected tier not available.'}</p>
+ {ref?.difficulty!==undefined&&<p>Fishing difficulty: {ref.difficulty} · {ref.behavior} movement</p>}
+ {ref?.method==='pot'&&<p className="muted">Crab pots normally produce normal quality or silver with Deluxe Bait. Higher shellfish qualities apply to appropriate foraging sources, not ordinary crab pot catches.</p>}
+ {ref?.method==='other'&&<p className="muted">Other catchables receive no Fisher or Angler sale bonus. Seaweed caught on the rod is normal quality; listed higher qualities apply to foraging.</p>}
+ {custom?<p className="muted">Manual entry uses normal quality and assumes an eligible fish.</p>:<p className="muted"><a href={wiki(fish)} target="_blank" rel="noreferrer">{fish} sale price reference</a></p>}
+ <details><summary>Compare all collection prices and difficulty</summary><label>Sort fish reference<select aria-label="Sort fish reference" value={sort} onChange={e=>setSort(e.target.value as typeof sort)}><option value="price">Selected sale price (high first)</option><option value="difficulty">Rod difficulty (high first)</option><option value="name">Name</option></select></label><p className="muted">The selected quality and profession apply to every compatible row. An unavailable tier is shown as not applicable, not zero.</p><div className="tablewrap"><table><caption>Collection sale price comparison</caption><thead><tr><th scope="col">Entry</th><th scope="col">Price</th><th scope="col">Difficulty</th><th scope="col">Method</th></tr></thead><tbody>{ranked.map(r=><tr key={r.name}><th scope="row">{r.name}</th><td>{r.price===undefined?'N/A':r.price.toLocaleString()+'g'}</td><td>{r.ref?.difficulty===undefined?'N/A':r.ref.difficulty+' · '+r.ref.behavior}</td><td>{r.ref?.method==='rod'?'Rod':r.ref?.method==='pot'?'Pot / shellfish':'Other catchable'}</td></tr>)}</tbody></table></div></details><p className="muted">Reference: <a href="https://stardewvalleywiki.com/Fish">Fish data</a>. Numerical reference, not independent in-game verification.</p></section>
 }

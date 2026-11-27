@@ -4,7 +4,7 @@
     "path": "/",
     "h1": "Stardew Valley Farm Planner",
     "title": "Stardew Valley Farm Planner & Layout Editor | Field & Farm",
-    "description": "Design farm layouts on eight practice landscapes. Place buildings, paths and sprinklers, compare coverage, arrange interiors and export editable plans.",
+    "description": "Design eight practice farm landscapes with editable layout ideas, fixed building footprints, sprinkler and scarecrow coverage, interiors and export.",
     "primaryKeyword": "stardew valley planner",
     "volume": 8100,
     "kd": 22,
@@ -29,14 +29,17 @@
     ],
     "priority": "P0",
     "guideTitle": "Plan a layout before building",
-    "guideText": "Choose one of eight original landscape templates or import a private terrain package. Place objects, inspect water coverage and arrange linked building interiors. Export JSON to retain editable data; PNG is a visual snapshot. Built-in landscapes are not extracted game maps.",
+    "guideText": "Choose an original practice landscape or four editable layout ideas for crop blocks, ranching, a river workshop or woodland retreat. Inspect sprinkler and scarecrow coverage and reference construction costs, then export an editable plan. No official terrain.",
     "researchClusterSize": 89,
     "searchAliases": [
       "farm layout planner",
       "farm layout editor",
       "sprinkler layout",
       "farm design",
-      "sdv planner"
+      "sdv planner",
+      "farm layout ideas",
+      "scarecrow layout",
+      "farm building budget"
     ]
   },
   {
@@ -119,7 +122,7 @@
     "path": "/predictor/",
     "h1": "Stardew Valley Seed Predictor",
     "title": "Stardew Valley Seed & Geode Predictor | Field & Farm",
-    "description": "Explore experimental PC 1.6.15 geode openings and selected Traveling Cart offers. Use example IDs or your own IDs in the private workspace.",
+    "description": "Explore PC 1.6.15 reference geode openings, selected Traveling Cart offers, train times, green rain and overnight event candidates.",
     "primaryKeyword": "stardew valley seed predictor",
     "volume": 140,
     "kd": 15,
@@ -141,12 +144,15 @@
     ],
     "priority": "P0",
     "guideTitle": "Try the 1.6.15 geode opener",
-    "guideText": "Select a container and enter how many openings the example farmer has completed. Review the next 20 candidate slots, or open the private workspace to enter your own fields locally. Independent game verification is pending.",
+    "guideText": "Compare the next 20 geode openings, selected Traveling Cart offers or a 28-day train, green rain and overnight event calendar. Use the private workspace for personal save fields. Reference predictions are not independently verified in game.",
     "researchClusterSize": 11,
     "searchAliases": [
       "geode predictor",
       "traveling cart",
-      "seed predictor"
+      "seed predictor",
+      "train schedule",
+      "green rain",
+      "overnight events"
     ]
   },
   {
@@ -154,7 +160,7 @@
     "path": "/tracker/",
     "h1": "Stardew Valley Save Tracker",
     "title": "Stardew Valley Save & Progress Tracker | Field & Farm",
-    "description": "Inspect selected save fields locally, separate farm profiles and track recognized collection progress in a private browser workspace.",
+    "description": "Inspect save fields locally, including steps taken, skills, monster goals and collection progress. Keep separate farm profiles in a private workspace.",
     "primaryKeyword": "stardew valley tracker",
     "volume": 320,
     "kd": 26,
@@ -176,12 +182,14 @@
     ],
     "priority": "P0",
     "guideTitle": "Inspect a save without uploading it",
-    "guideText": "The separate private workspace reads selected main-player XML fields, merges recognized collection observations in one local transaction and allows explicit XP and earnings prefill. Missing values remain unknown; this is not a complete game save reconstruction.",
+    "guideText": "Inspect a main-player save locally, including recorded steps, skill XP, monster goals and recognized collections. Review values before merging into the selected farm profile. Missing or ambiguous fields remain unknown.",
     "researchClusterSize": 15,
     "searchAliases": [
       "save analyzer",
       "save checker",
-      "save tracker"
+      "save tracker",
+      "steps taken",
+      "monster goals"
     ]
   },
   {
@@ -189,7 +197,7 @@
     "path": "/crop-calculator/",
     "h1": "Stardew Valley Crop Calculator",
     "title": "Stardew Valley Crop Profit Calculator & Planner | Field & Farm",
-    "description": "Compare crop profits by planting day, season, land, seed budget and processing capacity. Explore guaranteed yields and daily cash flow.",
+    "description": "Compare seasonal crop profits, fertilizer, budget, greenhouse and Ginger Island yields. Plan up to 112 growing days or simulate processing cash flow.",
     "primaryKeyword": "stardew crop calculator",
     "volume": 320,
     "kd": 17,
@@ -214,12 +222,15 @@
     ],
     "priority": "P0",
     "guideTitle": "Compare planting and processing plans",
-    "guideText": "Choose a planting day, tiles and planting budget. Compare guaranteed yields and raw sales, optionally test two seasons or a fixed fertilizer and quality scenario, then check cash and machine capacity in the economy tool.",
+    "guideText": "Compare outdoor harvest schedules, seed budget, growth fertilizer and quality. Check processing cash flow or choose the separate 112-day Greenhouse and Ginger Island model with a finite seed stock and sale margin scenario.",
     "researchClusterSize": 45,
     "searchAliases": [
       "crop profit",
       "crop planner",
-      "profit calculator"
+      "profit calculator",
+      "greenhouse profit",
+      "ginger island crops",
+      "most profitable crops"
     ]
   },
   {
@@ -227,7 +238,7 @@
     "path": "/fair-calculator/",
     "h1": "Stardew Valley Fair Calculator",
     "title": "Stardew Valley Fair Grange Display Calculator | Field & Farm",
-    "description": "Score a nine-slot Grange Display using item categories, actual prices and qualities. Compare candidate quantities to plan a better display.",
+    "description": "Score and optimize a nine-slot Grange Display. Browse category-based example items and confirm actual sale values, qualities and available quantities.",
     "primaryKeyword": "stardew valley fair calculator",
     "volume": 260,
     "kd": 14,
@@ -251,12 +262,14 @@
     ],
     "priority": "P0",
     "guideTitle": "Build a nine-slot grange display",
-    "guideText": "Enter actual sale values, quality and Fair categories, or supply a quantity-limited list of available candidates to optimize the nine-slot display. The score separates quantity, variety and item points. Do not apply sale-value multipliers twice.",
+    "guideText": "Enter actual sale values, quality and Fair categories. Add reference items by category, then confirm available quantities and optimize the nine-slot display. Samples never assume you own an item.",
     "researchClusterSize": 27,
     "searchAliases": [
       "grange display",
       "fair score",
-      "grange calculator"
+      "grange calculator",
+      "fair items",
+      "fair first place"
     ]
   },
   {
@@ -264,7 +277,7 @@
     "path": "/fishing/",
     "h1": "Stardew Valley Fish Collection",
     "title": "Stardew Valley Fish Collection Tracker | Field & Farm",
-    "description": "Track 72 fish collection entries and filter recorded seasons, locations, times and weather. Review missing fish and export your checklist.",
+    "description": "Track 72 fish collection entries and compare reference sale prices, quality, professions and rod difficulty. Filter recorded catch conditions and export progress.",
     "primaryKeyword": "fish collection stardew",
     "volume": 880,
     "kd": 15,
@@ -282,11 +295,14 @@
     ],
     "priority": "P1",
     "guideTitle": "Find fish for your collection",
-    "guideText": "Filter recorded main-route season, location, weather, time and acquisition method. Missing conditions remain unspecified, not guaranteed. Record actual catches; challenge-only legendary variants are excluded.",
+    "guideText": "Search 72 fish collection entries by recorded main-route season, location, weather, time, method and rod difficulty. Compare listed prices for available qualities and professions. Other catchables have no fish profession bonus.",
     "researchClusterSize": 6,
     "searchAliases": [
       "fish collection",
-      "fishing checklist"
+      "fishing checklist",
+      "fish prices",
+      "fish difficulty",
+      "fishing collection"
     ]
   },
   {
@@ -294,7 +310,7 @@
     "path": "/perfection/",
     "h1": "Stardew Valley Perfection Checklist",
     "title": "Stardew Valley Perfection Checklist & Tracker | Field & Farm",
-    "description": "Review weighted perfection requirements and track known progress, unknown values and waivers. Load supported local collection counts.",
+    "description": "Track weighted perfection requirements, 12 monster eradication goals and collection progress. Compare known minimums, unknown values and waivers.",
     "primaryKeyword": "stardew valley perfection checklist",
     "volume": 590,
     "kd": 12,
@@ -321,12 +337,13 @@
     ],
     "priority": "P1",
     "guideTitle": "Estimate your weighted completion",
-    "guideText": "Enter observed category counts and distinguish unknown from a confirmed zero. The weighted range shows a known lower bound and maximum possible completion. The private workspace can load saved manual collection counts.",
+    "guideText": "Enter observed category counts, compare the weighted completion range and review the 12 monster eradication goals. Load supported local save observations and collections in the private workspace; manual values can override estimates.",
     "researchClusterSize": 13,
     "searchAliases": [
       "perfection tracker",
-      "100 percent checklist",
-      "perfection waivers"
+      "completion checklist",
+      "monster eradication goals",
+      "monster slayer"
     ]
   },
   {

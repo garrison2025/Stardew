@@ -1,0 +1,3 @@
+# Fish reference coverage
+
+72/72 exact collection names matched to numerical reference prices on https://stardewvalleywiki.com/Fish, 2026-11-27. Retains listed price tiers and rod difficulty/behavior only, no copied descriptions. Crab pot rows with limited quality and other catchables without profession bonus are modeled separately. Other catchables can enter the collection without a fishing minigame; Seaweed higher quality is foraged. Comparison marks unsupported tier N/A. Rod difficulty filtering does not claim exact catch probabilities. Main-route seasons and alternate conditions still need version-specific game fixtures. Source pages may contain errors; this is reference data, not independently verified in-game accuracy.
