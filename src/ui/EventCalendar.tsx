@@ -1,7 +1,6 @@
 import React,{useState} from 'react';
 import {CART_SEASONS,type CartSeason} from '../lib/cart-forecast';
 import {forecastCalendar,greenRainDay,trainClock,type CalendarInput} from '../lib/event-calendar';
-import {readCartSave} from '../lib/save-parser';
 import {download} from '../lib/local';
 const example:CalendarInput={gameId:'123456789',year:1,season:'summer',day:1,legacy:false,greenhouse:false};
 export default function EventCalendar({workspace}:{workspace:boolean}){
@@ -10,7 +9,7 @@ export default function EventCalendar({workspace}:{workspace:boolean}){
  const [error,setError]=useState(''),[busy,setBusy]=useState(false),[status,setStatus]=useState(''),[filter,setFilter]=useState<'all'|'events'>('all');
  function change<K extends keyof CalendarInput>(key:K,value:CalendarInput[K]){setInput(old=>({...old,[key]:value}));setResult(null);setError('');setStatus('')}
  function calculate(){try{setResult(forecastCalendar(input));setError('')}catch(e){setResult(null);setError(String(e))}}
- async function prefill(file:File){setBusy(true);setResult(null);setError('');setStatus('');try{const x=await readCartSave(file);setInput({...x,greenhouse:false});setStatus('Date, game ID and legacy RNG loaded from the main save. Confirm greenhouse repair manually.')}catch(e){setError(String(e))}finally{setBusy(false)}}
+ async function prefill(file:File){setBusy(true);setResult(null);setError('');setStatus('');try{const x=await (await import('../lib/save-parser')).readCartSave(file);setInput({...x,greenhouse:false});setStatus('Date, game ID and legacy RNG loaded from the main save. Confirm greenhouse repair manually.')}catch(e){setError(String(e))}finally{setBusy(false)}}
  const rows=result?.filter(d=>filter==='all'||d.trainTime!==null||d.greenRain||d.overnight!==null||d.windstormRoll)??[];
  return <section className="panel rule-tool" aria-label="Seeded event calendar">
  <h2>Train, green rain and overnight event calendar</h2>
