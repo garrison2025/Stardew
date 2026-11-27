@@ -29,7 +29,17 @@ jobs:
           path: reference-evidence/
           if-no-files-found: error
       - run: npm run check
-      - run: npm test
+      - name: Unit tests and core coverage evidence
+        run: |
+          mkdir -p coverage-evidence
+          set -o pipefail
+          npm run test:coverage 2>&1 | tee coverage-evidence/node-test-coverage.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: core-coverage-evidence
+          path: coverage-evidence/
+          if-no-files-found: error
       - run: npm run build
       - run: node scripts/audit-preview.mjs dist
       - run: npm run audit:assets -- dist

@@ -18,7 +18,8 @@
     "audit:performance": "node scripts/audit-performance.mjs",
     "audit:assets": "node scripts/audit-asset-provenance.mjs",
     "audit:game-fixtures": "node --experimental-strip-types scripts/verify-game-fixtures.mjs",
-    "audit:reference": "node scripts/audit-reference-manifest.mjs"
+    "audit:reference": "node scripts/audit-reference-manifest.mjs",
+    "test:coverage": "node --experimental-strip-types --experimental-test-coverage --test-coverage-include='src/lib/*.ts' --test tests/*.test.ts tests/*.test.mjs"
   },
   "dependencies": {
     "astro": "7.4.13",
