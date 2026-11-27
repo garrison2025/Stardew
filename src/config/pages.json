@@ -153,7 +153,9 @@
       "geode opener",
       "geode openings",
       "clint geodes",
-      "stardew valley geode predictor"
+      "stardew valley geode predictor",
+      "does luck affect geodes",
+      "stardew valley does luck affect geodes"
     ]
   },
   {
@@ -161,7 +163,7 @@
     "path": "/tracker/",
     "h1": "Stardew Valley Save Tracker",
     "title": "Stardew Valley Save Tracker & Collection Progress",
-    "description": "Review Stardew Valley collection progress and inspect supported save fields locally in the private workspace. Find the next fish, recipes or shipments to check.",
+    "description": "Check Stardew Valley collection progress and how many steps the main farmer has taken. Inspect supported save fields locally in the private workspace.",
     "primaryKeyword": "stardew valley tracker",
     "volume": 320,
     "kd": 26,
@@ -190,7 +192,10 @@
       "save checker",
       "save inspector",
       "farm progress",
-      "collection progress"
+      "collection progress",
+      "steps taken",
+      "how many steps have i taken stardew",
+      "stardew how many steps have you taken"
     ]
   },
   {
@@ -276,8 +281,8 @@
     "slug": "fishing",
     "path": "/fishing/",
     "h1": "Stardew Valley Fish Collection",
-    "title": "Stardew Valley Fish Collection & Fishing Checklist",
-    "description": "Find fish for the Stardew Valley collection by season, location, time and weather. Track 72 collection entries and export missing fish.",
+    "title": "Stardew Valley Fish Collection, Prices & Checklist",
+    "description": "Search the Stardew Valley fish collection by season and location. Track 72 entries and compare normal-quality fish prices with profession bonuses.",
     "primaryKeyword": "fish collection stardew",
     "volume": 880,
     "kd": 15,
@@ -302,7 +307,9 @@
       "fishing checklist",
       "fish tracker",
       "missing fish",
-      "fish season"
+      "fish season",
+      "fish prices",
+      "stardew fish prices"
     ]
   },
   {
@@ -525,7 +532,10 @@
       "standard farm",
       "four corners farm",
       "hill top farm",
-      "riverland farm"
+      "riverland farm",
+      "farm maps",
+      "hilltop farm",
+      "stardew valley farm maps"
     ]
   },
   {

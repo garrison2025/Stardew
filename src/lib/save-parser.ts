@@ -10,6 +10,15 @@ const num=(s:string):number|null=>/^-?\d+$/.test(s)&&Number.isSafeInteger(Number
 const xsi=(el:Element|undefined|null,key:string)=>el?.getAttributeNS('http://www.w3.org/2001/XMLSchema-instance',key)??el?.getAttribute('xsi:'+key)??'';
 function point(el:Element|undefined){return {x:num(text(el,'X')),y:num(text(el,'Y'))}}
 function dictionary(el:Element|undefined){return Array.from(el?.children??[]).filter(e=>e.localName==='item')}
+function readSteps(player:Element|undefined):number|null{
+ const stats=child(player,'stats');
+ const values=child(stats,'Values');
+ const rows=dictionary(values).filter(entry=>text(child(entry,'key'),'string')==='stepsTaken');
+ if(rows.length>1)return null;
+ if(rows.length===1)return safeCount(num(text(child(rows[0],'value'),'unsignedInt')),4294967295);
+ return safeCount(num(text(stats,'stepsTaken')),4294967295);
+}
+
 function readProgress(root:Element,player:Element|undefined):SaveProgress{
  const warnings:string[]=[];
  const read=(el:Element|undefined,name:string,max=1000000000)=>safeCount(num(text(el,name)),max);
@@ -28,7 +37,7 @@ function readProgress(root:Element,player:Element|undefined):SaveProgress{
  if(walnutsFound===null||walnutsBalance===null)warnings.push('Walnut counters absent or outside standard range.');
  if(walnutsFound!==null&&walnutsBalance!==null&&walnutsBalance>walnutsFound)warnings.push('Walnut balance exceeds lifetime count; inspect the save in game.');
  if(Array.from(child(root,'farmhands')?.children??[]).some(e=>e.localName==='Farmer'))warnings.push('Multiplayer save: only the main player is summarized; no combined perfection score.');
- return {xp,money:read(player,'money'),lifetimeEarnings:read(player,'totalMoneyEarned'),walnutsFound,walnutsBalance,crafting,learnedCooking:cooking?.length??null,collections,warnings}
+ return {xp,stepsTaken:readSteps(player),money:read(player,'money'),lifetimeEarnings:read(player,'totalMoneyEarned'),walnutsFound,walnutsBalance,crafting,learnedCooking:cooking?.length??null,collections,warnings}
 }
 export async function parseSave(xml:string):Promise<SaveSnapshot>{
  verifySaveText(xml);const doc=new DOMParser().parseFromString(xml,'application/xml'),root=doc.documentElement;

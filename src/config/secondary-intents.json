@@ -1,0 +1,530 @@
+[
+  {
+    "keyword": "stardew valley farm planner",
+    "path": "/",
+    "status": "answered",
+    "question": "What can I do with the Stardew Valley farm layout planner?"
+  },
+  {
+    "keyword": "stardew farm planner",
+    "path": "/",
+    "status": "answered",
+    "question": "What can I do with the Stardew Valley farm layout planner?"
+  },
+  {
+    "keyword": "planner stardew",
+    "path": "/",
+    "status": "answered",
+    "question": "What can I do with the Stardew Valley farm layout planner?"
+  },
+  {
+    "keyword": "stardew valley farm layout planner",
+    "path": "/",
+    "status": "answered",
+    "question": "What can I do with the Stardew Valley farm layout planner?"
+  },
+  {
+    "keyword": "stardew valley farm layouts",
+    "path": "/",
+    "status": "answered",
+    "question": "What can I do with the Stardew Valley farm layout planner?"
+  },
+  {
+    "keyword": "stardew valley map planner",
+    "path": "/",
+    "status": "limited",
+    "question": "What can I do with the Stardew Valley farm layout planner?",
+    "note": "Practice layouts; official tile geometry is linked from Farm Comparison."
+  },
+  {
+    "keyword": "stardew valley layout planner",
+    "path": "/",
+    "status": "answered",
+    "question": "What can I do with the Stardew Valley farm layout planner?"
+  },
+  {
+    "keyword": "farm planner stardew",
+    "path": "/",
+    "status": "answered",
+    "question": "What can I do with the Stardew Valley farm layout planner?"
+  },
+  {
+    "keyword": "stardew valley community center bundles",
+    "path": "/bundles/",
+    "status": "answered",
+    "question": "Where is the Stardew Valley bundle checklist?"
+  },
+  {
+    "keyword": "stardew valley bundle tracker",
+    "path": "/bundles/",
+    "status": "answered",
+    "question": "Where is the Stardew Valley bundle checklist?"
+  },
+  {
+    "keyword": "bundle stardew",
+    "path": "/bundles/",
+    "status": "answered",
+    "question": "Where is the Stardew Valley bundle checklist?"
+  },
+  {
+    "keyword": "stardew valley bundle checklist",
+    "path": "/bundles/",
+    "status": "answered",
+    "question": "Where is the Stardew Valley bundle checklist?"
+  },
+  {
+    "keyword": "stardew valley bundle",
+    "path": "/bundles/",
+    "status": "answered",
+    "question": "Where is the Stardew Valley bundle checklist?"
+  },
+  {
+    "keyword": "stardew bundle checklist",
+    "path": "/bundles/",
+    "status": "answered",
+    "question": "Where is the Stardew Valley bundle checklist?"
+  },
+  {
+    "keyword": "stardew community center bundles",
+    "path": "/bundles/",
+    "status": "answered",
+    "question": "Where is the Stardew Valley bundle checklist?"
+  },
+  {
+    "keyword": "stardew valley bundles checklist",
+    "path": "/bundles/",
+    "status": "answered",
+    "question": "Where is the Stardew Valley bundle checklist?"
+  },
+  {
+    "keyword": "museum stardew",
+    "path": "/museum/",
+    "status": "answered",
+    "question": "Can I review all museum items or plan a display?"
+  },
+  {
+    "keyword": "stardew valley museum collection",
+    "path": "/museum/",
+    "status": "answered",
+    "question": "Can I review all museum items or plan a display?"
+  },
+  {
+    "keyword": "museum collection stardew",
+    "path": "/museum/",
+    "status": "answered",
+    "question": "Can I review all museum items or plan a display?"
+  },
+  {
+    "keyword": "stardew museum layout",
+    "path": "/museum/",
+    "status": "limited",
+    "question": "Can I review all museum items or plan a display?",
+    "note": "The display grid is illustrative."
+  },
+  {
+    "keyword": "stardew museum collection",
+    "path": "/museum/",
+    "status": "answered",
+    "question": "Can I review all museum items or plan a display?"
+  },
+  {
+    "keyword": "all museum items stardew",
+    "path": "/museum/",
+    "status": "answered",
+    "question": "Can I review all museum items or plan a display?"
+  },
+  {
+    "keyword": "stardew valley museum checklist",
+    "path": "/museum/",
+    "status": "answered",
+    "question": "Can I review all museum items or plan a display?"
+  },
+  {
+    "keyword": "sdv museum",
+    "path": "/museum/",
+    "status": "answered",
+    "question": "Can I review all museum items or plan a display?"
+  },
+  {
+    "keyword": "stardew seed predictor",
+    "path": "/predictor/",
+    "status": "deferred",
+    "question": "Does luck affect geode contents in Stardew Valley?",
+    "note": "General seed prediction exceeds the implemented geode scope."
+  },
+  {
+    "keyword": "stardew valley geode predictor",
+    "path": "/predictor/",
+    "status": "answered",
+    "question": "Does luck affect geode contents in Stardew Valley?"
+  },
+  {
+    "keyword": "stardew geode predictor",
+    "path": "/predictor/",
+    "status": "answered",
+    "question": "Does luck affect geode contents in Stardew Valley?"
+  },
+  {
+    "keyword": "stardew valley seed checker",
+    "path": "/predictor/",
+    "status": "deferred",
+    "question": "Does luck affect geode contents in Stardew Valley?",
+    "note": "General seed lookup is outside the implemented geode scope."
+  },
+  {
+    "keyword": "blade map predictor 1.6",
+    "path": "/predictor/",
+    "status": "deferred",
+    "question": "Does luck affect geode contents in Stardew Valley?",
+    "note": "Navigational query for a different tool."
+  },
+  {
+    "keyword": "stardew valley does luck affect geodes",
+    "path": "/predictor/",
+    "status": "answered",
+    "question": "Does luck affect geode contents in Stardew Valley?"
+  },
+  {
+    "keyword": "stardew tracker",
+    "path": "/tracker/",
+    "status": "answered",
+    "question": "How many steps have I taken in Stardew Valley?"
+  },
+  {
+    "keyword": "how many steps have i taken stardew",
+    "path": "/tracker/",
+    "status": "answered",
+    "question": "How many steps have I taken in Stardew Valley?"
+  },
+  {
+    "keyword": "stardew how many steps have you taken",
+    "path": "/tracker/",
+    "status": "answered",
+    "question": "How many steps have I taken in Stardew Valley?"
+  },
+  {
+    "keyword": "tracker stardew valley",
+    "path": "/tracker/",
+    "status": "answered",
+    "question": "How many steps have I taken in Stardew Valley?"
+  },
+  {
+    "keyword": "stardew crop profit",
+    "path": "/crop-calculator/",
+    "status": "answered",
+    "question": "Can I compare Stardew Valley crop profits by planting date?"
+  },
+  {
+    "keyword": "stardew valley crop calculator",
+    "path": "/crop-calculator/",
+    "status": "answered",
+    "question": "Can I compare Stardew Valley crop profits by planting date?"
+  },
+  {
+    "keyword": "stardew valley crop profits",
+    "path": "/crop-calculator/",
+    "status": "answered",
+    "question": "Can I compare Stardew Valley crop profits by planting date?"
+  },
+  {
+    "keyword": "crop calculator stardew valley",
+    "path": "/crop-calculator/",
+    "status": "answered",
+    "question": "Can I compare Stardew Valley crop profits by planting date?"
+  },
+  {
+    "keyword": "stardew crop planner",
+    "path": "/crop-calculator/",
+    "status": "answered",
+    "question": "Can I compare Stardew Valley crop profits by planting date?"
+  },
+  {
+    "keyword": "stardew valley crop planner",
+    "path": "/crop-calculator/",
+    "status": "answered",
+    "question": "Can I compare Stardew Valley crop profits by planting date?"
+  },
+  {
+    "keyword": "stardew valley profit calculator",
+    "path": "/crop-calculator/",
+    "status": "answered",
+    "question": "Can I compare Stardew Valley crop profits by planting date?"
+  },
+  {
+    "keyword": "crop planner stardew valley",
+    "path": "/crop-calculator/",
+    "status": "answered",
+    "question": "Can I compare Stardew Valley crop profits by planting date?"
+  },
+  {
+    "keyword": "stardew fair calculator",
+    "path": "/fair-calculator/",
+    "status": "answered",
+    "question": "Can I use the Grange Display Calculator to compare sets of items?"
+  },
+  {
+    "keyword": "stardew valley grange display",
+    "path": "/fair-calculator/",
+    "status": "answered",
+    "question": "Can I use the Grange Display Calculator to compare sets of items?"
+  },
+  {
+    "keyword": "stardew grange display",
+    "path": "/fair-calculator/",
+    "status": "answered",
+    "question": "Can I use the Grange Display Calculator to compare sets of items?"
+  },
+  {
+    "keyword": "grange display calculator",
+    "path": "/fair-calculator/",
+    "status": "answered",
+    "question": "Can I use the Grange Display Calculator to compare sets of items?"
+  },
+  {
+    "keyword": "stardew valley grange display calculator",
+    "path": "/fair-calculator/",
+    "status": "answered",
+    "question": "Can I use the Grange Display Calculator to compare sets of items?"
+  },
+  {
+    "keyword": "grange display stardew valley",
+    "path": "/fair-calculator/",
+    "status": "answered",
+    "question": "Can I use the Grange Display Calculator to compare sets of items?"
+  },
+  {
+    "keyword": "stardew grange",
+    "path": "/fair-calculator/",
+    "status": "answered",
+    "question": "Can I use the Grange Display Calculator to compare sets of items?"
+  },
+  {
+    "keyword": "stardew valley fair grange display",
+    "path": "/fair-calculator/",
+    "status": "answered",
+    "question": "Can I use the Grange Display Calculator to compare sets of items?"
+  },
+  {
+    "keyword": "stardew fish prices",
+    "path": "/fishing/",
+    "status": "limited",
+    "question": "How do I check Stardew fish prices?",
+    "note": "Normal-quality raw prices; 13 presets and manual base input."
+  },
+  {
+    "keyword": "stardew perfection checklist",
+    "path": "/perfection/",
+    "status": "answered",
+    "question": "Can I use this as a Stardew Valley 100% checklist?"
+  },
+  {
+    "keyword": "stardew perfection",
+    "path": "/perfection/",
+    "status": "answered",
+    "question": "Can I use this as a Stardew Valley 100% checklist?"
+  },
+  {
+    "keyword": "stardew valley perfection",
+    "path": "/perfection/",
+    "status": "answered",
+    "question": "Can I use this as a Stardew Valley 100% checklist?"
+  },
+  {
+    "keyword": "perfection stardew",
+    "path": "/perfection/",
+    "status": "answered",
+    "question": "Can I use this as a Stardew Valley 100% checklist?"
+  },
+  {
+    "keyword": "perfection stardew valley",
+    "path": "/perfection/",
+    "status": "answered",
+    "question": "Can I use this as a Stardew Valley 100% checklist?"
+  },
+  {
+    "keyword": "stardew valley 100 checklist",
+    "path": "/perfection/",
+    "status": "answered",
+    "question": "Can I use this as a Stardew Valley 100% checklist?"
+  },
+  {
+    "keyword": "stardew valley perfection tracker",
+    "path": "/perfection/",
+    "status": "answered",
+    "question": "Can I use this as a Stardew Valley 100% checklist?"
+  },
+  {
+    "keyword": "sdv perfection tracker",
+    "path": "/perfection/",
+    "status": "answered",
+    "question": "Can I use this as a Stardew Valley 100% checklist?"
+  },
+  {
+    "keyword": "crafting recipes stardew",
+    "path": "/crafting/",
+    "status": "answered",
+    "question": "Where can I find all standard Stardew Valley crafting recipes?"
+  },
+  {
+    "keyword": "stardew crafting recipes",
+    "path": "/crafting/",
+    "status": "answered",
+    "question": "Where can I find all standard Stardew Valley crafting recipes?"
+  },
+  {
+    "keyword": "stardew valley crafting",
+    "path": "/crafting/",
+    "status": "answered",
+    "question": "Where can I find all standard Stardew Valley crafting recipes?"
+  },
+  {
+    "keyword": "all crafting recipes stardew",
+    "path": "/crafting/",
+    "status": "answered",
+    "question": "Where can I find all standard Stardew Valley crafting recipes?"
+  },
+  {
+    "keyword": "stardew valley crafting recipes",
+    "path": "/crafting/",
+    "status": "answered",
+    "question": "Where can I find all standard Stardew Valley crafting recipes?"
+  },
+  {
+    "keyword": "stardew crafting",
+    "path": "/crafting/",
+    "status": "answered",
+    "question": "Where can I find all standard Stardew Valley crafting recipes?"
+  },
+  {
+    "keyword": "craft every item stardew",
+    "path": "/crafting/",
+    "status": "answered",
+    "question": "Where can I find all standard Stardew Valley crafting recipes?"
+  },
+  {
+    "keyword": "stardew valley all crafting recipes",
+    "path": "/crafting/",
+    "status": "answered",
+    "question": "Where can I find all standard Stardew Valley crafting recipes?"
+  },
+  {
+    "keyword": "stardew items shipped",
+    "path": "/shipping/",
+    "status": "answered",
+    "question": "What does the Stardew Valley shipping list track?"
+  },
+  {
+    "keyword": "stardew shipping list",
+    "path": "/shipping/",
+    "status": "answered",
+    "question": "What does the Stardew Valley shipping list track?"
+  },
+  {
+    "keyword": "stardew valley shipping list",
+    "path": "/shipping/",
+    "status": "answered",
+    "question": "What does the Stardew Valley shipping list track?"
+  },
+  {
+    "keyword": "shipped items stardew",
+    "path": "/shipping/",
+    "status": "answered",
+    "question": "What does the Stardew Valley shipping list track?"
+  },
+  {
+    "keyword": "stardew valley items shipped",
+    "path": "/shipping/",
+    "status": "answered",
+    "question": "What does the Stardew Valley shipping list track?"
+  },
+  {
+    "keyword": "stardew shipped items",
+    "path": "/shipping/",
+    "status": "answered",
+    "question": "What does the Stardew Valley shipping list track?"
+  },
+  {
+    "keyword": "items shipped stardew valley",
+    "path": "/shipping/",
+    "status": "answered",
+    "question": "What does the Stardew Valley shipping list track?"
+  },
+  {
+    "keyword": "stardew recipes",
+    "path": "/cooking/",
+    "status": "answered",
+    "question": "Where can I find Stardew Valley cooking recipes and ingredients?"
+  },
+  {
+    "keyword": "stardew cooking",
+    "path": "/cooking/",
+    "status": "answered",
+    "question": "Where can I find Stardew Valley cooking recipes and ingredients?"
+  },
+  {
+    "keyword": "all recipes stardew valley",
+    "path": "/cooking/",
+    "status": "limited",
+    "question": "Where can I find Stardew Valley cooking recipes and ingredients?",
+    "note": "Cooking catalogue scope; crafting has its own route."
+  },
+  {
+    "keyword": "stardew farm map",
+    "path": "/farm-comparison/",
+    "status": "limited",
+    "question": "Where can I see the Standard Farm and Hill-top Farm maps?",
+    "note": "Farm-type comparison and a link to original maps."
+  },
+  {
+    "keyword": "stardew valley farm map",
+    "path": "/farm-comparison/",
+    "status": "limited",
+    "question": "Where can I see the Standard Farm and Hill-top Farm maps?",
+    "note": "Farm-type comparison and a link to original maps."
+  },
+  {
+    "keyword": "stardew valley farm maps",
+    "path": "/farm-comparison/",
+    "status": "limited",
+    "question": "Where can I see the Standard Farm and Hill-top Farm maps?",
+    "note": "Farm-type comparison and a link to original maps."
+  },
+  {
+    "keyword": "farm maps stardew valley",
+    "path": "/farm-comparison/",
+    "status": "limited",
+    "question": "Where can I see the Standard Farm and Hill-top Farm maps?",
+    "note": "Farm-type comparison and a link to original maps."
+  },
+  {
+    "keyword": "stardew valley standard farm",
+    "path": "/farm-comparison/",
+    "status": "answered",
+    "question": "Where can I see the Standard Farm and Hill-top Farm maps?"
+  },
+  {
+    "keyword": "stardew valley farms types",
+    "path": "/farm-comparison/",
+    "status": "answered",
+    "question": "Where can I see the Standard Farm and Hill-top Farm maps?"
+  },
+  {
+    "keyword": "stardew farm maps",
+    "path": "/farm-comparison/",
+    "status": "limited",
+    "question": "Where can I see the Standard Farm and Hill-top Farm maps?",
+    "note": "Farm-type comparison and a link to original maps."
+  },
+  {
+    "keyword": "hilltop farm stardew",
+    "path": "/farm-comparison/",
+    "status": "answered",
+    "question": "Where can I see the Standard Farm and Hill-top Farm maps?"
+  },
+  {
+    "keyword": "grandpa evaluation stardew",
+    "path": "/grandpa-calculator/",
+    "status": "answered",
+    "question": "How do I check which Grandpa’s Evaluation goals are still missing?"
+  }
+]

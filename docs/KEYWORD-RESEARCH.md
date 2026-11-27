@@ -8,6 +8,10 @@ Production SEO generator now emits self-canonical tags, WebApplication/Breadcrum
 
 ## Page copy and tool finder
 
-The public page and SEO plan now share the same title and description for every core URL. Each page includes a task-specific question and answer with the tool, input or filter that resolves it. The tool finder uses a curated set of 81 supported task phrases across all 16 routes, with exact matches listed first. These phrases serve on-site navigation.
+The public page and SEO plan now share the same title and description for every core URL. Each page includes a task-specific question and answer with the tool, input or filter that resolves it. The tool finder uses a curated set of 91 supported task phrases across all 16 routes, with exact matches listed first. These phrases serve on-site navigation.
 
 The research primary and auxiliary keyword mappings remain intact. The predictor keeps its research target but names the implemented geode scope in visible copy. Broad seed generation, exact official farm geometry, fish prices and a save step counter remain outside the public page promises. The public repository does not reproduce the private keyword export.
+
+## Auxiliary keyword audit
+
+`src/config/secondary-intents.json` checks all 86 original phrases against a destination and a concrete public question. Equivalent wording shares one answer. Limited entries describe partial support, and broad or navigational predictor queries stay deferred. The fishing page has a normal-quality fish price calculator with 13 presets. The private save review shows the main farmer’s steps when a supported stat field is present, and the Farm Comparison page links to the game-map reference.
