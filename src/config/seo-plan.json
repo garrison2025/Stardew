@@ -220,7 +220,7 @@
       "priority": "P0",
       "title": "Stardew Valley Crop Profit Calculator & Planner | Field & Farm",
       "h1": "Stardew Valley Crop Calculator",
-      "description": "Compare seasonal and protected crop profits, seed budgets, fertilizer, processing and year-round reinvestment cash flow.",
+      "description": "Compare seasonal and protected crop profits, budgets, processing, reinvestment and outdoor year-round crop rotations.",
       "primaryKeyword": "stardew crop calculator",
       "volume": 320,
       "kd": 17,
@@ -258,7 +258,9 @@
         "most profitable crops",
         "crop cash flow",
         "reinvestment planner",
-        "year-round crop profit"
+        "year-round crop profit",
+        "outdoor crop rotation",
+        "annual crop planner"
       ]
     },
     {
