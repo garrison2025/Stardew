@@ -203,7 +203,7 @@
     "path": "/crop-calculator/",
     "h1": "Stardew Valley Crop Calculator",
     "title": "Stardew Valley Crop Profit Calculator & Planner | Field & Farm",
-    "description": "Compare seasonal crop profits, fertilizer, budget, greenhouse and Ginger Island yields. Plan up to 112 growing days or simulate processing cash flow.",
+    "description": "Compare seasonal and protected crop profits, seed budgets, fertilizer, processing and year-round reinvestment cash flow.",
     "primaryKeyword": "stardew crop calculator",
     "volume": 320,
     "kd": 17,
@@ -228,7 +228,7 @@
     ],
     "priority": "P0",
     "guideTitle": "Compare planting and processing plans",
-    "guideText": "Compare outdoor harvest schedules, seed budget, growth fertilizer and quality. Check processing cash flow or choose the separate 112-day Greenhouse and Ginger Island model with a finite seed stock and sale margin scenario.",
+    "guideText": "Compare seasonal harvests and protected crop profits. Use the separate daily cash-flow simulation to allocate up to three crops, reinvest settled sales and compare shared processing with raw sales. Enter actual seed and sale prices.",
     "researchClusterSize": 45,
     "searchAliases": [
       "crop profit",
@@ -236,7 +236,10 @@
       "profit calculator",
       "greenhouse profit",
       "ginger island crops",
-      "most profitable crops"
+      "most profitable crops",
+      "crop cash flow",
+      "reinvestment planner",
+      "year-round crop profit"
     ]
   },
   {
