@@ -127,7 +127,7 @@
       ],
       [
         "Does the Traveling Cart forecast show the full stock?",
-        "No. It covers selected seeded offers in the PC 1.6.15 reference. Full random stock and independent in-game fixtures remain outside the current model."
+        "It now models ten ordinary random slots, one furniture slot, conditional Rare Seed and seven independent offers. The original cabbage guarantee roll is optional. Skill books, fixed items, festivals and independent game fixtures are still excluded."
       ],
       [
         "Can I predict train times or green rain?",

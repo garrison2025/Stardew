@@ -129,7 +129,7 @@
     "path": "/predictor/",
     "h1": "Stardew Valley Seed Predictor",
     "title": "Stardew Valley Seed & Geode Predictor | Field & Farm",
-    "description": "Explore PC 1.6.15 reference geode openings, selected Traveling Cart offers, train times, green rain and overnight event candidates.",
+    "description": "Explore seeded geodes, reference Traveling Cart random stock, train times, green rain and overnight event candidates.",
     "primaryKeyword": "stardew valley seed predictor",
     "volume": 140,
     "kd": 15,
@@ -150,7 +150,7 @@
     ],
     "priority": "P0",
     "guideTitle": "Try the 1.6.15 geode opener",
-    "guideText": "Compare the next 20 geode openings, selected Traveling Cart offers or a 28-day train, green rain and overnight event calendar. Use the private workspace for personal save fields. Reference predictions are not independently verified in game.",
+    "guideText": "Compare geode openings, Forest Cart ordinary random slots and selected special offers, or the 28-day event calendar. Use the private workspace for personal save fields. Reference predictions lack independent in-game validation.",
     "researchClusterSize": 11,
     "searchAliases": [
       "geode predictor",
@@ -158,7 +158,9 @@
       "seed predictor",
       "train schedule",
       "green rain",
-      "overnight events"
+      "overnight events",
+      "traveling cart stock",
+      "red cabbage seed predictor"
     ]
   },
   {

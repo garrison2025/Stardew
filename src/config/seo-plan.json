@@ -140,7 +140,7 @@
       "priority": "P0",
       "title": "Stardew Valley Seed & Geode Predictor | Field & Farm",
       "h1": "Stardew Valley Seed Predictor",
-      "description": "Explore PC 1.6.15 reference geode openings, selected Traveling Cart offers, train times, green rain and overnight event candidates.",
+      "description": "Explore seeded geodes, reference Traveling Cart random stock, train times, green rain and overnight event candidates.",
       "primaryKeyword": "stardew valley seed predictor",
       "volume": 140,
       "kd": 15,
@@ -171,7 +171,9 @@
         "seed predictor",
         "train schedule",
         "green rain",
-        "overnight events"
+        "overnight events",
+        "traveling cart stock",
+        "red cabbage seed predictor"
       ]
     },
     {
