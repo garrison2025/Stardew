@@ -25,7 +25,7 @@ export function readSaveMilestones(root:SaveElement,player:SaveElement|undefined
    points.set(name,Number(raw));
   }
   out.friends=[...points].filter(([name,p])=>p>=(datable.includes(name)?2000:2500)).length;
-  out.eightHeartFriends=[...points.values()].filter(p=>p>=2000).length;
+  out.eightHeartFriends=[...points.values()].filter(p=>p>=1975).length;
  }
  const mail=child(player,'mailReceived');
  if(valid(mail,10000)&&mail!.children.every(e=>e.localName==='string')){

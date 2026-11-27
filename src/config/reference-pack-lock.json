@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "id": "ref-pc-1.6.15-20261128-r2",
+  "id": "ref-pc-1.6.15-20261128-r3",
   "gameVersion": "1.6.15",
   "rulesVersion": "preview-2026-11-28",
   "status": "reference-only",
@@ -75,7 +75,7 @@
     },
     {
       "path": "src/lib/fair-stock.ts",
-      "gitBlob": "5a8738f0bce5913a1dce1fe050033d3e830b9f6d"
+      "gitBlob": "fb30e26a525f97792cfc337644bce557b2062fff"
     },
     {
       "path": "src/lib/farm-details.ts",
@@ -107,7 +107,7 @@
     },
     {
       "path": "src/lib/game-rules.ts",
-      "gitBlob": "6dcd15b6b954480413a7a145f0a107885052ca99"
+      "gitBlob": "7dc489ee46a6424f3fce97c0414019370de84568"
     },
     {
       "path": "src/lib/geode-prediction.ts",
@@ -191,7 +191,7 @@
     },
     {
       "path": "src/lib/save-milestones.ts",
-      "gitBlob": "26f8977c7eaf7c3d768268942f623236409e3371"
+      "gitBlob": "a1d8ab14efccd2013d02e9379a734b42f442363d"
     },
     {
       "path": "src/lib/save-model.ts",
