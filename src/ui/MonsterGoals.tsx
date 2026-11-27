@@ -1,11 +1,11 @@
 import React,{useState} from 'react';
 import {emptyMonsterCounts,monsterGoalSummary,type MonsterCounts,type MonsterId} from '../lib/monster-goals';
-import {decodeSaveObservations,SAVE_OBSERVATIONS_KEY} from '../lib/save-observations';
-import {readLocal,download} from '../lib/local';
+import {readObservedSave} from '../lib/read-observed-save';
+import {download} from '../lib/local';
 export default function MonsterGoals({workspace,apply}:{workspace:boolean;apply:(n:number)=>void}){
  const [counts,setCounts]=useState<MonsterCounts>(emptyMonsterCounts),[note,setNote]=useState(''),[missing,setMissing]=useState(false),[busy,setBusy]=useState(false);
  const result=monsterGoalSummary(counts);
- async function load(){setBusy(true);try{const obs=decodeSaveObservations(await readLocal(SAVE_OBSERVATIONS_KEY));if(!obs.monsterKills)throw Error('Import and merge a save with recognized monster kill counts first.');setCounts(obs.monsterKills);setNote('Recorded main-player counts loaded; verify with the Guild board.')}catch(e){setNote(String(e))}finally{setBusy(false)}}
+ async function load(){setBusy(true);try{const obs=await readObservedSave();if(!obs.monsterKills)throw Error('Import and merge a save with recognized monster kill counts first.');setCounts(obs.monsterKills);setNote('Recorded main-player counts loaded; verify with the Guild board.')}catch(e){setNote(String(e))}finally{setBusy(false)}}
  function change(id:MonsterId,value:number){if(Number.isSafeInteger(value)&&value>=0&&value<=1e9){setCounts(old=>({...old,[id]:value}));setNote('Manual scenario; not automatically saved.')}}
  return <details className="panel"><summary>Monster eradication goals · 12 categories</summary><p>Use the Adventurer’s Guild board or load recognized kill counters from your local save. All 12 goals are required for the monster component of perfection.</p>
  {workspace&&<button disabled={busy} onClick={()=>void load()}>Load observed monster kills</button>}

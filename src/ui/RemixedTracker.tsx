@@ -1,6 +1,6 @@
 import {matchingBackpackQuantity} from '../lib/bundle-backpack';
 import type {Backpack} from '../lib/backpack-observations';
-import {decodeSaveObservations,SAVE_OBSERVATIONS_KEY} from '../lib/save-observations';
+import {readObservedSave} from '../lib/read-observed-save';
 import {copyObservedBundles,observedBundleStatus,observedSlotName} from '../lib/bundle-observations';
 import type {SaveBundle} from '../lib/save-bundles';
 import React,{useEffect,useState} from 'react';
@@ -12,7 +12,7 @@ const draft=():CustomBundle=>({id:'',room:'crafts',name:'',needed:1,slots:[slot(
 export default function RemixedTracker({workspace}:{workspace:boolean}){
  const [state,setState]=useState(emptyRemixed),[form,setForm]=useState(draft),[ready,setReady]=useState(!workspace),[failed,setFailed]=useState(false),[busy,setBusy]=useState(false),[message,setMessage]=useState(''),[error,setError]=useState(''),[observed,setObserved]=useState<SaveBundle[]|null>(null),[backpack,setBackpack]=useState<Backpack|undefined>(undefined);
  useEffect(()=>{if(!workspace)return;let live=true;readLocal(REMIXED_KEY).then(v=>{if(live&&v!==undefined)setState(decodeRemixed(v))}).catch(e=>{if(live){setFailed(true);setError(String(e))}}).finally(()=>{if(live)setReady(true)});return()=>{live=false}},[workspace]);
- async function loadObserved(){setBusy(true);setError('');try{const record=decodeSaveObservations(await readLocal(SAVE_OBSERVATIONS_KEY));if(!record.bundles?.length)throw Error('Import and merge a main save with readable bundle definitions first.');setObserved(record.bundles);setBackpack(record.backpack);setMessage('Loaded the latest recorded bundle definitions.')}catch(e){setObserved(null);setBackpack(undefined);setError(String(e))}finally{setBusy(false)}}
+ async function loadObserved(){setBusy(true);setError('');try{const record=await readObservedSave();if(!record.bundles?.length)throw Error('Import and merge a main save with readable bundle definitions first.');setObserved(record.bundles);setBackpack(record.backpack);setMessage('Loaded the latest recorded bundle definitions.')}catch(e){setObserved(null);setBackpack(undefined);setError(String(e))}finally{setBusy(false)}}
  function copyObserved(){if(!observed||!window.confirm('Copy recognized definitions and positive full donations into your separate custom list? Unknown and negative observations do not erase existing progress. Review and save manually.'))return;try{const result=copyObservedBundles(state,observed);setState(result.state);setForm(draft());setMessage(result.added+' added · '+result.updated+' matched · '+result.skipped+' unsupported or conflicting; save manually to retain.');setError('')}catch(e){setError(String(e))}}
  function edit(i:number,v:Partial<CustomSlot>){setForm(b=>({...b,slots:b.slots.map((s,j)=>j===i?{...s,...v}:s)}))}
  function add(){try{const id=form.id||crypto.randomUUID();const next=decodeRemixed({schema:1,bundles:[...state.bundles.filter(b=>b.id!==id),{...form,id}]});setState(next);setForm(draft());setError('');setMessage('Custom bundle updated')}catch(e){setError(String(e))}}
