@@ -89,7 +89,7 @@ const related=pages.filter(p=>p.path!==page.path && (page.relatedPaths||[]).incl
   <input id="tool-finder-query" type="search" autocomplete="off" placeholder="Try crops, fishing or layout" autofocus />
   <p class="tool-finder-status" role="status"></p>
   <ul class="tool-finder-results">
-    {pages.map(p=><li data-search={`${p.h1} ${p.path.replaceAll('-', ' ')} ${p.group} ${p.description}`}>
+    {pages.map(p=><li data-search={`${p.h1} ${p.path.replaceAll('-', ' ')} ${p.group} ${p.description}`} data-search-aliases={p.searchAliases.join('|')}>
       <a href={p.path} aria-current={p.path===page.path?'page':undefined}>
         <span><strong>{short(p)}</strong><small>{p.description}</small></span>
         <span class="tool-finder-group">{p.group}</span>

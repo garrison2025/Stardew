@@ -23,6 +23,10 @@
       [
         "Are these the exact game maps?",
         "No. The eight landscapes and indoor templates are independently authored practice scenes. Actual terrain and building compatibility are not fully verified."
+      ],
+      [
+        "Can I plan sprinklers and buildings on the same farm layout?",
+        "Yes. Place buildings and crop markers on the practice landscape, then turn on Water coverage to see which crop tiles your sprinklers reach."
       ]
     ]
   },
@@ -54,6 +58,10 @@
       [
         "Can I read remixed requirements from a save?",
         "The private workspace can read supported bundle definitions stored in the main save. Review the imported list and confirm donations yourself."
+      ],
+      [
+        "How do I find Community Center bundle items to collect this season?",
+        "Choose a room and use the season filter to review unfinished standard bundles with matching item hints. Confirm the quantity and quality shown before marking a donation."
       ]
     ]
   },
@@ -81,6 +89,10 @@
       [
         "Does finding an item count as donating it?",
         "No. The tracker keeps these separate; reward eligibility is also distinct from claiming the reward."
+      ],
+      [
+        "How do I find a missing museum donation?",
+        "Search by artifact or mineral name and set Status to Not donated. The result shows common acquisition routes and whether you already marked the item as found."
       ]
     ]
   },
@@ -108,6 +120,10 @@
       [
         "Do the rows cover every opener?",
         "This model targets Clint’s geode service. Geode Crushers and other container types are outside its scope."
+      ],
+      [
+        "Can I use this geode predictor with my own Stardew Valley save?",
+        "Open the private workspace and enter the game and farmer IDs, the number already opened, and the relevant settings. Compare the predicted item and quantity with openings you recorded in the game."
       ]
     ]
   },
@@ -135,6 +151,10 @@
       [
         "Can I mix multiple farms?",
         "Not safely in this preview. Use one farm per local workspace and export a backup before changing farms."
+      ],
+      [
+        "Which trackers can a Stardew Valley save update?",
+        "A supported import can add recognized fishing, cooking, shipping, crafting and museum observations. Review the proposed counts before merging into the private workspace."
       ]
     ]
   },
@@ -162,6 +182,10 @@
       [
         "Do these results include fertilizer or random extra yields?",
         "The base seasonal model uses normal-quality minimum yields; processing and professions are limited to the separate economy model."
+      ],
+      [
+        "How do I calculate crop profit from the middle of a season?",
+        "Set the current planting day and enter your available tiles and seed budget. The planner recalculates feasible harvests and projected net profit for the remaining time."
       ]
     ]
   },
@@ -189,6 +213,10 @@
       [
         "Can I reuse an item in the recommendation?",
         "Only up to the quantity you enter. The optimizer cannot inspect actual inventory."
+      ],
+      [
+        "What should I bring for the Stardew Valley Fair grange display?",
+        "Enter the items you have, including their categories, qualities, sale values and quantities. The optimizer suggests a nine-slot combination and shows the resulting score."
       ]
     ]
   },
@@ -216,6 +244,10 @@
       [
         "Are all weather and bait alternatives modeled?",
         "No. The current hints describe common routes; exact weather, time and bait coverage is incomplete."
+      ],
+      [
+        "How do I find missing fish for the current season?",
+        "Filter by unfinished entries and choose a season. Use weather, time and location to narrow the recorded common fishing routes."
       ]
     ]
   },
@@ -243,6 +275,10 @@
       [
         "What do waivers cost?",
         "The reference calculator uses 500,000g per waiver point and caps the final score at 100%."
+      ],
+      [
+        "Where do I start if my 100% perfection checklist is incomplete?",
+        "Check which categories still have unknown or incomplete counts. In the private workspace, load your trackers and available save observations, then open individual checklists to review the missing tasks."
       ]
     ]
   },
@@ -274,6 +310,10 @@
       [
         "Are profession substitutions expanded?",
         "The standard recipe list does not automatically apply every profession or recursive ingredient substitution."
+      ],
+      [
+        "How do I calculate materials to craft several recipes?",
+        "Set the number of batches for each recipe and review the combined material list. Record what you have to compare it with the direct ingredient requirements."
       ]
     ]
   },
@@ -301,6 +341,10 @@
       [
         "Does every sale count?",
         "No. Selling to a shop and the collection's shipping condition are not necessarily equivalent."
+      ],
+      [
+        "How do I find items I have not shipped in Stardew Valley?",
+        "Open the shipping checklist and set Status to Incomplete. Use the search field to find a particular item or open the private tracker to merge recognized shipments."
       ]
     ]
   },
@@ -332,6 +376,10 @@
       [
         "Does the ingredient planner recursively expand dishes?",
         "No. Direct ingredients and group names are shown; intermediate dishes are not automatically expanded."
+      ],
+      [
+        "Can I make one shopping list for several Stardew Valley dishes?",
+        "Enter a batch count beside each dish. The totals combine direct ingredients across the selected dishes. Check the item reference for substitutes or separately prepared ingredients."
       ]
     ]
   },
@@ -363,6 +411,10 @@
       [
         "Does the tracker locate every walnut from a save?",
         "No. The current source descriptions and counts do not reconstruct exact game positions or all save events."
+      ],
+      [
+        "How do I look up Golden Walnuts by Ginger Island region?",
+        "Open the landmark guide and choose an island region, or select the region directly above the checklist. Search by task or landmark and filter by acquisition method."
       ]
     ]
   },
@@ -390,6 +442,10 @@
       [
         "Are the linked maps exact farm maps?",
         "No. Each is an independently authored landscape inspired by a general terrain type, not an official map."
+      ],
+      [
+        "How do Standard Farm and Four Corners Farm compare?",
+        "Select them side by side to compare their published tillable and buildable tile counts. The notes describe open planting area and the four-zone layout before you try an illustrative plan."
       ]
     ]
   },
@@ -417,6 +473,10 @@
       [
         "Can I load a save?",
         "In the private workspace you can explicitly load recognized earnings and skill XP-derived levels; remaining achievements are manual."
+      ],
+      [
+        "What can I improve for Grandpa’s Evaluation?",
+        "Enter earnings, skill levels, friendships and confirmed milestones. Review the score breakdown to see which thresholds or achievements can add points."
       ]
     ]
   },
@@ -444,6 +504,10 @@
       [
         "Does the tool award professions in game?",
         "No. It models thresholds and shows branches, without writing to the original save."
+      ],
+      [
+        "How do I check how much XP I need for the next skill level?",
+        "Enter the current XP for the skill and compare the calculated level with the level thresholds. Mastery is tracked separately from the five base skills."
       ]
     ]
   }

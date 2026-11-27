@@ -18,6 +18,15 @@ const finder=page.getByRole('dialog',{name:'Find a tool'});
 const searchTools=finder.getByRole('searchbox');
 await searchTools.fill('not a matching tool');
 await finder.getByText('No tools match your search.',{exact:true}).waitFor();
+for(const entry of pages){
+ for(const alias of entry.searchAliases){
+  await finder.getByRole('searchbox').fill(alias);
+  assert.equal(await finder.locator('li:not([hidden]) a').first().getAttribute('href'),entry.path,alias+' should find its intended tool first');
+ }
+}
+await finder.getByRole('searchbox').fill("Grandpa's Evaluation");
+assert.equal(await finder.locator('li:not([hidden]) a').first().getAttribute('href'),'/grandpa-calculator/');
+
 await searchTools.fill('crop calculator');
 await searchTools.press('Escape');
 await finder.waitFor({state:'hidden'});
