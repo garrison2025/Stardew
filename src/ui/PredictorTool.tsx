@@ -4,7 +4,6 @@ import {decodeMuseum} from '../lib/museum-progress';
 import {readLocal} from '../lib/local';
 import CartForecast from './CartForecast';
 import EventCalendar from './EventCalendar';
-import {readGeodeSave} from '../lib/save-parser';
 import {GEODE_TYPES,predictGeodes,type GeodeInput,type GeodeType} from '../lib/geode-prediction';
 const demo:GeodeInput={gameId:'123456789',playerId:'987654321',opened:0,mineLevel:120,legacy:false,qiBeans:false};
 const empty:GeodeInput={...demo,gameId:'',playerId:''};
@@ -18,7 +17,7 @@ export default function PredictorTool({workspace}:{workspace:boolean}){
   setError('');
   setInput(empty);
   try {
-   setInput(await readGeodeSave(file));
+   setInput(await (await import('../lib/save-parser')).readGeodeSave(file));
    setImportStatus('Main-player fields loaded for this session. Confirm an unmodded PC 1.6.15 save and review the switches before calculating.');
   } catch (e) {
    setError((e as Error).message);
