@@ -1,0 +1,266 @@
+{
+  "schemaVersion": 1,
+  "gameVersion": "1.6.15",
+  "platform": "PC reference; save structure 1.6.x preview",
+  "rulesVersion": "preview-2026-11-27",
+  "status": "reference-only",
+  "rightsApproved": false,
+  "fixturesApproved": false,
+  "features": [
+    {
+      "path": "/",
+      "files": [
+        "src/lib/map-model.ts",
+        "src/lib/farm-templates.ts",
+        "src/lib/farm-details.ts",
+        "src/lib/layout-presets.ts",
+        "src/lib/indoor-model.ts",
+        "src/lib/indoor-presets.ts",
+        "src/lib/irrigation-optimizer.ts",
+        "src/lib/screenshot-grids.ts"
+      ],
+      "sources": [
+        "https://stardewvalleywiki.com/Farm_Maps",
+        "https://stardewvalleywiki.com/Carpenter%27s_Shop",
+        "https://stardewvalleywiki.com/Sprinkler"
+      ],
+      "sourceRights": "pending",
+      "scope": "Schematic maps and independent placement references; exact masks unavailable"
+    },
+    {
+      "path": "/bundles/",
+      "files": [
+        "src/lib/bundle-data.ts",
+        "src/lib/bundle-observations.ts",
+        "src/lib/save-bundles.ts",
+        "src/lib/bundle-progress.ts",
+        "src/lib/remixed-bundles.ts"
+      ],
+      "sources": [
+        "https://stardewvalleywiki.com/Bundles",
+        "https://stardewvalleywiki.com/Modding:Bundles"
+      ],
+      "sourceRights": "pending",
+      "scope": "Standard and observed custom definitions; partial donation rules"
+    },
+    {
+      "path": "/museum/",
+      "files": [
+        "src/lib/museum-data.ts",
+        "src/lib/museum-progress.ts"
+      ],
+      "sources": [
+        "https://stardewvalleywiki.com/Museum",
+        "https://stardewvalleywiki.com/Artifacts",
+        "https://stardewvalleywiki.com/Minerals"
+      ],
+      "sourceRights": "pending",
+      "scope": "Donation catalogue and schematic display"
+    },
+    {
+      "path": "/predictor/",
+      "files": [
+        "src/lib/geode-prediction.ts",
+        "src/lib/event-calendar.ts",
+        "src/lib/cart-forecast.ts",
+        "src/lib/cart-stock.ts",
+        "src/lib/cart-stock-reference.ts"
+      ],
+      "sources": [
+        "https://stardewvalleywiki.com/Traveling_Cart",
+        "https://stardewvalleywiki.com/Geode",
+        "https://stardewvalleywiki.com/Desert_Festival",
+        "https://stardewvalleywiki.com/Night_Market"
+      ],
+      "sourceRights": "pending",
+      "scope": "PC 1.6.15 numerical reference; exact save-day and game fixtures pending"
+    },
+    {
+      "path": "/tracker/",
+      "files": [
+        "src/lib/save-model.ts",
+        "src/lib/save-parser-core.ts",
+        "src/lib/save-collection-ids.ts",
+        "src/lib/save-progress.ts",
+        "src/lib/save-observations.ts",
+        "src/lib/save-merge.ts",
+        "src/lib/save-milestones.ts",
+        "src/lib/save-professions.ts",
+        "src/lib/save-stats.ts",
+        "src/lib/backpack-observations.ts",
+        "src/lib/storage-observations.ts"
+      ],
+      "sources": [
+        "https://stardewvalleywiki.com/Saves",
+        "https://stardewvalleywiki.com/Modding:Console_commands",
+        "https://stardewvalleywiki.com/Modding:Stats"
+      ],
+      "sourceRights": "pending",
+      "scope": "Structural 1.6.x observations; not full compatibility"
+    },
+    {
+      "path": "/crop-calculator/",
+      "files": [
+        "src/lib/crop-data.ts",
+        "src/lib/crop-growth.ts",
+        "src/lib/crop-scenarios.ts",
+        "src/lib/season-crops.ts",
+        "src/lib/processing.ts",
+        "src/lib/extra-processing.ts",
+        "src/lib/annual-rotation.ts",
+        "src/lib/outdoor-cashflow.ts",
+        "src/lib/protected-cashflow.ts",
+        "src/lib/protected-crops.ts",
+        "src/lib/farm-economy.ts"
+      ],
+      "sources": [
+        "https://stardewvalleywiki.com/Crops",
+        "https://stardewvalleywiki.com/Dehydrator",
+        "https://stardewvalleywiki.com/Mill",
+        "https://stardewvalleywiki.com/Cask",
+        "https://stardewvalleywiki.com/Keg",
+        "https://stardewvalleywiki.com/Preserves_Jar"
+      ],
+      "sourceRights": "pending",
+      "scope": "Restricted profit scenarios; independent game fixtures pending"
+    },
+    {
+      "path": "/fair-calculator/",
+      "files": [
+        "src/lib/game-rules.ts",
+        "src/lib/fair-optimize.ts",
+        "src/lib/fair-samples.ts",
+        "src/lib/fair-stock.ts"
+      ],
+      "sources": [
+        "https://stardewvalleywiki.com/Stardew_Valley_Fair",
+        "https://stardewvalleywiki.com/Modding:Items"
+      ],
+      "sourceRights": "pending",
+      "scope": "Reference scoring and editable candidate categories"
+    },
+    {
+      "path": "/fishing/",
+      "files": [
+        "src/lib/game-collections.ts",
+        "src/lib/fish-conditions.ts",
+        "src/lib/fish-reference.ts",
+        "src/lib/fish-routes.ts"
+      ],
+      "sources": [
+        "https://stardewvalleywiki.com/Fish"
+      ],
+      "sourceRights": "pending",
+      "scope": "72 reference entries; location and conditions not exhaustive"
+    },
+    {
+      "path": "/perfection/",
+      "files": [
+        "src/lib/game-rules.ts",
+        "src/lib/monster-goals.ts",
+        "src/lib/private-saved-counts.ts"
+      ],
+      "sources": [
+        "https://stardewvalleywiki.com/Perfection",
+        "https://stardewvalleywiki.com/Adventurer%27s_Guild"
+      ],
+      "sourceRights": "pending",
+      "scope": "Weighted estimate; multiplayer scope pending"
+    },
+    {
+      "path": "/crafting/",
+      "files": [
+        "src/lib/game-collections.ts",
+        "src/lib/recipe-unlocks.ts",
+        "src/lib/backpack-observations.ts"
+      ],
+      "sources": [
+        "https://stardewvalleywiki.com/Crafting",
+        "https://stardewvalleywiki.com/Crab_Pot"
+      ],
+      "sourceRights": "pending",
+      "scope": "Recipe references, not exhaustive inventory"
+    },
+    {
+      "path": "/shipping/",
+      "files": [
+        "src/lib/game-collections.ts",
+        "src/lib/shipping-reference.ts"
+      ],
+      "sources": [
+        "https://stardewvalleywiki.com/Shipping"
+      ],
+      "sourceRights": "pending",
+      "scope": "Reference acquisition groups"
+    },
+    {
+      "path": "/cooking/",
+      "files": [
+        "src/lib/game-collections.ts",
+        "src/lib/recipe-unlocks.ts",
+        "src/lib/cooking-expansion.ts"
+      ],
+      "sources": [
+        "https://stardewvalleywiki.com/Cooking"
+      ],
+      "sourceRights": "pending",
+      "scope": "Ingredient alternatives and intermediate recipes"
+    },
+    {
+      "path": "/golden-walnuts/",
+      "files": [
+        "src/lib/walnut-data.ts",
+        "src/lib/walnut-observations.ts",
+        "src/lib/walnut-progress.ts"
+      ],
+      "sources": [
+        "https://stardewvalleywiki.com/Golden_Walnut"
+      ],
+      "sourceRights": "pending",
+      "scope": "69 task groups; real-game fixture pending"
+    },
+    {
+      "path": "/farm-comparison/",
+      "files": [
+        "src/lib/game-rules.ts",
+        "src/lib/farm-details.ts",
+        "src/lib/farm-templates.ts"
+      ],
+      "sources": [
+        "https://stardewvalleywiki.com/Farm_Maps"
+      ],
+      "sourceRights": "pending",
+      "scope": "Reference areas, schematic previews"
+    },
+    {
+      "path": "/grandpa-calculator/",
+      "files": [
+        "src/lib/game-rules.ts",
+        "src/lib/save-milestones.ts"
+      ],
+      "sources": [
+        "https://stardewvalleywiki.com/Grandpa"
+      ],
+      "sourceRights": "pending",
+      "scope": "Reference scoring, actual results pending"
+    },
+    {
+      "path": "/skills/",
+      "files": [
+        "src/lib/game-rules.ts",
+        "src/lib/save-professions.ts"
+      ],
+      "sources": [
+        "https://stardewvalleywiki.com/Skills",
+        "https://stardewvalleywiki.com/Modding:Console_commands"
+      ],
+      "sourceRights": "pending",
+      "scope": "Reference thresholds and recorded vanilla profession IDs"
+    }
+  ],
+  "sourceNotes": [
+    "Wiki references identify factual rules and numerical sources; no permission implied.",
+    "MouseyPounds predictor/checkup MIT code reference; see pinned blob and asset audit; data/art rights separate.",
+    "Local schematic artwork and Kenney CC0 provenance audited separately."
+  ]
+}

@@ -1,3 +1,4 @@
+import {professionNames} from '../lib/save-professions';
 import React,{useState} from 'react';
 import SaveProgressPanel from './SaveProgressPanel';
 import SaveNextActions from './SaveNextActions';
@@ -11,7 +12,7 @@ function SaveInspector(){const [summary,setSummary]=useState<SaveSnapshot|null>(
  <summary>Farmhand {index+1} · observed progress</summary>
  <p className="muted">Player observations from this save. Shared farm counters are shown in the host view.</p>
  <dl className="rules-grid">
-  <div><dt>Recognized fish</dt><dd>{member.collections?.fishing?.done.length??'Unknown'}</dd></div>
+  <div><dt>Recognized professions</dt><dd>{member.professions?(professionNames(member.professions).join(', ')||'None recognized'):'Unknown'}</dd></div><div><dt>Recognized fish</dt><dd>{member.collections?.fishing?.done.length??'Unknown'}</dd></div>
   <div><dt>Recognized cooked dishes</dt><dd>{member.collections?.cooking?.done.length??'Unknown'}</dd></div>
   <div><dt>Recognized crafted recipes</dt><dd>{member.crafting?.done.length??'Unknown'}</dd></div>
   <div><dt>Recognized shipped items</dt><dd>{member.collections?.shipping?.done.length??'Unknown'}</dd></div>

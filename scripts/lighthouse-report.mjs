@@ -8,7 +8,7 @@ assert.ok(Number.isInteger(shard)&&Number.isInteger(total)&&shard>=0&&shard<tota
 const selected=pages.filter((_,i)=>i%total===shard),out='lighthouse-reports';
 fs.mkdirSync(out,{recursive:true});
 const median=a=>[...a].sort((x,y)=>x-y)[Math.floor(a.length/2)];
-const rows=[];
+const rows=[];let shardRevision;
 let errors=0;
 for(const page of selected){
  const runs=[],url=origin+page.path,slug=page.slug||'home';
@@ -19,6 +19,7 @@ for(const page of selected){
   const revision=(await res.text()).match(/<meta\s+name="build-revision"\s+content="([0-9a-f]{40})"/i)?.[1];
   assert.ok(revision,'Missing deployed revision');
   if(process.env.EXPECTED_REVISION)assert.equal(revision,process.env.EXPECTED_REVISION);
+  if(shardRevision)assert.equal(revision,shardRevision,'Deployment changed across shard');else shardRevision=revision;
   const p=spawnSync('lighthouse',[url,'--quiet','--no-enable-error-reporting','--only-categories=performance,accessibility,seo,best-practices','--chrome-flags=--headless --no-sandbox','--output=json','--output-path='+output],{stdio:'inherit',timeout:180000});
   if(p.status!==0||!fs.existsSync(output)){errors++;continue}
   const report=JSON.parse(fs.readFileSync(output,'utf8'));
