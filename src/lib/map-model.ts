@@ -145,3 +145,11 @@ export function scarecrowCoverage(plan:Plan){
  }
  return protectedTiles;
 }
+
+/** Atomic rectangle editing for privately defined terrain. No official map is inferred. */
+export function paintTerrainRect(plan:Plan,rect:{x:number;y:number;w:number;h:number},tile:Terrain):Plan{
+ if(plan.map.source!=='local'||!TERRAIN.includes(tile)||![rect.x,rect.y,rect.w,rect.h].every(Number.isSafeInteger)||rect.x<0||rect.y<0||rect.w<1||rect.h<1||rect.x+rect.w>plan.map.w||rect.y+rect.h>plan.map.h)throw Error('Rectangle must be inside the private terrain grid.');
+ const tiles=[...plan.map.tiles];for(let y=rect.y;y<rect.y+rect.h;y++)for(let x=rect.x;x<rect.x+rect.w;x++)tiles[y*plan.map.w+x]=tile;
+ const next={...plan.map,tiles};for(const o of plan.objects){const error=placementError(next,[],o);if(error)throw Error('Terrain change would invalidate an existing object: '+error)}
+ return {...plan,map:next};
+}

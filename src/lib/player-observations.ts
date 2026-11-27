@@ -1,5 +1,5 @@
 import {observationsOf,decodeSaveObservations,type SaveObservations} from './save-observations.ts';
-import {CATALOGS,decodeCollection,type CatalogKind} from './game-collections.ts';
+import {CATALOGS,type CatalogKind} from './game-collections.ts';
 import {monsterGoalSummary} from './monster-goals.ts';
 import {skillTotal,type SaveProgress} from './save-progress.ts';
 export const PLAYER_ROSTER_KEY='player-observations-v1';

@@ -1,3 +1,4 @@
+import {ChangeNotice} from './WorkspaceFrame';
 import React,{lazy,Suspense,useState} from 'react';
 import MapStudio from './MapStudio';
 import FarmProfileControls from './FarmProfileControls';
@@ -19,6 +20,6 @@ export default function FarmPlannerPage({workspace}: {workspace: boolean}) {
   {tab==='classic' && <Suspense fallback={<p role="status">Loading editor…</p>}><ClassicPlanner workspace={workspace}/></Suspense>}
   <div hidden={tab!=='scene'}><MapStudio workspace={workspace}/></div>
   {indoorMounted && <div hidden={tab!=='indoor'}><Suspense fallback={<p role="status">Loading editor…</p>}><IndoorStudio workspace={workspace}/></Suspense></div>}
-  {workspace && <WorkspaceControls/>}
+  {workspace && <><ChangeNotice/><WorkspaceControls/></>}
  </>;
 }

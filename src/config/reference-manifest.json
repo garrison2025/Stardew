@@ -25,7 +25,7 @@
         "https://stardewvalleywiki.com/Sprinkler"
       ],
       "sourceRights": "pending",
-      "scope": "Schematic maps and independent placement references; exact masks unavailable"
+      "scope": "Schematic maps, private calibrated terrain and atomic rectangular masks; exact public game masks unavailable"
     },
     {
       "path": "/bundles/",
