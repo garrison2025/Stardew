@@ -1,6 +1,6 @@
 import {activeFarm,farmDatabaseName} from './farm-profiles.ts';
 import {SAVE_BINDING_KEY,keepSaveBinding} from './save-binding.ts';
-function openDb():Promise<IDBDatabase>{return new Promise((resolve,reject)=>{const r=indexedDB.open(farmDatabaseName(activeFarm().id),1);r.onupgradeneeded=()=>r.result.createObjectStore('projects');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
+function openDb(name=farmDatabaseName(activeFarm().id)):Promise<IDBDatabase>{return new Promise((resolve,reject)=>{const r=indexedDB.open(name,1);r.onupgradeneeded=()=>r.result.createObjectStore('projects');r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}
 export async function readLocal<T>(key:string):Promise<T|undefined>{const db=await openDb();try{return await new Promise((resolve,reject)=>{const r=db.transaction('projects','readonly').objectStore('projects').get(key);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);});}finally{db.close();}}
 export async function writeLocal(key:string,value:unknown){const db=await openDb();try{await new Promise<void>((resolve,reject)=>{const t=db.transaction('projects','readwrite');t.objectStore('projects').put(value,key);t.oncomplete=()=>resolve();t.onerror=()=>reject(t.error);t.onabort=()=>reject(t.error);});}finally{db.close();}}
 export function download(name:string,content:string,type='application/json'){const url=URL.createObjectURL(new Blob([content],{type}));const a=document.createElement('a');a.href=url;a.download=name;a.click();setTimeout(()=>URL.revokeObjectURL(url),1000);}
@@ -52,4 +52,24 @@ export async function mergeLocalRecords(updates: Record<string, (old: unknown) =
    transaction.onabort = () => reject(problem || transaction.error || Error('Merge aborted'));
   });
  } finally { db.close(); }
+}
+
+// A per-editor baseline, not a shared read cache: unrelated dashboard reads cannot advance it.
+export type LocalEditor<T=unknown>={value:T|undefined;save:(next:unknown)=>Promise<void>};
+const CONFLICT='Local progress changed in another tab or during import. Export your unsaved changes, then reload before saving.';
+function stateToken(value:unknown){return value===undefined?undefined:JSON.stringify(value)}
+export async function openLocalEditor<T=unknown>(key:string):Promise<LocalEditor<T>>{
+ const name=farmDatabaseName(activeFarm().id),db=await openDb(name);let value:T|undefined;
+ try{value=await new Promise<T|undefined>((resolve,reject)=>{const tx=db.transaction('projects','readonly'),r=tx.objectStore('projects').get(key);r.onsuccess=()=>resolve(r.result);r.onerror=()=>reject(r.error);tx.onabort=()=>reject(tx.error||Error('Local read aborted'));})}finally{db.close()}
+ let expected=stateToken(value),writing=false;
+ return {value,async save(next){
+  if(writing)throw Error('A local save is already in progress.');
+  if(farmDatabaseName(activeFarm().id)!==name)throw Error('Farm profile changed. Export your unsaved changes and reload.');
+  const snapshot=structuredClone(next),token=stateToken(snapshot);writing=true;
+  try{const db=await openDb(name);try{await new Promise<void>((resolve,reject)=>{
+   const tx=db.transaction('projects','readwrite'),store=tx.objectStore('projects'),read=store.get(key);let problem:unknown;
+   read.onsuccess=()=>{try{if(stateToken(read.result)!==expected){problem=Error(CONFLICT);tx.abort();return}store.put(snapshot,key)}catch(e){problem=e;tx.abort()}};
+   tx.oncomplete=()=>resolve();tx.onabort=()=>reject(problem||tx.error||Error('Local save aborted'));tx.onerror=()=>reject(tx.error||Error('Local save failed'));
+  });expected=token;}finally{db.close()}}finally{writing=false}
+ }};
 }
