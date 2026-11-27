@@ -351,7 +351,7 @@
     "path": "/crafting/",
     "h1": "Stardew Valley Crafting Checklist",
     "title": "Stardew Valley Crafting Recipes Checklist | Field & Farm",
-    "description": "Track 149 reference crafting recipes, recipe status and ingredient quantities. Build a local material plan.",
+    "description": "Track 149 standard crafting recipes. Filter recipe unlock sources, plan ingredient batches, check inventory, costs and completion.",
     "primaryKeyword": "crafting stardew valley",
     "volume": 880,
     "kd": 17,
@@ -375,12 +375,14 @@
     ],
     "priority": "P1",
     "guideTitle": "Prepare a batch of crafting recipes",
-    "guideText": "Select recipes and batch quantities, then inspect direct ingredients, stock shortages and estimated costs. Batch outputs may contain multiple items. Intermediate recipes and profession-specific ingredient substitutions are not automatically expanded.",
+    "guideText": "Filter 149 standard recipes by unlock source, skill level, mastery, shop or quest, then choose batches and compare direct ingredients and inventory. Alternative profession recipes remain explicit exceptions.",
     "researchClusterSize": 15,
     "searchAliases": [
       "crafting recipes",
       "craft every item",
-      "material planner"
+      "material planner",
+      "recipe unlock sources",
+      "crafting materials"
     ]
   },
   {
@@ -424,7 +426,7 @@
     "path": "/cooking/",
     "h1": "Stardew Valley Cooking Checklist",
     "title": "Stardew Valley Cooking Recipes Checklist | Field & Farm",
-    "description": "Explore 81 cooking recipes, ingredients and completion status. Build a material plan and track progress locally.",
+    "description": "Track 81 cooking recipes, filter TV, friendship and skill unlocks, compare sale prices and expand intermediate cooking ingredients.",
     "primaryKeyword": "stardew valley cooking",
     "volume": 1300,
     "kd": 26,
@@ -443,12 +445,15 @@
     ],
     "priority": "P1",
     "guideTitle": "Plan dishes and ingredient purchases",
-    "guideText": "Select recipes, enter batch quantities, and compare required ingredients against current inventory. Unlock hints identify common learning routes. Unknown prices remain unknown; intermediate dishes are not recursively expanded.",
+    "guideText": "Search all 81 cooking recipes, filter unlock sources and compare standard sale prices. Plan direct ingredients or expand named intermediate dishes from scratch; generic ingredients and processed goods remain inputs.",
     "researchClusterSize": 6,
     "searchAliases": [
       "cooking recipes",
       "recipe checklist",
-      "ingredient planner"
+      "ingredient planner",
+      "recipe unlock sources",
+      "queen of sauce",
+      "cooking ingredients"
     ]
   },
   {
