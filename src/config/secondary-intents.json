@@ -309,7 +309,7 @@
     "path": "/fishing/",
     "status": "limited",
     "question": "How do I check Stardew fish prices?",
-    "note": "Normal-quality raw prices; 13 presets and manual base input."
+    "note": "13 raw fish with four quality tiers and three profession settings. All 72 collection entries link to sale price references. Manual input uses normal quality."
   },
   {
     "keyword": "stardew perfection checklist",

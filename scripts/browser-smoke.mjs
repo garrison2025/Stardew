@@ -40,6 +40,15 @@ const prices=page.getByRole('region',{name:'Stardew Valley fish prices',exact:tr
 await prices.getByText('200g per fish',{exact:true}).waitFor();
 await prices.getByLabel('Fishing profession',{exact:true}).selectOption('angler');
 await prices.getByText('300g per fish',{exact:true}).waitFor();
+await prices.getByLabel('Fish',{exact:true}).selectOption('Anchovy');
+await prices.getByLabel('Fish quality',{exact:true}).selectOption({label:'Silver'});
+await prices.getByText('55g per fish',{exact:true}).waitFor();
+await prices.getByLabel('Fish quality',{exact:true}).selectOption({label:'Iridium'});
+await prices.getByText('90g per fish',{exact:true}).waitFor();
+assert.equal(await prices.getByLabel('Fish',{exact:true}).locator('optgroup option').count(),72);
+await prices.getByLabel('Fish',{exact:true}).selectOption('Goby');
+await prices.getByText('Use the item reference to check this entry’s sale price.',{exact:true}).waitFor();
+assert.equal(await prices.getByRole('link',{name:'Goby sale price reference',exact:true}).getAttribute('href'),'https://stardewvalleywiki.com/Goby');
 await prices.getByLabel('Fish',{exact:true}).selectOption('custom');
 await prices.getByLabel('Base sale price (g)',{exact:true}).fill('75');
 await prices.getByText('112g per fish',{exact:true}).waitFor();
