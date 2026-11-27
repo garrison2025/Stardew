@@ -2,7 +2,7 @@ import {TASK_MAP} from './walnut-data.ts';
 import {decodeWalnuts,setFound,type WalnutState} from './walnut-progress.ts';
 import type {SaveElement} from './save-xml.ts';
 // Factual keys cross-referenced against MouseyPounds/stardew-checkup parseWalnuts (MIT,
-// existing license in public/licenses/stardew-checkup.txt). Ambiguous task matches omitted.
+// existing license in public/licenses/stardew-checkup.txt). Four remaining coordinate matches cross-checked against stardew.app and HundoDex.
 export const FULL_WALNUT_KEYS:Readonly<Record<string,string>>={
   "leo-path": "Bush_IslandEast_17_37",
   "banana": "BananaShrine",
@@ -23,6 +23,10 @@ export const FULL_WALNUT_KEYS:Readonly<Record<string,string>>={
   "qi-north": "Bush_IslandWest_15_3",
   "mahogany": "Bush_IslandWest_31_24",
   "grass-ring": "Buried_IslandWest_39_24",
+  "bridge": "Bush_IslandWest_64_30",
+  "grove-cliff": "Bush_IslandWest_54_18",
+  "forge-in": "Bush_Caldera_28_36",
+  "forge-out": "Bush_Caldera_9_34",
   "simon": "IslandWestCavePuzzle",
   "pebbles": "Buried_IslandWest_88_14",
   "express-hidden": "Bush_IslandWest_104_3",
