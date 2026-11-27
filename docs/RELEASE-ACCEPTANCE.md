@@ -40,3 +40,4 @@ Remaining release blockers: rights, exact official geometry, independently valid
 ### Mobile planner rendering
 Closed object and landscape panels defer their canvas work. Opened landscape thumbnails draw directly at thumbnail resolution. Desktop and mobile browser regressions check panel state, canvas rendering, keyboard navigation and the unchanged export flow.
 - Cart preview adds both route-completion catalogues and the Year 25 Tea Set. The route-completion input is explicit. The item pool, festival shops, and real-game output validation remain outside this preview model.
+- The public planner links directly to the screenshot workflow. The private editor opens the local file chooser from the map toolbar and overlays the image immediately on the current grid. Calibration and terrain masks remain optional for precise planning.
