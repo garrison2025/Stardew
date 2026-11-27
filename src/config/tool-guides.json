@@ -310,6 +310,10 @@
       [
         "Are profession substitutions expanded?",
         "The standard recipe list does not automatically apply every profession or recursive ingredient substitution."
+      ],
+      [
+        "How do I unlock missing crafting recipes?",
+        "Filter the 149 standard reference recipes by skill level, mastery, shop, friendship, quest or milestone. Select an item reference for conditions that depend on game state. Wedding Ring is outside the single-player checklist."
       ]
     ]
   },
@@ -364,6 +368,14 @@
       [
         "Does the ingredient planner recursively expand dishes?",
         "No. Direct ingredients and group names are shown; intermediate dishes are not automatically expanded."
+      ],
+      [
+        "How do I learn missing cooking recipes?",
+        "Filter all 81 entries by TV, friendship, skill level or shop. Queen of Sauce entries include the reference first broadcast date; the cookbook also teaches these recipes."
+      ],
+      [
+        "Can I calculate ingredients for Complete Breakfast from scratch?",
+        "Yes. The expansion tool recursively includes Fried Egg, Hashbrowns and Pancakes. The expanded plan assumes no intermediate stock and is separate from direct inventory and cost estimates."
       ]
     ]
   },

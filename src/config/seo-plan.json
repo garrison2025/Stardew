@@ -374,7 +374,7 @@
       "priority": "P1",
       "title": "Stardew Valley Crafting Recipes Checklist | Field & Farm",
       "h1": "Stardew Valley Crafting Checklist",
-      "description": "Track 149 reference crafting recipes, recipe status and ingredient quantities. Build a local material plan.",
+      "description": "Track 149 standard crafting recipes. Filter recipe unlock sources, plan ingredient batches, check inventory, costs and completion.",
       "primaryKeyword": "crafting stardew valley",
       "volume": 880,
       "kd": 17,
@@ -405,7 +405,9 @@
       "searchAliases": [
         "crafting recipes",
         "craft every item",
-        "material planner"
+        "material planner",
+        "recipe unlock sources",
+        "crafting materials"
       ]
     },
     {
@@ -451,7 +453,7 @@
       "priority": "P1",
       "title": "Stardew Valley Cooking Recipes Checklist | Field & Farm",
       "h1": "Stardew Valley Cooking Checklist",
-      "description": "Explore 81 cooking recipes, ingredients and completion status. Build a material plan and track progress locally.",
+      "description": "Track 81 cooking recipes, filter TV, friendship and skill unlocks, compare sale prices and expand intermediate cooking ingredients.",
       "primaryKeyword": "stardew valley cooking",
       "volume": 1300,
       "kd": 26,
@@ -477,7 +479,10 @@
       "searchAliases": [
         "cooking recipes",
         "recipe checklist",
-        "ingredient planner"
+        "ingredient planner",
+        "recipe unlock sources",
+        "queen of sauce",
+        "cooking ingredients"
       ]
     },
     {
