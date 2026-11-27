@@ -1,5 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
+import {hashWords,random} from '../src/lib/geode-prediction.ts';
 import {forecastCart} from '../src/lib/cart-forecast.ts';
 
 test('independent upstream RNG reference, modern and legacy seeded slot rolls', () => {
@@ -24,11 +25,18 @@ test('only forest visit days, with season and year rolled over correctly', () =>
 test('route completion and Year 25 gate independent Forest Cart offers', () => {
  const input = {gameId:'123456789',year:1,season:'spring',day:1,legacy:false} as const;
  const at = (routeComplete: boolean, day: number) =>
-   forecastCart({...input,routeComplete}).find(v=>v.absoluteDay===day)?.offers.map(o=>o.label);
+   forecastCart({...input,communityCenterComplete:routeComplete}).find(v=>v.absoluteDay===day)?.offers.map(o=>o.label);
  assert.ok(!at(false,19)?.includes('Joja Catalogue'));
  assert.ok(at(true,19)?.includes('Joja Catalogue'));
  assert.ok(at(true,26)?.includes('Junimo Catalogue'));
- const year25 = forecastCart({...input,year:25}).find(v=>v.absoluteDay===2714);
- assert.ok(year25?.offers.some(o=>o.label==='Tea Set'&&o.price===1000000));
+ assert.ok(!forecastCart({...input,jojaComplete:true}).some(v=>v.offers.some(o=>o.label==='Joja Catalogue')));
+ assert.ok(forecastCart({...input,jojaComplete:true}).find(v=>v.absoluteDay===26)?.offers.some(o=>o.label==='Junimo Catalogue'));
+ // Compare every Year 25 visit against the independently documented 5% threshold.
+ for(const legacy of [true,false])for(const visit of forecastCart({...input,year:25,legacy})){
+  const seed=legacy?(-1863931622+123456789+visit.absoluteDay)%2147483647:hashWords(-1863931622,123456789,visit.absoluteDay);
+  assert.equal(visit.offers.some(o=>o.label==='Tea Set'&&o.price===1000000),random(seed)()<.05);
+ }
  assert.ok(!forecastCart({...input,year:24}).some(v=>v.offers.some(o=>o.label==='Tea Set')));
 });
+
+test('optional festival visits preserve ordinary Forest dates and correct weekdays',()=>{const p={gameId:'123456789',year:1,season:'spring',day:1,legacy:true} as const;const spring=forecastCart({...p,desertFestivalUnlocked:true});assert.equal(spring.length,11);assert.deepEqual(spring.filter(v=>v.venue==='Desert Festival').map(v=>[v.day,v.weekday]),[[15,'Monday'],[16,'Tuesday'],[17,'Wednesday']]);const winter=forecastCart({...p,season:'winter',includeNightMarket:true});assert.equal(winter.length,11);assert.deepEqual(winter.filter(v=>v.venue==='Night Market').map(v=>v.absoluteDay),[99,100,101]);assert.equal(winter.filter(v=>v.venue==='Forest Cart').length,8);assert.equal(new Set(winter.map(v=>v.absoluteDay)).size,11);});
