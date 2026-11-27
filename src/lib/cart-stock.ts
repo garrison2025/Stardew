@@ -25,7 +25,7 @@ export function forecastCartStock(input:CartStart,originalGuarantee:number|null=
   const price=(base:number)=>Math.max(next(1,11)*100,next(3,6)*base);
   const qty=()=>rand()<.1?5:1;
   const offers:StockOffer[]=ordinary.map(([id,label,base])=>({id,label,price:price(base),quantity:qty(),kind:'ordinary'}));
-  if(originalGuarantee!==null&&visitIndex(day)===originalGuarantee&&visit.year===1){const cabbage=OBJECT_POOL.find((r):r is Eligible=>Array.isArray(r)&&r[0]===485);if(!cabbage)throw Error('Reference cabbage seed missing');offers.push({id:485,label:cabbage[1],price:price(cabbage[2]),quantity:qty(),kind:'guarantee'})}
+  if(originalGuarantee!==null&&visitIndex(day)===originalGuarantee&&visit.year===1&&visit.venue!=='Desert Festival'){const cabbage=OBJECT_POOL.find((r):r is Eligible=>Array.isArray(r)&&r[0]===485);if(!cabbage)throw Error('Reference cabbage seed missing');offers.push({id:485,label:cabbage[1],price:price(cabbage[2]),quantity:qty(),kind:'guarantee'})}
   const furniture=choose(FURNITURE_POOL,rand,1)[0];if(!furniture)throw Error('Reference furniture pool incomplete');
   offers.push({id:furniture[0],label:furniture[1],price:next(1,11)*250,quantity:1,kind:'furniture'});
   if(['spring','summer'].includes(visit.season)&&!ordinary.some(r=>r[1]==='Rare Seed'))offers.push({id:347,label:'Rare Seed',price:1000,quantity:qty(),kind:'seasonal'});
@@ -35,7 +35,7 @@ export function forecastCartStock(input:CartStart,originalGuarantee:number|null=
   const bookSeed=input.legacy?(skillHash%max+gameId%max+day)%max:hashWords(skillHash%max,gameId%max,day);
   let skillBook:SkillBookOffer|null=null;
   if(random(bookSeed)()<.05){
-   const name=skillBooks[next(0,skillBooks.length)],identityUncertain=visit.year===1&&originalGuarantee===null;
+   const name=skillBooks[next(0,skillBooks.length)],identityUncertain=visit.year===1&&(originalGuarantee===null||visit.venue==='Desert Festival');
    skillBook={label:identityUncertain?'Skill book (title unconfirmed)':name,price:6000,quantity:1,identityUncertain};
   }
   return {...visit,stock:offers,skillBook};

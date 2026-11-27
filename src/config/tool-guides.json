@@ -127,7 +127,7 @@
       ],
       [
         "Does the Traveling Cart forecast show the full stock?",
-        "No. The reference models ten ordinary random slots, furniture, conditional Rare Seed, seven independent offers and a separately seeded skill-book roll. Unknown Year 1 guarantee state may affect the displayed title. Fixed goods, festival stock, precise save-day offsets and independent game fixtures remain outside the model."
+        "No. The reference models ten ordinary random slots, furniture, conditional Rare Seed, seven independent offers and a separately seeded skill-book roll, including optional Night Market and Desert Festival visits. Year 1 Desert Festival guarantee accounting and unknown original guarantee state may affect stock. Fixed goods, precise save-day offsets and independent game fixtures remain outside the model."
       ],
       [
         "Can I predict train times or green rain?",
