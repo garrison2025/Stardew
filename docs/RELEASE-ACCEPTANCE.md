@@ -21,20 +21,20 @@ Recognized save records now suggest a lower bound for the import grid, including
 - 16 task-specific instructions, worked examples and FAQs; frozen 16 primary keywords and 86 initial auxiliary phrases are compared with source configuration, and all 311 mapped cluster counts checked. Raw private keyword report is not redistributed. Complete search intent coverage and live SERP acceptance remain pending.
 - Production-only build guard generates canonical, WebApplication/BreadcrumbList, robots and a 16-URL sitemap only after explicit release approval and custom domains. Default public preview and private builds stay noindex; no ads enabled. Verify Pages mirror redirect and actual host headers before deployment.
 - Corrected Cloudflare credits 308 handling; public-only live audit passed on the previous consolidated revision. Actual final branch CI and deployment must be verified separately.
-Remaining release blockers: rights, exact official geometry, independently validated real saves and RNG, complete 1.6.15 rule/data manifests, full multi-farm and multiplayer state, exact crop/collection rule coverage, live private workspace, SERP, Lighthouse and formal approval. Never label this branch as a fully accepted production release until those gates pass.
+At this checkpoint, independent real-save and RNG validation, rule coverage, live verification, search intent and formal approval were outstanding. Later checkpoints below update the delivery scope and test evidence.
 
 ### Farm workflow and save review
 - Private terrain can be calibrated from a personal screenshot and reused as the placement mask for a partial save import. The object preview reports coordinates or footprints rejected by the mask. Built-in terrain remains schematic.
 - The tracker reads season-linked fish suggestions and save-contained Community Center definitions against slot data, including custom requirements when present. It does not merge bundle flags into manual donations. Ambiguity stays unknown.
 - Saving a private layout and opening the crop calculator loads its saved season, marked crop tiles and accessible linked machines. Economy comparison includes raw sales, processing the current plan, and feasible single-crop alternatives, with cash timing and inventory backlog. It is a comparison under the existing daily model.
 - The private geode predictor can prefill main-player fields from a local save reporting 1.6.15. Incomplete data requires manual review. Save fields and identifiers stay session-local in the predictor.
-- Exact map geometry and redistribution rights, full independent real-save/RNG fixtures, separate multi-farm tracker state, multiplayer rules, real-device mobile testing, Lighthouse, live US SERP and production acceptance remain open.
+- At this checkpoint the planner supported schematic layouts and local screenshot setup. Later entries record the remaining acceptance requirements.
 
 ### Multi-farm progress and selected cart offers
 - Named farm profiles have separate local databases for layouts, checklists and backups. Existing installations use the original database as Default farm. Selected profiles are scoped to the browser tab. An identifiable import can bind a profile using a hash of the game and host IDs; mismatched imports abort the entire merge. Existing unidentified saves can be merged in an unbound Default farm for backward compatibility.
 - The tracker previews eligible farmhand observations separately from host progress. Farmhands do not contribute to host merges or a multiplayer perfection calculation. The root farmhand layout was cross-checked against https://github.com/scriptsforweirdos/stardewsavestructures/blob/main/mp_1_6_architecture.txt .
 - Traveling Cart covers four independent Forest Cart offers on Fridays and Sundays with PC 1.6.15 assumptions. Modern and legacy branches are checked against the published MouseyPounds xxHash and CSRandom reference. Full stock pools, festival shops and independent in-game fixtures remain open.
-- Supported official geometry, commercial rights, real save fixture approval, real mobile devices and formal production and US search acceptance remain pending.
+- The public planner scope uses independently drawn landscapes and on-device user screenshots. Exact official maps and game assets are outside this scope. There is no dependency on a game map asset license for the schematic planner. Independent real-game fixture validation, physical-device testing and formal production and US search acceptance remain open.
 - The homepage has a dedicated planner entry. The classic grid loads when selected, and the local XML parser loads only when a save file is chosen for the farm scene.
 
 ### Mobile planner rendering
