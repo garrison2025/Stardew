@@ -419,6 +419,10 @@
       [
         "Does the tracker locate every walnut from a save?",
         "No. The current source descriptions and counts do not reconstruct exact game positions or all save events."
+      ],
+      [
+        "Can I load collected walnuts from my save?",
+        "The private workspace supports positive markers from recognized saved walnut fields. Ambiguous task matches are omitted; lifetime count and upgrades are separate from the manual checklist."
       ]
     ]
   },
@@ -504,6 +508,10 @@
       [
         "Does the tool award professions in game?",
         "No. It models thresholds and shows branches, without writing to the original save."
+      ],
+      [
+        "Does the save record mastery XP?",
+        "A supported save can contain the player's MasteryExp statistic. Load it alongside skill XP; absent values remain unknown and are not extrapolated from total XP."
       ]
     ]
   }

@@ -498,7 +498,7 @@
       "priority": "P1",
       "title": "Stardew Valley Golden Walnut Tracker & Checklist | Field & Farm",
       "h1": "Stardew Valley Golden Walnut Tracker",
-      "description": "Track 130 Golden Walnuts across Ginger Island tasks. Filter by method, record collected walnuts, upgrade spending and missing rewards.",
+      "description": "Track 130 Golden Walnuts by region and task, review collection hints, save markers and island upgrade spending.",
       "primaryKeyword": "golden walnuts stardew",
       "volume": 4400,
       "kd": 18,
@@ -519,7 +519,9 @@
       "indexableAfterApproval": true,
       "searchAliases": [
         "golden walnuts",
-        "ginger island walnuts"
+        "ginger island walnuts",
+        "walnut locations",
+        "walnut save tracker"
       ]
     },
     {
@@ -602,7 +604,7 @@
       "priority": "P2",
       "title": "Stardew Valley Skills, Professions & Mastery Tracker | Field & Farm",
       "h1": "Stardew Valley Skills Tracker",
-      "description": "Compare five skill XP thresholds, profession branches and mastery progress. Enter values manually or load recognized local save data.",
+      "description": "Track five skills, 30 profession effects and mastery experience. Load recognized XP and mastery stats locally in the private workspace.",
       "primaryKeyword": "stardew valley skills",
       "volume": 880,
       "kd": 19,
@@ -624,7 +626,9 @@
       "searchAliases": [
         "skill xp",
         "mastery points",
-        "professions"
+        "professions",
+        "mastery xp",
+        "profession comparison"
       ]
     }
   ]
