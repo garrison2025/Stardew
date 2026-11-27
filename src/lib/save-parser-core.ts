@@ -1,3 +1,4 @@
+import {readStorage} from './storage-observations.ts';
 import {readWalnutObservation} from './walnut-observations.ts';
 import {readBackpack} from './backpack-observations.ts';
 import {readPlayerStat} from './save-stats.ts';
@@ -90,6 +91,8 @@ function inspectSaveRoot({root, fields, player, version}:ReturnType<typeof parse
  const snapshot:SaveSnapshot={version,farmType:num(text(root,'whichFarm')),year:num(text(root,'year')),day:num(text(root,'dayOfMonth')),season,fields,records,farmFound:!!farm};
  if(supportedVersion(version)) {
   snapshot.progress=readProgress(root,player);
+  snapshot.progress.storage=readStorage(root);
+  if(!snapshot.progress.storage)snapshot.progress.warnings.push('Recognized location storage absent or unsupported.');
   const bundles = readBundles(root);
   if (bundles) snapshot.progress.bundles = bundles;
   const hostId = text(player, 'UniqueMultiplayerID');
