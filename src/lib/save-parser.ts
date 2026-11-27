@@ -1,3 +1,5 @@
+import {readBundleDefinition, type SaveBundle} from './save-bundles';
+import type {GeodeInput} from './geode-prediction';
 import {verifySaveText} from './engine';
 import {SEASONS,type Season} from './map-model';
 import {buildingItem,sprinklerItem,supportedVersion,type FarmRecord,type SaveSnapshot} from './save-model';
@@ -8,6 +10,41 @@ const num=(s:string):number|null=>/^-?\d+$/.test(s)&&Number.isSafeInteger(Number
 const xsi=(el:Element|undefined|null,key:string)=>el?.getAttributeNS('http://www.w3.org/2001/XMLSchema-instance',key)??el?.getAttribute('xsi:'+key)??'';
 function point(el:Element|undefined){return {x:num(text(el,'X')),y:num(text(el,'Y'))}}
 function dictionary(el:Element|undefined){return Array.from(el?.children??[]).filter(e=>e.localName==='item')}
+function readBundles(root: Element): SaveBundle[] | undefined {
+ const locations = Array.from(child(root, 'locations')?.children ?? []);
+ const centers = locations.filter(el => el.localName === 'GameLocation' && text(el, 'name') === 'CommunityCenter');
+ const definitions = child(root, 'bundleData');
+ if (!definitions || centers.length !== 1 || definitions.children.length > 100) return undefined;
+ const records = new Map<number, boolean[] | null>();
+ for (const entry of dictionary(child(centers[0], 'bundles'))) {
+  const id = num(text(child(entry, 'key'), 'int'));
+  const row = child(child(entry, 'value'), 'ArrayOfBoolean');
+  if (id === null || !row || row.children.length > 48) continue;
+  const values = Array.from(row.children).map(el => el.localName === 'boolean' ? el.textContent?.trim() : '');
+  records.set(id, records.has(id) || !values.every(v => v === 'true' || v === 'false') ? null : values.map(v => v === 'true'));
+ }
+ const result = new Map<number, SaveBundle | null>();
+ for (const entry of dictionary(definitions)) {
+  const key = text(child(entry, 'key'), 'string'), value = text(child(entry, 'value'), 'string');
+  const id = num(key.split('/')[1] ?? '');
+  if (id === null || value.length > 6000) continue;
+  result.set(id, result.has(id) ? null : readBundleDefinition(key, value, records.get(id) ?? undefined));
+ }
+ const recognized = [...result.values()].filter((bundle): bundle is SaveBundle => bundle !== null);
+ return recognized.length ? recognized : undefined;
+}
+function readGeodeFields(root: Element, player: Element | undefined): GeodeInput | undefined {
+ const gameId = text(root, 'uniqueIDForThisGame'), playerId = text(player, 'UniqueMultiplayerID');
+ const legacy = text(root, 'useLegacyRandom');
+ const openedRows = dictionary(child(child(player, 'stats'), 'Values')).filter(row => text(child(row, 'key'), 'string') === 'geodesCracked');
+ const openedNode = child(openedRows[0], 'value');
+ const opened = safeCount(num(text(openedNode, 'unsignedInt') || text(openedNode, 'int')), 1000000);
+ const depth = safeCount(num(text(player, 'deepestMineLevel')));
+ const orders = child(root, 'specialOrders');
+ if (!/^\d{1,20}$/.test(gameId) || !/^-?\d{1,20}$/.test(playerId) || BigInt(gameId) >= 1n << 64n || BigInt(playerId) < -(1n << 63n) || BigInt(playerId) >= 1n << 64n || openedRows.length !== 1 || opened === null || depth === null || !['true', 'false'].includes(legacy) || !orders || xsi(orders, 'nil') === 'true') return undefined;
+ const qiBeans = Array.from(orders.children).some(order => order.localName === 'SpecialOrder' && /\bDROP_QI_BEANS\b/.test(text(order, 'specialRule')));
+ return {gameId, playerId, opened, mineLevel: Math.min(depth, 120), legacy: legacy === 'true', qiBeans};
+}
 function readProgress(root:Element,player:Element|undefined):SaveProgress{
  const warnings:string[]=[];
  const read=(el:Element|undefined,name:string,max=1000000000)=>safeCount(num(text(el,name)),max);
@@ -28,17 +65,27 @@ function readProgress(root:Element,player:Element|undefined):SaveProgress{
  if(Array.from(child(root,'farmhands')?.children??[]).some(e=>e.localName==='Farmer'))warnings.push('Multiplayer save: only the main player is summarized; no combined perfection score.');
  return {xp,money:read(player,'money'),lifetimeEarnings:read(player,'totalMoneyEarned'),walnutsFound,walnutsBalance,crafting,learnedCooking:cooking?.length??null,collections,warnings}
 }
+function parseMainSave(xml: string) {
+ verifySaveText(xml);
+ const doc = new DOMParser().parseFromString(xml, 'application/xml'), root = doc.documentElement;
+ if (doc.querySelector('parsererror') || root.localName !== 'SaveGame') throw Error('Expected a valid main SaveGame XML, not SaveGameInfo.');
+ const fields = doc.getElementsByTagName('*').length;
+ if (fields > 250000) throw Error('Too many XML nodes.');
+ const player = child(root, 'player'), version = (text(root, 'gameVersion') || text(player, 'gameVersion') || 'Unknown').slice(0, 40);
+ return {root, fields, player, version};
+}
 export function parseSave(xml:string):SaveSnapshot{
- verifySaveText(xml);const doc=new DOMParser().parseFromString(xml,'application/xml'),root=doc.documentElement;
- if(doc.querySelector('parsererror')||root.localName!=='SaveGame')throw Error('Expected a valid main SaveGame XML, not SaveGameInfo.');
- const fields=doc.getElementsByTagName('*').length;if(fields>250000)throw Error('Too many XML nodes.');
- const player=child(root,'player'),version=(text(root,'gameVersion')||text(player,'gameVersion')||'Unknown').slice(0,40);
+ const {root, fields, player, version} = parseMainSave(xml);
  const rawSeason=text(root,'currentSeason').toLowerCase(),seasonText=rawSeason==='fall'?'autumn':rawSeason,season=SEASONS.includes(seasonText as Season)?seasonText as Season:null;
  const farmLocations=Array.from(child(root,'locations')?.children??[]).filter(e=>e.localName==='GameLocation'&&text(e,'name')==='Farm');
  const farm=farmLocations.length===1?farmLocations[0]:undefined;
  const records:FarmRecord[]=[];
  const snapshot:SaveSnapshot={version,farmType:num(text(root,'whichFarm')),year:num(text(root,'year')),day:num(text(root,'dayOfMonth')),season,fields,records,farmFound:!!farm};
- if(supportedVersion(version))snapshot.progress=readProgress(root,player);
+ if(supportedVersion(version)) {
+  snapshot.progress=readProgress(root,player);
+  const bundles = readBundles(root);
+  if (bundles) snapshot.progress.bundles = bundles;
+ }
  if(!supportedVersion(version)||!farm)return snapshot;
  for(const b of Array.from(child(farm,'buildings')?.children??[])){
  const itemId=buildingItem(text(b,'buildingType'));records.push({kind:'building',itemId,x:num(text(b,'tileX')),y:num(text(b,'tileY')),width:num(text(b,'tilesWide'))??undefined,height:num(text(b,'tilesHigh'))??undefined,...(!itemId?{reason:'Unmapped building type'}:{})});
@@ -59,4 +106,15 @@ export function parseSave(xml:string):SaveSnapshot{
  if(records.length>20000)throw Error('Too many farm records.');
  return snapshot;
 }
-export async function readSave(file:File){if(file.size>10*1024*1024)throw Error('File exceeds 10 MiB preview limit.');return parseSave(await file.text())}
+export async function readGeodeSave(file: File) {
+ const {root, player, version} = parseMainSave(await readSaveText(file));
+ if (version !== '1.6.15') throw Error('Automatic prefill requires a save reporting game version 1.6.15.');
+ const fields = readGeodeFields(root, player);
+ if (!fields) throw Error('The required main-player RNG fields are missing or unsupported. Confirm the values in game and enter them manually.');
+ return fields;
+}
+async function readSaveText(file: File) {
+ if (file.size > 10 * 1024 * 1024) throw Error('File exceeds 10 MiB preview limit.');
+ return file.text();
+}
+export async function readSave(file:File){return parseSave(await readSaveText(file))}
