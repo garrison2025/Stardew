@@ -60,7 +60,7 @@ const related=pages.filter(p=>p.path!==page.path && (page.relatedPaths||[]).incl
   <div class="journal-intro-copy">
    {page.slug!==''&&<p class="journal-crumb"><a href="/">Tools</a><span aria-hidden="true">/</span>{page.group}</p>}
    <h1>{page.h1}</h1>
-   <p>{page.description}</p>
+   <p>{page.intro??page.description}</p>
   </div>
   {page.slug==='' ?
    <div class="journal-tool-meta">

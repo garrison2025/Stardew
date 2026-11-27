@@ -37,7 +37,8 @@
       "sprinkler layout",
       "farm design",
       "sdv planner"
-    ]
+    ],
+    "intro": "Design a farm layout on an illustrative grid, measure coverage, and export a plan."
   },
   {
     "slug": "bundles",
