@@ -1,5 +1,6 @@
 import {verifySaveText} from './engine';
 import {farmFingerprint} from './save-farm-binding';
+import {parseSavedBundles} from './remixed-bundles';
 import {SEASONS,type Season} from './map-model';
 import {buildingItem,sprinklerItem,supportedVersion,type FarmRecord,type SaveSnapshot} from './save-model';
 import {normalizeSkillXp,normalizeCrafting,normalizeObjectCollection,safeCount,type SaveProgress,type NamedCount} from './save-progress';
@@ -41,6 +42,13 @@ export async function parseSave(xml:string):Promise<SaveSnapshot>{
  const snapshot:SaveSnapshot={version,farmType:num(text(root,'whichFarm')),year:num(text(root,'year')),day:num(text(root,'dayOfMonth')),season,fields,records,farmFound:!!farm};
  if(supportedVersion(version)){
   snapshot.progress=readProgress(root,player);
+  const definitions=child(root,'bundleData');
+  if(definitions&&definitions.children.length<=40){
+   const rows=Array.from(definitions.children).map(entry=>entry.localName==='item'
+    ? {key:text(child(entry,'key'),'string'),value:text(child(entry,'value'),'string')}
+    : {key:'',value:''});
+   snapshot.bundleLayout=parseSavedBundles(rows);
+  }
   const identifiers=Array.from(root.children).filter(node=>node.localName==='uniqueIDForThisGame');
   snapshot.farmFingerprint=identifiers.length===1
    ? await farmFingerprint(identifiers[0].textContent?.trim()??'')

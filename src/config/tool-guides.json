@@ -39,6 +39,10 @@
       [
         "Review remaining items",
         "Filter incomplete bundles by season and export the checklist."
+      ],
+      [
+        "Read requirements from your save",
+        "In the private workspace, open Remixed bundles and choose the main save file. Review the definitions before adding them to your checklist. Record donations separately."
       ]
     ],
     "example": "If a bundle requires any three of five candidates, three fully donated qualifying slots complete it. Partial quantities do not complete a slot.",
@@ -48,8 +52,8 @@
         "No. The required slot count determines completion; some bundles offer a choice."
       ],
       [
-        "Are remixed bundles automatically detected?",
-        "No. Enter the actual requirements in the separate remixed checklist. The standard tracker is never applied automatically."
+        "Can I read remixed requirements from a save?",
+        "The private workspace can read supported bundle definitions stored in the main save. Review the imported list and confirm donations yourself."
       ]
     ]
   },
@@ -255,6 +259,10 @@
       [
         "Compare inventory",
         "Enter owned materials and optional prices; export the shortages and ingredient plan."
+      ],
+      [
+        "Check how to learn a recipe",
+        "Filter by starter, skill level, friendship, TV, shop or upgrade. The filter uses reviewed unlocks. Open the item reference when a source has not been reviewed."
       ]
     ],
     "example": "For two identical crafting batches, every direct ingredient quantity is doubled. Output quantity may be greater than two if a recipe produces multiple units.",
@@ -309,6 +317,10 @@
       [
         "Plan missing ingredients",
         "Compare stock with requirements and record dishes actually cooked."
+      ],
+      [
+        "Check how to learn a recipe",
+        "Filter by starter, skill level, friendship, TV, shop or upgrade. The filter uses reviewed unlocks. Open the item reference when a source has not been reviewed."
       ]
     ],
     "example": "Two Fried Egg batches require two eggs. Owning the recipe alone does not complete the cooking record.",
@@ -336,6 +348,10 @@
       [
         "Compare upgrade costs",
         "Use the balance ledger; lifetime walnuts and spendable balance are different."
+      ],
+      [
+        "Start from an island landmark",
+        "Expand the Ginger Island location guide and choose a region to see its tasks. Use the item hints for the final approach."
       ]
     ],
     "example": "If you have found 30 lifetime walnuts and spent 10, the available balance is 20 under that manual ledger.",
