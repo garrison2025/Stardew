@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version-file: '.nvmrc'
       - name: Prepare dependency lock if absent
         run: |
           if [ ! -f package-lock.json ]; then
@@ -26,8 +26,6 @@ jobs:
         with:
           name: dependency-lock
           path: package-lock.json
-      - name: Dependency security audit
-        run: npm run audit:dependencies
       - run: npm run check
       - run: npm test
       - run: npm run build
@@ -39,6 +37,9 @@ jobs:
       - run: npx playwright install --with-deps chromium firefox webkit
       - run: npm run test:browser
       - run: node scripts/browser-release.mjs
+      - name: Dependency security audit
+        if: always() && hashFiles('package-lock.json') != ''
+        run: npm run audit:dependencies
       - uses: actions/upload-artifact@v4
         with:
           name: public-preview-build
