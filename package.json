@@ -13,13 +13,15 @@
     "test:browser": "node scripts/browser-smoke.mjs",
     "audit:live": "node scripts/audit-live-preview.mjs",
     "audit:size": "node scripts/audit-size.mjs",
-    "build:production": "node scripts/build-production.mjs"
+    "build:production": "node scripts/build-production.mjs",
+    "audit:dependencies": "npm audit --audit-level=high"
   },
   "dependencies": {
     "astro": "5.16.0",
     "@astrojs/react": "4.4.2",
     "react": "19.1.1",
-    "react-dom": "19.1.1"
+    "react-dom": "19.1.1",
+    "saxes": "6.0.0"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.5",
