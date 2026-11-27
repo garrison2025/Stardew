@@ -95,7 +95,10 @@
         "remixed bundles",
         "community center tracker",
         "bundle save tracker",
-        "community center item checklist"
+        "community center item checklist",
+        "standard bundle donations",
+        "bundle completion",
+        "spring foraging bundle"
       ]
     },
     {
@@ -135,7 +138,9 @@
         "museum layout",
         "museum donations",
         "artifacts and minerals",
-        "museum donation checklist"
+        "museum donation checklist",
+        "museum collection checklist",
+        "complete museum collection"
       ]
     },
     {
@@ -277,7 +282,10 @@
         "dehydrator profit",
         "mill processing",
         "wine aging calculator",
-        "expected crop quality"
+        "expected crop quality",
+        "processing queue",
+        "cellar wine aging",
+        "dehydrator and keg"
       ]
     },
     {
@@ -403,7 +411,9 @@
         "completion checklist",
         "monster eradication goals",
         "monster slayer",
-        "100 percent completion checklist"
+        "100 percent completion checklist",
+        "perfection progress tracker",
+        "100 percent completion"
       ]
     },
     {
@@ -526,7 +536,9 @@
         "queen of sauce",
         "cooking ingredients",
         "cooking ingredient calculator",
-        "recipe ingredient checklist"
+        "recipe ingredient checklist",
+        "all cooking recipes",
+        "cooking unlocks"
       ]
     },
     {
@@ -603,7 +615,13 @@
         "riverland farm",
         "hill-top farm",
         "meadowlands farm",
-        "farm type comparison"
+        "farm type comparison",
+        "four corners farm",
+        "standard farm",
+        "forest farm",
+        "wilderness farm",
+        "beach farm",
+        "all eight farm types"
       ]
     },
     {

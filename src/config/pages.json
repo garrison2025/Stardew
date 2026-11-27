@@ -78,7 +78,7 @@
     ],
     "priority": "P0",
     "guideTitle": "Choose the required donation slots",
-    "guideText": "Track 30 standard Community Center bundles and the separate Missing Bundle. For a remixed set, enter custom requirements or load the actual definitions and positive full-slot flags from your merged private save. Unknown flags stay unknown.",
+    "guideText": "Track 30 standard bundles and the separate Missing Bundle. A merged private save can add positive donations only when a complete saved definition matches the standard reference. Nonmatching or remixed definitions remain available in a separate custom checklist.",
     "researchClusterSize": 12,
     "searchAliases": [
       "community center",
@@ -86,7 +86,10 @@
       "remixed bundles",
       "community center tracker",
       "bundle save tracker",
-      "community center item checklist"
+      "community center item checklist",
+      "standard bundle donations",
+      "bundle completion",
+      "spring foraging bundle"
     ]
   },
   {
@@ -118,13 +121,15 @@
     ],
     "priority": "P0",
     "guideTitle": "Find missing artifacts and minerals",
-    "guideText": "Discovery is not donation. Use acquisition filters and reward milestones, then arrange items on an original practice display grid. This is not the exact in-game museum floor plan.",
+    "guideText": "Discovery is not donation. Filter acquisition routes, review reward milestones and track donations. Arrange items on an original practice display grid, not the exact museum floor plan.",
     "researchClusterSize": 18,
     "searchAliases": [
       "museum layout",
       "museum donations",
       "artifacts and minerals",
-      "museum donation checklist"
+      "museum donation checklist",
+      "museum collection checklist",
+      "complete museum collection"
     ]
   },
   {
@@ -153,7 +158,7 @@
     ],
     "priority": "P0",
     "guideTitle": "Try the 1.6.15 geode opener",
-    "guideText": "Compare reference geode openings, Forest Cart and optional festival random stock, and seeded event dates. Independent game fixtures, fixed festival stock and exact save-day offsets remain pending.",
+    "guideText": "Compare reference geode openings, Forest Cart and optional festival random stock, and seeded event dates. Does not generate world maps or crack game seeds. Independent game fixtures, fixed stock and exact save-day offsets remain pending.",
     "researchClusterSize": 11,
     "searchAliases": [
       "geode predictor",
@@ -240,7 +245,7 @@
     ],
     "priority": "P0",
     "guideTitle": "Compare planting and processing plans",
-    "guideText": "Compare seasonal and protected crop profits, expected quality across eligible crops, annual planting rotations and shared-machine cash flow. Explore separate dehydrator, mill and wine aging scenarios; the best tested cash-flow policy is not a global optimum.",
+    "guideText": "Compare seasonal and protected crop profits, expected quality, annual rotations and shared-machine cash flow. The fixed-planting daily economy also models kegs, jars, dehydrators, mill output and wine aging together. Tested policies are not global optima.",
     "researchClusterSize": 45,
     "searchAliases": [
       "crop profit",
@@ -260,7 +265,10 @@
       "dehydrator profit",
       "mill processing",
       "wine aging calculator",
-      "expected crop quality"
+      "expected crop quality",
+      "processing queue",
+      "cellar wine aging",
+      "dehydrator and keg"
     ]
   },
   {
@@ -373,14 +381,16 @@
     ],
     "priority": "P1",
     "guideTitle": "Estimate your weighted completion",
-    "guideText": "Enter observed category counts, compare the weighted completion range and review the 12 monster eradication goals. Load supported local save observations and collections in the private workspace; manual values can override estimates.",
+    "guideText": "Enter observed counts, compare a weighted completion range and review monster eradication goals. Load supported local observations and collections in the private workspace; multiplayer perfection remains outside the exact model.",
     "researchClusterSize": 13,
     "searchAliases": [
       "perfection tracker",
       "completion checklist",
       "monster eradication goals",
       "monster slayer",
-      "100 percent completion checklist"
+      "100 percent completion checklist",
+      "perfection progress tracker",
+      "100 percent completion"
     ]
   },
   {
@@ -487,7 +497,7 @@
     ],
     "priority": "P1",
     "guideTitle": "Plan dishes and ingredient purchases",
-    "guideText": "Review recipes and unlocks, select concrete ingredient substitutes, and expand intermediate dishes while deducting available dish stock once.",
+    "guideText": "Review cooking recipes, unlocks, grouped ingredient alternatives and intermediate dishes while deducting available dish stock once. Crafting recipes are listed on the separate crafting page.",
     "researchClusterSize": 6,
     "searchAliases": [
       "cooking recipes",
@@ -497,7 +507,9 @@
       "queen of sauce",
       "cooking ingredients",
       "cooking ingredient calculator",
-      "recipe ingredient checklist"
+      "recipe ingredient checklist",
+      "all cooking recipes",
+      "cooking unlocks"
     ]
   },
   {
@@ -560,7 +572,7 @@
     ],
     "priority": "P1",
     "guideTitle": "Choose a farm for your priorities",
-    "guideText": "Select two of eight farm types to compare reference areas, original schematic terrain, advantages, limitations and layout ideas. Open the linked practice layout; it is not an exact game map.",
+    "guideText": "Compare eight farm types, including Standard, Riverland, Forest, Hill-top, Wilderness, Four Corners, Beach and Meadowlands. Compare reference areas and schematic previews; exact map geometry is not included.",
     "researchClusterSize": 37,
     "searchAliases": [
       "farm types",
@@ -570,7 +582,13 @@
       "riverland farm",
       "hill-top farm",
       "meadowlands farm",
-      "farm type comparison"
+      "farm type comparison",
+      "four corners farm",
+      "standard farm",
+      "forest farm",
+      "wilderness farm",
+      "beach farm",
+      "all eight farm types"
     ]
   },
   {

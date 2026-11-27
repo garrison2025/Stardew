@@ -112,7 +112,8 @@
         "src/lib/outdoor-cashflow.ts",
         "src/lib/protected-cashflow.ts",
         "src/lib/protected-crops.ts",
-        "src/lib/farm-economy.ts"
+        "src/lib/farm-economy.ts",
+        "src/lib/economy-recipes.ts"
       ],
       "sources": [
         "https://stardewvalleywiki.com/Crops",
@@ -123,7 +124,7 @@
         "https://stardewvalleywiki.com/Preserves_Jar"
       ],
       "sourceRights": "pending",
-      "scope": "Restricted profit scenarios; independent game fixtures pending"
+      "scope": "Fixed planting and multi-device daily processing with wine aging; separate reinvestment scenarios; not globally optimal or independently game-verified"
     },
     {
       "path": "/fair-calculator/",

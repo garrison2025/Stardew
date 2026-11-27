@@ -61,7 +61,7 @@
       ],
       [
         "Are remixed bundles automatically detected?",
-        "No. Enter the actual requirements in the separate remixed checklist. The standard tracker is never applied automatically."
+        "Saved definitions can be inspected in the private workspace. Positive standard donations merge only if the complete saved definition matches the standard reference; other or remixed definitions require the separate custom checklist."
       ],
       [
         "Can I use remixed Community Center bundles?",
@@ -69,7 +69,7 @@
       ],
       [
         "Can I track remixed bundles from a save?",
-        "In the private workspace, merge a supported main save, then load saved bundle observations in the remixed tracker. Copy supported exact definitions and positive full-slot donations only after confirmation. Standard donations are not altered."
+        "Merge a supported main save, then load observed definitions in the remixed tracker and confirm the copy. An exact standard definition can independently add positive donations to the standard checklist; unknown and false observations never clear manual progress."
       ]
     ]
   },
@@ -147,7 +147,7 @@
       ],
       [
         "Review related trackers",
-        "Compare collection totals and load observed XP or earnings into their calculators; export a local backup."
+        "Check matched standard bundle donations and collection totals; load recorded professions, XP or earnings in related calculators and export a local backup."
       ]
     ],
     "example": "A recognized cooked recipe with a positive count can mark the recipe complete. A missing field does not prove zero completion.",
@@ -197,7 +197,7 @@
       ],
       [
         "Are the results expected-quality profits?",
-        "No. The default model uses guaranteed base yields. Quality and faster growth are explicit what-if inputs; the processing ledger is a daily approximation."
+        "The default optimizer uses guaranteed base yields. The separate quality scenario ranks eligible crops by expected per-tile profit. The daily processing ledger uses fixed harvest quality and approximate day timing."
       ],
       [
         "What are the most profitable greenhouse crops?",
@@ -214,6 +214,10 @@
       [
         "Does the outdoor planner compare processing with raw sales?",
         "It compares four planting priorities with raw sales and optional shared processing equipment. Daily receipts settle the next morning, seed supply is finite, and the best tested result includes a raw-only fallback. It assumes compatible user-defined recipes and does not model every game rule."
+      ],
+      [
+        "Can I compare several processing devices and wine aging in one season?",
+        "Yes. The daily economy uses shared raw stock, available kegs, jars, dehydrators, user-confirmed mill throughput and accessible casks. Set the processing tail and wine quality target. The fixed planting schedule and greedy dispatch are not a global optimum."
       ]
     ]
   },
@@ -240,7 +244,7 @@
       ],
       [
         "Can I reuse an item in the recommendation?",
-        "Only up to the quantity you enter. The optimizer cannot inspect actual inventory."
+        "Only up to the candidate quantity. The private workspace can populate recognized positive backpack and optional ordinary chest/fridge candidates; manually confirm actual sale prices, categories and stock."
       ],
       [
         "What items help win the Stardew Valley Fair?",
@@ -544,6 +548,10 @@
       [
         "Does the save record mastery XP?",
         "A supported save can contain the player's MasteryExp statistic. Load it alongside skill XP; absent values remain unknown and are not extrapolated from total XP."
+      ],
+      [
+        "Can I see my actual saved professions?",
+        "A recognized main-player profession ID list can display recorded vanilla choices. Other farmhands' recognized choices are shown separately in the save inspection. Unknown records stay unknown."
       ]
     ]
   }
