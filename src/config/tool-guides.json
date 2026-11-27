@@ -202,6 +202,10 @@
       [
         "Can I reinvest crop sales into more seeds?",
         "The protected cash-flow model uses next-day shipping receipts, fixed crop allocations and available seed stock. It compares raw sales with user-defined shared-machine processing. It is a scenario simulator rather than a global optimizer."
+      ],
+      [
+        "Can I plan a full outdoor year?",
+        "The annual rotation optimizer models normal outdoor season boundaries and cross-season crops with an upfront shop-seed budget. Winter Powdermelon uses a separately limited owned seed stock. Small allocation problems are solved exactly under the stated raw-profit assumptions; larger scenarios may return a bounded feasible solution."
       ]
     ]
   },
