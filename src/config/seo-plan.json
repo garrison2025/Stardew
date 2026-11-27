@@ -296,7 +296,7 @@
       "priority": "P1",
       "title": "Stardew Valley Fish Collection Tracker | Field & Farm",
       "h1": "Stardew Valley Fish Collection",
-      "description": "Track 72 fish collection entries and filter recorded seasons, locations, times and weather. Review missing fish and export your checklist.",
+      "description": "Track 72 fish collection entries and compare reference sale prices, quality, professions and rod difficulty. Filter recorded catch conditions and export progress.",
       "primaryKeyword": "fish collection stardew",
       "volume": 880,
       "kd": 15,
@@ -320,7 +320,10 @@
       "indexableAfterApproval": true,
       "searchAliases": [
         "fish collection",
-        "fishing checklist"
+        "fishing checklist",
+        "fish prices",
+        "fish difficulty",
+        "fishing collection"
       ]
     },
     {

@@ -244,6 +244,10 @@
       [
         "Are all weather and bait alternatives modeled?",
         "No. The current hints describe common routes; exact weather, time and bait coverage is incomplete."
+      ],
+      [
+        "How much do fish sell for in Stardew Valley?",
+        "Compare all 72 collection entries using the listed normal, silver, gold or iridium quality where applicable and the Fisher or Angler profession. Other catchables do not receive fish profession bonuses. The comparison uses standard price references, not world margin settings."
       ]
     ]
   },
