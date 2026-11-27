@@ -153,7 +153,7 @@
     ],
     "priority": "P0",
     "guideTitle": "Try the 1.6.15 geode opener",
-    "guideText": "Compare reference geode openings, Forest Cart stock and seeded event dates. Independent game fixtures, full festival stock and exact save-day offsets remain pending.",
+    "guideText": "Compare reference geode openings, Forest Cart and optional festival random stock, and seeded event dates. Independent game fixtures, fixed festival stock and exact save-day offsets remain pending.",
     "researchClusterSize": 11,
     "searchAliases": [
       "geode predictor",
