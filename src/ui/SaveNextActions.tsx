@@ -37,7 +37,7 @@ export default function SaveNextActions({progress, season}: {progress: SaveProgr
     </details>}
     {bundles.length > 0 && <details open>
       <summary>Community Center · {openBundles.length} bundles to check</summary>
-      <p className="muted">Uses the requirements stored in this file, including a custom set where present. Merge recognized progress to retain these observations, then open the private bundle tracker and load the saved definitions. Manual donations stay separate until you explicitly copy positive observations.</p>
+      <p className="muted">Uses the requirements stored in this file, including a custom set where present. Merge recognized progress to retain these observations, then open the private bundle tracker and load the saved definitions. Exact standard definitions can add positive full-slot donations automatically during merge; other definitions remain separate until you explicitly copy observations.</p>
       {openBundles.map(bundle => {
         const flagged = bundle.slots.filter(slot => slot.donated).length;
         const complete = bundle.slots.every(slot => slot.donated !== null);
