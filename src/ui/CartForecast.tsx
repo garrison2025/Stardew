@@ -2,7 +2,6 @@ import React,{useEffect,useState} from 'react';
 import {CART_SEASONS,forecastCart,type CartStart,type CartSeason} from '../lib/cart-forecast';
 import {forecastCartStock} from '../lib/cart-stock';
 import {download} from '../lib/local';
-import {readCartSave} from '../lib/save-parser';
 
 const example: CartStart = {gameId: '123456789', year: 1, season: 'autumn', day: 1, legacy: false};
 
@@ -23,7 +22,7 @@ export default function CartForecast({workspace}: {workspace: boolean}) {
  async function load(file: File) {
   setBusy(true);setError('');setStatus('');setForecast([]);setInput({...example,gameId:''});
   try {
-   setInput(await readCartSave(file));
+   setInput(await (await import('../lib/save-parser')).readCartSave(file));
    setStatus('Save fields loaded for this session. Confirm unmodded PC 1.6.15 before calculating.');
   } catch(err) { setError(String(err)); }
   finally { setBusy(false); }

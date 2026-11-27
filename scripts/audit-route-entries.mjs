@@ -1,0 +1,5 @@
+import fs from 'node:fs';import assert from 'node:assert/strict';
+const root=process.argv[2]||'dist',pages=JSON.parse(fs.readFileSync('src/config/pages.json','utf8'));
+const expected={'':'FarmPlannerPage','crop-calculator':'CropRoute',tracker:'TrackerRoute',cooking:'CollectionRoute',crafting:'CollectionRoute',shipping:'CollectionRoute',fishing:'CollectionRoute',bundles:'BundleRoute',museum:'MuseumRoute','golden-walnuts':'WalnutRoute',predictor:'PredictorRoute','fair-calculator':'FairRoute','grandpa-calculator':'GrandpaRoute','farm-comparison':'FarmCompareRoute','skills':'SkillsRoute',perfection:'PerfectionRoute'};
+for(const page of pages){const html=fs.readFileSync(root+page.path+'index.html','utf8'),islands=[...html.matchAll(/<astro-island\b[^>]*>/g)].map(x=>x[0]);assert.equal(islands.length,1,page.path+' expected exactly one page island');const url=islands[0].match(/component-url="([^"]+)"/)?.[1];assert.ok(url&&url.includes(expected[page.slug]+'.'),page.path+' wrong entry '+url);console.log(page.path+' '+url)}
+console.log('Route-specific island entrypoints verified for '+pages.length+' routes.');
