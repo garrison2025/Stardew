@@ -16,11 +16,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version-file: '.nvmrc'
-      - name: Prepare dependency lock if absent
-        run: |
-          if [ ! -f package-lock.json ]; then
-            npm install --package-lock-only --ignore-scripts --no-audit --no-fund
-          fi
       - run: npm ci --no-audit --no-fund
       - uses: actions/upload-artifact@v4
         with:
@@ -56,16 +51,3 @@ jobs:
           name: ui-preview-screenshots
           path: test-artifacts/
           if-no-files-found: ignore
-  export-lock:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/fix/final-audit-consolidated-20261127'
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: '.nvmrc'
-      - name: Export generated lock for review
-        run: |
-          npm install --package-lock-only --ignore-scripts --no-audit --no-fund
-          node -e "const {packages,...meta}=require('./package-lock.json');console.log('LOCK_META '+JSON.stringify(meta));for(const item of Object.entries(packages))console.log('LOCK_ENTRY '+JSON.stringify(item));console.log('LOCK_COUNT '+Object.keys(packages).length)"
