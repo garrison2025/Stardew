@@ -2,7 +2,7 @@ import {SEASON_CROPS,OWNED_CROPS} from './crop-data.ts';
 import {rawCropPrice} from './season-crops.ts';
 import {cropReceivesTiller} from './crop-growth.ts';
 const crops=[...SEASON_CROPS,...OWNED_CROPS];
-const fruitIds=new Set(['strawberry','blueberry','melon','hot-pepper','cranberries','grape','starfruit','ancient-fruit','pineapple','powdermelon']);
+const fruitIds=new Set(['strawberry','blueberry','melon','hot-pepper','cranberries','grape','starfruit','ancient-fruit','pineapple','powdermelon','rhubarb']);
 const mill:Record<string,{label:string;quantity:number;price:number}>={wheat:{label:'Wheat Flour',quantity:1,price:50},beet:{label:'Sugar',quantity:3,price:50},'unmilled-rice':{label:'Rice',quantity:1,price:100}};
 export const EXTRA_PROCESS_CROPS=crops.filter(c=>fruitIds.has(c.id)||Object.hasOwn(mill,c.id));
 const whole=(x:number,max:number)=>Number.isSafeInteger(x)&&x>=0&&x<=max;

@@ -1,0 +1,147 @@
+{
+  "schema": 1,
+  "source": "Owner V2.0 Appendix B; 182 historical strict candidates (16 primary + 166 long-tail), maximum KD 29",
+  "date": "2026-11-28",
+  "status": "functional-intent-review-only",
+  "reviewed": 182,
+  "excluded": 3,
+  "rows": [
+    {
+      "path": "/",
+      "total": 38,
+      "referenceImplemented": 0,
+      "partial": 38,
+      "mixedIntent": 0,
+      "explicitlyConfigured": 9
+    },
+    {
+      "path": "/bundles/",
+      "total": 11,
+      "referenceImplemented": 11,
+      "partial": 0,
+      "mixedIntent": 0,
+      "explicitlyConfigured": 9
+    },
+    {
+      "path": "/museum/",
+      "total": 13,
+      "referenceImplemented": 12,
+      "partial": 1,
+      "mixedIntent": 0,
+      "explicitlyConfigured": 9
+    },
+    {
+      "path": "/predictor/",
+      "total": 6,
+      "referenceImplemented": 0,
+      "partial": 6,
+      "mixedIntent": 0,
+      "explicitlyConfigured": 6
+    },
+    {
+      "path": "/tracker/",
+      "total": 5,
+      "referenceImplemented": 0,
+      "partial": 5,
+      "mixedIntent": 0,
+      "explicitlyConfigured": 5
+    },
+    {
+      "path": "/crop-calculator/",
+      "total": 23,
+      "referenceImplemented": 23,
+      "partial": 0,
+      "mixedIntent": 0,
+      "explicitlyConfigured": 9
+    },
+    {
+      "path": "/fair-calculator/",
+      "total": 14,
+      "referenceImplemented": 14,
+      "partial": 0,
+      "mixedIntent": 0,
+      "explicitlyConfigured": 9
+    },
+    {
+      "path": "/fishing/",
+      "total": 2,
+      "referenceImplemented": 2,
+      "partial": 0,
+      "mixedIntent": 0,
+      "explicitlyConfigured": 2
+    },
+    {
+      "path": "/perfection/",
+      "total": 10,
+      "referenceImplemented": 0,
+      "partial": 10,
+      "mixedIntent": 0,
+      "explicitlyConfigured": 9
+    },
+    {
+      "path": "/crafting/",
+      "total": 15,
+      "referenceImplemented": 15,
+      "partial": 0,
+      "mixedIntent": 0,
+      "explicitlyConfigured": 9
+    },
+    {
+      "path": "/shipping/",
+      "total": 8,
+      "referenceImplemented": 8,
+      "partial": 0,
+      "mixedIntent": 0,
+      "explicitlyConfigured": 8
+    },
+    {
+      "path": "/cooking/",
+      "total": 4,
+      "referenceImplemented": 2,
+      "partial": 0,
+      "mixedIntent": 2,
+      "explicitlyConfigured": 4
+    },
+    {
+      "path": "/golden-walnuts/",
+      "total": 1,
+      "referenceImplemented": 0,
+      "partial": 1,
+      "mixedIntent": 0,
+      "explicitlyConfigured": 1
+    },
+    {
+      "path": "/farm-comparison/",
+      "total": 26,
+      "referenceImplemented": 0,
+      "partial": 26,
+      "mixedIntent": 0,
+      "explicitlyConfigured": 9
+    },
+    {
+      "path": "/grandpa-calculator/",
+      "total": 2,
+      "referenceImplemented": 2,
+      "partial": 0,
+      "mixedIntent": 0,
+      "explicitlyConfigured": 2
+    },
+    {
+      "path": "/skills/",
+      "total": 1,
+      "referenceImplemented": 1,
+      "partial": 0,
+      "mixedIntent": 0,
+      "explicitlyConfigured": 1
+    }
+  ],
+  "limitations": [
+    "Reference implemented means task present in code, not in-game verified or ranking evidence.",
+    "Partial deliberately conservative for schematic farm maps, incomplete predictor/save/perfection data and walnut locations.",
+    "Mixed recipe terms can mean cooking or crafting; route only cooking intent to cooking.",
+    "Excluded two setup terms with no target in owner plan and one unrelated map predictor/navigation term.",
+    "Reassigned seven farm-map/type terms to farm comparison and three perfection tracker terms to perfection, consistent with task intent.",
+    "No raw report, search volumes, full phrase list or new keyword metrics redistributed. The exact owner source remains private.",
+    "US-targeted 16 primary query sample completed previously; full Google localized SERP and production approval remain pending."
+  ]
+}
