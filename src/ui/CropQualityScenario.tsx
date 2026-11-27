@@ -9,11 +9,11 @@ export default function CropQualityScenario({input}:{input:SeasonInput}){
  let result:{harvests:number;normal:number;expected:number;profit:number}|null=null;
  if(crop&&Number.isInteger(cost)&&cost>=0&&cost<=20000){
   try{
-   const cycle=cycles(crop,input.start,input.replant,{...input,quality:0,fertilizer:undefined}).at(-1);
+   const cycle=cycles(crop,input.start,input.replant,{...input,quality:0,fertilizer:undefined,growth:input.growth?{...input.growth,fertilizer:'none',cost:0}:undefined}).at(-1);
    if(cycle){const harvests=cycle.days.length,normal=harvests*crop.yield*rawCropPrice(crop.price,0,input.tiller),expected=harvests*expectedHarvestPrice(crop.price,crop.yield,level,tier,input.tiller);result={harvests,normal,expected,profit:expected-cycle.seeds*crop.seed-cost};}
   }catch{}
  }
- return <details className="panel"><summary>Expected crop quality and fertilizer return</summary><p className="muted">Compare expected raw sale value per tile using farming skill and quality fertilizer. This is a statistical estimate, separate from the guaranteed-yield planner and cash-flow simulation. Growth speed is unchanged.</p>
+ return <details className="panel"><summary>Expected crop quality and fertilizer return</summary><p className="muted">Compare expected raw sale value per tile using farming skill and quality fertilizer. This is a statistical estimate, separate from the guaranteed-yield planner and cash-flow simulation. Growth fertilizer is excluded from this quality-fertilizer scenario; Agriculturist and paddy irrigation still apply if selected.</p>
  <div className="formgrid"><label>Quality comparison crop<select value={crop?.id??''} onChange={e=>setId(e.target.value)}>{crops.map(c=><option key={c.id} value={c.id}>{c.name}</option>)}</select></label>
  <label>Farming level<select value={level} onChange={e=>setLevel(Number(e.target.value))}>{Array.from({length:15},(_,i)=><option key={i}>{i}</option>)}</select></label>
  <label>Quality fertilizer<select value={tier} onChange={e=>setTier(Number(e.target.value) as QualityFertilizer)}><option value={0}>None</option><option value={1}>Basic Fertilizer</option><option value={2}>Quality Fertilizer</option><option value={3}>Deluxe Fertilizer</option></select></label>
