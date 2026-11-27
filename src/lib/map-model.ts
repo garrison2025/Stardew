@@ -22,6 +22,7 @@ export const ITEMS:Item[]=[
 {id:'nozzle-quality',name:'Quality sprinkler + nozzle',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#f1ce7d',radius:2,pattern:'square',documented:true},
 {id:'nozzle-iridium',name:'Iridium sprinkler + nozzle',category:'Equipment',w:1,h:1,art:'sprinkler',color:'#d7b9ee',radius:3,pattern:'square',documented:true},
 {id:'scarecrow',name:'Scarecrow',category:'Equipment',w:1,h:1,art:'post',color:'#bca064'},
+{id:'deluxe-scarecrow',name:'Deluxe Scarecrow',category:'Equipment',w:1,h:1,art:'post',color:'#e1ba70',documented:true},
 {id:'barrel',name:'Barrel',category:'Equipment',w:1,h:1,art:'barrel',color:'#b98955'},
 {id:'chest',name:'Storage chest',category:'Equipment',w:1,h:1,art:'chest',color:'#c39860'},
 {id:'cottage',name:'Cottage',category:'Buildings',w:4,h:3,art:'house',color:'#a45d46'},
@@ -34,6 +35,14 @@ export const ITEMS:Item[]=[
 {id:'game-coop',name:'Coop (game footprint)',category:'Buildings',w:6,h:3,art:'house',color:'#d5a75f',fixedOrientation:true,documented:true},
 {id:'game-shed',name:'Shed (game footprint)',category:'Buildings',w:7,h:3,art:'house',color:'#607f79',fixedOrientation:true,documented:true},
 {id:'game-silo',name:'Silo (game footprint)',category:'Buildings',w:3,h:3,art:'house',color:'#af785b',fixedOrientation:true,documented:true},
+{"id":"game-fish-pond","name":"Fish Pond (game footprint)","category":"Buildings","w":5,"h":5,"art":"pond","color":"#6d9caa","fixedOrientation":true,"documented":true},
+{"id":"game-mill","name":"Mill (game footprint)","category":"Buildings","w":4,"h":2,"art":"house","color":"#ad9668","fixedOrientation":true,"documented":true},
+{"id":"game-slime-hutch","name":"Slime Hutch (game footprint)","category":"Buildings","w":7,"h":4,"art":"house","color":"#78879a","fixedOrientation":true,"documented":true},
+{"id":"game-stable","name":"Stable (game footprint)","category":"Buildings","w":4,"h":2,"art":"house","color":"#a47751","fixedOrientation":true,"documented":true},
+{"id":"game-well","name":"Well (game footprint)","category":"Buildings","w":3,"h":3,"art":"pond","color":"#809dac","fixedOrientation":true,"documented":true},
+{"id":"game-cabin","name":"Cabin (game footprint)","category":"Buildings","w":5,"h":3,"art":"house","color":"#ae8669","fixedOrientation":true,"documented":true},
+{"id":"game-shipping-bin","name":"Shipping Bin (game footprint)","category":"Buildings","w":2,"h":1,"art":"chest","color":"#b58d59","fixedOrientation":true,"documented":true},
+{"id":"game-pet-bowl","name":"Pet Bowl (game footprint)","category":"Buildings","w":2,"h":2,"art":"pond","color":"#aebba0","fixedOrientation":true,"documented":true},
 {id:'stone-path',name:'Stone path',category:'Paths & fences',w:1,h:1,art:'path',color:'#a8aaa0'},
 {id:'wood-path',name:'Wood path',category:'Paths & fences',w:1,h:1,art:'path',color:'#c2a06d'},
 {id:'brick-path',name:'Brick path',category:'Paths & fences',w:1,h:1,art:'path',color:'#b97a62'},
@@ -125,10 +134,11 @@ export function validateCalibration(c:Calibration,map:FarmMap,image:{width:numbe
 export function scarecrowCoverage(plan:Plan){
  const protectedTiles=new Set<string>();
  for(const o of plan.objects){
-  if(o.itemId!=='scarecrow')continue;
-  for(let dy=-8;dy<=8;dy++)for(let dx=-8;dx<=8;dx++){
+  const radius=o.itemId==='scarecrow'?9:o.itemId==='deluxe-scarecrow'?17:0;
+  if(!radius)continue;
+  for(let dy=1-radius;dy<radius;dy++)for(let dx=1-radius;dx<radius;dx++){
    const distance=dx*dx+dy*dy;
-   if(distance===0||distance>=81)continue;
+   if(distance===0||distance>=radius*radius)continue;
    const x=o.x+dx,y=o.y+dy;
    if(x>=0&&x<plan.map.w&&y>=0&&y<plan.map.h)protectedTiles.add(posKey(x,y));
   }

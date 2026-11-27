@@ -4,7 +4,7 @@
     "path": "/",
     "h1": "Stardew Valley Farm Planner",
     "title": "Stardew Valley Farm Planner & Layout Editor | Field & Farm",
-    "description": "Design farm layouts on eight practice landscapes. Place buildings, paths and sprinklers, compare coverage, arrange interiors and export editable plans.",
+    "description": "Design eight practice farm landscapes with editable layout ideas, fixed building footprints, sprinkler and scarecrow coverage, interiors and export.",
     "primaryKeyword": "stardew valley planner",
     "volume": 8100,
     "kd": 22,
@@ -29,14 +29,17 @@
     ],
     "priority": "P0",
     "guideTitle": "Plan a layout before building",
-    "guideText": "Choose one of eight original landscape templates or import a private terrain package. Place objects, inspect water coverage and arrange linked building interiors. Export JSON to retain editable data; PNG is a visual snapshot. Built-in landscapes are not extracted game maps.",
+    "guideText": "Choose an original practice landscape or four editable layout ideas for crop blocks, ranching, a river workshop or woodland retreat. Inspect sprinkler and scarecrow coverage and reference construction costs, then export an editable plan. No official terrain.",
     "researchClusterSize": 89,
     "searchAliases": [
       "farm layout planner",
       "farm layout editor",
       "sprinkler layout",
       "farm design",
-      "sdv planner"
+      "sdv planner",
+      "farm layout ideas",
+      "scarecrow layout",
+      "farm building budget"
     ]
   },
   {

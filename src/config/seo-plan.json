@@ -9,7 +9,7 @@
       "priority": "P0",
       "title": "Stardew Valley Farm Planner & Layout Editor | Field & Farm",
       "h1": "Stardew Valley Farm Planner",
-      "description": "Design farm layouts on eight practice landscapes. Place buildings, paths and sprinklers, compare coverage, arrange interiors and export editable plans.",
+      "description": "Design eight practice farm landscapes with editable layout ideas, fixed building footprints, sprinkler and scarecrow coverage, interiors and export.",
       "primaryKeyword": "stardew valley planner",
       "volume": 8100,
       "kd": 22,
@@ -43,7 +43,10 @@
         "farm layout editor",
         "sprinkler layout",
         "farm design",
-        "sdv planner"
+        "sdv planner",
+        "farm layout ideas",
+        "scarecrow layout",
+        "farm building budget"
       ]
     },
     {
