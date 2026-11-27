@@ -1,3 +1,5 @@
+import {mergeWalnutObservation} from './walnut-observations.ts';
+import {decodeWalnuts,emptyWalnuts} from './walnut-progress.ts';
 import {mergeStandardDonations} from './standard-bundle-observations.ts';
 import {decodeBundleState,emptyBundleState} from './bundle-progress.ts';
 import {observationsOf,decodeSaveObservations,SAVE_OBSERVATIONS_KEY} from './save-observations.ts';
@@ -10,6 +12,7 @@ export function saveMergeUpdates(progress:SaveProgress){
  const observed=observationsOf(progress);
  if(observed.professions!==undefined||observed.walnutTasks!==undefined||observed.masteryXp!=null||observed.backpack!==undefined||observed.storage!==undefined||observed.bundles!==undefined||observed.stepsTaken!=null||observed.monsterKills!==undefined||observed.xp!==null||observed.lifetimeEarnings!==null||observed.walnutsFound!==null||observed.walnutsBalance!==null||Object.values(observed.milestones??{}).some(n=>n!==null))updates[SAVE_OBSERVATIONS_KEY]=old=>{if(old!==undefined)decodeSaveObservations(old);return observed};
  if(observed.bundles?.length&&mergeStandardDonations(emptyBundleState(),observed.bundles).added)updates['standard-bundles-v1']=old=>mergeStandardDonations(old===undefined?emptyBundleState():decodeBundleState(old),observed.bundles).state;
+ if(observed.walnutTasks&&Object.keys(observed.walnutTasks.found).length)updates['walnut-progress-v1']=old=>mergeWalnutObservation(old===undefined?emptyWalnuts():decodeWalnuts(old),observed.walnutTasks!);
  const craft=progress.crafting;
  if(craft?.known.length)updates['collection-v1:crafting']=old=>{
   let state=old===undefined?emptyCollection('crafting'):decodeCollection('crafting',old);

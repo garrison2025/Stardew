@@ -22,7 +22,7 @@ export function checkCartRows(rows,observed){
  return observed.map((o,i)=>{
   if(!o||!Number.isSafeInteger(o.absoluteDay)||o.absoluteDay<1||!['Forest Cart','Night Market','Desert Festival'].includes(o.venue)||!['ordinary','furniture','seasonal','guarantee','special','skill-book'].includes(o.kind)||typeof o.label!=='string'||!o.label.trim()||o.label.length>120||!Number.isSafeInteger(o.price)||o.price<1||!Number.isSafeInteger(o.quantity)||o.quantity<1)throw Error('Invalid cart observation');
   const visit=rows.find(v=>v.absoluteDay===o.absoluteDay&&v.venue===o.venue);
-  const candidates=o.kind==='special'?(visit?.offers??[]).filter(x=>x.label!=='Tea Set').map(x=>({...x,quantity:1})):o.kind==='skill-book'?(visit?.skillBook&&!visit.skillBook.identityUncertain?[visit.skillBook]:[]):(visit?.stock??[]).filter(x=>x.kind===o.kind);
+  const candidates=o.kind==='special'?(visit?.offers??[]).filter(x=>x.label!=='Tea Set').map(x=>({...x,quantity:1})):o.kind==='skill-book'?(visit?.skillBook&&!visit.skillBook.identityUncertain?[visit.skillBook]:[]):(visit?.stock??[]).filter(x=>x.kind===o.kind&&!(visit?.downstreamUncertain&&o.kind!=='ordinary'));
   // Positive individual slots only, not a proof of absence or complete inventory. Tea Set has infinite quantity.
   return {check:i+1,passed:candidates.some(x=>x.label===o.label&&x.price===o.price&&x.quantity===o.quantity)};
  });

@@ -33,11 +33,12 @@ export function forecastCartStock(input:CartStart,originalGuarantee:number|null=
   // after furniture and seasonal Rare Seed. An unknown Year 1 guarantee may shift that RNG.
   const gameId=Number(input.gameId);
   const bookSeed=input.legacy?(skillHash%max+gameId%max+day)%max:hashWords(skillHash%max,gameId%max,day);
+  const downstreamUncertain=visit.year===1&&(originalGuarantee===null||!!input.desertFestivalUnlocked&&day>=15);
   let skillBook:SkillBookOffer|null=null;
   if(random(bookSeed)()<.05){
-   const name=skillBooks[next(0,skillBooks.length)],identityUncertain=visit.year===1&&(originalGuarantee===null||visit.venue==='Desert Festival');
+   const name=skillBooks[next(0,skillBooks.length)],identityUncertain=downstreamUncertain;
    skillBook={label:identityUncertain?'Skill book (title unconfirmed)':name,price:6000,quantity:1,identityUncertain};
   }
-  return {...visit,stock:offers,skillBook};
+  return {...visit,stock:offers,skillBook,downstreamUncertain};
  });
 }
