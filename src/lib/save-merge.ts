@@ -6,7 +6,7 @@ import {emptyMuseum,decodeMuseum,setMuseumItem} from './museum-progress.ts';
 export function saveMergeUpdates(progress:SaveProgress){
  const updates:Record<string,(old:unknown)=>unknown>={};
  const observed=observationsOf(progress);
- if(observed.walnutTasks!==undefined||observed.masteryXp!=null||observed.backpack!==undefined||observed.storage!==undefined||observed.bundles!==undefined||observed.stepsTaken!=null||observed.monsterKills!==undefined||observed.xp!==null||observed.lifetimeEarnings!==null||observed.walnutsFound!==null||observed.walnutsBalance!==null||Object.values(observed.milestones??{}).some(n=>n!==null))updates[SAVE_OBSERVATIONS_KEY]=old=>{if(old!==undefined)decodeSaveObservations(old);return observed};
+ if(observed.professions!==undefined||observed.walnutTasks!==undefined||observed.masteryXp!=null||observed.backpack!==undefined||observed.storage!==undefined||observed.bundles!==undefined||observed.stepsTaken!=null||observed.monsterKills!==undefined||observed.xp!==null||observed.lifetimeEarnings!==null||observed.walnutsFound!==null||observed.walnutsBalance!==null||Object.values(observed.milestones??{}).some(n=>n!==null))updates[SAVE_OBSERVATIONS_KEY]=old=>{if(old!==undefined)decodeSaveObservations(old);return observed};
  const craft=progress.crafting;
  if(craft?.known.length)updates['collection-v1:crafting']=old=>{
   let state=old===undefined?emptyCollection('crafting'):decodeCollection('crafting',old);
