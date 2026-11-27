@@ -1,5 +1,5 @@
 import OwnedSeedPlanner from './OwnedSeedPlanner';
-import React,{useState} from 'react';
+import React,{useMemo,useState} from 'react';
 import {SEASON_CROPS,cropById,type CropSeason} from '../lib/crop-data';
 import {cycles,eligible,harvestLabel,plantingHorizon,optimizeSeason,type SeasonInput} from '../lib/season-crops';
 import {decodePlan,itemById} from '../lib/map-model';
@@ -15,6 +15,29 @@ export default function SeasonalCropTool({workspace}:{workspace:boolean}){
  const fertilizedCrop=SEASON_CROPS.find(c=>c.id===input.fertilizer?.cropId);
  const horizon=plantingHorizon(input);
  let ranking:ReturnType<typeof cycles>[number][]=[];try{ranking=eligible(input).flatMap(c=>cycles(c,input.start,input.replant,input).slice(-1)).sort((a,b)=>b.profit-a.profit||a.crop.name.localeCompare(b.crop.name))}catch{}
+ const fallback=useMemo(()=>{
+  if(!validResult||!result.allocation.length)return null;
+  const onlyCrop=result.allocation.every(a=>a.cycle.crop.id===result.allocation[0].cycle.crop.id)
+   ? result.allocation[0].cycle.crop.id : null;
+  let best:{cycle:ReturnType<typeof cycles>[number];tiles:number;profit:number}|null=null;
+  for(const crop of eligible(input)){
+   if(crop.id===onlyCrop)continue;
+   for(const cycle of cycles(crop,input.start,input.replant,input)){
+    const tiles=Math.min(input.plots,cycle.cost?Math.floor(input.budget/cycle.cost):input.plots);
+    const profit=tiles*cycle.profit;
+    if(profit>0&&(!best||profit>best.profit))best={cycle,tiles,profit};
+   }
+  }
+  return best;
+ },[input,result,validResult]);
+ const purchases=new Map<string,{seeds:number;upfront:number;dates:Set<number>}>();
+ if(validResult)for(const {cycle,tiles} of result.allocation){
+  const entry=purchases.get(cycle.crop.name)??{seeds:0,upfront:0,dates:new Set<number>()};
+  entry.seeds+=tiles*cycle.seeds;
+  entry.upfront+=tiles;
+  cycle.days.forEach(day=>entry.dates.add(day));
+  purchases.set(cycle.crop.name,entry);
+ }
  return <section className="panel seasonal-crops"><div className="tool-heading"><span className="studio-symbol" aria-hidden="true">🌱</span><div><h2>Seasonal crop planner</h2><span className="muted">{SEASON_CROPS.length} shop-price reference crops · guaranteed base yield</span></div></div><p className="muted">Plan outdoor plantings with daily watering. Reserve seed and fertilizer costs up front. Harvest counts use guaranteed yield. Quality and accelerated growth are explicit scenario inputs.</p>
  {workspace&&<div className="crop-link-panel"><button disabled={loading} onClick={()=>void loadLayout()}>Load saved farm crop count</button><a href="/">Open farm designer</a>{status&&<p role="status">{status}</p>}{layout&&<><p>{layout.total} crop markers · {layout.known} named crop markers. Existing growth stages are not known; this is a new planting scenario, not a harvest prediction.</p>{layout.counts.map(c=><span className="crop-count-tag" key={c.name}>{c.name}: {c.count}</span>)}</>}</div>}
  <div className="journal-crop-workbench"><div className="journal-crop-inputs">
@@ -30,7 +53,12 @@ export default function SeasonalCropTool({workspace}:{workspace:boolean}){
  </details><button className="primary" onClick={calculate}>Optimize planting</button>{error&&<p className="error" role="alert">{error}</p>}{!validResult&&<p className="muted">Settings changed. Recalculate to update the recommendation.</p>}
  </div><div className="journal-crop-results" aria-label="Planting results">
  {!validResult&&<p>Recalculate to see projected profit and harvest dates.</p>}
- {validResult&&<><div className="metrics"><div className="metric"><small>Net profit</small><b>{money(result.profit)}</b></div><div className="metric"><small>Planting cost</small><b>{money(result.spent)}</b></div><div className="metric"><small>Harvest revenue</small><b>{money(result.revenue)}</b></div><div className="metric"><small>Planted tiles</small><b>{result.planted} / {input.plots}</b></div></div><h3>Recommended allocation</h3>{!result.allocation.length&&<p>No profitable supported planting under these constraints.</p>}{result.allocation.map((a,i)=><div key={i} className="crop-allocation"><div><strong>{a.cycle.crop.name}</strong><small>{a.tiles} tiles · {a.cycle.seeds} seed purchases per tile · {money(a.cycle.profit*a.tiles)} net</small></div><div className="crop-days" aria-label={'Harvest days '+a.cycle.days.map(day=>harvestLabel(day,input.season)).join(', ')}>{Array.from({length:horizon},(_,j)=><span key={j} className={a.cycle.days.includes(j+1)?'harvest':j+1<input.start?'past':''} title={harvestLabel(j+1,input.season)}>{j%28+1}</span>)}</div></div>)}<button onClick={()=>download('season-planting-plan.json',JSON.stringify({input,result,model:'outdoor-planting-scenario-v2'}))}>Export planting plan</button></>}
+ {validResult&&<>{purchases.size>0&&<section className="planting-decision" aria-label="Seed shopping list and harvest dates">
+ <h3>What to plant today</h3>
+ <p><strong>{money(result.profit)} projected net</strong> from raw sales after {money(result.spent)} of planting costs.</p>
+ <ul className="planting-shopping-list">{[...purchases].map(([name,entry])=><li key={name}><strong>{name}</strong> · {entry.upfront} seeds today{entry.seeds>entry.upfront?' · '+entry.seeds+' total including replanting':''} · Harvest {[...entry.dates].sort((a,b)=>a-b).map(day=>harvestLabel(day,input.season)).join(', ')}</li>)}</ul>
+ {fallback&&<p><strong>Single-crop alternative</strong> · {fallback.tiles} {fallback.cycle.crop.name} tiles · {fallback.tiles*fallback.cycle.seeds} seeds total · {money(fallback.profit)} projected net.</p>}
+ </section>}<div className="metrics"><div className="metric"><small>Net profit</small><b>{money(result.profit)}</b></div><div className="metric"><small>Planting cost</small><b>{money(result.spent)}</b></div><div className="metric"><small>Harvest revenue</small><b>{money(result.revenue)}</b></div><div className="metric"><small>Planted tiles</small><b>{result.planted} / {input.plots}</b></div></div><h3>Recommended allocation</h3>{!result.allocation.length&&<p>No profitable supported planting under these constraints.</p>}{result.allocation.map((a,i)=><div key={i} className="crop-allocation"><div><strong>{a.cycle.crop.name}</strong><small>{a.tiles} tiles · {a.cycle.seeds} seed purchases per tile · {money(a.cycle.profit*a.tiles)} net</small></div><div className="crop-days" aria-label={'Harvest days '+a.cycle.days.map(day=>harvestLabel(day,input.season)).join(', ')}>{Array.from({length:horizon},(_,j)=><span key={j} className={a.cycle.days.includes(j+1)?'harvest':j+1<input.start?'past':''} title={harvestLabel(j+1,input.season)}>{j%28+1}</span>)}</div></div>)}<button onClick={()=>download('season-planting-plan.json',JSON.stringify({input,result,model:'outdoor-planting-scenario-v2'}))}>Export planting plan</button></>}
  </div></div>
  <OwnedSeedPlanner season={input.season} start={input.start} plots={input.plots}/>
  {validResult&&<FarmEconomy key={JSON.stringify(input)} input={input} allocation={result.allocation} workspace={workspace}/>}<h3 className="crop-ranking-title">Season crop comparison</h3><p className="muted">Per tile, maximum cycles within the selected planning window, before the shared budget constraint. Only selected available crop types are shown. Stock-limited seeds and winter Powdermelon use the separate owned-seed calculator.</p><div className="tablewrap"><table><thead><tr><th>Crop</th><th>Seed</th><th>Growth</th><th>Harvests</th><th>Revenue</th><th>Net / tile</th><th>Net / remaining day</th><th>Planting ROI</th></tr></thead><tbody>{ranking.map(r=><tr key={r.crop.id}><td><span className="crop-color" style={{background:r.crop.color}}/>{r.crop.name}</td><td>{money(r.crop.seed)} / seed<br/><small>{money(r.cost)} total</small></td><td>{(input.fertilizer?.cropId===r.crop.id?input.fertilizer.growthDays:r.crop.growth)}d{r.crop.regrow?' / '+r.crop.regrow+'d':''}</td><td>{r.days.length}</td><td>{money(r.revenue)}</td><td>{money(r.profit)}</td><td>{(r.profit/(horizon+1-input.start)).toFixed(2)}g</td><td>{r.cost?(100*r.profit/r.cost).toFixed(1)+'%':'N/A'}</td></tr>)}</tbody></table></div>{!ranking.length&&<p className="muted">No supported crops finish in the remaining days.</p>}<details><summary>Calculation assumptions and sources</summary><p>Seed costs are standard listed prices, not current shop inventory. Year 2 and Oasis seeds require explicit opt-in. Sunflower seed returns and rice water acceleration are excluded. Strawberry availability must be confirmed by the user. Potato and other random extra harvests are excluded; blueberry and cranberry guaranteed multiple yields are included. The optimizer is exact for its restricted model: each tile is unused or assigned one crop type and a feasible number of cycles, with total planting spending capped. It does not optimize walking paths, mixed crop rotations, processing or cash flow.</p><p>References: <a href="https://stardewvalleywiki.com/Crops" target="_blank" rel="noreferrer">Crop mechanics</a> · <a href="https://stardewvalleywiki.com/Spring" target="_blank" rel="noreferrer">Spring</a> · <a href="https://stardewvalleywiki.com/Summer" target="_blank" rel="noreferrer">Summer</a> · <a href="https://stardewvalleywiki.com/Fall" target="_blank" rel="noreferrer">Fall</a>. Independently implemented numerical facts; no game assets.</p></details></section>

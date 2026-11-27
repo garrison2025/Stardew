@@ -1,27 +1,56 @@
+const directory = document.querySelector('.journal-directory');
+const directoryToggle = directory?.querySelector('summary');
+
+if (directory && directoryToggle) {
+  document.addEventListener('pointerdown', event => {
+    if (directory.open && !directory.contains(event.target)) directory.open = false;
+  });
+  directory.addEventListener('focusout', event => {
+    if (!directory.contains(event.relatedTarget)) directory.open = false;
+  });
+  directory.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && directory.open) {
+      event.preventDefault();
+      directory.open = false;
+      directoryToggle.focus();
+    }
+  });
+}
+
 const finder = document.getElementById('tool-finder');
 const finderTrigger = document.querySelector('[data-tool-finder-open]');
 
 if (finder?.showModal && finderTrigger) {
   const query = finder.querySelector('input');
   const status = finder.querySelector('[role="status"]');
-  const entries = Array.from(finder.querySelectorAll('[data-search]'), element => ({
-    element,
-    link: element.querySelector('a'),
-    search: element.dataset.search.toLowerCase()
-  }));
+  const normalize = text => text.toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]+/g, ' ').trim();
+  const entries = Array.from(finder.querySelectorAll('[data-search]'), element => {
+    const aliases = (element.dataset.searchAliases || '').split('|').filter(Boolean).map(normalize);
+    return {
+      element,
+      link: element.querySelector('a'),
+      aliases,
+      search: normalize(element.dataset.search + ' ' + aliases.join(' '))
+    };
+  });
   let matches = entries;
 
   function filterTools() {
-    const terms = query.value.toLowerCase().trim().split(/\s+/).filter(Boolean);
+    const normalized = normalize(query.value);
+    const terms = normalized.split(' ').filter(Boolean);
     matches = entries.filter(({ search }) => terms.every(term => search.includes(term)));
+    matches.sort((a,b) => Number(b.aliases.includes(normalized)) - Number(a.aliases.includes(normalized)));
     const matchingEntries = new Set(matches);
+    const list = finder.querySelector('ul');
     for (const entry of entries) entry.element.hidden = !matchingEntries.has(entry);
+    for (const entry of matches) list.append(entry.element);
     status.textContent = matches.length ? `${matches.length} ${matches.length === 1 ? 'tool' : 'tools'} found` : 'No tools match your search.';
     finder.querySelector('ul').scrollTop = 0;
   }
 
   function openFinder() {
     if (finder.open) return;
+    if (directory) directory.open = false;
     query.value = '';
     filterTools();
     finder.showModal();

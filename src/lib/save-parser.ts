@@ -1,4 +1,6 @@
 import {verifySaveText} from './engine';
+import {farmFingerprint} from './save-farm-binding';
+import {parseSavedBundles} from './remixed-bundles';
 import {SEASONS,type Season} from './map-model';
 import {buildingItem,sprinklerItem,supportedVersion,type FarmRecord,type SaveSnapshot} from './save-model';
 import {normalizeSkillXp,normalizeCrafting,normalizeObjectCollection,safeCount,type SaveProgress,type NamedCount} from './save-progress';
@@ -8,6 +10,15 @@ const num=(s:string):number|null=>/^-?\d+$/.test(s)&&Number.isSafeInteger(Number
 const xsi=(el:Element|undefined|null,key:string)=>el?.getAttributeNS('http://www.w3.org/2001/XMLSchema-instance',key)??el?.getAttribute('xsi:'+key)??'';
 function point(el:Element|undefined){return {x:num(text(el,'X')),y:num(text(el,'Y'))}}
 function dictionary(el:Element|undefined){return Array.from(el?.children??[]).filter(e=>e.localName==='item')}
+function readSteps(player:Element|undefined):number|null{
+ const stats=child(player,'stats');
+ const values=child(stats,'Values');
+ const rows=dictionary(values).filter(entry=>text(child(entry,'key'),'string')==='stepsTaken');
+ if(rows.length>1)return null;
+ if(rows.length===1)return safeCount(num(text(child(rows[0],'value'),'unsignedInt')),4294967295);
+ return safeCount(num(text(stats,'stepsTaken')),4294967295);
+}
+
 function readProgress(root:Element,player:Element|undefined):SaveProgress{
  const warnings:string[]=[];
  const read=(el:Element|undefined,name:string,max=1000000000)=>safeCount(num(text(el,name)),max);
@@ -26,9 +37,9 @@ function readProgress(root:Element,player:Element|undefined):SaveProgress{
  if(walnutsFound===null||walnutsBalance===null)warnings.push('Walnut counters absent or outside standard range.');
  if(walnutsFound!==null&&walnutsBalance!==null&&walnutsBalance>walnutsFound)warnings.push('Walnut balance exceeds lifetime count; inspect the save in game.');
  if(Array.from(child(root,'farmhands')?.children??[]).some(e=>e.localName==='Farmer'))warnings.push('Multiplayer save: only the main player is summarized; no combined perfection score.');
- return {xp,money:read(player,'money'),lifetimeEarnings:read(player,'totalMoneyEarned'),walnutsFound,walnutsBalance,crafting,learnedCooking:cooking?.length??null,collections,warnings}
+ return {xp,stepsTaken:readSteps(player),money:read(player,'money'),lifetimeEarnings:read(player,'totalMoneyEarned'),walnutsFound,walnutsBalance,crafting,learnedCooking:cooking?.length??null,collections,warnings}
 }
-export function parseSave(xml:string):SaveSnapshot{
+export async function parseSave(xml:string):Promise<SaveSnapshot>{
  verifySaveText(xml);const doc=new DOMParser().parseFromString(xml,'application/xml'),root=doc.documentElement;
  if(doc.querySelector('parsererror')||root.localName!=='SaveGame')throw Error('Expected a valid main SaveGame XML, not SaveGameInfo.');
  const fields=doc.getElementsByTagName('*').length;if(fields>250000)throw Error('Too many XML nodes.');
@@ -38,7 +49,20 @@ export function parseSave(xml:string):SaveSnapshot{
  const farm=farmLocations.length===1?farmLocations[0]:undefined;
  const records:FarmRecord[]=[];
  const snapshot:SaveSnapshot={version,farmType:num(text(root,'whichFarm')),year:num(text(root,'year')),day:num(text(root,'dayOfMonth')),season,fields,records,farmFound:!!farm};
- if(supportedVersion(version))snapshot.progress=readProgress(root,player);
+ if(supportedVersion(version)){
+  snapshot.progress=readProgress(root,player);
+  const definitions=child(root,'bundleData');
+  if(definitions&&definitions.children.length<=40){
+   const rows=Array.from(definitions.children).map(entry=>entry.localName==='item'
+    ? {key:text(child(entry,'key'),'string'),value:text(child(entry,'value'),'string')}
+    : {key:'',value:''});
+   snapshot.bundleLayout=parseSavedBundles(rows);
+  }
+  const identifiers=Array.from(root.children).filter(node=>node.localName==='uniqueIDForThisGame');
+  snapshot.farmFingerprint=identifiers.length===1
+   ? await farmFingerprint(identifiers[0].textContent?.trim()??'')
+   : null;
+ }
  if(!supportedVersion(version)||!farm)return snapshot;
  for(const b of Array.from(child(farm,'buildings')?.children??[])){
  const itemId=buildingItem(text(b,'buildingType'));records.push({kind:'building',itemId,x:num(text(b,'tileX')),y:num(text(b,'tileY')),width:num(text(b,'tilesWide'))??undefined,height:num(text(b,'tilesHigh'))??undefined,...(!itemId?{reason:'Unmapped building type'}:{})});

@@ -156,9 +156,44 @@ body {font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
 }
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}button{transition:none}}
 
-.journal-home .journal-content {padding-top:14px}
-.journal-home .journal-intro {min-height:112px;padding-block:17px}
-.journal-home .journal-intro h1 {font-size:clamp(33px,4.2vw,56px)}
+.journal-home .journal-content {padding-top:10px}
+@media(min-width:901px){
+ .journal-home .journal-nav {min-height:56px}
+}
+.journal-home .journal-intro {
+  min-height:0;gap:8px 24px;flex-wrap:wrap;padding:3px 0 8px;
+  border:0;border-radius:0;background:none
+}
+.journal-home .journal-intro::after {content:none}
+.journal-home .journal-intro h1 {font-size:clamp(29px,3vw,39px);line-height:1.05;margin-bottom:4px}
+.journal-home .journal-tool-meta {min-height:0;gap:8px 14px}
+.journal-home .journal-tool-meta a {min-height:36px;padding:5px 10px;border:1px solid var(--border);border-radius:8px;background:var(--panel)}
+.journal-home .journal-tool-meta a:hover {border-color:#a182ad}
+.journal-home .immersive-studio .map-header {min-height:52px;padding-block:6px}
+.journal-home .immersive-studio .map-title h2 {font-size:20px}
+.journal-home .map-viewport {height:clamp(390px,calc(100dvh - 275px),900px)}
+.journal-home .map-focus .map-viewport {height:clamp(400px,calc(100dvh - 155px),1080px)}
+.journal-home .immersive-studio .map-quickbar {
+  background:#302f47;border-color:#504b68
+}
+.journal-home .immersive-studio .map-quickbar label {color:#eee5f3}
+.journal-home .immersive-studio .map-quickbar select {color:#29283d}
+.journal-home .immersive-studio .map-quickbar button:not(.quick-brush) {
+  border-color:#6a627f;background:#403d57;color:#faf1f5
+}
+.journal-home .immersive-studio .map-quickbar button[aria-pressed=true],
+.journal-home .immersive-studio .map-quickbar .map-view-toggle[aria-expanded=true] {
+  background:var(--journal-sun);border-color:var(--journal-sun);color:#382940
+}
+.journal-home .immersive-studio .map-quickbar button:focus-visible,
+.journal-home .immersive-studio .map-quickbar select:focus-visible {
+  outline-color:#ffdcab
+}
+.journal-content .catalog-reference {
+  display:flex;align-items:center;gap:8px;padding:4px 0;min-height:38px;
+  color:#51455d;font-size:12px;font-weight:650;cursor:pointer
+}
+.journal-content .catalog-reference input {width:16px;height:16px;margin:0;accent-color:#584373}
 .journal-home .journal-emblem {width:clamp(48px,6vw,78px)}
 .journal-home .journal-tool-meta {min-height:36px}
 .journal-content .journal-crop-workbench {
@@ -183,11 +218,6 @@ body {font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
  .journal-content .journal-crop-workbench {grid-template-columns:minmax(0,1fr)}
  .journal-crop-results {min-height:0}
 }
-@media(max-width:700px){
- .journal-home .journal-intro {min-height:92px}
- .journal-home .journal-intro h1 {font-size:clamp(32px,7.5vw,48px)}
-}
-
 .journal-header .tool-finder-trigger kbd {background:#403c59;color:#fff5ef}
 .journal-content .immersive-studio .map-actions .map-action-group button[aria-expanded="true"] {
  background-color:#595170;border-color:#8b7ba4;color:#fff7ef
@@ -200,13 +230,98 @@ body {font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
 .journal-content .map-footer .quick-help[open]>div {top:auto;bottom:calc(100% + 7px);left:0;right:auto}
 .journal-content .map-footer>span {min-width:0}
 @media(max-width:700px){
- .journal-home .journal-intro {padding-block:12px}
- .journal-home .journal-emblem {display:none}
- .journal-home .journal-tool-meta {min-height:32px}
+ .journal-home .journal-nav {min-height:54px;padding-block:5px}
+ .journal-home .journal-nav>nav {display:none}
+ .journal-home .journal-content {padding-top:8px}
+ .journal-home .planner-switch button {font-size:11px}
+ .journal-home .journal-intro {padding-block:2px 8px}
+ .journal-home .journal-intro p {line-height:1.4}
+ .journal-home .journal-intro h1 {font-size:clamp(25px,6.9vw,36px);text-wrap:initial}
+ .journal-home .journal-tool-meta a {min-height:44px}
  .journal-home .immersive-studio .map-title {
   position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap
  }
  .journal-home .immersive-studio .map-header {min-height:0;padding-block:6px}
  .journal-content .map-footer {align-items:flex-start}
  .journal-content .map-footer .quick-help summary {min-height:44px}
+}
+
+.journal-content .map-view-toggle {display:none}
+.journal-content .map-view-controls {display:contents}
+.journal-support {width:min(100%,920px);padding-bottom:24px}
+.journal-support .journal-support-card {margin-top:18px}
+.journal-support-card h2:not(:first-child) {margin-top:25px}
+.journal-support-card p {font-size:15px}
+.journal-return {display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:8px 15px;border-radius:8px;background:#4e3868;color:#fff9ef;text-decoration:none;font-weight:650}
+.journal-return:hover {background:#3d2a55}
+@media(max-width:480px){
+ .journal-directory-grid {width:min(620px,calc(100vw - 48px));right:-48px}
+}
+@media(max-width:700px){
+ .journal-content .map-quickbar {display:flex;align-items:stretch;gap:5px}
+ .journal-content .map-quickbar .quick-brush {order:0;flex:1 1 0}
+ .journal-content .map-view-toggle {display:inline-flex;order:1;flex:0 0 auto;padding-inline:10px}
+ .journal-content .map-view-controls {display:none}
+ .journal-content .map-view-controls[data-expanded=true] {
+  order:2;display:grid;flex:0 0 100%;grid-template-columns:repeat(6,minmax(0,1fr));gap:5px
+ }
+ .journal-content .map-view-controls label {grid-column:span 3}
+ .journal-content .map-view-controls button {grid-column:span 2}
+}
+
+.journal-content .screenshot-bounds {
+  display:block;max-width:100%;height:auto;border-radius:5px;
+  touch-action:none;cursor:crosshair;user-select:none
+}
+.journal-content .tracker-review {
+  display:inline-flex;align-items:center;align-self:flex-start;
+  min-height:44px;color:var(--green-deep);font-size:14px;font-weight:650;
+  text-underline-offset:3px
+}
+
+.journal-content .map-extra-tools {display:contents}
+.journal-content .map-toolbar .mobile-map-action {display:none}
+.journal-content .map-import-link {
+ display:flex;align-items:center;min-height:35px;padding:6px 8px;color:#fff5ef;font-size:13px
+}
+.journal-content .map-enter-building {
+ position:absolute;z-index:4;top:42px;left:8px;min-height:44px;
+ background:#ffca8c;color:#382940;border-color:#ffca8c
+}
+.journal-content .map-share-preview {
+ display:grid;grid-template-columns:minmax(0,1fr) minmax(0,280px);gap:12px;
+ align-items:start;padding:12px;background:#faf2ee;color:#342941
+}
+.journal-content .map-share-preview h3,.journal-content .map-share-preview p {margin:0 0 6px}
+.journal-content .map-share-preview canvas {display:block;width:100%;height:auto;image-rendering:pixelated;border-radius:6px}
+.journal-content .map-share-preview-actions {display:flex;flex-wrap:wrap;gap:8px}
+.journal-content .planting-decision {
+ padding:12px;margin-bottom:10px;background:#f2e9f6;border:1px solid #e5d7e7;border-radius:10px
+}
+.journal-content .planting-decision h3,.journal-content .planting-decision p {margin:0 0 7px}
+.journal-content .planting-shopping-list {margin:6px 0;padding-left:20px}
+@media(max-width:700px){
+ .journal-content .immersive-studio .map-toolbar {
+  display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:4px;
+  overflow:visible;padding:4px
+ }
+ .journal-content .map-toolbar .map-modes {display:contents}
+ .journal-content .map-toolbar .mobile-map-action {display:inline-flex;justify-content:center}
+ .journal-content .immersive-studio .map-toolbar .map-modes button,.journal-content .immersive-studio .map-toolbar .mobile-map-action {
+  min-width:0;min-height:44px;padding:3px 1px;font-size:11px;white-space:normal
+ }
+ .journal-content .map-actions .map-history button[aria-label=Undo],.journal-content .map-extra-tools,.journal-content .map-mode-extra,.journal-content .desktop-map-fit {display:none}
+ .journal-content .map-toolbar[data-more=true] .map-mode-extra {display:block;grid-column:span 3;order:1}
+ .journal-content .map-toolbar[data-more=true] .map-extra-tools {
+  display:flex;flex-wrap:wrap;justify-content:space-between;gap:5px;grid-column:1/-1;order:2
+ }
+ .journal-content .immersive-studio:not(.map-focus) .map-viewport {min-height:clamp(245px,34dvh,325px)}
+ .journal-content .map-share-preview {grid-template-columns:minmax(0,1fr)}
+}
+
+.journal-content .scene-save-status {
+ display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;margin-block:3px;color:#fff4e9
+}
+.journal-content .scene-save-status button {
+ min-height:44px;border-color:#8a789b;background:#443a56;color:#fff4e9
 }
