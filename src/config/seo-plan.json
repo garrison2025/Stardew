@@ -9,7 +9,7 @@
       "priority": "P0",
       "title": "Stardew Valley Farm Planner & Layout Editor | Field & Farm",
       "h1": "Stardew Valley Farm Planner",
-      "description": "Design eight practice farm landscapes with editable layout ideas, fixed building footprints, sprinkler and scarecrow coverage, interiors and export.",
+      "description": "Design eight practice landscapes, editable farm and indoor layout ideas, building footprints, irrigation and scarecrow coverage, and export.",
       "primaryKeyword": "stardew valley planner",
       "volume": 8100,
       "kd": 22,
@@ -46,7 +46,10 @@
         "sdv planner",
         "farm layout ideas",
         "scarecrow layout",
-        "farm building budget"
+        "farm building budget",
+        "house planner",
+        "house design",
+        "interior design"
       ]
     },
     {
@@ -144,7 +147,6 @@
         "stardew valley geode predictor",
         "stardew geode predictor",
         "stardew valley seed checker",
-        "blade map predictor 1.6",
         "stardew valley does luck affect geodes"
       ],
       "canonicalPath": "/predictor/",
@@ -417,7 +419,7 @@
       "priority": "P1",
       "title": "Stardew Valley Shipping Collection Checklist | Field & Farm",
       "h1": "Stardew Valley Shipping Checklist",
-      "description": "Search 154 reference shipping items and record completed shipments. Export your list or load recognized collection progress locally.",
+      "description": "Search 154 shipping items by category and common acquisition season, review source hints and export missing items or saved progress.",
       "primaryKeyword": "items shipped stardew",
       "volume": 1000,
       "kd": 25,
@@ -447,7 +449,9 @@
       "searchAliases": [
         "shipping list",
         "items shipped",
-        "full shipment"
+        "full shipment",
+        "shipping item sources",
+        "missing shipping items"
       ]
     },
     {
@@ -521,7 +525,7 @@
       "priority": "P1",
       "title": "Stardew Valley Farm Types Comparison | Field & Farm",
       "h1": "Stardew Valley Farm Comparison",
-      "description": "Compare eight farm types by reference tillable area and terrain features. Open an original illustrative layout in the farm planner.",
+      "description": "Compare eight farm types by area, terrain, advantages, limits and playstyle. View original schematic layouts side by side and open the planner.",
       "primaryKeyword": "farm types stardew valley",
       "volume": 720,
       "kd": 21,
@@ -552,7 +556,11 @@
       "searchAliases": [
         "farm types",
         "farm maps",
-        "farm comparison"
+        "farm comparison",
+        "farm types comparison",
+        "riverland farm",
+        "hill-top farm",
+        "meadowlands farm"
       ]
     },
     {

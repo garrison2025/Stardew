@@ -4,7 +4,7 @@
     "path": "/",
     "h1": "Stardew Valley Farm Planner",
     "title": "Stardew Valley Farm Planner & Layout Editor | Field & Farm",
-    "description": "Design eight practice farm landscapes with editable layout ideas, fixed building footprints, sprinkler and scarecrow coverage, interiors and export.",
+    "description": "Design eight practice landscapes, editable farm and indoor layout ideas, building footprints, irrigation and scarecrow coverage, and export.",
     "primaryKeyword": "stardew valley planner",
     "volume": 8100,
     "kd": 22,
@@ -29,7 +29,7 @@
     ],
     "priority": "P0",
     "guideTitle": "Plan a layout before building",
-    "guideText": "Choose an original practice landscape or four editable layout ideas for crop blocks, ranching, a river workshop or woodland retreat. Inspect sprinkler and scarecrow coverage and reference construction costs, then export an editable plan. No official terrain.",
+    "guideText": "Choose an original practice landscape or editable farm examples. Use indoor room examples for farmhouse, greenhouse or workshop planning. Inspect coverage and reference costs; terrain and furniture markers are schematic.",
     "researchClusterSize": 89,
     "searchAliases": [
       "farm layout planner",
@@ -39,7 +39,10 @@
       "sdv planner",
       "farm layout ideas",
       "scarecrow layout",
-      "farm building budget"
+      "farm building budget",
+      "house planner",
+      "house design",
+      "interior design"
     ]
   },
   {
@@ -137,7 +140,6 @@
       "stardew valley geode predictor",
       "stardew geode predictor",
       "stardew valley seed checker",
-      "blade map predictor 1.6",
       "stardew valley does luck affect geodes"
     ],
     "relatedPaths": [
@@ -392,7 +394,7 @@
     "path": "/shipping/",
     "h1": "Stardew Valley Shipping Checklist",
     "title": "Stardew Valley Shipping Collection Checklist | Field & Farm",
-    "description": "Search 154 reference shipping items and record completed shipments. Export your list or load recognized collection progress locally.",
+    "description": "Search 154 shipping items by category and common acquisition season, review source hints and export missing items or saved progress.",
     "primaryKeyword": "items shipped stardew",
     "volume": 1000,
     "kd": 25,
@@ -415,12 +417,14 @@
     ],
     "priority": "P1",
     "guideTitle": "Review items not yet shipped",
-    "guideText": "Filter the 154 reference entries and mark an item only after shipping it in the game. Finding or owning an item is not the same as shipping it. Export your checklist for later use.",
+    "guideText": "Find the 154 reference entries by category, common acquisition season or source hint. Mark actual in-game shipping, not possession or shop sales. Export the missing list; seasonal hints are not exhaustive.",
     "researchClusterSize": 8,
     "searchAliases": [
       "shipping list",
       "items shipped",
-      "full shipment"
+      "full shipment",
+      "shipping item sources",
+      "missing shipping items"
     ]
   },
   {
@@ -490,7 +494,7 @@
     "path": "/farm-comparison/",
     "h1": "Stardew Valley Farm Comparison",
     "title": "Stardew Valley Farm Types Comparison | Field & Farm",
-    "description": "Compare eight farm types by reference tillable area and terrain features. Open an original illustrative layout in the farm planner.",
+    "description": "Compare eight farm types by area, terrain, advantages, limits and playstyle. View original schematic layouts side by side and open the planner.",
     "primaryKeyword": "farm types stardew valley",
     "volume": 720,
     "kd": 21,
@@ -514,12 +518,16 @@
     ],
     "priority": "P1",
     "guideTitle": "Choose a farm for your priorities",
-    "guideText": "Compare eight farm types by reference area and characteristics. Water, obstacles and sprinkler restrictions affect practical capacity. The original design templates are illustrative, not pixel-accurate game maps.",
+    "guideText": "Select two of eight farm types to compare reference areas, original schematic terrain, advantages, limitations and layout ideas. Open the linked practice layout; it is not an exact game map.",
     "researchClusterSize": 37,
     "searchAliases": [
       "farm types",
       "farm maps",
-      "farm comparison"
+      "farm comparison",
+      "farm types comparison",
+      "riverland farm",
+      "hill-top farm",
+      "meadowlands farm"
     ]
   },
   {

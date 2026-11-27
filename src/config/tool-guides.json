@@ -27,6 +27,10 @@
       [
         "Where can I find Stardew Valley farm layout ideas?",
         "Open map settings and select one of four editable original examples: irrigated crop blocks, an animal ranch, a river workshop or woodland retreat. Each is a schematic layout, not an exact game map."
+      ],
+      [
+        "Can I design a farmhouse interior?",
+        "Open Indoor designer and choose Farmhouse, then load a cozy or storage example. Furniture uses editable single-tile markers, not exact game furniture dimensions."
       ]
     ]
   },
@@ -345,6 +349,10 @@
       [
         "Does every sale count?",
         "No. Selling to a shop and the collection's shipping condition are not necessarily equivalent."
+      ],
+      [
+        "How do I find missing shipping items?",
+        "Filter incomplete entries by category or common acquisition season, then export the missing list with source hints. Owning or selling to a shop does not confirm shipping."
       ]
     ]
   },
@@ -434,6 +442,10 @@
       [
         "Are the linked maps exact farm maps?",
         "No. Each is an independently authored landscape inspired by a general terrain type, not an official map."
+      ],
+      [
+        "Which farm is best for my playstyle?",
+        "Compare all eight choices: Standard for large planting areas, Riverland for fishing, Forest for forage, Hill-top for mining, Wilderness for combat, Four Corners for zoning, Beach for non-sandy crop space and other production, and Meadowlands for livestock. Recommendations are qualitative."
       ]
     ]
   },
