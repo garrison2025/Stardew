@@ -14,3 +14,5 @@ Cart observation format (illustrative only):
 {"kind":"cart","version":"1.6.15","save":"local-main-save","observationSource":"Manually observed the matching in-game vendor","flags":{"includeNightMarket":true,"desertFestivalUnlocked":false,"communityCenterComplete":false,"jojaComplete":false},"originalGuarantee":null,"observed":[{"absoluteDay":99,"venue":"Night Market","kind":"ordinary","label":"Example item","price":500,"quantity":1}]}
 ```
 Use exact in-game displayed labels and quantities; the example above is not real data. Absolute day = (year - 1) × 112 + season index × 28 + day, with spring index 0. Record actual unlock flags; no route or festival unlock is inferred from a save. Report uncertain/missing results rather than treating them as validated.
+
+CI also runs the actual command on a temporary synthetic main save, with pinned reference expectations for geodes and cart stock, and checks mismatches, path containment and private-output suppression. This tests the runner, not game accuracy.
