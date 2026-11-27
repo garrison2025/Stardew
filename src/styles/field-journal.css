@@ -318,3 +318,10 @@ body {font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
  .journal-content .immersive-studio:not(.map-focus) .map-viewport {min-height:clamp(245px,34dvh,325px)}
  .journal-content .map-share-preview {grid-template-columns:minmax(0,1fr)}
 }
+
+.journal-content .scene-save-status {
+ display:flex;align-items:center;flex-wrap:wrap;gap:6px 12px;margin-block:3px;color:#fff4e9
+}
+.journal-content .scene-save-status button {
+ min-height:44px;border-color:#8a789b;background:#443a56;color:#fff4e9
+}

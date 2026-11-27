@@ -1,4 +1,5 @@
 import {verifySaveText} from './engine';
+import {farmFingerprint} from './save-farm-binding';
 import {SEASONS,type Season} from './map-model';
 import {buildingItem,sprinklerItem,supportedVersion,type FarmRecord,type SaveSnapshot} from './save-model';
 import {normalizeSkillXp,normalizeCrafting,normalizeObjectCollection,safeCount,type SaveProgress,type NamedCount} from './save-progress';
@@ -28,7 +29,7 @@ function readProgress(root:Element,player:Element|undefined):SaveProgress{
  if(Array.from(child(root,'farmhands')?.children??[]).some(e=>e.localName==='Farmer'))warnings.push('Multiplayer save: only the main player is summarized; no combined perfection score.');
  return {xp,money:read(player,'money'),lifetimeEarnings:read(player,'totalMoneyEarned'),walnutsFound,walnutsBalance,crafting,learnedCooking:cooking?.length??null,collections,warnings}
 }
-export function parseSave(xml:string):SaveSnapshot{
+export async function parseSave(xml:string):Promise<SaveSnapshot>{
  verifySaveText(xml);const doc=new DOMParser().parseFromString(xml,'application/xml'),root=doc.documentElement;
  if(doc.querySelector('parsererror')||root.localName!=='SaveGame')throw Error('Expected a valid main SaveGame XML, not SaveGameInfo.');
  const fields=doc.getElementsByTagName('*').length;if(fields>250000)throw Error('Too many XML nodes.');
@@ -38,7 +39,13 @@ export function parseSave(xml:string):SaveSnapshot{
  const farm=farmLocations.length===1?farmLocations[0]:undefined;
  const records:FarmRecord[]=[];
  const snapshot:SaveSnapshot={version,farmType:num(text(root,'whichFarm')),year:num(text(root,'year')),day:num(text(root,'dayOfMonth')),season,fields,records,farmFound:!!farm};
- if(supportedVersion(version))snapshot.progress=readProgress(root,player);
+ if(supportedVersion(version)){
+  snapshot.progress=readProgress(root,player);
+  const identifiers=Array.from(root.children).filter(node=>node.localName==='uniqueIDForThisGame');
+  snapshot.farmFingerprint=identifiers.length===1
+   ? await farmFingerprint(identifiers[0].textContent?.trim()??'')
+   : null;
+ }
  if(!supportedVersion(version)||!farm)return snapshot;
  for(const b of Array.from(child(farm,'buildings')?.children??[])){
  const itemId=buildingItem(text(b,'buildingType'));records.push({kind:'building',itemId,x:num(text(b,'tileX')),y:num(text(b,'tileY')),width:num(text(b,'tilesWide'))??undefined,height:num(text(b,'tilesHigh'))??undefined,...(!itemId?{reason:'Unmapped building type'}:{})});

@@ -1,4 +1,5 @@
 import {observationsOf,decodeSaveObservations,SAVE_OBSERVATIONS_KEY} from './save-observations.ts';
+import {bindSaveFarm,SAVE_FARM_BINDING_KEY} from './save-farm-binding.ts';
 import type {SaveProgress} from './save-progress.ts';
 import {emptyCollection,decodeCollection,setCollection,type CatalogKind} from './game-collections.ts';
 import {emptyMuseum,decodeMuseum,setMuseumItem} from './museum-progress.ts';
@@ -19,4 +20,18 @@ export function saveMergeUpdates(progress:SaveProgress){
   else if(kind==='shipping'||kind==='fishing'||kind==='cooking'){const k:CatalogKind=kind;updates['collection-v1:'+k]=old=>{let state=old===undefined?emptyCollection(k):decodeCollection(k,old);for(const name of observation.done)state=setCollection(state,name,'done');return state}}
  }
  return updates;
+}
+
+export function guardedSaveMergeUpdates(progress:SaveProgress,fingerprint:string):ReturnType<typeof saveMergeUpdates>{
+ const updates=saveMergeUpdates(progress);
+ if(!Object.keys(updates).length)return updates;
+ const applyObservations=updates[SAVE_OBSERVATIONS_KEY];
+ if(applyObservations)updates[SAVE_OBSERVATIONS_KEY]=old=>{
+  const next=decodeSaveObservations(applyObservations(old));
+  if(old===undefined)return next;
+  const prior=decodeSaveObservations(old);
+  return {...next,xp:next.xp??prior.xp,lifetimeEarnings:next.lifetimeEarnings??prior.lifetimeEarnings,
+   walnutsFound:next.walnutsFound??prior.walnutsFound,walnutsBalance:next.walnutsBalance??prior.walnutsBalance};
+ };
+ return {[SAVE_FARM_BINDING_KEY]:(old:unknown)=>bindSaveFarm(fingerprint,old),...updates};
 }

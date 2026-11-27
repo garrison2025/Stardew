@@ -2,7 +2,7 @@ import {blankLocalMap,placementError,dimensions,itemById,SEASONS,type Plan,type 
 import type {SaveProgress} from './save-progress.ts';
 export type RecordKind='building'|'object'|'terrain';
 export type FarmRecord={kind:RecordKind;itemId:string|null;x:number|null;y:number|null;width?:number;height?:number;reason?:string};
-export type SaveSnapshot={version:string;farmType:number|null;year:number|null;day:number|null;season:Season|null;fields:number;records:FarmRecord[];farmFound:boolean;progress?:SaveProgress};
+export type SaveSnapshot={version:string;farmType:number|null;year:number|null;day:number|null;season:Season|null;fields:number;records:FarmRecord[];farmFound:boolean;farmFingerprint?:string|null;progress?:SaveProgress};
 export const supportedVersion=(v:string)=>/^1\.6\.\d+(?:\.\d+)?$/.test(v);
 export function buildingItem(type:string){const names:Record<string,string>={'Barn':'game-barn','Big Barn':'game-barn','Deluxe Barn':'game-barn','Coop':'game-coop','Big Coop':'game-coop','Deluxe Coop':'game-coop','Shed':'game-shed','Big Shed':'game-shed','Silo':'game-silo'};return Object.hasOwn(names,type)?names[type]:null}
 export function sprinklerItem(id:string,big:boolean){if(big||!/^\(O\)\d+$|^\d+$/.test(id))return null;const ids:Record<string,string>={'599':'basic-sprinkler','621':'quality-sprinkler','645':'iridium-sprinkler'};const k=id.replace(/^\(O\)/,'');return Object.hasOwn(ids,k)?ids[k]:null}
