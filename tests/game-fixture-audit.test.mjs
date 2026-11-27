@@ -25,3 +25,5 @@ test('actual local fixture command evaluates save, geode and cart and rejects mi
   const bad=run([{...save,checks:{'progress.money':501}},{...cart,save:'../outside-save'}]);assert.equal(bad.status,1,bad.output);assert.match(bad.output,/0 passed, 2 failed/);
  }finally{rmSync(root,{recursive:true,force:true})}
 });
+
+test('fixture comparator cannot confirm uncertain downstream cart stock',()=>{const v={absoluteDay:21,venue:'Forest Cart',downstreamUncertain:true,stock:[{kind:'ordinary',label:'Raw',price:100,quantity:1},{kind:'furniture',label:'Chair',price:250,quantity:1}]};const observations=v.stock.map(s=>({...s,absoluteDay:21,venue:'Forest Cart'}));assert.deepEqual(checkCartRows([v],observations).map(s=>s.passed),[true,false])});
