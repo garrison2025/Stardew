@@ -1,36 +1,42 @@
-name: Live public preview acceptance
+name: Live preview verification
 on:
-  pull_request:
-    paths:
-      - 'scripts/audit-live-preview.mjs'
-      - '.github/workflows/live-preview.yml'
   workflow_dispatch:
     inputs:
+      public_origin:
+        description: Public HTTPS preview origin
+        required: true
+        default: https://stardew-67b.pages.dev
       private_origin:
-        description: 'Optional distinct private HTTPS origin'
+        description: Distinct private HTTPS workspace origin (optional; blank is public-only)
         required: false
-        type: string
-      expected_revision:
-        description: 'Optional full deployed commit SHA'
-        required: false
-        type: string
+      revision:
+        description: Expected full 40-character deployed Git SHA
+        required: true
 permissions:
   contents: read
 jobs:
   audit:
     runs-on: ubuntu-24.04
-    timeout-minutes: 8
+    timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-      - name: Audit real Cloudflare Pages deployment
+          node-version-file: .nvmrc
+      - name: Read-only deployment audit
         env:
+          PUBLIC_ORIGIN: ${{ inputs.public_origin }}
           PRIVATE_ORIGIN: ${{ inputs.private_origin }}
-          EXPECTED_REVISION: ${{ inputs.expected_revision }}
+          EXPECTED_REVISION: ${{ inputs.revision }}
+        shell: bash
         run: |
-          args=(https://stardew-67b.pages.dev)
-          if [[ -n "$PRIVATE_ORIGIN" ]]; then args+=("$PRIVATE_ORIGIN"); fi
-          if [[ -n "$EXPECTED_REVISION" ]]; then args+=(--revision "$EXPECTED_REVISION"); fi
-          node scripts/audit-live-preview.mjs "${args[@]}"
+          set -euo pipefail
+          mkdir -p live-evidence
+          args=("$PUBLIC_ORIGIN")
+          if [ -n "$PRIVATE_ORIGIN" ]; then args+=("$PRIVATE_ORIGIN"); fi
+          node scripts/audit-live-preview.mjs "${args[@]}" --revision "$EXPECTED_REVISION" 2>&1 | tee live-evidence/audit.txt
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: live-preview-verification
+          path: live-evidence/
