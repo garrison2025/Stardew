@@ -1,0 +1,14 @@
+# Asset and source provenance recheck — 2026-11-27
+Verified against repository commit 741a8a62bfe3d2d4457ae4cd7b60abe8bf725200, not blanket legal approval.
+| Source | Evidence | Disposition |
+|---|---|---|
+| Kenney outdoor | https://kenney.nl/assets/roguelike-rpg-pack identifies CC0; current project blob 79b13326ceb8557a98b2b78aa5e8e7b9269f6693 exactly matches superdevgit/MobileRPG main mirror, 94579 bytes | Recorded CC0 pack attribution; primary archive bytes not independently downloaded |
+| Kenney indoor | https://kenney.nl/assets/roguelike-indoors identifies CC0; current project blob ca6347a204e84dac0727a9914041a6e53b1577b9 exactly matches pavja2/distanced main mirror, 62232 bytes | Recorded CC0 pack attribution; primary archive bytes not independently downloaded |
+| Predictor code | https://github.com/MouseyPounds/stardew-predictor/blob/master/LICENSE | MIT notice in public/licenses/mouseypounds.txt matches upstream text |
+| Checkup code | https://github.com/MouseyPounds/stardew-checkup/blob/master/LICENSE | MIT notice in public/licenses/stardew-checkup.txt matches upstream text |
+| Official game assets | https://www.stardewvalley.net/terms/ ; https://www.stardewvalley.net/faq/ | No official assets authorized or enabled; video monetization permission is not a general commercial web license |
+| Wiki text, art, compilation | https://www.stardewvalleywiki.com/Stardew_Valley_Wiki:About ; https://www.stardewvalleywiki.com/Stardew_Valley_Wiki:Copyrights | CC BY-NC-SA 3.0 for community text (exceptions for developer-owned art/lore); links and factual data must be distinguished from copying protected expression/compilations |
+| Game factual reference datasets | Existing module-specific docs; recipe, collection, crop, RNG and map-model references | Review source-by-source and independent fixture validation remain necessary; MIT software license alone does not grant rights over underlying third-party game content |
+| Original schematic art | Original procedural symbols, layouts and maps, no official art claimed | Keep original-only fallback; owner review needed for overall brand/rights clearance |
+
+Added `npm run audit:assets`: source/build PNG fingerprint, size, dimensions, credits and bundled MIT notice checks; rejects extra unregistered files within the art directory. Executed on public source, public build and workspace build in CI. Prevents silent asset replacement, not a legal clearance determination. No external request, runtime dependency or service fee. Existing commercial approval and index gates remain closed. No request to the rights holder was sent.

@@ -21,14 +21,17 @@ jobs:
         with:
           name: dependency-lock
           path: package-lock.json
+      - run: npm run audit:assets
       - run: npm run check
       - run: npm test
       - run: npm run build
       - run: node scripts/audit-preview.mjs dist
+      - run: npm run audit:assets -- dist
       - run: node scripts/audit-route-entries.mjs dist
       - run: node scripts/audit-size.mjs dist
       - run: npm run build:workspace
       - run: node scripts/audit-preview.mjs dist-workspace
+      - run: npm run audit:assets -- dist-workspace
       - run: node scripts/audit-route-entries.mjs dist-workspace
       - run: node scripts/audit-size.mjs dist-workspace
       - run: npx playwright install --with-deps chromium firefox webkit

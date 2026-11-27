@@ -15,7 +15,8 @@
     "audit:size": "node scripts/audit-size.mjs",
     "build:production": "node scripts/build-production.mjs",
     "audit:dependencies": "npm audit --audit-level=high",
-    "audit:performance": "node scripts/audit-performance.mjs"
+    "audit:performance": "node scripts/audit-performance.mjs",
+    "audit:assets": "node scripts/audit-asset-provenance.mjs"
   },
   "dependencies": {
     "astro": "7.4.13",

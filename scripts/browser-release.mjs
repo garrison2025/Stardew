@@ -33,7 +33,7 @@ try{
     try{
       for(const [site,isPrivate] of [[publicSite,false],[privateSite,true]]){
         const context=await browser.newContext({viewport:{width:390,height:844}});
-        const violations=[],errors=[];
+        const violations=[],errors=[],failedRequests=[];
         context.on('request',request=>{
           const url=new URL(request.url());
           if(['http:','https:','ws:','wss:'].includes(url.protocol)&&url.origin!==site.origin)violations.push(request.url());
@@ -45,7 +45,8 @@ try{
           return route.continue();
         });
         const page=await context.newPage();
-        page.on('pageerror',err=>errors.push(String(err)));
+        page.on('pageerror',err=>errors.push(page.url()+' · '+String(err)));
+        page.on('requestfailed',req=>{if(req.resourceType()==='script')failedRequests.push(req.url()+' · '+req.failure()?.errorText)});
         for(const width of [360,390,768,1024,1440]){
           await page.setViewportSize({width,height:900});
           for(const entry of pages){
@@ -53,6 +54,8 @@ try{
             assert.equal(response.status(),200,name+' '+entry.path);
             assert.match(response.headers()['x-robots-tag'],/noindex/i);
             await page.waitForFunction(()=>!document.querySelector('astro-island[ssr]'));
+            if(isPrivate&&entry.slug==='tracker')await page.waitForFunction(()=>![...document.querySelectorAll('[role=status]')].some(el=>el.textContent==='Loading local progress…'));
+            if(isPrivate&&entry.slug==='perfection')await page.getByText(/Local collection counts update this estimate automatically|Some collection records could not be loaded/).waitFor();
             assert.equal(await page.locator('h1').count(),1);
             assert.equal(await page.locator('h1').textContent(),entry.h1);
             assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),name+' '+width+' '+entry.path+' overflow');
@@ -60,6 +63,7 @@ try{
         }
         await page.goto(site.origin+'/tracker/');
         await page.waitForFunction(()=>!document.querySelector('astro-island[ssr]'));
+        if(isPrivate)await page.waitForFunction(()=>![...document.querySelectorAll('[role=status]')].some(el=>el.textContent==='Loading local progress…'));
         const unknown=page.getByRole('progressbar',{name:/progress unknown/});
         assert.ok(await unknown.count()>0,name+' unknown progress semantics');
         assert.equal(await unknown.first().getAttribute('aria-valuenow'),null);
@@ -85,6 +89,7 @@ try{
         const missing=await page.goto(site.origin+'/nonexistent-release-acceptance-check/');
         assert.equal(missing.status(),404);
         assert.deepEqual(violations,[],name+' origin isolation');
+        if(errors.length)console.error('Failed script requests:',JSON.stringify(failedRequests));
         assert.deepEqual(errors,[],name+' browser runtime errors');
         console.log(name+' '+(isPrivate?'private':'public')+': 16 routes × 5 widths, origin isolation, save input and 404 passed');
         await context.close();
