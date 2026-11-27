@@ -1,0 +1,13 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {parseSaveXml} from '../src/lib/save-xml.ts';
+import {readSaveMilestones,decodeMilestones} from '../src/lib/save-milestones.ts';
+import {saveMergeUpdates} from '../src/lib/save-merge.ts';
+import {decodeSaveObservations,SAVE_OBSERVATIONS_KEY} from '../src/lib/save-observations.ts';
+import type {SaveProgress} from '../src/lib/save-progress.ts';
+const f=(name:string,points:string)=>'<item><key><string>'+name+'</string></key><value><Friendship><Points>'+points+'</Points></Friendship></value></item>';
+const b=(name:string,days:string)=>'<Building><buildingType>'+name+'</buildingType><daysOfConstructionLeft>'+days+'</daysOfConstructionLeft></Building>';
+const root=parseSaveXml('<SaveGame><player><friendshipData>'+f('Abigail','2000')+f('Robin','2000')+f('Lewis','2500')+f('Sam','2500')+f('Sam','2500')+f('Unknown NPC','3500')+'</friendshipData><mailReceived><string>CF_Fair</string><string>CF_Fair</string><string>CF_Statue</string><string>private-mail</string></mailReceived></player><locations><GameLocation><name>Farm</name><buildings>'+b('Earth Obelisk','0')+b('Earth Obelisk','0')+b('Water Obelisk','1')+b('Gold Clock','0')+'</buildings></GameLocation></locations></SaveGame>').root;
+test('recognize positive standard milestones; exclude duplicate friendships and under-construction buildings',()=>{assert.deepEqual(readSaveMilestones(root,root.children[0]),{friends:2,eightHeartFriends:3,stardrops:2,obelisks:1,clock:1});assert.deepEqual(readSaveMilestones(root,root.children[0],false),{friends:2,eightHeartFriends:3,stardrops:2,obelisks:null,clock:null})});
+test('missing fields remain unknown and saved milestone counts are bounded',()=>{const empty=parseSaveXml('<SaveGame/>').root;assert.deepEqual(readSaveMilestones(empty,undefined),{friends:null,eightHeartFriends:null,stardrops:null,obelisks:null,clock:null});assert.throws(()=>decodeMilestones({friends:35,eightHeartFriends:0,stardrops:0,obelisks:0,clock:0}))});
+test('observation merge and backup-compatible decoding preserve count-only milestones',()=>{const p:SaveProgress={xp:null,money:null,lifetimeEarnings:null,walnutsFound:null,walnutsBalance:null,crafting:null,learnedCooking:null,warnings:[],milestones:readSaveMilestones(root,root.children[0])};const updates=saveMergeUpdates(p),decoded=decodeSaveObservations(updates[SAVE_OBSERVATIONS_KEY](undefined));assert.deepEqual(decoded.milestones,p.milestones);assert.ok(!JSON.stringify(decoded).includes('private-mail'));assert.ok(!JSON.stringify(decoded).includes('Abigail'));});
