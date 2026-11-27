@@ -3,6 +3,7 @@ import {MUSEUM_ITEMS} from '../lib/museum-data';
 import {decodeMuseum} from '../lib/museum-progress';
 import {readLocal} from '../lib/local';
 import CartForecast from './CartForecast';
+import EventCalendar from './EventCalendar';
 import {readGeodeSave} from '../lib/save-parser';
 import {GEODE_TYPES,predictGeodes,type GeodeInput,type GeodeType} from '../lib/geode-prediction';
 const demo:GeodeInput={gameId:'123456789',playerId:'987654321',opened:0,mineLevel:120,legacy:false,qiBeans:false};
@@ -56,4 +57,4 @@ export default function PredictorTool({workspace}:{workspace:boolean}){
  <button className="primary" disabled={!ready||importing} onClick={calculate}>{ready?'Calculate next 20 openings':'Loading calculator…'}</button>
  {error&&<p role="alert" className="error">{error}</p>}
  {result.length>0&&<div className="tablewrap"><table><caption>Alternate outcomes for opening the selected container at each index</caption><thead><tr><th>Opening</th><th>Item</th><th>Quantity</th></tr></thead><tbody>{result.map(r=><tr key={r.opening}><td>{r.opening}</td><td>{r.name}</td><td>{r.quantity}</td></tr>)}</tbody></table></div>}
- <h3>Geode collection planning</h3><p>Find which undonated museum entries have a recorded source in a selected geode or trove. These are possible sources, not probabilities, opening order or guaranteed outcomes.</p>{workspace&&<button onClick={()=>void load()}>Load saved museum donations</button>}<p role="status">{status}</p><div className="metrics"><div className="metric"><small>Undonated matching entries</small><b>{items.length}</b></div></div><div className="rules-grid">{items.map(i=><article className="rule-card" key={i.id}><strong>{i.name}</strong><small>{i.hint}</small></article>)}</div><a href="/museum/">Open museum collection tracker</a></section><CartForecast workspace={workspace}/></>}
+ <h3>Geode collection planning</h3><p>Find which undonated museum entries have a recorded source in a selected geode or trove. These are possible sources, not probabilities, opening order or guaranteed outcomes.</p>{workspace&&<button onClick={()=>void load()}>Load saved museum donations</button>}<p role="status">{status}</p><div className="metrics"><div className="metric"><small>Undonated matching entries</small><b>{items.length}</b></div></div><div className="rules-grid">{items.map(i=><article className="rule-card" key={i.id}><strong>{i.name}</strong><small>{i.hint}</small></article>)}</div><a href="/museum/">Open museum collection tracker</a></section><CartForecast workspace={workspace}/><EventCalendar workspace={workspace}/></>}
