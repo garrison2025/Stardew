@@ -1,0 +1,253 @@
+{
+  "schema": 1,
+  "id": "ref-pc-1.6.15-20261128-r1",
+  "gameVersion": "1.6.15",
+  "rulesVersion": "preview-2026-11-28",
+  "status": "reference-only",
+  "files": [
+    {
+      "path": "src/lib/annual-rotation.ts",
+      "gitBlob": "efd47ee1e703ddaf1c3b355fd4ed34834983b1fe"
+    },
+    {
+      "path": "src/lib/backpack-observations.ts",
+      "gitBlob": "42e97ef1f7c873ed02a3fe31168403783a4e1c1f"
+    },
+    {
+      "path": "src/lib/bundle-data.ts",
+      "gitBlob": "231af21e160b0edf17074d58d54b1c2cd8b27fef"
+    },
+    {
+      "path": "src/lib/bundle-observations.ts",
+      "gitBlob": "69fcc1f1bc29616fb83d3299ec6c8932258c015a"
+    },
+    {
+      "path": "src/lib/bundle-progress.ts",
+      "gitBlob": "320957190875f6695299ea402ae3fed62ba90c1f"
+    },
+    {
+      "path": "src/lib/cart-forecast.ts",
+      "gitBlob": "4a1ed900e8f754da732da96d816afba99109e1a5"
+    },
+    {
+      "path": "src/lib/cart-stock-reference.ts",
+      "gitBlob": "6dca0634cb293a36bf75a04940438d6473cb8f07"
+    },
+    {
+      "path": "src/lib/cart-stock.ts",
+      "gitBlob": "4c09a86a8b0ff80eec11e5c1bb8fe1ee0a7c98d1"
+    },
+    {
+      "path": "src/lib/cooking-expansion.ts",
+      "gitBlob": "0e0e1c05316c0a08f040faf501f775d30ef96a32"
+    },
+    {
+      "path": "src/lib/crop-data.ts",
+      "gitBlob": "169ee44dceb35c67e17b15412e83bf4e81c626f6"
+    },
+    {
+      "path": "src/lib/crop-growth.ts",
+      "gitBlob": "d882126eec600f72bed5ec8b1d74070a872e361c"
+    },
+    {
+      "path": "src/lib/crop-scenarios.ts",
+      "gitBlob": "3b9a9c186b8853c61624e7db8bf0e0fdea2a16f8"
+    },
+    {
+      "path": "src/lib/economy-recipes.ts",
+      "gitBlob": "cc92aab35c2d0d5acf35656cba7608f884ba1f11"
+    },
+    {
+      "path": "src/lib/event-calendar.ts",
+      "gitBlob": "49f866363b2602cbba1511e90947ec361ee26ef6"
+    },
+    {
+      "path": "src/lib/extra-processing.ts",
+      "gitBlob": "0f85bce7a6076befdcbc490a314863d79feff192"
+    },
+    {
+      "path": "src/lib/fair-optimize.ts",
+      "gitBlob": "d0bb92cb75243e97f0905e8384b8ef6817794f5a"
+    },
+    {
+      "path": "src/lib/fair-samples.ts",
+      "gitBlob": "4e2a5e6a2716e4ba5f7636dcaa29ff53ac435908"
+    },
+    {
+      "path": "src/lib/fair-stock.ts",
+      "gitBlob": "5a8738f0bce5913a1dce1fe050033d3e830b9f6d"
+    },
+    {
+      "path": "src/lib/farm-details.ts",
+      "gitBlob": "da65c7531547c8b4f7443e19405a7a145beff616"
+    },
+    {
+      "path": "src/lib/farm-economy.ts",
+      "gitBlob": "ac010e938b65c8ba0474f9ffe08936f347868302"
+    },
+    {
+      "path": "src/lib/farm-templates.ts",
+      "gitBlob": "8db22fa12bd101987dfeabe56109ef6763fcb736"
+    },
+    {
+      "path": "src/lib/fish-conditions.ts",
+      "gitBlob": "a051a6bdfc84c1b5b22e675c0346052e7b61ef97"
+    },
+    {
+      "path": "src/lib/fish-reference.ts",
+      "gitBlob": "574970c367702780da6871ceb40c12638d97d7e6"
+    },
+    {
+      "path": "src/lib/fish-routes.ts",
+      "gitBlob": "0af28219b4f1a571193e5b8f60463aec41b4a8cb"
+    },
+    {
+      "path": "src/lib/game-collections.ts",
+      "gitBlob": "b2e907e7ff76eaff248de2e7b19e6e39dec58a27"
+    },
+    {
+      "path": "src/lib/game-rules.ts",
+      "gitBlob": "6dcd15b6b954480413a7a145f0a107885052ca99"
+    },
+    {
+      "path": "src/lib/geode-prediction.ts",
+      "gitBlob": "cfd88fd9053bde454db2cb9433024ab05aea30f5"
+    },
+    {
+      "path": "src/lib/indoor-model.ts",
+      "gitBlob": "4b5dfdf81a9c250613635cc74275c4e1982668b4"
+    },
+    {
+      "path": "src/lib/indoor-presets.ts",
+      "gitBlob": "6f0a5f01c88dc3bd810f6694e4aea841a69064df"
+    },
+    {
+      "path": "src/lib/irrigation-optimizer.ts",
+      "gitBlob": "7f5a0f6dee841439746e707993c1fdaea4587de0"
+    },
+    {
+      "path": "src/lib/layout-presets.ts",
+      "gitBlob": "94fea222d531fbfc4fd8ed09b7148cddc921dc66"
+    },
+    {
+      "path": "src/lib/map-model.ts",
+      "gitBlob": "f786412173aa0d9d7e14c40c9358882bb11b7ca1"
+    },
+    {
+      "path": "src/lib/monster-goals.ts",
+      "gitBlob": "a817edb59cee5fc5bad63cce1bcaefaeb5143f39"
+    },
+    {
+      "path": "src/lib/museum-data.ts",
+      "gitBlob": "3b7eeb7a4b6092fb43c9f09cc3fc0e8837aa04fd"
+    },
+    {
+      "path": "src/lib/museum-progress.ts",
+      "gitBlob": "3fa488072650d94878b3866a11c9923527bdaed7"
+    },
+    {
+      "path": "src/lib/outdoor-cashflow.ts",
+      "gitBlob": "eaf4e9f5d2fedb029ea1cfa53c0685e0ea7686d5"
+    },
+    {
+      "path": "src/lib/player-observations.ts",
+      "gitBlob": "3462f1ff46bfb1cc4a52f84c1622eb8a43b218df"
+    },
+    {
+      "path": "src/lib/private-saved-counts.ts",
+      "gitBlob": "85674ec9b3bd8f1df3b4f9a2233a5bc293df8136"
+    },
+    {
+      "path": "src/lib/processing.ts",
+      "gitBlob": "efc8461b687eae9e93f12e32ff820f7b6b091067"
+    },
+    {
+      "path": "src/lib/protected-cashflow.ts",
+      "gitBlob": "e06e33db6b4472e5947412c7db0da5297afa8b6e"
+    },
+    {
+      "path": "src/lib/protected-crops.ts",
+      "gitBlob": "40b95c9b3cef649c5326723f13211f4961eccfdb"
+    },
+    {
+      "path": "src/lib/recipe-unlocks.ts",
+      "gitBlob": "a5ecde2d0bc18a679402e603ef17d0f2672508a1"
+    },
+    {
+      "path": "src/lib/remixed-bundles.ts",
+      "gitBlob": "9a37249986ede3c657fd91d168ebefde54f9adeb"
+    },
+    {
+      "path": "src/lib/save-bundles.ts",
+      "gitBlob": "b01f4032e2dd57ee2b749c9d102e9db15fb11c70"
+    },
+    {
+      "path": "src/lib/save-collection-ids.ts",
+      "gitBlob": "fcd43d044b7b59b39b1e047f2a30fde3a881676d"
+    },
+    {
+      "path": "src/lib/save-merge.ts",
+      "gitBlob": "95c6681ab9e51c870224ee316485039458dd4a1c"
+    },
+    {
+      "path": "src/lib/save-milestones.ts",
+      "gitBlob": "26f8977c7eaf7c3d768268942f623236409e3371"
+    },
+    {
+      "path": "src/lib/save-model.ts",
+      "gitBlob": "2418ff80efc2c13fde909101c6f8a7283786aaa5"
+    },
+    {
+      "path": "src/lib/save-observations.ts",
+      "gitBlob": "ead789e21ef5ab7bd5a58470615d7086441a109e"
+    },
+    {
+      "path": "src/lib/save-parser-core.ts",
+      "gitBlob": "308e595de984a03810afe334e1c83e1c35a89b88"
+    },
+    {
+      "path": "src/lib/save-professions.ts",
+      "gitBlob": "26e1e630961423bdc51c93db082adc9ce17b97de"
+    },
+    {
+      "path": "src/lib/save-progress.ts",
+      "gitBlob": "18be663a9a74590663ed0b4cda4cd808712a136c"
+    },
+    {
+      "path": "src/lib/save-stats.ts",
+      "gitBlob": "7739f3112096be161b57b45a3814cb5f7f3dde73"
+    },
+    {
+      "path": "src/lib/screenshot-grids.ts",
+      "gitBlob": "b0143c2a4ea4f418613cf4aab9c16ae75b5b0720"
+    },
+    {
+      "path": "src/lib/season-crops.ts",
+      "gitBlob": "1b094c751abd71986b8265a10fbdada1e9aed377"
+    },
+    {
+      "path": "src/lib/shipping-reference.ts",
+      "gitBlob": "09a3cada5f3dba0ce18618f7f0e398caac39e386"
+    },
+    {
+      "path": "src/lib/standard-bundle-observations.ts",
+      "gitBlob": "7c2c8f4330b350ad453db3b63455e2209f001f56"
+    },
+    {
+      "path": "src/lib/storage-observations.ts",
+      "gitBlob": "629a1d9725f40e5cfca2790f9698712474e288e3"
+    },
+    {
+      "path": "src/lib/walnut-data.ts",
+      "gitBlob": "3eca31c0a2fa86a295033a4504a445d920f243ff"
+    },
+    {
+      "path": "src/lib/walnut-observations.ts",
+      "gitBlob": "61268ea10ffe10e11af510ef53467e240f356a47"
+    },
+    {
+      "path": "src/lib/walnut-progress.ts",
+      "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
+    }
+  ]
+}
