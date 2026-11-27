@@ -1,0 +1,3 @@
+# Monster eradication reference
+
+12 guild groups with manual counter inputs, count-only local save observations and perfection integration. Reference: https://github.com/MouseyPounds/stardew-checkup (MIT, blob 62cb82ebc2f51c2592bc79ff8b449b29be7777ce, parseMonsters / parsePlayerMonsters) and https://stardewvalleywiki.com/Adventurer%27s_Guild. Uses conservative named variant mapping from the 1.6 reference; unknown variants, mods and newer game rules may undercount. Reads only selected player's stats/specificMonstersKilled dictionary, validates counts and duplicates, never combines farmhands. Count-only observations survive local backup round trips; manual detail inputs session-only, aggregate may be explicitly applied to perfection. No real-game fixture claim.
