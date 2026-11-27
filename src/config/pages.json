@@ -472,7 +472,7 @@
     "path": "/golden-walnuts/",
     "h1": "Stardew Valley Golden Walnut Tracker",
     "title": "Stardew Valley Golden Walnut Tracker & Checklist | Field & Farm",
-    "description": "Track 130 Golden Walnuts across Ginger Island tasks. Filter by method, record collected walnuts, upgrade spending and missing rewards.",
+    "description": "Track 130 Golden Walnuts by region and task, review collection hints, save markers and island upgrade spending.",
     "primaryKeyword": "golden walnuts stardew",
     "volume": 4400,
     "kd": 18,
@@ -487,11 +487,13 @@
     ],
     "priority": "P1",
     "guideTitle": "Track lifetime finds separately from spending",
-    "guideText": "Record repeated drops individually and fixed rewards as complete tasks. The upgrade ledger subtracts purchases from recorded balance, not lifetime collection. Puzzle hints can be revealed when needed.",
+    "guideText": "Filter missing walnut tasks by region or method, review puzzle clues and track island upgrades. The private workspace can load recognized positive save markers; unsupported locations and spending remain manual.",
     "researchClusterSize": 2,
     "searchAliases": [
       "golden walnuts",
-      "ginger island walnuts"
+      "ginger island walnuts",
+      "walnut locations",
+      "walnut save tracker"
     ]
   },
   {
@@ -570,7 +572,7 @@
     "path": "/skills/",
     "h1": "Stardew Valley Skills Tracker",
     "title": "Stardew Valley Skills, Professions & Mastery Tracker | Field & Farm",
-    "description": "Compare five skill XP thresholds, profession branches and mastery progress. Enter values manually or load recognized local save data.",
+    "description": "Track five skills, 30 profession effects and mastery experience. Load recognized XP and mastery stats locally in the private workspace.",
     "primaryKeyword": "stardew valley skills",
     "volume": 880,
     "kd": 19,
@@ -585,12 +587,14 @@
     ],
     "priority": "P2",
     "guideTitle": "Plan the next skill level",
-    "guideText": "Enter skill experience and mastery points to compare against thresholds. The overnight level-up event determines actual profession rewards. Mastery points are separate from the five base skill experience values.",
+    "guideText": "Enter the five skill XP totals and mastery points or load recognized main-player statistics from a merged private save. Compare level 5 and 10 profession effects; XP thresholds do not establish actual profession selection.",
     "researchClusterSize": 1,
     "searchAliases": [
       "skill xp",
       "mastery points",
-      "professions"
+      "professions",
+      "mastery xp",
+      "profession comparison"
     ]
   }
 ]
