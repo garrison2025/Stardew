@@ -1,0 +1,3 @@
+# Bounded irrigation suggestions
+
+One chosen sprinkler type, existing crop markers only. Region bounds restrict both target crops and device placement; selected-marker mode restricts target crops. Existing objects never move. User-entered gold cost and available craftable stock bound device count; no claim of actual crafting material extraction. Greedy feasible incumbent and exact enumeration of at most 18 candidate cells with 1.8s soft search budget, worker cancellation and 5s UI watchdog. Validate every placement and recompute coverage independently before preview. Does not generate full crop blocks, mix device types, optimize true game terrain or account for automatic player inventory. Synthetic tests only. Original map and private local assets remain unchanged.

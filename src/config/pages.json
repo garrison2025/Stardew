@@ -29,7 +29,7 @@
     ],
     "priority": "P0",
     "guideTitle": "Plan a layout before building",
-    "guideText": "Choose an original practice landscape or editable farm examples. Use indoor room examples for farmhouse, greenhouse or workshop planning. Inspect coverage and reference costs; terrain and furniture markers are schematic.",
+    "guideText": "Choose an original practice landscape or editable room examples. Check coverage and reference construction costs, then constrain irrigation suggestions by region, device stock and budget. Maps and furniture markers are schematic.",
     "researchClusterSize": 89,
     "searchAliases": [
       "farm layout planner",
@@ -42,7 +42,9 @@
       "farm building budget",
       "house planner",
       "house design",
-      "interior design"
+      "interior design",
+      "sprinkler optimizer",
+      "irrigation budget"
     ]
   },
   {

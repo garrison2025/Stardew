@@ -31,6 +31,10 @@
       [
         "Can I design a farmhouse interior?",
         "Open Indoor designer and choose Farmhouse, then load a cozy or storage example. Furniture uses editable single-tile markers, not exact game furniture dimensions."
+      ],
+      [
+        "Can I optimize sprinkler coverage within a budget?",
+        "Choose a sprinkler, available device count, estimated unit cost and budget. Restrict the search to a rectangle or selected crop markers. Small candidate sets use exact enumeration; larger sets return feasible greedy suggestions."
       ]
     ]
   },
