@@ -60,6 +60,16 @@ try{
         }
         await page.goto(site.origin+'/tracker/');
         await page.waitForFunction(()=>!document.querySelector('astro-island[ssr]'));
+        const unknown=page.getByRole('progressbar',{name:/progress unknown/});
+        assert.ok(await unknown.count()>0,name+' unknown progress semantics');
+        assert.equal(await unknown.first().getAttribute('aria-valuenow'),null);
+        const contrast=await page.locator('.metric small').first().evaluate(el=>{
+          function rgb(value){return value.match(/[\d.]+/g).slice(0,3).map(Number)}
+          function lum(c){return c.map(v=>{const x=v/255;return x<=.04045?x/12.92:((x+.055)/1.055)**2.4}).reduce((s,v,i)=>s+v*[.2126,.7152,.0722][i],0)}
+          const a=lum(rgb(getComputedStyle(el).color)),b=lum(rgb(getComputedStyle(el.closest('.metric')).backgroundColor));
+          return (Math.max(a,b)+.05)/(Math.min(a,b)+.05);
+        });
+        assert.ok(contrast>=4.5,name+' metric contrast '+contrast);
         const input=page.getByLabel('Choose main save file',{exact:true});
         assert.equal(await input.count(),isPrivate?1:0,name+' save input separation');
         if(isPrivate){

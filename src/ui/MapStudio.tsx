@@ -209,7 +209,7 @@ export default function MapStudio({workspace}:{workspace:boolean}){
   <div className="map-title"><div><h2>Farm designer</h2><small>{plan.map.name} · {plan.map.w} × {plan.map.h} tiles · {plan.map.source==='original'?'Practice map':'Local map'}</small></div></div>
   <div className="map-actions">
    <div className="map-action-group" role="group" aria-label="Panels">
-    <button ref={catalogToggle} aria-label="Toggle object library" aria-controls="map-object-library" aria-expanded={catalogOpen} onClick={toggleCatalog}>Objects</button>
+    <button ref={catalogToggle} aria-label="Toggle object library" aria-controls="map-object-library" aria-expanded={catalogOpen} onClick={toggleCatalog}>Object library</button>
     <button aria-label="Toggle map settings" aria-controls="map-settings" aria-expanded={inspectorOpen} onClick={()=>setInspectorOpen(v=>!v)}>Settings</button>
    </div>
    <div className="map-action-group map-history" role="group" aria-label="Edit history">
