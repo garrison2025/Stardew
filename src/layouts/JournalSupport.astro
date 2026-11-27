@@ -1,0 +1,13 @@
+---
+import '../styles/global.css';
+import '../styles/field-journal.css';
+const {title, summary} = Astro.props;
+---
+<!doctype html><html lang="en"><head>
+<meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="robots" content="noindex,nofollow"/>
+<title>{title} | Field &amp; Farm</title><meta name="description" content={summary}/><link rel="icon" href="/favicon.svg" type="image/svg+xml"/>
+</head><body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="journal-header"><div class="journal-nav"><a class="journal-brand" href="/"><span class="journal-brandmark" aria-hidden="true">✿</span><span>Field <i>&amp;</i> Farm</span></a><nav aria-label="Main tools"><a href="/">Farm Planner</a><a href="/tracker/">Save Tracker</a><a href="/crop-calculator/">Crop Calculator</a></nav></div></header>
+<main id="main" class="journal-content journal-support"><header class="journal-intro"><div class="journal-intro-copy"><h1>{title}</h1><p>{summary}</p></div></header><slot/><footer><a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></footer></main>
+</body></html>
