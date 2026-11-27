@@ -1,0 +1,3 @@
+# Protected cash-flow model
+
+Daily simulation for fixed allocations of up to three crops. Seed budget and stock are explicit; receipts settle next day. Existing growth-stage model, optional fertilizer; protected tiles assumed to retain fertilizer. Shared generic processing machines use user-entered actual output prices, batch size and whole-day duration. Raw inventory not assigned to immediately free profitable machines is shipped. No global optimum, no exact game machine-time simulation, no outdoor annual rotations or seed-maker generation. Reports raw-only comparison, daily ledger and cash/harvest conservation. Synthetic tests, no new rights or compatibility approval.
