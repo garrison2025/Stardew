@@ -1,14 +1,15 @@
-import {readPlayerStat} from './save-stats';
-import {readMonsterCounts} from './monster-goals';
-import {readSaveMilestones} from './save-milestones';
-import {CART_SEASONS,type CartStart,type CartSeason} from './cart-forecast';
-import {saveFingerprint} from './save-binding';
-import {readBundleDefinition, type SaveBundle} from './save-bundles';
-import type {GeodeInput} from './geode-prediction';
-import {parseSaveXml, MAX_SAVE_BYTES, type SaveElement} from './save-xml';
-import {SEASONS,type Season} from './map-model';
-import {buildingItem,sprinklerItem,supportedVersion,type FarmRecord,type SaveSnapshot} from './save-model';
-import {normalizeSkillXp,normalizeCrafting,normalizeObjectCollection,safeCount,type SaveProgress,type NamedCount} from './save-progress';
+import {readBackpack} from './backpack-observations.ts';
+import {readPlayerStat} from './save-stats.ts';
+import {readMonsterCounts} from './monster-goals.ts';
+import {readSaveMilestones} from './save-milestones.ts';
+import {CART_SEASONS,type CartStart,type CartSeason} from './cart-forecast.ts';
+import {saveFingerprint} from './save-binding.ts';
+import {readBundleDefinition, type SaveBundle} from './save-bundles.ts';
+import type {GeodeInput} from './geode-prediction.ts';
+import {parseSaveXml, MAX_SAVE_BYTES, type SaveElement} from './save-xml.ts';
+import {SEASONS,type Season} from './map-model.ts';
+import {buildingItem,sprinklerItem,supportedVersion,type FarmRecord,type SaveSnapshot} from './save-model.ts';
+import {normalizeSkillXp,normalizeCrafting,normalizeObjectCollection,safeCount,type SaveProgress,type NamedCount} from './save-progress.ts';
 const child=(el:SaveElement|undefined|null,name:string)=>el?Array.from(el.children).find(c=>c.localName===name):undefined;
 const text=(el:SaveElement|undefined|null,name:string)=>child(el,name)?.textContent?.trim()??'';
 const num=(s:string):number|null=>/^-?\d+$/.test(s)&&Number.isSafeInteger(Number(s))?Number(s):null;
@@ -72,7 +73,8 @@ function readProgress(root:SaveElement,player:SaveElement|undefined,shared=true)
  if(shared&&Array.from(child(root,'farmhands')?.children??[]).some(e=>e.localName==='Farmer'))warnings.push('Farmhand observations are shown separately. Shared counters and tracker merges are attached to the host view.');
  const monsterKills=readMonsterCounts(player);
  if(!monsterKills)warnings.push('Specific monster kill dictionary absent or unsupported.');
- return {stepsTaken:readPlayerStat(player,'stepsTaken'),monsterKills,milestones:readSaveMilestones(root,player,shared),xp,money:read(player,'money'),lifetimeEarnings:read(player,'totalMoneyEarned'),walnutsFound,walnutsBalance,crafting,learnedCooking:cooking?.length??null,collections,warnings}
+ const backpack=readBackpack(player);if(!backpack)warnings.push('Player backpack absent or unsupported.');
+ return {backpack,stepsTaken:readPlayerStat(player,'stepsTaken'),monsterKills,milestones:readSaveMilestones(root,player,shared),xp,money:read(player,'money'),lifetimeEarnings:read(player,'totalMoneyEarned'),walnutsFound,walnutsBalance,crafting,learnedCooking:cooking?.length??null,collections,warnings}
 }
 function parseMainSave(xml: string) {
  const {root,fields}=parseSaveXml(xml);
