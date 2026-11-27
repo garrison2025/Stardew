@@ -21,7 +21,7 @@ export function readSaveMilestones(root:SaveElement,player:SaveElement|undefined
    const name=txt(child(row,'key'),'string');
    if(!datable.includes(name)&&!other.includes(name))continue;
    const raw=txt(child(child(row,'value'),'Friendship'),'Points');
-   if(points.has(name)||bad.has(name)||!/^\d+$/.test(raw)||Number(raw)>3500){bad.add(name);points.delete(name);continue}
+   if(points.has(name)||bad.has(name)||!/^\d+$/.test(raw)||Number(raw)>3749){bad.add(name);points.delete(name);continue}
    points.set(name,Number(raw));
   }
   out.friends=[...points].filter(([name,p])=>p>=(datable.includes(name)?2000:2500)).length;
