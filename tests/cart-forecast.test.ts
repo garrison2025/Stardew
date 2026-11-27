@@ -20,3 +20,15 @@ test('only forest visit days, with season and year rolled over correctly', () =>
  assert.equal(results[1].year,2);
  assert.throws(()=>forecastCart({gameId:'9007199254740993',year:1,season:'spring',day:1,legacy:false}));
 });
+
+test('route completion and Year 25 gate independent Forest Cart offers', () => {
+ const input = {gameId:'123456789',year:1,season:'spring',day:1,legacy:false} as const;
+ const at = (routeComplete: boolean, day: number) =>
+   forecastCart({...input,routeComplete}).find(v=>v.absoluteDay===day)?.offers.map(o=>o.label);
+ assert.ok(!at(false,19)?.includes('Joja Catalogue'));
+ assert.ok(at(true,19)?.includes('Joja Catalogue'));
+ assert.ok(at(true,26)?.includes('Junimo Catalogue'));
+ const year25 = forecastCart({...input,year:25}).find(v=>v.absoluteDay===2714);
+ assert.ok(year25?.offers.some(o=>o.label==='Tea Set'&&o.price===1000000));
+ assert.ok(!forecastCart({...input,year:24}).some(v=>v.offers.some(o=>o.label==='Tea Set')));
+});

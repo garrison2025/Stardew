@@ -61,7 +61,7 @@ const related=pages.filter(p=>p.path!==page.path && (page.relatedPaths||[]).incl
  </header>
  <div class="journal-tool-meta">
   <span><i aria-hidden="true"></i>{workspace?'Private workspace':'Development preview'}</span>
-  {!workspace&&workspaceUrl&&<a href={workspaceUrl}>Open private workspace <span aria-hidden="true">↗</span></a>}
+  {!workspace&&workspaceUrl&&<a href={workspaceUrl}>{page.slug?'Open private workspace':'Use my farm screenshot'} <span aria-hidden="true">↗</span></a>}
  </div>
 {page.slug==='tracker'&&!workspace&&<section class="workspace-entry" aria-label="Private save workspace"><div><h2>Track your own farm</h2><p>Keep your save file on your device. Inspect supported fields and merge recognized collection progress in the separate private workspace.</p><small>{workspaceUrl?'No upload to our servers · no account · no ads':'Private workspace is not connected to this preview yet. Use the individual tools manually below.'}</small></div>{workspaceUrl&&<a href={workspaceUrl}>Open private save workspace</a>}</section>}
 {page.slug?<Tool slug={page.slug} workspace={workspace} client:load/>:<FarmPlannerPage workspace={workspace} client:load/>}
