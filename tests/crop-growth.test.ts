@@ -31,3 +31,9 @@ test('owned ancient fruit crosses seasons; coffee and sweet gem berry exclude Ti
  assert.deepEqual(ownedSeedPlan('coffee-bean','spring',1,1,1,0,{season:'spring',tiller:true}),ownedSeedPlan('coffee-bean','spring',1,1,1,0,{season:'spring'}));
  assert.equal(ownedSeedPlan('sweet-gem-berry','autumn',1,1,1,0,{season:'autumn',tiller:true}).revenue,3000);
 });
+
+test('documented stage reduction edge cases do not overpromise harvest dates',()=>{
+ const grape=growthProfile(crop('grape'),{...setting,fertilizer:'hyper',agriculturist:true});assert.equal(grape.days,6);assert.deepEqual(grape.phases,[1,0,1,2,2]);assert.equal(grape.unappliedDays,1);
+ assert.equal(growthProfile(crop('unmilled-rice'),{...setting,irrigated:true,fertilizer:'deluxe'}).days,4);
+ for(const c of [...SEASON_CROPS,...OWNED_CROPS])for(const fertilizer of ['none','speed','deluxe','hyper'] as const)for(const agriculturist of [false,true])for(const irrigated of [false,true]){const r=growthProfile(c,{...setting,fertilizer,agriculturist,irrigated});assert.ok(r.days>=1&&r.days<=c.growth);assert.ok(r.phases.every(n=>n>=0));}
+});

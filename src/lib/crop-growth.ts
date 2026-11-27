@@ -297,11 +297,19 @@ export function growthProfile(crop:GameCrop,settings?:GrowthSettings){
  if(!source||source.reduce((a,b)=>a+b,0)!==crop.growth)throw Error('Missing or mismatched growth stages: '+crop.id);
  const paddy=!!settings?.irrigated&&['unmilled-rice','taro-root'].includes(crop.id);
  const percent=settings?rates[settings.fertilizer]+(settings.agriculturist?10:0)+(paddy?25:0):0;
- const phases=[...source];
- let remaining=Math.ceil(crop.growth*percent/100);
- for(let pass=0;pass<3&&remaining>0;pass++)for(let i=0;i<phases.length&&remaining>0;i++){
-   if(phases[i]>(i===0?1:0)){phases[i]--;remaining--}
+ // Model the documented stage decrement quirk: later zero-length phases may
+ // consume an additional reduction, but negative phases contribute zero elapsed days.
+ // Use single-precision operations rather than integer percentage division.
+ let speed=Math.fround((settings?rates[settings.fertilizer]:0)/100);
+ if(settings?.agriculturist)speed=Math.fround(speed+Math.fround(.10));
+ if(paddy)speed=Math.fround(speed+Math.fround(.25));
+ const requested=Math.ceil(Math.fround(crop.growth*speed));
+ const phaseRoll=[...source];
+ let remaining=requested;
+ for(let pass=0;pass<3&&remaining>0;pass++)for(let i=0;i<phaseRoll.length&&remaining>0;i++){
+   if(i>0||phaseRoll[i]>1){phaseRoll[i]--;remaining--}
  }
- return {baseDays:crop.growth,days:phases.reduce((a,b)=>a+b,0),phases,percent,paddy,unappliedDays:remaining};
+ const phases=phaseRoll.map(n=>Math.max(0,n)),days=phases.reduce((a,b)=>a+b,0);
+ return {baseDays:crop.growth,days,phases,percent,paddy,unappliedDays:Math.max(0,requested-(crop.growth-days))};
 }
 export function cropReceivesTiller(crop:GameCrop){return !['coffee-bean','sweet-gem-berry'].includes(crop.id)}
