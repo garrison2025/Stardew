@@ -195,7 +195,7 @@
     ],
     "priority": "P0",
     "guideTitle": "Inspect a save without uploading it",
-    "guideText": "Inspect recognized save observations in the separate private workspace, including positive backpack and ordinary chest/fridge stock. Unknown fields and special containers are not treated as empty.",
+    "guideText": "Inspect recognized save observations in the private workspace, including recorded professions and positive backpack and ordinary chest/fridge stock. Unknown fields and special containers are not treated as empty.",
     "researchClusterSize": 15,
     "searchAliases": [
       "save analyzer",
@@ -205,7 +205,9 @@
       "monster goals",
       "save inventory checker",
       "chest inventory",
-      "fridge inventory"
+      "fridge inventory",
+      "save profession choices",
+      "saved inventory"
     ]
   },
   {
@@ -213,7 +215,7 @@
     "path": "/crop-calculator/",
     "h1": "Stardew Valley Crop Calculator",
     "title": "Stardew Valley Crop Profit Calculator & Planner | Field & Farm",
-    "description": "Compare crop profits, planting budgets, greenhouse and outdoor rotations, daily cash reinvestment and shared processing equipment.",
+    "description": "Compare seasonal crop profits, expected harvest quality, planting budgets, rotations, reinvestment and processing options.",
     "primaryKeyword": "stardew crop calculator",
     "volume": 320,
     "kd": 17,
@@ -238,7 +240,7 @@
     ],
     "priority": "P0",
     "guideTitle": "Compare planting and processing plans",
-    "guideText": "Compare seasonal and protected crop profits, annual outdoor planting rotations and daily reinvestment with shared machines. Enter actual seed supply and sale prices; the best tested cash-flow policy is not a global optimum.",
+    "guideText": "Compare seasonal and protected crop profits, expected quality across eligible crops, annual planting rotations and shared-machine cash flow. Explore separate dehydrator, mill and wine aging scenarios; the best tested cash-flow policy is not a global optimum.",
     "researchClusterSize": 45,
     "searchAliases": [
       "crop profit",
@@ -254,7 +256,11 @@
       "annual crop planner",
       "outdoor crop cash flow",
       "crop reinvestment calculator",
-      "crop processing profit"
+      "crop processing profit",
+      "dehydrator profit",
+      "mill processing",
+      "wine aging calculator",
+      "expected crop quality"
     ]
   },
   {
@@ -286,7 +292,7 @@
     ],
     "priority": "P0",
     "guideTitle": "Build a nine-slot grange display",
-    "guideText": "Enter actual sale values, quality and Fair categories. Add reference items by category, then confirm available quantities and optimize the nine-slot display. Samples never assume you own an item.",
+    "guideText": "Enter actual sale values, quality and Fair categories. In the private workspace, load recognized backpack and optional ordinary chest/fridge candidates; confirm availability and optimize the nine-slot display.",
     "researchClusterSize": 27,
     "searchAliases": [
       "grange display",
@@ -295,7 +301,9 @@
       "fair items",
       "fair first place",
       "nine item display",
-      "grange display optimizer"
+      "grange display optimizer",
+      "fair inventory",
+      "grange display inventory"
     ]
   },
   {
@@ -616,7 +624,7 @@
     ],
     "priority": "P2",
     "guideTitle": "Plan the next skill level",
-    "guideText": "Enter the five skill XP totals and mastery points or load recognized main-player statistics from a merged private save. Compare level 5 and 10 profession effects; XP thresholds do not establish actual profession selection.",
+    "guideText": "Enter skill XP and mastery points, or load recognized main-player statistics and recorded vanilla profession IDs from a merged private save. Profession effects are not inferred from XP.",
     "researchClusterSize": 1,
     "searchAliases": [
       "skill xp",
@@ -625,7 +633,9 @@
       "mastery xp",
       "profession comparison",
       "skill experience calculator",
-      "mastery experience tracker"
+      "mastery experience tracker",
+      "profession choices",
+      "skill experience"
     ]
   }
 ]

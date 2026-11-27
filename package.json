@@ -17,7 +17,8 @@
     "audit:dependencies": "npm audit --audit-level=high",
     "audit:performance": "node scripts/audit-performance.mjs",
     "audit:assets": "node scripts/audit-asset-provenance.mjs",
-    "audit:game-fixtures": "node --experimental-strip-types scripts/verify-game-fixtures.mjs"
+    "audit:game-fixtures": "node --experimental-strip-types scripts/verify-game-fixtures.mjs",
+    "audit:reference": "node scripts/audit-reference-manifest.mjs"
   },
   "dependencies": {
     "astro": "7.4.13",

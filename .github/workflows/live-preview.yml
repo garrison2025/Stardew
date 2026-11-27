@@ -1,5 +1,9 @@
 name: Live preview verification
 on:
+  pull_request:
+    paths:
+      - 'scripts/audit-live-preview.mjs'
+      - '.github/workflows/live-preview.yml'
   workflow_dispatch:
     inputs:
       public_origin:
@@ -9,6 +13,7 @@ on:
       private_origin:
         description: Distinct private HTTPS workspace origin (optional; blank is public-only)
         required: false
+        default: https://stardew-local-workspace.pages.dev
       revision:
         description: Expected full 40-character deployed Git SHA
         required: true
@@ -25,8 +30,8 @@ jobs:
           node-version-file: .nvmrc
       - name: Read-only deployment audit
         env:
-          PUBLIC_ORIGIN: ${{ inputs.public_origin }}
-          PRIVATE_ORIGIN: ${{ inputs.private_origin }}
+          PUBLIC_ORIGIN: ${{ inputs.public_origin || 'https://stardew-67b.pages.dev' }}
+          PRIVATE_ORIGIN: ${{ github.event_name == 'pull_request' && 'https://stardew-local-workspace.pages.dev' || inputs.private_origin }}
           EXPECTED_REVISION: ${{ inputs.revision }}
         shell: bash
         run: |
@@ -34,7 +39,8 @@ jobs:
           mkdir -p live-evidence
           args=("$PUBLIC_ORIGIN")
           if [ -n "$PRIVATE_ORIGIN" ]; then args+=("$PRIVATE_ORIGIN"); fi
-          node scripts/audit-live-preview.mjs "${args[@]}" --revision "$EXPECTED_REVISION" 2>&1 | tee live-evidence/audit.txt
+          if [ -n "$EXPECTED_REVISION" ]; then args+=(--revision "$EXPECTED_REVISION"); fi
+          node scripts/audit-live-preview.mjs "${args[@]}" 2>&1 | tee live-evidence/audit.txt
       - uses: actions/upload-artifact@v4
         if: always()
         with:
