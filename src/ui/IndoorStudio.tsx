@@ -1,7 +1,7 @@
 import React,{useState,useEffect,useMemo,useRef} from 'react';
 import {interiorPresets,interiorPreset,type InteriorPresetId} from '../lib/indoor-presets';
 import {ROOMS,availableDevices,deviceById,roomOf,emptyInterior,decodeInterior,allowed,analyze,proposeMachines,type Interior,type RoomId,type Device} from '../lib/indoor-model';
-import {readLocal,writeLocal,download} from '../lib/local';
+import {openLocalEditor,type LocalEditor,download} from '../lib/local';
 import ProcessingPanel from './ProcessingPanel';
 import {INDOOR,INDOOR_TILES,tileRect,type ArtMode} from '../lib/art-packs';
 import {useArtPack} from './useArtPack';
@@ -15,7 +15,7 @@ export default function IndoorStudio({workspace,linked}:{workspace:boolean;linke
  const loaded=useRef(true),dirty=useRef(false);
  const room=useMemo(()=>roomOf(roomId),[roomId]),layout=useMemo(()=>linked?.layout??rooms[roomId]??emptyInterior(roomId),[rooms,roomId,linked?.layout]),metrics=useMemo(()=>analyze(layout),[layout]);
  const active=proposal?.base===layout?proposal:null,shown=active?.layout??layout,display=active?analyze(shown):metrics;
- useEffect(()=>{if(!workspace||linked)return;let live=true;readLocal<unknown>(KEY).then(raw=>{if(!live||raw===undefined)return;if(!raw||typeof raw!=='object'||Array.isArray(raw))throw Error('Invalid room library');const next:Rooms={};for(const [k,v] of Object.entries(raw)){const decoded=decodeInterior(v);if(decoded.room!==k)throw Error('Room ID mismatch');next[decoded.room]=decoded}setRooms(next);setMessage('Indoor layouts restored')}).catch(e=>{if(live){loaded.current=false;setError(String(e))}}).finally(()=>{if(live)setReady(true)});return()=>{live=false}},[workspace]);
+ const editor=useRef<LocalEditor|null>(null);useEffect(()=>{if(!workspace||linked)return;let live=true;editor.current=null;openLocalEditor(KEY).then(session=>{if(!live)return;editor.current=session;const raw=session.value;if(!live||raw===undefined)return;if(!raw||typeof raw!=='object'||Array.isArray(raw))throw Error('Invalid room library');const next:Rooms={};for(const [k,v] of Object.entries(raw)){const decoded=decodeInterior(v);if(decoded.room!==k)throw Error('Room ID mismatch');next[decoded.room]=decoded}setRooms(next);setMessage('Indoor layouts restored')}).catch(e=>{if(live){loaded.current=false;setError(String(e))}}).finally(()=>{if(live)setReady(true)});return()=>{live=false}},[workspace]);
  useEffect(()=>{const warn=(e:BeforeUnloadEvent)=>{if(workspace&&!linked&&dirty.current){e.preventDefault();e.returnValue=''}};window.addEventListener('beforeunload',warn);return()=>window.removeEventListener('beforeunload',warn)},[workspace]);
  function setLayout(next:Interior){if(linked)linked.onChange(next);else setRooms(v=>({...v,[roomId]:next}))}
  function edit(next:Interior){if(!ready||saving||linked?.saving)return;setPast(v=>[...v.slice(-39),layout]);setFuture([]);setLayout(next);dirty.current=true;setProposal(null);setError('');setMessage('Unsaved room changes')}
@@ -23,7 +23,7 @@ export default function IndoorStudio({workspace,linked}:{workspace:boolean;linke
  function place(i:number){if(!ready||saving)return;const cells={...layout.cells};if(brush==='erase'){if(!cells[i])return;delete cells[i]}else{if(!allowed(room,i,brush)){setError('This tile is reserved or incompatible with the selected object.');return}if(cells[i]){setError('Erase the existing object first.');return}cells[i]=brush}edit({...layout,cells})}
  function undo(){if(!past.length||saving||linked?.saving)return;setFuture(v=>[...v,layout]);setLayout(past[past.length-1]);setPast(v=>v.slice(0,-1));setProposal(null);dirty.current=true;setError('');setMessage('Unsaved room changes')}
  function redo(){if(!future.length||saving||linked?.saving)return;setPast(v=>[...v,layout]);setLayout(future[future.length-1]);setFuture(v=>v.slice(0,-1));setProposal(null);dirty.current=true;setError('');setMessage('Unsaved room changes')}
- async function save(){if(!workspace||!ready||saving||!loaded.current)return;setSaving(true);try{await writeLocal(KEY,rooms);dirty.current=false;setMessage('Indoor layouts saved locally');setError('')}catch(e){setError(String(e))}finally{setSaving(false)}}
+ async function save(){if(!workspace||!ready||saving||!loaded.current)return;setSaving(true);try{if(!editor.current)throw Error('Local progress is not ready. Reload before saving.');await editor.current.save(rooms);dirty.current=false;setMessage('Indoor layouts saved locally');setError('')}catch(e){setError(String(e))}finally{setSaving(false)}}
  async function importFile(file:File){try{if(file.size>128*1024)throw Error('Room file exceeds 128 KiB');const next=decodeInterior(JSON.parse(await file.text()));if(next.room!==roomId)throw Error('Select the matching room before importing.');edit(next)}catch(e){setError(String(e))}}
  function suggest(){try{if(brush==='erase')throw Error('Select a machine first');setProposal({base:layout,...proposeMachines(layout,brush)});setError('')}catch(e){setError(String(e))}}
  const roomInfo=ROOMS.find(r=>r.id===roomId)!;const presets=interiorPresets(roomId),selectedPreset=presets.find(p=>p.id===preset)??presets[0];
