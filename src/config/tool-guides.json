@@ -50,6 +50,10 @@
       [
         "Are remixed bundles automatically detected?",
         "No. Enter the actual requirements in the separate remixed checklist. The standard tracker is never applied automatically."
+      ],
+      [
+        "Can I use remixed Community Center bundles?",
+        "Enter the actual game requirements, or review supported save-contained definitions in the private workspace. Confirm donations separately; standard and remixed requirements are not interchangeable."
       ]
     ]
   },
@@ -104,6 +108,10 @@
       [
         "Do the rows cover every opener?",
         "This model targets Clint’s geode service. Geode Crushers and other container types are outside its scope."
+      ],
+      [
+        "Does the Traveling Cart forecast show the full stock?",
+        "No. It covers selected seeded offers in the PC 1.6.15 reference. Full random stock and independent in-game fixtures remain outside the current model."
       ]
     ]
   },
@@ -129,8 +137,8 @@
         "The private workspace reads supported fields locally and never uploads the raw file to our server."
       ],
       [
-        "Can I mix multiple farms?",
-        "Not safely in this preview. Use one farm per local workspace and export a backup before changing farms."
+        "Can I track multiple farms?",
+        "Yes. The private workspace keeps named farm profiles in separate local databases. Switch profiles before importing another farm; identifiable saves cannot merge into a differently bound profile. Save or export edits first. Farmhands are separate observations, not a shared perfection calculation."
       ]
     ]
   },
@@ -158,6 +166,10 @@
       [
         "Do these results include fertilizer or random extra yields?",
         "The base seasonal model uses normal-quality minimum yields; processing and professions are limited to the separate economy model."
+      ],
+      [
+        "Are the results expected-quality profits?",
+        "No. The default model uses guaranteed base yields. Quality and faster growth are explicit what-if inputs; the processing ledger is a daily approximation."
       ]
     ]
   },
@@ -239,6 +251,10 @@
       [
         "What do waivers cost?",
         "The reference calculator uses 500,000g per waiver point and caps the final score at 100%."
+      ],
+      [
+        "Does the tracker calculate multiplayer perfection?",
+        "No. The current model shows known minimums and uncertainty ranges for the main player; it does not calculate the combined multiplayer result."
       ]
     ]
   },

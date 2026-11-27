@@ -60,11 +60,27 @@ try{
         }
         await page.goto(site.origin+'/tracker/');
         await page.waitForFunction(()=>!document.querySelector('astro-island[ssr]'));
+        const unknown=page.getByRole('progressbar',{name:/progress unknown/});
+        assert.ok(await unknown.count()>0,name+' unknown progress semantics');
+        assert.equal(await unknown.first().getAttribute('aria-valuenow'),null);
+        const contrast=await page.locator('.metric small').first().evaluate(el=>{
+          function rgb(value){return value.match(/[\d.]+/g).slice(0,3).map(Number)}
+          function lum(c){return c.map(v=>{const x=v/255;return x<=.04045?x/12.92:((x+.055)/1.055)**2.4}).reduce((s,v,i)=>s+v*[.2126,.7152,.0722][i],0)}
+          const a=lum(rgb(getComputedStyle(el).color)),b=lum(rgb(getComputedStyle(el.closest('.metric')).backgroundColor));
+          return (Math.max(a,b)+.05)/(Math.min(a,b)+.05);
+        });
+        assert.ok(contrast>=4.5,name+' metric contrast '+contrast);
         const input=page.getByLabel('Choose main save file',{exact:true});
         assert.equal(await input.count(),isPrivate?1:0,name+' save input separation');
         if(isPrivate){
           await input.setInputFiles({name:'synthetic.xml',mimeType:'text/xml',buffer:Buffer.from('<SaveGame><gameVersion>synthetic</gameVersion><privateMarker>LOCAL_ONLY_RELEASE_MARKER</privateMarker></SaveGame>')});
           await page.getByText('synthetic',{exact:true}).waitFor();
+          await input.setInputFiles({name:'unsafe.xml',mimeType:'text/xml',buffer:Buffer.from('<!DOCTYPE SaveGame><SaveGame/>')});
+          await page.getByText(/DTD and entity declarations/).waitFor();
+          if(name==='chromium'){
+            await input.setInputFiles({name:'large.xml',mimeType:'text/xml',buffer:Buffer.from('<SaveGame><!--'+'x'.repeat(11*1024*1024)+'--><gameVersion>large-synthetic</gameVersion></SaveGame>')});
+            await page.getByText('large-synthetic',{exact:true}).waitFor();
+          }
         }
         const missing=await page.goto(site.origin+'/nonexistent-release-acceptance-check/');
         assert.equal(missing.status(),404);

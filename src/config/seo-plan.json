@@ -7,9 +7,9 @@
     {
       "path": "/",
       "priority": "P0",
-      "title": "Stardew Valley Farm Planner | Free Online Tool",
+      "title": "Stardew Valley Farm Planner & Layout Editor | Field & Farm",
       "h1": "Stardew Valley Farm Planner",
-      "description": "Design your farm with a free interactive layout editor. Plan buildings, crop tiles and sprinkler coverage, then export or save in the private workspace.",
+      "description": "Design farm layouts on eight practice landscapes. Place buildings, paths and sprinklers, compare coverage, arrange interiors and export editable plans.",
       "primaryKeyword": "stardew valley planner",
       "volume": 8100,
       "kd": 22,
@@ -37,14 +37,21 @@
         "/tracker/"
       ],
       "task": "农场布局、室内/温室、灌溉与成本优化",
-      "indexableAfterApproval": true
+      "indexableAfterApproval": true,
+      "searchAliases": [
+        "farm layout planner",
+        "farm layout editor",
+        "sprinkler layout",
+        "farm design",
+        "sdv planner"
+      ]
     },
     {
       "path": "/bundles/",
       "priority": "P0",
-      "title": "Stardew Valley Bundle Tracker | Free Online Tool",
+      "title": "Stardew Valley Community Center Bundle Tracker | Field & Farm",
       "h1": "Stardew Valley Bundle Tracker",
-      "description": "Explore Community Center bundles, filter required items by season and quality, and track missing items with a local save in the private workspace.",
+      "description": "Track standard Community Center bundles by room, season, quantity and quality. Record remixed requirements manually or review supported local save data.",
       "primaryKeyword": "stardew bundles",
       "volume": 6600,
       "kd": 26,
@@ -72,14 +79,19 @@
         "/perfection/"
       ],
       "task": "社区中心普通/重混组合及缺失物品",
-      "indexableAfterApproval": true
+      "indexableAfterApproval": true,
+      "searchAliases": [
+        "community center",
+        "bundle checklist",
+        "remixed bundles"
+      ]
     },
     {
       "path": "/museum/",
       "priority": "P0",
-      "title": "Stardew Valley Museum Collection Tracker | Free Online Tool",
-      "h1": "Stardew Valley Museum Collection Tracker",
-      "description": "Find museum artifacts and minerals, check donation requirements and rewards, and track your collection with a local save.",
+      "title": "Stardew Valley Museum Collection Tracker | Field & Farm",
+      "h1": "Stardew Valley Museum Tracker",
+      "description": "Track 95 museum artifacts and minerals, filter acquisition routes, check donation rewards and arrange a practice museum display.",
       "primaryKeyword": "stardew valley museum",
       "volume": 4400,
       "kd": 24,
@@ -106,14 +118,19 @@
         "/perfection/"
       ],
       "task": "博物馆藏品查询、捐赠与布局",
-      "indexableAfterApproval": true
+      "indexableAfterApproval": true,
+      "searchAliases": [
+        "museum layout",
+        "museum donations",
+        "artifacts and minerals"
+      ]
     },
     {
       "path": "/predictor/",
       "priority": "P0",
-      "title": "Stardew Valley Seed Predictor | Free Online Tool",
+      "title": "Stardew Valley Seed & Geode Predictor | Field & Farm",
       "h1": "Stardew Valley Seed Predictor",
-      "description": "Predict supported game events using a game ID, date and version-specific rules. See required inputs and limits before relying on results.",
+      "description": "Explore experimental PC 1.6.15 geode openings and selected Traveling Cart offers. Use example IDs or your own IDs in the private workspace.",
       "primaryKeyword": "stardew valley seed predictor",
       "volume": 140,
       "kd": 15,
@@ -138,14 +155,19 @@
         "/crop-calculator/"
       ],
       "task": "已验证的随机事件预测，非地图生成",
-      "indexableAfterApproval": true
+      "indexableAfterApproval": true,
+      "searchAliases": [
+        "geode predictor",
+        "traveling cart",
+        "seed predictor"
+      ]
     },
     {
       "path": "/tracker/",
       "priority": "P0",
-      "title": "Stardew Valley Progress Tracker & Save Analyzer | Free Online Tool",
-      "h1": "Stardew Valley Progress Tracker & Save Analyzer",
-      "description": "Explore a progress dashboard and analyze a supported save file in a separate private workspace. Find missing collections and switch between farms.",
+      "title": "Stardew Valley Save & Progress Tracker | Field & Farm",
+      "h1": "Stardew Valley Save Tracker",
+      "description": "Inspect selected save fields locally, separate farm profiles and track recognized collection progress in a private browser workspace.",
       "primaryKeyword": "stardew valley tracker",
       "volume": 320,
       "kd": 26,
@@ -170,14 +192,19 @@
         "/fishing/"
       ],
       "task": "存档解析、总进度及角色管理",
-      "indexableAfterApproval": true
+      "indexableAfterApproval": true,
+      "searchAliases": [
+        "save analyzer",
+        "save checker",
+        "save tracker"
+      ]
     },
     {
       "path": "/crop-calculator/",
       "priority": "P0",
-      "title": "Stardew Valley Crop Profit Calculator | Free Online Tool",
-      "h1": "Stardew Valley Crop Profit Calculator",
-      "description": "Compare crop profits by season, planting date, budget and processing capacity. Explore feasible planting combinations and daily cash flow.",
+      "title": "Stardew Valley Crop Profit Calculator & Planner | Field & Farm",
+      "h1": "Stardew Valley Crop Calculator",
+      "description": "Compare crop profits by planting day, season, land, seed budget and processing capacity. Explore guaranteed yields and daily cash flow.",
       "primaryKeyword": "stardew crop calculator",
       "volume": 320,
       "kd": 17,
@@ -205,14 +232,19 @@
         "/crafting/"
       ],
       "task": "种植日历、现金流与收益组合",
-      "indexableAfterApproval": true
+      "indexableAfterApproval": true,
+      "searchAliases": [
+        "crop profit",
+        "crop planner",
+        "profit calculator"
+      ]
     },
     {
       "path": "/fair-calculator/",
       "priority": "P0",
-      "title": "Stardew Valley Fair Grange Display Calculator | Free Online Tool",
-      "h1": "Stardew Valley Fair Grange Display Calculator",
-      "description": "Calculate Grange Display points and compare item categories, qualities and available quantities to plan a better nine-slot display.",
+      "title": "Stardew Valley Fair Grange Display Calculator | Field & Farm",
+      "h1": "Stardew Valley Fair Calculator",
+      "description": "Score a nine-slot Grange Display using item categories, actual prices and qualities. Compare candidate quantities to plan a better display.",
       "primaryKeyword": "stardew valley fair calculator",
       "volume": 260,
       "kd": 14,
@@ -239,14 +271,19 @@
         "/crop-calculator/"
       ],
       "task": "展览评分及九格选品",
-      "indexableAfterApproval": true
+      "indexableAfterApproval": true,
+      "searchAliases": [
+        "grange display",
+        "fair score",
+        "grange calculator"
+      ]
     },
     {
       "path": "/fishing/",
       "priority": "P1",
-      "title": "Stardew Valley Fish Collection Tracker | Free Online Tool",
-      "h1": "Stardew Valley Fish Collection Tracker",
-      "description": "Find fish by season, weather, time and location. Check collection requirements and track missing fish in your private workspace.",
+      "title": "Stardew Valley Fish Collection Tracker | Field & Farm",
+      "h1": "Stardew Valley Fish Collection",
+      "description": "Track 72 fish collection entries and filter recorded seasons, locations, times and weather. Review missing fish and export your checklist.",
       "primaryKeyword": "fish collection stardew",
       "volume": 880,
       "kd": 15,
@@ -267,14 +304,18 @@
         "/tracker/"
       ],
       "task": "鱼类查询和捕获清单",
-      "indexableAfterApproval": true
+      "indexableAfterApproval": true,
+      "searchAliases": [
+        "fish collection",
+        "fishing checklist"
+      ]
     },
     {
       "path": "/perfection/",
       "priority": "P1",
-      "title": "Stardew Valley Perfection Checklist & Tracker | Free Online Tool",
-      "h1": "Stardew Valley Perfection Checklist & Tracker",
-      "description": "Review perfection requirements, see weighted progress and identify missing tasks. Use manual checks or a supported local save in the workspace.",
+      "title": "Stardew Valley Perfection Checklist & Tracker | Field & Farm",
+      "h1": "Stardew Valley Perfection Checklist",
+      "description": "Review weighted perfection requirements and track known progress, unknown values and waivers. Load supported local collection counts.",
       "primaryKeyword": "stardew valley perfection checklist",
       "volume": 590,
       "kd": 12,
@@ -304,14 +345,19 @@
         "/golden-walnuts/"
       ],
       "task": "100%完美度规则与详细任务",
-      "indexableAfterApproval": true
+      "indexableAfterApproval": true,
+      "searchAliases": [
+        "perfection tracker",
+        "100 percent checklist",
+        "perfection waivers"
+      ]
     },
     {
       "path": "/crafting/",
       "priority": "P1",
-      "title": "Stardew Valley Crafting Checklist | Free Online Tool",
+      "title": "Stardew Valley Crafting Recipes Checklist | Field & Farm",
       "h1": "Stardew Valley Crafting Checklist",
-      "description": "Find crafting recipes, unlock conditions and missing materials. Build a material list and track which recipes have been crafted.",
+      "description": "Track 149 reference crafting recipes, recipe status and ingredient quantities. Build a local material plan.",
       "primaryKeyword": "crafting stardew valley",
       "volume": 880,
       "kd": 17,
@@ -338,14 +384,19 @@
         "/shipping/"
       ],
       "task": "制作配方、解锁与材料汇总",
-      "indexableAfterApproval": true
+      "indexableAfterApproval": true,
+      "searchAliases": [
+        "crafting recipes",
+        "craft every item",
+        "material planner"
+      ]
     },
     {
       "path": "/shipping/",
       "priority": "P1",
-      "title": "Stardew Valley Shipping Checklist | Free Online Tool",
+      "title": "Stardew Valley Shipping Collection Checklist | Field & Farm",
       "h1": "Stardew Valley Shipping Checklist",
-      "description": "Explore items required for the shipping collection, filter missing entries, and check shipping progress with a supported local save.",
+      "description": "Search 154 reference shipping items and record completed shipments. Export your list or load recognized collection progress locally.",
       "primaryKeyword": "items shipped stardew",
       "volume": 1000,
       "kd": 25,
@@ -371,14 +422,19 @@
         "/crop-calculator/"
       ],
       "task": "出货收藏",
-      "indexableAfterApproval": true
+      "indexableAfterApproval": true,
+      "searchAliases": [
+        "shipping list",
+        "items shipped",
+        "full shipment"
+      ]
     },
     {
       "path": "/cooking/",
       "priority": "P1",
-      "title": "Stardew Valley Cooking Recipes Checklist | Free Online Tool",
-      "h1": "Stardew Valley Cooking Recipes Checklist",
-      "description": "Find cooking recipes, ingredients and unlock conditions. Create a missing-ingredients list and track completed recipes locally.",
+      "title": "Stardew Valley Cooking Recipes Checklist | Field & Farm",
+      "h1": "Stardew Valley Cooking Checklist",
+      "description": "Explore 81 cooking recipes, ingredients and completion status. Build a material plan and track progress locally.",
       "primaryKeyword": "stardew valley cooking",
       "volume": 1300,
       "kd": 26,
@@ -400,14 +456,19 @@
         "/fishing/"
       ],
       "task": "烹饪配方与进度",
-      "indexableAfterApproval": true
+      "indexableAfterApproval": true,
+      "searchAliases": [
+        "cooking recipes",
+        "recipe checklist",
+        "ingredient planner"
+      ]
     },
     {
       "path": "/golden-walnuts/",
       "priority": "P1",
-      "title": "Stardew Valley Golden Walnut Tracker | Free Online Tool",
+      "title": "Stardew Valley Golden Walnut Tracker & Checklist | Field & Farm",
       "h1": "Stardew Valley Golden Walnut Tracker",
-      "description": "Explore Golden Walnut sources and conditions by region, and track known, missing or unknown entries in your private workspace.",
+      "description": "Track 130 Golden Walnuts across Ginger Island tasks. Filter by method, record collected walnuts, upgrade spending and missing rewards.",
       "primaryKeyword": "golden walnuts stardew",
       "volume": 4400,
       "kd": 18,
@@ -425,14 +486,18 @@
         "/tracker/"
       ],
       "task": "黄金核桃分类及进度",
-      "indexableAfterApproval": true
+      "indexableAfterApproval": true,
+      "searchAliases": [
+        "golden walnuts",
+        "ginger island walnuts"
+      ]
     },
     {
       "path": "/farm-comparison/",
       "priority": "P1",
-      "title": "Stardew Valley Farm Types Comparison | Free Online Tool",
-      "h1": "Stardew Valley Farm Types Comparison",
-      "description": "Compare supported farm types, usable tiles and terrain features, then open a selected farm in the layout planner.",
+      "title": "Stardew Valley Farm Types Comparison | Field & Farm",
+      "h1": "Stardew Valley Farm Comparison",
+      "description": "Compare eight farm types by reference tillable area and terrain features. Open an original illustrative layout in the farm planner.",
       "primaryKeyword": "farm types stardew valley",
       "volume": 720,
       "kd": 21,
@@ -459,14 +524,19 @@
         "/crop-calculator/"
       ],
       "task": "农场类型比较、可用面积及地图选择",
-      "indexableAfterApproval": true
+      "indexableAfterApproval": true,
+      "searchAliases": [
+        "farm types",
+        "farm maps",
+        "farm comparison"
+      ]
     },
     {
       "path": "/grandpa-calculator/",
       "priority": "P2",
-      "title": "Stardew Valley Grandpa Evaluation Calculator | Free Online Tool",
-      "h1": "Stardew Valley Grandpa Evaluation Calculator",
-      "description": "Calculate Grandpa evaluation points from supported game rules, see candle thresholds and identify requirements you can improve.",
+      "title": "Stardew Valley Grandpa Evaluation Calculator | Field & Farm",
+      "h1": "Stardew Valley Grandpa Calculator",
+      "description": "Calculate Grandpa evaluation points from earnings, skills, friendships and milestones. Check the four-candle threshold and remaining points.",
       "primaryKeyword": "stardew valley grandpa evaluation",
       "volume": 210,
       "kd": 18,
@@ -486,14 +556,19 @@
         "/skills/"
       ],
       "task": "祖父评估计分",
-      "indexableAfterApproval": true
+      "indexableAfterApproval": true,
+      "searchAliases": [
+        "grandpa evaluation",
+        "four candles",
+        "grandpas evaluation"
+      ]
     },
     {
       "path": "/skills/",
       "priority": "P2",
-      "title": "Stardew Valley Skills Tracker | Free Online Tool",
+      "title": "Stardew Valley Skills, Professions & Mastery Tracker | Field & Farm",
       "h1": "Stardew Valley Skills Tracker",
-      "description": "Explore skill experience thresholds, profession branches and unlocks. Compare choices and track a supported player profile locally.",
+      "description": "Compare five skill XP thresholds, profession branches and mastery progress. Enter values manually or load recognized local save data.",
       "primaryKeyword": "stardew valley skills",
       "volume": 880,
       "kd": 19,
@@ -511,7 +586,12 @@
         "/crop-calculator/"
       ],
       "task": "技能及职业路线",
-      "indexableAfterApproval": true
+      "indexableAfterApproval": true,
+      "searchAliases": [
+        "skill xp",
+        "mastery points",
+        "professions"
+      ]
     }
   ]
 }

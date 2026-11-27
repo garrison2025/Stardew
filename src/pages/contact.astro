@@ -1,0 +1,7 @@
+---
+import JournalSupport from '../layouts/JournalSupport.astro';
+const contact=import.meta.env.PUBLIC_CONTACT_EMAIL;
+const valid=typeof contact==='string'&&/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact);
+---
+<JournalSupport title="Contact and corrections" summary="Report calculation errors, accessibility issues or artwork concerns.">
+<div class="panel journal-support-card"><p>Include the tool URL, game version, expected result and a minimal reproduction. Do not share your original save, personal IDs, passwords or private screenshots.</p>{valid?<p>Email: <a href={'mailto:'+contact}>{contact}</a></p>:<p>The dedicated contact email has not yet been configured for this preview. Use the <a href="https://github.com/garrison2025/Stardew/issues" rel="noreferrer">project issue tracker</a> for non-sensitive reports.</p>}<p>For rights concerns, identify the relevant URL and asset or content. Do not post private legal or contact details publicly; use the dedicated email once configured.</p><a href="/">Return to tools</a></div></JournalSupport>

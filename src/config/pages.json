@@ -3,8 +3,8 @@
     "slug": "",
     "path": "/",
     "h1": "Stardew Valley Farm Planner",
-    "title": "Stardew Valley Farm Planner | Field & Farm",
-    "description": "Design a farm layout on an illustrative grid, measure coverage, and export a plan.",
+    "title": "Stardew Valley Farm Planner & Layout Editor | Field & Farm",
+    "description": "Design farm layouts on eight practice landscapes. Place buildings, paths and sprinklers, compare coverage, arrange interiors and export editable plans.",
     "primaryKeyword": "stardew valley planner",
     "volume": 8100,
     "kd": 22,
@@ -30,14 +30,21 @@
     "priority": "P0",
     "guideTitle": "Plan a layout before building",
     "guideText": "Choose one of eight original landscape templates or import a private terrain package. Place objects, inspect water coverage and arrange linked building interiors. Export JSON to retain editable data; PNG is a visual snapshot. Built-in landscapes are not extracted game maps.",
-    "researchClusterSize": 89
+    "researchClusterSize": 89,
+    "searchAliases": [
+      "farm layout planner",
+      "farm layout editor",
+      "sprinkler layout",
+      "farm design",
+      "sdv planner"
+    ]
   },
   {
     "slug": "bundles",
     "path": "/bundles/",
     "h1": "Stardew Valley Bundle Tracker",
-    "title": "Stardew Valley Bundle Tracker | Field & Farm",
-    "description": "Track standard Community Center bundle donations, optional slots, quality requirements and room rewards.",
+    "title": "Stardew Valley Community Center Bundle Tracker | Field & Farm",
+    "description": "Track standard Community Center bundles by room, season, quantity and quality. Record remixed requirements manually or review supported local save data.",
     "primaryKeyword": "stardew bundles",
     "volume": 6600,
     "kd": 26,
@@ -63,14 +70,19 @@
     "priority": "P0",
     "guideTitle": "Choose the required donation slots",
     "guideText": "Track standard donations and quantities separately. Optional bundles need only the stated number of qualifying slots. Use season and room filters, or record the actual requirements of your remixed bundle in the separate manual checklist.",
-    "researchClusterSize": 12
+    "researchClusterSize": 12,
+    "searchAliases": [
+      "community center",
+      "bundle checklist",
+      "remixed bundles"
+    ]
   },
   {
     "slug": "museum",
     "path": "/museum/",
     "h1": "Stardew Valley Museum Tracker",
-    "title": "Stardew Valley Museum Tracker | Field & Farm",
-    "description": "Track all 95 museum donations, acquisition routes and reward milestones.",
+    "title": "Stardew Valley Museum Collection Tracker | Field & Farm",
+    "description": "Track 95 museum artifacts and minerals, filter acquisition routes, check donation rewards and arrange a practice museum display.",
     "primaryKeyword": "stardew valley museum",
     "volume": 4400,
     "kd": 24,
@@ -95,14 +107,19 @@
     "priority": "P0",
     "guideTitle": "Find missing artifacts and minerals",
     "guideText": "Discovery is not donation. Use acquisition filters and reward milestones, then arrange items on an original practice display grid. This is not the exact in-game museum floor plan.",
-    "researchClusterSize": 18
+    "researchClusterSize": 18,
+    "searchAliases": [
+      "museum layout",
+      "museum donations",
+      "artifacts and minerals"
+    ]
   },
   {
     "slug": "predictor",
     "path": "/predictor/",
     "h1": "Stardew Valley Seed Predictor",
-    "title": "Stardew Valley Seed Predictor | Field & Farm",
-    "description": "Try an experimental PC 1.6.15 geode opener with example IDs, then compare possible finds with the museum checklist.",
+    "title": "Stardew Valley Seed & Geode Predictor | Field & Farm",
+    "description": "Explore experimental PC 1.6.15 geode openings and selected Traveling Cart offers. Use example IDs or your own IDs in the private workspace.",
     "primaryKeyword": "stardew valley seed predictor",
     "volume": 140,
     "kd": 15,
@@ -125,14 +142,19 @@
     "priority": "P0",
     "guideTitle": "Try the 1.6.15 geode opener",
     "guideText": "Select a container and enter how many openings the example farmer has completed. Review the next 20 candidate slots, or open the private workspace to enter your own fields locally. Independent game verification is pending.",
-    "researchClusterSize": 11
+    "researchClusterSize": 11,
+    "searchAliases": [
+      "geode predictor",
+      "traveling cart",
+      "seed predictor"
+    ]
   },
   {
     "slug": "tracker",
     "path": "/tracker/",
     "h1": "Stardew Valley Save Tracker",
-    "title": "Stardew Valley Save Tracker | Field & Farm",
-    "description": "Inspect a save locally and summarize separately recorded collection progress.",
+    "title": "Stardew Valley Save & Progress Tracker | Field & Farm",
+    "description": "Inspect selected save fields locally, separate farm profiles and track recognized collection progress in a private browser workspace.",
     "primaryKeyword": "stardew valley tracker",
     "volume": 320,
     "kd": 26,
@@ -155,14 +177,19 @@
     "priority": "P0",
     "guideTitle": "Inspect a save without uploading it",
     "guideText": "The separate private workspace reads selected main-player XML fields, merges recognized collection observations in one local transaction and allows explicit XP and earnings prefill. Missing values remain unknown; this is not a complete game save reconstruction.",
-    "researchClusterSize": 15
+    "researchClusterSize": 15,
+    "searchAliases": [
+      "save analyzer",
+      "save checker",
+      "save tracker"
+    ]
   },
   {
     "slug": "crop-calculator",
     "path": "/crop-calculator/",
     "h1": "Stardew Valley Crop Calculator",
-    "title": "Stardew Valley Crop Calculator | Field & Farm",
-    "description": "Compare planting schedules, seed costs, harvest income and budget.",
+    "title": "Stardew Valley Crop Profit Calculator & Planner | Field & Farm",
+    "description": "Compare crop profits by planting day, season, land, seed budget and processing capacity. Explore guaranteed yields and daily cash flow.",
     "primaryKeyword": "stardew crop calculator",
     "volume": 320,
     "kd": 17,
@@ -188,14 +215,19 @@
     "priority": "P0",
     "guideTitle": "Compare planting and processing plans",
     "guideText": "Choose a planting day, tiles and planting budget. Compare guaranteed yields and raw sales, optionally test two seasons or a fixed fertilizer and quality scenario, then check cash and machine capacity in the economy tool.",
-    "researchClusterSize": 45
+    "researchClusterSize": 45,
+    "searchAliases": [
+      "crop profit",
+      "crop planner",
+      "profit calculator"
+    ]
   },
   {
     "slug": "fair-calculator",
     "path": "/fair-calculator/",
     "h1": "Stardew Valley Fair Calculator",
-    "title": "Stardew Valley Fair Calculator | Field & Farm",
-    "description": "Calculate grange display points from nine slots, actual sale values, quality and categories.",
+    "title": "Stardew Valley Fair Grange Display Calculator | Field & Farm",
+    "description": "Score a nine-slot Grange Display using item categories, actual prices and qualities. Compare candidate quantities to plan a better display.",
     "primaryKeyword": "stardew valley fair calculator",
     "volume": 260,
     "kd": 14,
@@ -220,14 +252,19 @@
     "priority": "P0",
     "guideTitle": "Build a nine-slot grange display",
     "guideText": "Enter actual sale values, quality and Fair categories, or supply a quantity-limited list of available candidates to optimize the nine-slot display. The score separates quantity, variety and item points. Do not apply sale-value multipliers twice.",
-    "researchClusterSize": 27
+    "researchClusterSize": 27,
+    "searchAliases": [
+      "grange display",
+      "fair score",
+      "grange calculator"
+    ]
   },
   {
     "slug": "fishing",
     "path": "/fishing/",
     "h1": "Stardew Valley Fish Collection",
-    "title": "Stardew Valley Fish Collection | Field & Farm",
-    "description": "Track 72 fish collection entries with common acquisition conditions and season filters.",
+    "title": "Stardew Valley Fish Collection Tracker | Field & Farm",
+    "description": "Track 72 fish collection entries and filter recorded seasons, locations, times and weather. Review missing fish and export your checklist.",
     "primaryKeyword": "fish collection stardew",
     "volume": 880,
     "kd": 15,
@@ -246,14 +283,18 @@
     "priority": "P1",
     "guideTitle": "Find fish for your collection",
     "guideText": "Filter recorded main-route season, location, weather, time and acquisition method. Missing conditions remain unspecified, not guaranteed. Record actual catches; challenge-only legendary variants are excluded.",
-    "researchClusterSize": 6
+    "researchClusterSize": 6,
+    "searchAliases": [
+      "fish collection",
+      "fishing checklist"
+    ]
   },
   {
     "slug": "perfection",
     "path": "/perfection/",
     "h1": "Stardew Valley Perfection Checklist",
-    "title": "Stardew Valley Perfection Checklist | Field & Farm",
-    "description": "Estimate perfection from fixed weighted collection, milestone and waiver rules.",
+    "title": "Stardew Valley Perfection Checklist & Tracker | Field & Farm",
+    "description": "Review weighted perfection requirements and track known progress, unknown values and waivers. Load supported local collection counts.",
     "primaryKeyword": "stardew valley perfection checklist",
     "volume": 590,
     "kd": 12,
@@ -281,14 +322,19 @@
     "priority": "P1",
     "guideTitle": "Estimate your weighted completion",
     "guideText": "Enter observed category counts and distinguish unknown from a confirmed zero. The weighted range shows a known lower bound and maximum possible completion. The private workspace can load saved manual collection counts.",
-    "researchClusterSize": 13
+    "researchClusterSize": 13,
+    "searchAliases": [
+      "perfection tracker",
+      "100 percent checklist",
+      "perfection waivers"
+    ]
   },
   {
     "slug": "crafting",
     "path": "/crafting/",
     "h1": "Stardew Valley Crafting Checklist",
-    "title": "Stardew Valley Crafting Checklist | Field & Farm",
-    "description": "Track 149 standard crafting recipes and aggregate materials for planned batches.",
+    "title": "Stardew Valley Crafting Recipes Checklist | Field & Farm",
+    "description": "Track 149 reference crafting recipes, recipe status and ingredient quantities. Build a local material plan.",
     "primaryKeyword": "crafting stardew valley",
     "volume": 880,
     "kd": 17,
@@ -313,14 +359,19 @@
     "priority": "P1",
     "guideTitle": "Prepare a batch of crafting recipes",
     "guideText": "Select recipes and batch quantities, then inspect direct ingredients, stock shortages and estimated costs. Batch outputs may contain multiple items. Intermediate recipes and profession-specific ingredient substitutions are not automatically expanded.",
-    "researchClusterSize": 15
+    "researchClusterSize": 15,
+    "searchAliases": [
+      "crafting recipes",
+      "craft every item",
+      "material planner"
+    ]
   },
   {
     "slug": "shipping",
     "path": "/shipping/",
     "h1": "Stardew Valley Shipping Checklist",
-    "title": "Stardew Valley Shipping Checklist | Field & Farm",
-    "description": "Track 154 shipping collection entries and filter missing items.",
+    "title": "Stardew Valley Shipping Collection Checklist | Field & Farm",
+    "description": "Search 154 reference shipping items and record completed shipments. Export your list or load recognized collection progress locally.",
     "primaryKeyword": "items shipped stardew",
     "volume": 1000,
     "kd": 25,
@@ -344,14 +395,19 @@
     "priority": "P1",
     "guideTitle": "Review items not yet shipped",
     "guideText": "Filter the 154 reference entries and mark an item only after shipping it in the game. Finding or owning an item is not the same as shipping it. Export your checklist for later use.",
-    "researchClusterSize": 8
+    "researchClusterSize": 8,
+    "searchAliases": [
+      "shipping list",
+      "items shipped",
+      "full shipment"
+    ]
   },
   {
     "slug": "cooking",
     "path": "/cooking/",
     "h1": "Stardew Valley Cooking Checklist",
-    "title": "Stardew Valley Cooking Checklist | Field & Farm",
-    "description": "Track 81 dishes, plan cooking batches and aggregate direct ingredients.",
+    "title": "Stardew Valley Cooking Recipes Checklist | Field & Farm",
+    "description": "Explore 81 cooking recipes, ingredients and completion status. Build a material plan and track progress locally.",
     "primaryKeyword": "stardew valley cooking",
     "volume": 1300,
     "kd": 26,
@@ -371,14 +427,19 @@
     "priority": "P1",
     "guideTitle": "Plan dishes and ingredient purchases",
     "guideText": "Select recipes, enter batch quantities, and compare required ingredients against current inventory. Unlock hints identify common learning routes. Unknown prices remain unknown; intermediate dishes are not recursively expanded.",
-    "researchClusterSize": 6
+    "researchClusterSize": 6,
+    "searchAliases": [
+      "cooking recipes",
+      "recipe checklist",
+      "ingredient planner"
+    ]
   },
   {
     "slug": "golden-walnuts",
     "path": "/golden-walnuts/",
     "h1": "Stardew Valley Golden Walnut Tracker",
-    "title": "Stardew Valley Golden Walnut Tracker | Field & Farm",
-    "description": "Track Golden Walnut tasks by region, collection progress and upgrade spending.",
+    "title": "Stardew Valley Golden Walnut Tracker & Checklist | Field & Farm",
+    "description": "Track 130 Golden Walnuts across Ginger Island tasks. Filter by method, record collected walnuts, upgrade spending and missing rewards.",
     "primaryKeyword": "golden walnuts stardew",
     "volume": 4400,
     "kd": 18,
@@ -394,14 +455,18 @@
     "priority": "P1",
     "guideTitle": "Track lifetime finds separately from spending",
     "guideText": "Record repeated drops individually and fixed rewards as complete tasks. The upgrade ledger subtracts purchases from recorded balance, not lifetime collection. Puzzle hints can be revealed when needed.",
-    "researchClusterSize": 2
+    "researchClusterSize": 2,
+    "searchAliases": [
+      "golden walnuts",
+      "ginger island walnuts"
+    ]
   },
   {
     "slug": "farm-comparison",
     "path": "/farm-comparison/",
     "h1": "Stardew Valley Farm Comparison",
-    "title": "Stardew Valley Farm Comparison | Field & Farm",
-    "description": "Compare eight farm types by tillable area, additional buildable tiles and characteristics.",
+    "title": "Stardew Valley Farm Types Comparison | Field & Farm",
+    "description": "Compare eight farm types by reference tillable area and terrain features. Open an original illustrative layout in the farm planner.",
     "primaryKeyword": "farm types stardew valley",
     "volume": 720,
     "kd": 21,
@@ -426,14 +491,19 @@
     "priority": "P1",
     "guideTitle": "Choose a farm for your priorities",
     "guideText": "Compare eight farm types by reference area and characteristics. Water, obstacles and sprinkler restrictions affect practical capacity. The original design templates are illustrative, not pixel-accurate game maps.",
-    "researchClusterSize": 37
+    "researchClusterSize": 37,
+    "searchAliases": [
+      "farm types",
+      "farm maps",
+      "farm comparison"
+    ]
   },
   {
     "slug": "grandpa-calculator",
     "path": "/grandpa-calculator/",
     "h1": "Stardew Valley Grandpa Calculator",
-    "title": "Stardew Valley Grandpa Calculator | Field & Farm",
-    "description": "Calculate Grandpa evaluation points and candle thresholds from earnings, skills and milestones.",
+    "title": "Stardew Valley Grandpa Evaluation Calculator | Field & Farm",
+    "description": "Calculate Grandpa evaluation points from earnings, skills, friendships and milestones. Check the four-candle threshold and remaining points.",
     "primaryKeyword": "stardew valley grandpa evaluation",
     "volume": 210,
     "kd": 18,
@@ -451,14 +521,19 @@
     "priority": "P2",
     "guideTitle": "Calculate the four-candle threshold",
     "guideText": "Enter lifetime earnings, skill levels, friendships and completed milestones. Four candles require at least 12 points in the reference model. Record community center completion and its ceremony separately.",
-    "researchClusterSize": 6
+    "researchClusterSize": 6,
+    "searchAliases": [
+      "grandpa evaluation",
+      "four candles",
+      "grandpas evaluation"
+    ]
   },
   {
     "slug": "skills",
     "path": "/skills/",
     "h1": "Stardew Valley Skills Tracker",
-    "title": "Stardew Valley Skills Tracker | Field & Farm",
-    "description": "Calculate skill levels, XP thresholds and mastery progress.",
+    "title": "Stardew Valley Skills, Professions & Mastery Tracker | Field & Farm",
+    "description": "Compare five skill XP thresholds, profession branches and mastery progress. Enter values manually or load recognized local save data.",
     "primaryKeyword": "stardew valley skills",
     "volume": 880,
     "kd": 19,
@@ -474,6 +549,11 @@
     "priority": "P2",
     "guideTitle": "Plan the next skill level",
     "guideText": "Enter skill experience and mastery points to compare against thresholds. The overnight level-up event determines actual profession rewards. Mastery points are separate from the five base skill experience values.",
-    "researchClusterSize": 1
+    "researchClusterSize": 1,
+    "searchAliases": [
+      "skill xp",
+      "mastery points",
+      "professions"
+    ]
   }
 ]

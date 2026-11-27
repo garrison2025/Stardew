@@ -210,3 +210,11 @@ body {font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
  .journal-content .map-footer {align-items:flex-start}
  .journal-content .map-footer .quick-help summary {min-height:44px}
 }
+
+/* Support pages and screenshot controls: shared journal styling. */
+.journal-support {max-width:960px;margin-inline:auto;padding:24px 20px 48px}
+.journal-support-card {max-width:800px;margin:20px auto;padding:clamp(16px,4vw,32px);line-height:1.7}
+.journal-support-card h2 {margin-top:24px;font-size:1.2rem}
+.journal-return {display:inline-flex;align-items:center;gap:8px;min-height:44px}
+.screenshot-bounds {display:block;max-width:100%;height:auto;margin:8px auto;touch-action:none;cursor:crosshair;border:1px solid currentColor;border-radius:6px}
+@media(max-width:700px){.journal-tool-meta a{min-height:44px;display:inline-flex;align-items:center}.journal-support{padding:12px 12px 32px}}

@@ -1,4 +1,9 @@
 ---
-import '../styles/global.css';
+import JournalSupport from '../layouts/JournalSupport.astro';
 ---
-<!doctype html><html lang="en"><head><meta charset="utf-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/><meta name="robots" content="noindex,nofollow"/><title>Privacy | Field &amp; Farm</title></head><body><div class="top"><a href="/">Field &amp; Farm</a></div><main class="panel" style="max-width:760px;margin:24px auto"><h1>Privacy</h1><p>This development preview does not use analytics or advertising scripts. Public tools use memory only. The separate private workspace stores explicitly saved project data in your browser's IndexedDB. Save-file inspection runs locally; raw XML is not retained by the app. Exports may include personal data you entered, so keep them safe. Clear stored records using browser site settings. Your hosting provider may process ordinary HTTP access logs. Browser extensions and people with access to your device may be able to access local data.</p><a href="/">Return to tools</a></main></body></html>
+<JournalSupport title="Privacy" summary="How the public tools and private workspace handle your data.">
+<div class="panel journal-support-card">
+<h2>What stays on your device</h2><p>Public tools use memory only. The separate private workspace stores explicitly saved project data in your browser’s IndexedDB. Save inspection runs locally, and the app does not retain the raw XML.</p>
+<h2>Managing your data</h2><p>Exports may include personal data you entered. Keep those files safe. You can clear stored records using your browser’s site settings. Browser extensions and anyone with access to your device may be able to read local data.</p>
+<h2>Requests to this site</h2><p>The development preview has no analytics or advertising scripts. The hosting provider may process ordinary HTTP access logs.</p>
+<a class="journal-return" href="/">Return to tools</a></div></JournalSupport>

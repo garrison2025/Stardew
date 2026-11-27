@@ -37,4 +37,4 @@ export function optimizeCrops(crops:Crop[],days:number,plots:number,budget:numbe
 }
 export function summarizeWeights(rows:{weight:number;done:boolean}[]){const total=rows.reduce((s,r)=>s+r.weight,0);const done=rows.reduce((s,r)=>s+(r.done?r.weight:0),0);return {done,total,percent:total?done/total*100:null};}
 export function aggregateIngredients(lines:string[]){const out=new Map<string,number>();for(const line of lines){const m=line.trim().match(/^(.+?)\s*:\s*(\d+)$/);if(!m)throw new Error('Use ingredient: quantity on each line');const name=m[1].trim(),n=integer(Number(m[2]),1,100000);out.set(name,(out.get(name)||0)+n);}return [...out.entries()];}
-export function verifySaveText(xml:string){if(xml.length>10*1024*1024)throw new Error('Preview limit: 10 MiB');if(/<!\s*(DOCTYPE|ENTITY)/i.test(xml))throw new Error('DTD and entity declarations are not supported');}
+export function verifySaveText(xml:string){if(xml.length>50*1024*1024)throw new Error('Save exceeds 50 MiB limit');if(/<!\s*(DOCTYPE|ENTITY)/i.test(xml))throw new Error('DTD and entity declarations are not supported');}
