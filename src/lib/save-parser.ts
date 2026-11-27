@@ -1,3 +1,5 @@
+import {CART_SEASONS,type CartStart,type CartSeason} from './cart-forecast';
+import {saveFingerprint} from './save-binding';
 import {readBundleDefinition, type SaveBundle} from './save-bundles';
 import type {GeodeInput} from './geode-prediction';
 import {verifySaveText} from './engine';
@@ -45,7 +47,7 @@ function readGeodeFields(root: Element, player: Element | undefined): GeodeInput
  const qiBeans = Array.from(orders.children).some(order => order.localName === 'SpecialOrder' && /\bDROP_QI_BEANS\b/.test(text(order, 'specialRule')));
  return {gameId, playerId, opened, mineLevel: Math.min(depth, 120), legacy: legacy === 'true', qiBeans};
 }
-function readProgress(root:Element,player:Element|undefined):SaveProgress{
+function readProgress(root:Element,player:Element|undefined,shared=true):SaveProgress{
  const warnings:string[]=[];
  const read=(el:Element|undefined,name:string,max=1000000000)=>safeCount(num(text(el,name)),max);
  const xpNode=child(player,'experiencePoints'),xp=xpNode?normalizeSkillXp(Array.from(xpNode.children).map(e=>e.localName==='int'?num(e.textContent?.trim()??''):null)):null;
@@ -58,11 +60,13 @@ function readProgress(root:Element,player:Element|undefined):SaveProgress{
  function objectRows(parent:Element|undefined,name:string,array=false,museum=false):NamedCount[]|null{const el=child(parent,name);if(!el||xsi(el,'nil')==='true'||el.children.length>2000)return null;const result:NamedCount[]=[];for(const entry of Array.from(el.children)){if(entry.localName!=='item')return null;const key=child(entry,'key'),value=child(entry,'value'),k=museum?(text(value,'string')||text(value,'int')):(text(key,'string')||text(key,'int')),count=museum?1:array?num(text(child(value,'ArrayOfInt'),'int')):num(text(value,'int'));if(!k||k.length>160||count===null||count<0)return null;result.push({name:k,count})}return result}
  const observed=[['shipping',objectRows(player,'basicShipped')],['fishing',objectRows(player,'fishCaught',true)],['cooking',objectRows(player,'recipesCooked')]] as const;
  for(const [kind,rows] of observed){if(rows)collections[kind]=normalizeObjectCollection(kind,rows);else warnings.push(kind+' records absent or unsupported.')}
+ if(shared){
  const museums=Array.from(child(root,'locations')?.children??[]).filter(e=>e.localName==='GameLocation'&&text(e,'name')==='ArchaeologyHouse');const donations=objectRows(museums.length===1?museums[0]:undefined,'museumPieces',false,true);if(donations)collections.museum=normalizeObjectCollection('museum',donations);else warnings.push('Museum donation dictionary absent or unsupported.');
- const walnutsFound=read(root,'goldenWalnutsFound',130),walnutsBalance=read(root,'goldenWalnuts',130);
- if(walnutsFound===null||walnutsBalance===null)warnings.push('Walnut counters absent or outside standard range.');
+ }
+ const walnutsFound=shared?read(root,'goldenWalnutsFound',130):null,walnutsBalance=shared?read(root,'goldenWalnuts',130):null;
+ if(shared&&(walnutsFound===null||walnutsBalance===null))warnings.push('Walnut counters absent or outside standard range.');
  if(walnutsFound!==null&&walnutsBalance!==null&&walnutsBalance>walnutsFound)warnings.push('Walnut balance exceeds lifetime count; inspect the save in game.');
- if(Array.from(child(root,'farmhands')?.children??[]).some(e=>e.localName==='Farmer'))warnings.push('Multiplayer save: only the main player is summarized; no combined perfection score.');
+ if(shared&&Array.from(child(root,'farmhands')?.children??[]).some(e=>e.localName==='Farmer'))warnings.push('Farmhand observations are shown separately. Shared counters and tracker merges are attached to the host view.');
  return {xp,money:read(player,'money'),lifetimeEarnings:read(player,'totalMoneyEarned'),walnutsFound,walnutsBalance,crafting,learnedCooking:cooking?.length??null,collections,warnings}
 }
 function parseMainSave(xml: string) {
@@ -74,8 +78,7 @@ function parseMainSave(xml: string) {
  const player = child(root, 'player'), version = (text(root, 'gameVersion') || text(player, 'gameVersion') || 'Unknown').slice(0, 40);
  return {root, fields, player, version};
 }
-export function parseSave(xml:string):SaveSnapshot{
- const {root, fields, player, version} = parseMainSave(xml);
+function inspectSaveRoot({root, fields, player, version}:ReturnType<typeof parseMainSave>):SaveSnapshot{
  const rawSeason=text(root,'currentSeason').toLowerCase(),seasonText=rawSeason==='fall'?'autumn':rawSeason,season=SEASONS.includes(seasonText as Season)?seasonText as Season:null;
  const farmLocations=Array.from(child(root,'locations')?.children??[]).filter(e=>e.localName==='GameLocation'&&text(e,'name')==='Farm');
  const farm=farmLocations.length===1?farmLocations[0]:undefined;
@@ -85,6 +88,16 @@ export function parseSave(xml:string):SaveSnapshot{
   snapshot.progress=readProgress(root,player);
   const bundles = readBundles(root);
   if (bundles) snapshot.progress.bundles = bundles;
+  const hostId = text(player, 'UniqueMultiplayerID');
+  const ids = new Set([hostId]);
+  snapshot.farmhands = [];
+  for (const member of Array.from(child(root, 'farmhands')?.children ?? []).slice(0,32)) {
+   const id = text(member, 'UniqueMultiplayerID');
+   if (member.localName !== 'Farmer' || !/^-?\d{1,20}$/.test(id) || id === '0' || ids.has(id)) continue;
+   if (!text(member, 'name') && !text(member, 'userID')) continue;
+   ids.add(id);
+   snapshot.farmhands.push(readProgress(root, member, false));
+  }
  }
  if(!supportedVersion(version)||!farm)return snapshot;
  for(const b of Array.from(child(farm,'buildings')?.children??[])){
@@ -113,8 +126,24 @@ export async function readGeodeSave(file: File) {
  if (!fields) throw Error('The required main-player RNG fields are missing or unsupported. Confirm the values in game and enter them manually.');
  return fields;
 }
+export async function readCartSave(file: File): Promise<CartStart> {
+ const {root, version} = parseMainSave(await readSaveText(file));
+ if (version !== '1.6.15') throw Error('Cart save prefill requires game version 1.6.15.');
+ const gameId = text(root, 'uniqueIDForThisGame'), legacy = text(root, 'useLegacyRandom');
+ const year = num(text(root, 'year')), day = num(text(root, 'dayOfMonth'));
+ const rawSeason = text(root, 'currentSeason').toLowerCase();
+ const season = (rawSeason === 'fall' ? 'autumn' : rawSeason) as CartSeason;
+ if (!gameId || !['true','false'].includes(legacy) || year === null || day === null || !CART_SEASONS.includes(season)) throw Error('The save does not contain all required cart fields.');
+ return {gameId, legacy: legacy === 'true', year, day, season};
+}
 async function readSaveText(file: File) {
  if (file.size > 10 * 1024 * 1024) throw Error('File exceeds 10 MiB preview limit.');
  return file.text();
 }
-export async function readSave(file:File){return parseSave(await readSaveText(file))}
+export function parseSave(xml: string): SaveSnapshot { return inspectSaveRoot(parseMainSave(xml)); }
+export async function readSave(file: File) {
+ const parsed = parseMainSave(await readSaveText(file));
+ const snapshot = inspectSaveRoot(parsed);
+ if (snapshot.progress) snapshot.fingerprint = await saveFingerprint(text(parsed.root, 'uniqueIDForThisGame'), text(parsed.player, 'UniqueMultiplayerID'));
+ return snapshot;
+}
