@@ -130,7 +130,7 @@
       "priority": "P0",
       "title": "Stardew Valley Seed & Geode Predictor | Field & Farm",
       "h1": "Stardew Valley Seed Predictor",
-      "description": "Explore experimental PC 1.6.15 geode openings and selected Traveling Cart offers. Use example IDs or your own IDs in the private workspace.",
+      "description": "Explore PC 1.6.15 reference geode openings, selected Traveling Cart offers, train times, green rain and overnight event candidates.",
       "primaryKeyword": "stardew valley seed predictor",
       "volume": 140,
       "kd": 15,
@@ -159,7 +159,10 @@
       "searchAliases": [
         "geode predictor",
         "traveling cart",
-        "seed predictor"
+        "seed predictor",
+        "train schedule",
+        "green rain",
+        "overnight events"
       ]
     },
     {
@@ -167,7 +170,7 @@
       "priority": "P0",
       "title": "Stardew Valley Save & Progress Tracker | Field & Farm",
       "h1": "Stardew Valley Save Tracker",
-      "description": "Inspect selected save fields locally, separate farm profiles and track recognized collection progress in a private browser workspace.",
+      "description": "Inspect save fields locally, including steps taken, skills, monster goals and collection progress. Keep separate farm profiles in a private workspace.",
       "primaryKeyword": "stardew valley tracker",
       "volume": 320,
       "kd": 26,
@@ -196,7 +199,9 @@
       "searchAliases": [
         "save analyzer",
         "save checker",
-        "save tracker"
+        "save tracker",
+        "steps taken",
+        "monster goals"
       ]
     },
     {
@@ -204,7 +209,7 @@
       "priority": "P0",
       "title": "Stardew Valley Crop Profit Calculator & Planner | Field & Farm",
       "h1": "Stardew Valley Crop Calculator",
-      "description": "Compare crop profits by planting day, season, land, seed budget and processing capacity. Explore guaranteed yields and daily cash flow.",
+      "description": "Compare seasonal crop profits, fertilizer, budget, greenhouse and Ginger Island yields. Plan up to 112 growing days or simulate processing cash flow.",
       "primaryKeyword": "stardew crop calculator",
       "volume": 320,
       "kd": 17,
@@ -236,7 +241,10 @@
       "searchAliases": [
         "crop profit",
         "crop planner",
-        "profit calculator"
+        "profit calculator",
+        "greenhouse profit",
+        "ginger island crops",
+        "most profitable crops"
       ]
     },
     {
@@ -244,7 +252,7 @@
       "priority": "P0",
       "title": "Stardew Valley Fair Grange Display Calculator | Field & Farm",
       "h1": "Stardew Valley Fair Calculator",
-      "description": "Score a nine-slot Grange Display using item categories, actual prices and qualities. Compare candidate quantities to plan a better display.",
+      "description": "Score and optimize a nine-slot Grange Display. Browse category-based example items and confirm actual sale values, qualities and available quantities.",
       "primaryKeyword": "stardew valley fair calculator",
       "volume": 260,
       "kd": 14,
@@ -275,7 +283,9 @@
       "searchAliases": [
         "grange display",
         "fair score",
-        "grange calculator"
+        "grange calculator",
+        "fair items",
+        "fair first place"
       ]
     },
     {
@@ -315,7 +325,7 @@
       "priority": "P1",
       "title": "Stardew Valley Perfection Checklist & Tracker | Field & Farm",
       "h1": "Stardew Valley Perfection Checklist",
-      "description": "Review weighted perfection requirements and track known progress, unknown values and waivers. Load supported local collection counts.",
+      "description": "Track weighted perfection requirements, 12 monster eradication goals and collection progress. Compare known minimums, unknown values and waivers.",
       "primaryKeyword": "stardew valley perfection checklist",
       "volume": 590,
       "kd": 12,
@@ -348,8 +358,9 @@
       "indexableAfterApproval": true,
       "searchAliases": [
         "perfection tracker",
-        "100 percent checklist",
-        "perfection waivers"
+        "completion checklist",
+        "monster eradication goals",
+        "monster slayer"
       ]
     },
     {

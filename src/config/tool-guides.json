@@ -112,6 +112,10 @@
       [
         "Does the Traveling Cart forecast show the full stock?",
         "No. It covers selected seeded offers in the PC 1.6.15 reference. Full random stock and independent in-game fixtures remain outside the current model."
+      ],
+      [
+        "Can I predict train times or green rain?",
+        "The 28-day calendar shows seeded railroad, green rain and overnight event candidates. Farm state and reload behavior can change actual outcomes."
       ]
     ]
   },
@@ -139,6 +143,10 @@
       [
         "Can I track multiple farms?",
         "Yes. The private workspace keeps named farm profiles in separate local databases. Switch profiles before importing another farm; identifiable saves cannot merge into a differently bound profile. Save or export edits first. Farmhands are separate observations, not a shared perfection calculation."
+      ],
+      [
+        "How many steps have I taken in Stardew Valley?",
+        "Open the private workspace and choose the main save. Read Steps taken in the observed fields. The value is read from the player's stepsTaken statistic; absent or duplicate records stay unknown."
       ]
     ]
   },
@@ -165,11 +173,15 @@
       ],
       [
         "Do these results include fertilizer or random extra yields?",
-        "The base seasonal model uses normal-quality minimum yields; processing and professions are limited to the separate economy model."
+        "Growth fertilizer and fixed quality are explicit inputs. Guaranteed base yields exclude random extras; the expected-quality scenario is separate."
       ],
       [
         "Are the results expected-quality profits?",
         "No. The default model uses guaranteed base yields. Quality and faster growth are explicit what-if inputs; the processing ledger is a daily approximation."
+      ],
+      [
+        "What are the most profitable greenhouse crops?",
+        "Compare a protected growing window of up to 112 days, with your actual soil tiles, budget and seeds. Ancient Fruit and other limited seeds use a confirmed stock count; shop-price rankings assume available stock."
       ]
     ]
   },
@@ -197,6 +209,10 @@
       [
         "Can I reuse an item in the recommendation?",
         "Only up to the quantity you enter. The optimizer cannot inspect actual inventory."
+      ],
+      [
+        "What items help win the Stardew Valley Fair?",
+        "The reference candidate library offers one example per recognized category. Six different categories maximize the variety bonus; nine occupied slots and strong item scores can reach the 90-point first-place threshold. Confirm actual price, quality and quantity."
       ]
     ]
   },
@@ -255,6 +271,10 @@
       [
         "Does the tracker calculate multiplayer perfection?",
         "No. The current model shows known minimums and uncertainty ranges for the main player; it does not calculate the combined multiplayer result."
+      ],
+      [
+        "How do monster eradication goals affect perfection?",
+        "All 12 reference Guild goals must be complete for the monster component. Enter counters or load recognized per-player save statistics."
       ]
     ]
   },

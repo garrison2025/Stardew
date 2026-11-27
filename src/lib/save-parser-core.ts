@@ -1,3 +1,4 @@
+import {readPlayerStat} from './save-stats';
 import {readMonsterCounts} from './monster-goals';
 import {readSaveMilestones} from './save-milestones';
 import {CART_SEASONS,type CartStart,type CartSeason} from './cart-forecast';
@@ -71,7 +72,7 @@ function readProgress(root:SaveElement,player:SaveElement|undefined,shared=true)
  if(shared&&Array.from(child(root,'farmhands')?.children??[]).some(e=>e.localName==='Farmer'))warnings.push('Farmhand observations are shown separately. Shared counters and tracker merges are attached to the host view.');
  const monsterKills=readMonsterCounts(player);
  if(!monsterKills)warnings.push('Specific monster kill dictionary absent or unsupported.');
- return {monsterKills,milestones:readSaveMilestones(root,player,shared),xp,money:read(player,'money'),lifetimeEarnings:read(player,'totalMoneyEarned'),walnutsFound,walnutsBalance,crafting,learnedCooking:cooking?.length??null,collections,warnings}
+ return {stepsTaken:readPlayerStat(player,'stepsTaken'),monsterKills,milestones:readSaveMilestones(root,player,shared),xp,money:read(player,'money'),lifetimeEarnings:read(player,'totalMoneyEarned'),walnutsFound,walnutsBalance,crafting,learnedCooking:cooking?.length??null,collections,warnings}
 }
 function parseMainSave(xml: string) {
  const {root,fields}=parseSaveXml(xml);
