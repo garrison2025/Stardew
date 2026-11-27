@@ -1,4 +1,5 @@
 import React,{useState} from 'react';
+import {fishRoute} from '../lib/fish-routes';
 import {fishReference,fishPrice} from '../lib/fish-reference';
 const professions=[{label:'No price bonus',factor:100},{label:'Fisher (+25%)',factor:125},{label:'Angler (+50%)',factor:150}] as const;
 const qualities=['Normal','Silver','Gold','Iridium'];
@@ -17,7 +18,7 @@ export default function FishSalePrices({names}:{names:readonly string[]}){
  {(custom||(ref?.prices.length??0)>1)&&<label>Fishing profession<select aria-label="Fishing profession" value={profession} onChange={e=>setProfession(Number(e.target.value))}>{professions.map((p,i)=><option key={i} value={i}>{p.label}</option>)}</select></label>}
  <label>Quantity<input aria-label="Fish quantity" type="number" min={0} max={1000000} step={1} value={quantity} onChange={e=>setQuantity(Number(e.target.value))}/></label></div>
  <p aria-live="polite">{price!==undefined?price.toLocaleString('en-US')+'g per fish'+(validQuantity?' · '+(price*quantity).toLocaleString('en-US')+'g total':' · Invalid quantity'):custom?'Enter a whole-gold base price.':'Selected tier not available.'}</p>
- {ref?.difficulty!==undefined&&<p>Fishing difficulty: {ref.difficulty} · {ref.behavior} movement</p>}
+ {ref?.difficulty!==undefined&&<p>Fishing difficulty: {ref.difficulty} · {ref.behavior} movement</p>}{!custom&&fishRoute(fish)&&<div className="rule-card"><strong>Acquisition reference</strong><p>{fishRoute(fish)!.location} · {fishRoute(fish)!.time}</p><p>{fishRoute(fish)!.season} · {fishRoute(fish)!.weather}</p>{fishRoute(fish)!.note&&<p>{fishRoute(fish)!.note}</p>}<small>Location-dependent conditions; not a guaranteed catch calculation.</small></div>}
  {ref?.method==='pot'&&<p className="muted">Crab pots normally produce normal quality or silver with Deluxe Bait. Higher shellfish qualities apply to appropriate foraging sources, not ordinary crab pot catches.</p>}
  {ref?.method==='other'&&<p className="muted">Other catchables receive no Fisher or Angler sale bonus. Seaweed caught on the rod is normal quality; listed higher qualities apply to foraging.</p>}
  {custom?<p className="muted">Manual entry uses normal quality and assumes an eligible fish.</p>:<p className="muted"><a href={wiki(fish)} target="_blank" rel="noreferrer">{fish} sale price reference</a></p>}

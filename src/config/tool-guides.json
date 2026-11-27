@@ -264,6 +264,10 @@
       [
         "How much do fish sell for in Stardew Valley?",
         "Compare all 72 collection entries using the listed normal, silver, gold or iridium quality where applicable and the Fisher or Angler profession. Other catchables do not receive fish profession bonuses. The comparison uses standard price references, not world margin settings."
+      ],
+      [
+        "Are alternate fish locations included?",
+        "Each collection card has a detailed reference with location, time, season and weather where listed. Special bait, fishing level and location unlocks can affect results; the main-route filter is not an exhaustive catchability engine."
       ]
     ]
   },
@@ -330,6 +334,10 @@
       [
         "How do I unlock missing crafting recipes?",
         "Filter the 149 standard reference recipes by skill level, mastery, shop, friendship, quest or milestone. Select an item reference for conditions that depend on game state. Wedding Ring is outside the single-player checklist."
+      ],
+      [
+        "How does Trapper change the Crab Pot recipe?",
+        "With Trapper selected, each planned Crab Pot uses 25 Wood and 2 Copper Bars instead of 40 Wood and 3 Iron Bars."
       ]
     ]
   },
@@ -396,6 +404,10 @@
       [
         "Can I calculate ingredients for Complete Breakfast from scratch?",
         "Yes. The expansion tool recursively includes Fried Egg, Hashbrowns and Pancakes. The expanded plan assumes no intermediate stock and is separate from direct inventory and cost estimates."
+      ],
+      [
+        "Can I use large eggs, goat milk or existing dishes?",
+        "Choose a concrete accepted egg, milk or selected fish for direct grouped ingredients. Intermediate stock is deducted once in the separate expansion view. Unresolved groups remain manual."
       ]
     ]
   },
