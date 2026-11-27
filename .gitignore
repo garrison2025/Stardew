@@ -4,3 +4,7 @@ dist-workspace/
 .astro/
 .env*
 !.env.example
+
+# Never commit private game evidence
+private-fixtures/
+local-fixtures/
