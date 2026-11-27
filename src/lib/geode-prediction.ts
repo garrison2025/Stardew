@@ -13,7 +13,7 @@ const contents:Record<GeodeType,readonly (number|string)[]>={
 };
 const names:Record<string,string>={
  74:"Prismatic Shard",
- 82:"Groovy Chair",
+ 82:"Fire Quartz",
  84:"Frozen Tear",
  86:"Earth Crystal",
  100:"Chipped Amphora",
