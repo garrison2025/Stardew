@@ -44,7 +44,8 @@
       "house design",
       "interior design",
       "sprinkler optimizer",
-      "irrigation budget"
+      "irrigation budget",
+      "farm layout canvas"
     ]
   },
   {
@@ -84,7 +85,8 @@
       "bundle checklist",
       "remixed bundles",
       "community center tracker",
-      "bundle save tracker"
+      "bundle save tracker",
+      "community center item checklist"
     ]
   },
   {
@@ -121,7 +123,8 @@
     "searchAliases": [
       "museum layout",
       "museum donations",
-      "artifacts and minerals"
+      "artifacts and minerals",
+      "museum donation checklist"
     ]
   },
   {
@@ -129,7 +132,7 @@
     "path": "/predictor/",
     "h1": "Stardew Valley Seed Predictor",
     "title": "Stardew Valley Seed & Geode Predictor | Field & Farm",
-    "description": "Explore seeded geodes, reference Traveling Cart random stock, train times, green rain and overnight event candidates.",
+    "description": "Explore seeded geodes, reference Traveling Cart random stock and skill books, train times, green rain and overnight event candidates.",
     "primaryKeyword": "stardew valley seed predictor",
     "volume": 140,
     "kd": 15,
@@ -150,7 +153,7 @@
     ],
     "priority": "P0",
     "guideTitle": "Try the 1.6.15 geode opener",
-    "guideText": "Compare geode openings, Forest Cart ordinary random slots and selected special offers, or the 28-day event calendar. Use the private workspace for personal save fields. Reference predictions lack independent in-game validation.",
+    "guideText": "Compare reference geode openings, Forest Cart stock and seeded event dates. Independent game fixtures, full festival stock and exact save-day offsets remain pending.",
     "researchClusterSize": 11,
     "searchAliases": [
       "geode predictor",
@@ -160,7 +163,9 @@
       "green rain",
       "overnight events",
       "traveling cart stock",
-      "red cabbage seed predictor"
+      "red cabbage seed predictor",
+      "traveling cart skill books",
+      "geode opening predictor"
     ]
   },
   {
@@ -168,7 +173,7 @@
     "path": "/tracker/",
     "h1": "Stardew Valley Save Tracker",
     "title": "Stardew Valley Save & Progress Tracker | Field & Farm",
-    "description": "Inspect save fields locally, including steps taken, skills, monster goals and collection progress. Keep separate farm profiles in a private workspace.",
+    "description": "Inspect save fields locally, including steps, skills, collection progress and recognized backpack, chest and fridge stock in a private workspace.",
     "primaryKeyword": "stardew valley tracker",
     "volume": 320,
     "kd": 26,
@@ -190,14 +195,17 @@
     ],
     "priority": "P0",
     "guideTitle": "Inspect a save without uploading it",
-    "guideText": "Inspect a main-player save locally, including recorded steps, skill XP, monster goals and recognized collections. Review values before merging into the selected farm profile. Missing or ambiguous fields remain unknown.",
+    "guideText": "Inspect recognized save observations in the separate private workspace, including positive backpack and ordinary chest/fridge stock. Unknown fields and special containers are not treated as empty.",
     "researchClusterSize": 15,
     "searchAliases": [
       "save analyzer",
       "save checker",
       "save tracker",
       "steps taken",
-      "monster goals"
+      "monster goals",
+      "save inventory checker",
+      "chest inventory",
+      "fridge inventory"
     ]
   },
   {
@@ -205,7 +213,7 @@
     "path": "/crop-calculator/",
     "h1": "Stardew Valley Crop Calculator",
     "title": "Stardew Valley Crop Profit Calculator & Planner | Field & Farm",
-    "description": "Compare seasonal and protected crop profits, budgets, processing, reinvestment and outdoor year-round crop rotations.",
+    "description": "Compare crop profits, planting budgets, greenhouse and outdoor rotations, daily cash reinvestment and shared processing equipment.",
     "primaryKeyword": "stardew crop calculator",
     "volume": 320,
     "kd": 17,
@@ -230,7 +238,7 @@
     ],
     "priority": "P0",
     "guideTitle": "Compare planting and processing plans",
-    "guideText": "Compare seasonal harvests and protected crop profits. Use the separate daily cash-flow simulation to allocate up to three crops, reinvest settled sales and compare shared processing with raw sales. Enter actual seed and sale prices. Optimize outdoor planting across all four seasons with a reserved seed budget and limited winter seeds.",
+    "guideText": "Compare seasonal and protected crop profits, annual outdoor planting rotations and daily reinvestment with shared machines. Enter actual seed supply and sale prices; the best tested cash-flow policy is not a global optimum.",
     "researchClusterSize": 45,
     "searchAliases": [
       "crop profit",
@@ -243,7 +251,10 @@
       "reinvestment planner",
       "year-round crop profit",
       "outdoor crop rotation",
-      "annual crop planner"
+      "annual crop planner",
+      "outdoor crop cash flow",
+      "crop reinvestment calculator",
+      "crop processing profit"
     ]
   },
   {
@@ -282,7 +293,9 @@
       "fair score",
       "grange calculator",
       "fair items",
-      "fair first place"
+      "fair first place",
+      "nine item display",
+      "grange display optimizer"
     ]
   },
   {
@@ -315,7 +328,9 @@
       "fishing checklist",
       "fish prices",
       "fish difficulty",
-      "fishing collection"
+      "fishing collection",
+      "fish locations and times",
+      "fish weather checklist"
     ]
   },
   {
@@ -356,7 +371,8 @@
       "perfection tracker",
       "completion checklist",
       "monster eradication goals",
-      "monster slayer"
+      "monster slayer",
+      "100 percent completion checklist"
     ]
   },
   {
@@ -364,7 +380,7 @@
     "path": "/crafting/",
     "h1": "Stardew Valley Crafting Checklist",
     "title": "Stardew Valley Crafting Recipes Checklist | Field & Farm",
-    "description": "Track 149 crafting recipes, unlock sources, Trapper alternate Crab Pot ingredients, material stock and costs.",
+    "description": "Track 149 crafting recipes, unlock sources, Trapper Crab Pot ingredients, material stock and costs, with private save stock opt-in.",
     "primaryKeyword": "crafting stardew valley",
     "volume": 880,
     "kd": 17,
@@ -388,14 +404,16 @@
     ],
     "priority": "P1",
     "guideTitle": "Prepare a batch of crafting recipes",
-    "guideText": "Filter 149 reference recipes by unlock source. Choose Trapper for the alternate Crab Pot recipe, combine selected batches and matched ingredient groups, then compare stock and material cost.",
+    "guideText": "Plan direct crafting ingredients and costs, choose Trapper substitutions, and optionally use recognized local inventory observations in the private workspace.",
     "researchClusterSize": 15,
     "searchAliases": [
       "crafting recipes",
       "craft every item",
       "material planner",
       "recipe unlock sources",
-      "crafting materials"
+      "crafting materials",
+      "crafting resource calculator",
+      "crab pot recipe"
     ]
   },
   {
@@ -433,7 +451,8 @@
       "items shipped",
       "full shipment",
       "shipping item sources",
-      "missing shipping items"
+      "missing shipping items",
+      "full shipment checklist"
     ]
   },
   {
@@ -441,7 +460,7 @@
     "path": "/cooking/",
     "h1": "Stardew Valley Cooking Checklist",
     "title": "Stardew Valley Cooking Recipes Checklist | Field & Farm",
-    "description": "Track 81 cooking recipes, unlocks and prices, choose substitute ingredients and deduct existing intermediate dishes.",
+    "description": "Track 81 cooking recipes, unlock sources and prices, select substitute ingredients and expand intermediate dishes with stock deductions.",
     "primaryKeyword": "stardew valley cooking",
     "volume": 1300,
     "kd": 26,
@@ -460,7 +479,7 @@
     ],
     "priority": "P1",
     "guideTitle": "Plan dishes and ingredient purchases",
-    "guideText": "Filter 81 cooking recipes by unlock source. Choose concrete interchangeable ingredients for direct plans; expand named intermediate dishes separately and deduct existing dish stock once.",
+    "guideText": "Review recipes and unlocks, select concrete ingredient substitutes, and expand intermediate dishes while deducting available dish stock once.",
     "researchClusterSize": 6,
     "searchAliases": [
       "cooking recipes",
@@ -468,7 +487,9 @@
       "ingredient planner",
       "recipe unlock sources",
       "queen of sauce",
-      "cooking ingredients"
+      "cooking ingredients",
+      "cooking ingredient calculator",
+      "recipe ingredient checklist"
     ]
   },
   {
@@ -476,7 +497,7 @@
     "path": "/golden-walnuts/",
     "h1": "Stardew Valley Golden Walnut Tracker",
     "title": "Stardew Valley Golden Walnut Tracker & Checklist | Field & Farm",
-    "description": "Track 130 Golden Walnuts by region and task, review collection hints, save markers and island upgrade spending.",
+    "description": "Track 130 Golden Walnuts across 69 reference task groups, review regional hints, recognized save markers and island upgrade spending.",
     "primaryKeyword": "golden walnuts stardew",
     "volume": 4400,
     "kd": 18,
@@ -491,13 +512,15 @@
     ],
     "priority": "P1",
     "guideTitle": "Track lifetime finds separately from spending",
-    "guideText": "Filter missing walnut tasks by region or method, review puzzle clues and track island upgrades. The private workspace can load recognized positive save markers; unsupported locations and spending remain manual.",
+    "guideText": "Track regional walnut tasks and recognized positive save markers. Reference task mappings do not establish exact in-game locations or complete verified save compatibility.",
     "researchClusterSize": 2,
     "searchAliases": [
       "golden walnuts",
       "ginger island walnuts",
       "walnut locations",
-      "walnut save tracker"
+      "walnut save tracker",
+      "walnut task checklist",
+      "ginger island upgrade tracker"
     ]
   },
   {
@@ -538,7 +561,8 @@
       "farm types comparison",
       "riverland farm",
       "hill-top farm",
-      "meadowlands farm"
+      "meadowlands farm",
+      "farm type comparison"
     ]
   },
   {
@@ -568,7 +592,8 @@
     "searchAliases": [
       "grandpa evaluation",
       "four candles",
-      "grandpas evaluation"
+      "grandpas evaluation",
+      "grandpa candle calculator"
     ]
   },
   {
@@ -598,7 +623,9 @@
       "mastery points",
       "professions",
       "mastery xp",
-      "profession comparison"
+      "profession comparison",
+      "skill experience calculator",
+      "mastery experience tracker"
     ]
   }
 ]

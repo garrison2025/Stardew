@@ -51,7 +51,8 @@
         "house design",
         "interior design",
         "sprinkler optimizer",
-        "irrigation budget"
+        "irrigation budget",
+        "farm layout canvas"
       ]
     },
     {
@@ -93,7 +94,8 @@
         "bundle checklist",
         "remixed bundles",
         "community center tracker",
-        "bundle save tracker"
+        "bundle save tracker",
+        "community center item checklist"
       ]
     },
     {
@@ -132,7 +134,8 @@
       "searchAliases": [
         "museum layout",
         "museum donations",
-        "artifacts and minerals"
+        "artifacts and minerals",
+        "museum donation checklist"
       ]
     },
     {
@@ -140,7 +143,7 @@
       "priority": "P0",
       "title": "Stardew Valley Seed & Geode Predictor | Field & Farm",
       "h1": "Stardew Valley Seed Predictor",
-      "description": "Explore seeded geodes, reference Traveling Cart random stock, train times, green rain and overnight event candidates.",
+      "description": "Explore seeded geodes, reference Traveling Cart random stock and skill books, train times, green rain and overnight event candidates.",
       "primaryKeyword": "stardew valley seed predictor",
       "volume": 140,
       "kd": 15,
@@ -173,7 +176,9 @@
         "green rain",
         "overnight events",
         "traveling cart stock",
-        "red cabbage seed predictor"
+        "red cabbage seed predictor",
+        "traveling cart skill books",
+        "geode opening predictor"
       ]
     },
     {
@@ -181,7 +186,7 @@
       "priority": "P0",
       "title": "Stardew Valley Save & Progress Tracker | Field & Farm",
       "h1": "Stardew Valley Save Tracker",
-      "description": "Inspect save fields locally, including steps taken, skills, monster goals and collection progress. Keep separate farm profiles in a private workspace.",
+      "description": "Inspect save fields locally, including steps, skills, collection progress and recognized backpack, chest and fridge stock in a private workspace.",
       "primaryKeyword": "stardew valley tracker",
       "volume": 320,
       "kd": 26,
@@ -212,7 +217,10 @@
         "save checker",
         "save tracker",
         "steps taken",
-        "monster goals"
+        "monster goals",
+        "save inventory checker",
+        "chest inventory",
+        "fridge inventory"
       ]
     },
     {
@@ -220,7 +228,7 @@
       "priority": "P0",
       "title": "Stardew Valley Crop Profit Calculator & Planner | Field & Farm",
       "h1": "Stardew Valley Crop Calculator",
-      "description": "Compare seasonal and protected crop profits, budgets, processing, reinvestment and outdoor year-round crop rotations.",
+      "description": "Compare crop profits, planting budgets, greenhouse and outdoor rotations, daily cash reinvestment and shared processing equipment.",
       "primaryKeyword": "stardew crop calculator",
       "volume": 320,
       "kd": 17,
@@ -260,7 +268,10 @@
         "reinvestment planner",
         "year-round crop profit",
         "outdoor crop rotation",
-        "annual crop planner"
+        "annual crop planner",
+        "outdoor crop cash flow",
+        "crop reinvestment calculator",
+        "crop processing profit"
       ]
     },
     {
@@ -301,7 +312,9 @@
         "fair score",
         "grange calculator",
         "fair items",
-        "fair first place"
+        "fair first place",
+        "nine item display",
+        "grange display optimizer"
       ]
     },
     {
@@ -336,7 +349,9 @@
         "fishing checklist",
         "fish prices",
         "fish difficulty",
-        "fishing collection"
+        "fishing collection",
+        "fish locations and times",
+        "fish weather checklist"
       ]
     },
     {
@@ -379,7 +394,8 @@
         "perfection tracker",
         "completion checklist",
         "monster eradication goals",
-        "monster slayer"
+        "monster slayer",
+        "100 percent completion checklist"
       ]
     },
     {
@@ -387,7 +403,7 @@
       "priority": "P1",
       "title": "Stardew Valley Crafting Recipes Checklist | Field & Farm",
       "h1": "Stardew Valley Crafting Checklist",
-      "description": "Track 149 crafting recipes, unlock sources, Trapper alternate Crab Pot ingredients, material stock and costs.",
+      "description": "Track 149 crafting recipes, unlock sources, Trapper Crab Pot ingredients, material stock and costs, with private save stock opt-in.",
       "primaryKeyword": "crafting stardew valley",
       "volume": 880,
       "kd": 17,
@@ -420,7 +436,9 @@
         "craft every item",
         "material planner",
         "recipe unlock sources",
-        "crafting materials"
+        "crafting materials",
+        "crafting resource calculator",
+        "crab pot recipe"
       ]
     },
     {
@@ -460,7 +478,8 @@
         "items shipped",
         "full shipment",
         "shipping item sources",
-        "missing shipping items"
+        "missing shipping items",
+        "full shipment checklist"
       ]
     },
     {
@@ -468,7 +487,7 @@
       "priority": "P1",
       "title": "Stardew Valley Cooking Recipes Checklist | Field & Farm",
       "h1": "Stardew Valley Cooking Checklist",
-      "description": "Track 81 cooking recipes, unlocks and prices, choose substitute ingredients and deduct existing intermediate dishes.",
+      "description": "Track 81 cooking recipes, unlock sources and prices, select substitute ingredients and expand intermediate dishes with stock deductions.",
       "primaryKeyword": "stardew valley cooking",
       "volume": 1300,
       "kd": 26,
@@ -497,7 +516,9 @@
         "ingredient planner",
         "recipe unlock sources",
         "queen of sauce",
-        "cooking ingredients"
+        "cooking ingredients",
+        "cooking ingredient calculator",
+        "recipe ingredient checklist"
       ]
     },
     {
@@ -505,7 +526,7 @@
       "priority": "P1",
       "title": "Stardew Valley Golden Walnut Tracker & Checklist | Field & Farm",
       "h1": "Stardew Valley Golden Walnut Tracker",
-      "description": "Track 130 Golden Walnuts by region and task, review collection hints, save markers and island upgrade spending.",
+      "description": "Track 130 Golden Walnuts across 69 reference task groups, review regional hints, recognized save markers and island upgrade spending.",
       "primaryKeyword": "golden walnuts stardew",
       "volume": 4400,
       "kd": 18,
@@ -528,7 +549,9 @@
         "golden walnuts",
         "ginger island walnuts",
         "walnut locations",
-        "walnut save tracker"
+        "walnut save tracker",
+        "walnut task checklist",
+        "ginger island upgrade tracker"
       ]
     },
     {
@@ -571,7 +594,8 @@
         "farm types comparison",
         "riverland farm",
         "hill-top farm",
-        "meadowlands farm"
+        "meadowlands farm",
+        "farm type comparison"
       ]
     },
     {
@@ -603,7 +627,8 @@
       "searchAliases": [
         "grandpa evaluation",
         "four candles",
-        "grandpas evaluation"
+        "grandpas evaluation",
+        "grandpa candle calculator"
       ]
     },
     {
@@ -635,7 +660,9 @@
         "mastery points",
         "professions",
         "mastery xp",
-        "profession comparison"
+        "profession comparison",
+        "skill experience calculator",
+        "mastery experience tracker"
       ]
     }
   ]

@@ -127,7 +127,7 @@
       ],
       [
         "Does the Traveling Cart forecast show the full stock?",
-        "It now models ten ordinary random slots, one furniture slot, conditional Rare Seed and seven independent offers. The original cabbage guarantee roll is optional. Skill books, fixed items, festivals and independent game fixtures are still excluded."
+        "No. The reference models ten ordinary random slots, furniture, conditional Rare Seed, seven independent offers and a separately seeded skill-book roll. Unknown Year 1 guarantee state may affect the displayed title. Fixed goods, festival stock, precise save-day offsets and independent game fixtures remain outside the model."
       ],
       [
         "Can I predict train times or green rain?",
@@ -163,6 +163,10 @@
       [
         "How many steps have I taken in Stardew Valley?",
         "Open the private workspace and choose the main save. Read Steps taken in the observed fields. The value is read from the player's stepsTaken statistic; absent or duplicate records stay unknown."
+      ],
+      [
+        "Can I inspect chest and fridge inventory in my save?",
+        "Recognized positive backpack and ordinary chest/fridge quantities in supported saved locations can be reviewed separately in the private workspace. Linked/global containers, machine contents and complete farm inventory are not guaranteed; missing observations do not prove zero stock."
       ]
     ]
   },
@@ -201,11 +205,15 @@
       ],
       [
         "Can I reinvest crop sales into more seeds?",
-        "The protected cash-flow model uses next-day shipping receipts, fixed crop allocations and available seed stock. It compares raw sales with user-defined shared-machine processing. It is a scenario simulator rather than a global optimizer."
+        "Yes, in separate protected and outdoor daily scenarios. Next-day receipts fund planting; available seed supply, shared land and processing capacity constrain the outdoor scenario. Four planting priorities are compared with and without processing; the best tested policy is not a proven global optimum."
       ],
       [
         "Can I plan a full outdoor year?",
         "The annual rotation optimizer models normal outdoor season boundaries and cross-season crops with an upfront shop-seed budget. Winter Powdermelon uses a separately limited owned seed stock. Small allocation problems are solved exactly under the stated raw-profit assumptions; larger scenarios may return a bounded feasible solution."
+      ],
+      [
+        "Does the outdoor planner compare processing with raw sales?",
+        "It compares four planting priorities with raw sales and optional shared processing equipment. Daily receipts settle the next morning, seed supply is finite, and the best tested result includes a raw-only fallback. It assumes compatible user-defined recipes and does not model every game rule."
       ]
     ]
   },
@@ -399,7 +407,7 @@
       ],
       [
         "Does the ingredient planner recursively expand dishes?",
-        "No. Direct ingredients and group names are shown; intermediate dishes are not automatically expanded."
+        "The separate expansion view recursively expands supported intermediate dishes and can deduct intermediate stock once. The direct material view stays separate, and unresolved ingredient groups require manual confirmation."
       ],
       [
         "How do I learn missing cooking recipes?",
@@ -407,7 +415,7 @@
       ],
       [
         "Can I calculate ingredients for Complete Breakfast from scratch?",
-        "Yes. The expansion tool recursively includes Fried Egg, Hashbrowns and Pancakes. The expanded plan assumes no intermediate stock and is separate from direct inventory and cost estimates."
+        "Yes. The separate expansion view includes Fried Egg, Hashbrowns and Pancakes; enter intermediate stock if you already have these dishes. Direct inventory and cost estimates remain separate."
       ],
       [
         "Can I use large eggs, goat milk or existing dishes?",
@@ -443,6 +451,10 @@
       [
         "Can I load collected walnuts from my save?",
         "The private workspace supports positive markers from recognized saved walnut fields. Ambiguous task matches are omitted; lifetime count and upgrades are separate from the manual checklist."
+      ],
+      [
+        "Are all walnut task groups mapped?",
+        "The 69 reference task groups have marker, counter or flag mappings. This does not verify all real save structures or reconstruct exact in-game map positions; unsupported or ambiguous observations remain unknown."
       ]
     ]
   },
