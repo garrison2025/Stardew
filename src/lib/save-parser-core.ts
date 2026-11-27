@@ -1,3 +1,4 @@
+import {readSaveMilestones} from './save-milestones';
 import {CART_SEASONS,type CartStart,type CartSeason} from './cart-forecast';
 import {saveFingerprint} from './save-binding';
 import {readBundleDefinition, type SaveBundle} from './save-bundles';
@@ -67,7 +68,7 @@ function readProgress(root:SaveElement,player:SaveElement|undefined,shared=true)
  if(shared&&(walnutsFound===null||walnutsBalance===null))warnings.push('Walnut counters absent or outside standard range.');
  if(walnutsFound!==null&&walnutsBalance!==null&&walnutsBalance>walnutsFound)warnings.push('Walnut balance exceeds lifetime count; inspect the save in game.');
  if(shared&&Array.from(child(root,'farmhands')?.children??[]).some(e=>e.localName==='Farmer'))warnings.push('Farmhand observations are shown separately. Shared counters and tracker merges are attached to the host view.');
- return {xp,money:read(player,'money'),lifetimeEarnings:read(player,'totalMoneyEarned'),walnutsFound,walnutsBalance,crafting,learnedCooking:cooking?.length??null,collections,warnings}
+ return {milestones:readSaveMilestones(root,player,shared),xp,money:read(player,'money'),lifetimeEarnings:read(player,'totalMoneyEarned'),walnutsFound,walnutsBalance,crafting,learnedCooking:cooking?.length??null,collections,warnings}
 }
 function parseMainSave(xml: string) {
  const {root,fields}=parseSaveXml(xml);
