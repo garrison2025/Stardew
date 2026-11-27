@@ -34,14 +34,15 @@
         "src/lib/bundle-observations.ts",
         "src/lib/save-bundles.ts",
         "src/lib/bundle-progress.ts",
-        "src/lib/remixed-bundles.ts"
+        "src/lib/remixed-bundles.ts",
+        "src/lib/standard-bundle-observations.ts"
       ],
       "sources": [
         "https://stardewvalleywiki.com/Bundles",
         "https://stardewvalleywiki.com/Modding:Bundles"
       ],
       "sourceRights": "pending",
-      "scope": "Standard and observed custom definitions; partial donation rules"
+      "scope": "Standard and observed custom definitions; positive standard donations require exact definition match"
     },
     {
       "path": "/museum/",
