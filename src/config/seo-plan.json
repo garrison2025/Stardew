@@ -54,7 +54,7 @@
       "priority": "P0",
       "title": "Stardew Valley Community Center Bundle Tracker | Field & Farm",
       "h1": "Stardew Valley Bundle Tracker",
-      "description": "Track standard Community Center bundles by room, season, quantity and quality. Record remixed requirements manually or review supported local save data.",
+      "description": "Track standard Community Center bundles, seasonal requirements, remixed checklists and saved bundle definitions in a local workspace.",
       "primaryKeyword": "stardew bundles",
       "volume": 6600,
       "kd": 26,
@@ -86,7 +86,9 @@
       "searchAliases": [
         "community center",
         "bundle checklist",
-        "remixed bundles"
+        "remixed bundles",
+        "community center tracker",
+        "bundle save tracker"
       ]
     },
     {

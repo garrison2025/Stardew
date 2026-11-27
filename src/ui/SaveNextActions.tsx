@@ -37,7 +37,7 @@ export default function SaveNextActions({progress, season}: {progress: SaveProgr
     </details>}
     {bundles.length > 0 && <details open>
       <summary>Community Center · {openBundles.length} bundles to check</summary>
-      <p className="muted">Uses the requirements stored in this file, including a custom set where present. Slot data is shown for review and stays separate from manually saved donations.</p>
+      <p className="muted">Uses the requirements stored in this file, including a custom set where present. Merge recognized progress to retain these observations, then open the private bundle tracker and load the saved definitions. Manual donations stay separate until you explicitly copy positive observations.</p>
       {openBundles.map(bundle => {
         const flagged = bundle.slots.filter(slot => slot.donated).length;
         const complete = bundle.slots.every(slot => slot.donated !== null);
