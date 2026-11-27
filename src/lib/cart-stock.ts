@@ -2,6 +2,10 @@ import {OBJECT_POOL,FURNITURE_POOL,type CartPoolRow} from './cart-stock-referenc
 import {forecastCart,type CartStart} from './cart-forecast.ts';
 import {hashWords,random} from './geode-prediction.ts';
 const max=2147483647;
+// XXH32 of UTF-8 travelerSkillBook, cross-checked with upstream deterministic hash routine.
+const skillHash=-451051273;
+const skillBooks=['Stardew Valley Almanac','Bait And Bobber',"Woodcutter's Weekly",'Mining Monthly','Combat Quarterly'] as const;
+export type SkillBookOffer={label:string;price:6000;quantity:1;identityUncertain:boolean};
 type Eligible=readonly [number,string,number];
 export type StockOffer={id:number;label:string;price:number;quantity:number;kind:'ordinary'|'furniture'|'seasonal'|'guarantee'};
 function choose(pool:readonly CartPoolRow[],rand:()=>number,count:number):Eligible[]{
@@ -25,6 +29,15 @@ export function forecastCartStock(input:CartStart,originalGuarantee:number|null=
   const furniture=choose(FURNITURE_POOL,rand,1)[0];if(!furniture)throw Error('Reference furniture pool incomplete');
   offers.push({id:furniture[0],label:furniture[1],price:next(1,11)*250,quantity:1,kind:'furniture'});
   if(['spring','summer'].includes(visit.season)&&!ordinary.some(r=>r[1]==='Rare Seed'))offers.push({id:347,label:'Rare Seed',price:1000,quantity:qty(),kind:'seasonal'});
-  return {...visit,stock:offers};
+  // Independently seeded availability; the specific title consumes ordinary-stock RNG
+  // after furniture and seasonal Rare Seed. An unknown Year 1 guarantee may shift that RNG.
+  const gameId=Number(input.gameId);
+  const bookSeed=input.legacy?(skillHash%max+gameId%max+day)%max:hashWords(skillHash%max,gameId%max,day);
+  let skillBook:SkillBookOffer|null=null;
+  if(random(bookSeed)()<.05){
+   const name=skillBooks[next(0,skillBooks.length)],identityUncertain=visit.year===1&&originalGuarantee===null;
+   skillBook={label:identityUncertain?'Skill book (title unconfirmed)':name,price:6000,quantity:1,identityUncertain};
+  }
+  return {...visit,stock:offers,skillBook};
  });
 }
