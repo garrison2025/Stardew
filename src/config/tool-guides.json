@@ -306,7 +306,7 @@
     "faq": [
       [
         "Does this calculate exact in-game perfection?",
-        "It is a proportional reference estimate with explicit unknowns; in-game rounding and multiplayer rules are not fully modeled."
+        "It is a proportional reference estimate with explicit unknowns. The separate multiplayer calculator uses the highest individual completion in each player-specific goal. In-game display rounding and save-data completeness still require independent verification."
       ],
       [
         "What do waivers cost?",
@@ -314,7 +314,7 @@
       ],
       [
         "Does the tracker calculate multiplayer perfection?",
-        "No. The current model shows known minimums and uncertainty ranges for the main player; it does not calculate the combined multiplayer result."
+        "Yes, the separate team calculator combines the highest count for each player-specific goal and counts shared farm goals once. In the private workspace, saved player observations are conservative minimums; no unknown count is assumed complete."
       ],
       [
         "How do monster eradication goals affect perfection?",
