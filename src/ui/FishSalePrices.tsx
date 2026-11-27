@@ -19,12 +19,12 @@ export default function FishSalePrices(){
   <h3 id="fish-prices-title">Stardew Valley fish prices</h3>
   <p>Compare normal-quality raw fish sale prices. Choose one of {Object.keys(fishPrices).length} reference fish or enter another fish’s base value.</p>
   <div className="formgrid">
-   <label>Fish<select value={fish} onChange={e=>setFish(e.target.value)}>
+   <label>Fish<select aria-label="Fish" value={fish} onChange={e=>setFish(e.target.value)}>
     {Object.keys(fishPrices).map(name=><option key={name}>{name}</option>)}
     <option value="custom">Enter base price</option>
    </select></label>
-   {fish==='custom'&&<label>Base sale price (g)<input type="number" min={1} max={1000000} step={1} value={manual} onChange={e=>setManual(e.target.value)}/></label>}
-   <label>Fishing profession<select value={profession} onChange={e=>setProfession(e.target.value as Profession)}>
+   {fish==='custom'&&<label>Base sale price (g)<input aria-label="Base sale price (g)" type="number" min={1} max={1000000} step={1} value={manual} onChange={e=>setManual(e.target.value)}/></label>}
+   <label>Fishing profession<select aria-label="Fishing profession" value={profession} onChange={e=>setProfession(e.target.value as Profession)}>
     <option value="none">No price bonus</option><option value="fisher">Fisher (+25%)</option><option value="angler">Angler (+50%)</option>
    </select></label>
   </div>
