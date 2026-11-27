@@ -3,5 +3,20 @@ test('linked rooms roundtrip and copy, reject mismatched room',()=>{const p=demo
 test('linked rooms travel with building, are retained by independent project copies',()=>{const p=demoPlan(),b=p.objects.find(o=>o.itemId==='barn')!,next=attachInterior(p,b.id,emptyInterior('barn'));const copy=copyObjects(next,new Set([b.id]));assert.deepEqual(copy[0].interior,emptyInterior('barn'));const noBuilding={...next,objects:next.objects.filter(o=>o.id!==b.id)};assert.deepEqual(pasteObjects(noBuilding,copy,{x:b.x,y:b.y}).objects.at(-1)?.interior,emptyInterior('barn'));assert.throws(()=>decodePlan({...p,objects:p.objects.map(o=>o.id===b.id?{...o,interior:emptyInterior('shed')}:o)}))});
 const input:ProcessInput={crop:'blueberry',stock:10,minutes:10000,quality:0,artisan:false,tiller:false,kegs:2,jars:3};
 test('shared stock is allocated once and finished batches counted',()=>{const r=estimateProcessing(input);assert.equal(r.processed,8);assert.equal(r.remaining,2);assert.equal(r.rawRevenue,500);assert.equal(r.totalRevenue,1300);assert.equal(r.increment,800);assert.equal(r.rows.reduce((n,v)=>n+v.units,0),8);const q=estimateProcessing({...input,crop:'pumpkin',stock:1,kegs:1,jars:1,minutes:6000});assert.equal(q.rows.find(v=>v.machine==='Keg')?.price,720);assert.equal(q.rows.find(v=>v.machine==='Preserves jar')?.price,690);assert.equal(q.processed,1)});
-test('quality opportunity cost and zero capacity',()=>{const r=estimateProcessing({...input,crop:'pumpkin',quality:3,tiller:true,stock:10,kegs:0,jars:10});assert.equal(r.raw,704);assert.equal(r.processed,0);assert.equal(r.increment,0);assert.equal(estimateProcessing({...input,minutes:3999}).processed,0);assert.throws(()=>estimateProcessing({...input,crop:'wheat'}));assert.throws(()=>estimateProcessing({...input,stock:-1}))});
+test('quality opportunity cost and zero capacity',()=>{const r=estimateProcessing({...input,crop:'pumpkin',quality:3,tiller:true,stock:10,kegs:0,jars:10});assert.equal(r.raw,704);assert.equal(r.processed,0);assert.equal(r.increment,0);assert.equal(estimateProcessing({...input,minutes:3999}).processed,0);assert.throws(()=>estimateProcessing({...input,crop:'poppy'}));assert.throws(()=>estimateProcessing({...input,stock:-1}))});
 test('only accessible supported devices counted',()=>{const p={...emptyInterior('shed'),cells:{'0':'keg' as const,'1':'jar' as const,'11':'chest' as const}};assert.deepEqual(availableMachines(p),{kegs:0,jars:1,blockedKegs:1,blockedJars:0})});
+
+test('independent keg and jar price, duration and input-count examples',()=>{
+ // Wiki Keg Productivity and Preserves Jar Productivity, checked 2026-11-28.
+ const cases=[['wheat','Beer',1750,200,1],['hops','Pale Ale',2250,300,1],['coffee-bean','Coffee',120,150,5],['starfruit','Wine',10000,2250,1],['ancient-fruit','Wine',10000,1650,1],['amaranth','Juice',6000,337,1]] as const;
+ for(const [crop,product,minutes,price,stock] of cases){
+  const r=estimateProcessing({...input,crop,minutes,stock,kegs:1,jars:0});const keg=r.rows.find(v=>v.machine==='Keg')!;
+  assert.equal(keg.product,product,crop);assert.equal(keg.minutes,minutes,crop);assert.equal(keg.price,price,crop);assert.equal(keg.units,stock,crop);assert.equal(keg.outputUnits,1,crop);assert.equal(r.totalRevenue,price,crop);
+  assert.equal(estimateProcessing({...input,crop,minutes:minutes-1,stock,kegs:1,jars:0}).processed,0,crop);
+ }
+ const coffee=estimateProcessing({...input,crop:'coffee-bean',stock:7,minutes:120,kegs:1,jars:1,artisan:true,tiller:true});
+ assert.equal(coffee.raw,15);assert.equal(coffee.rows.length,1);assert.equal(coffee.processed,5);assert.equal(coffee.remaining,2);assert.equal(coffee.totalRevenue,180);
+ assert.equal(estimateProcessing({...input,crop:'coffee-bean',stock:4,minutes:240,kegs:1,jars:0}).processed,0);
+ const jar=estimateProcessing({...input,crop:'amaranth',stock:1,minutes:4000,kegs:0,jars:1,quality:1,tiller:true,artisan:true});
+ assert.equal(jar.raw,205);assert.equal(jar.totalRevenue,490);
+});
