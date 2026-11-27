@@ -32,6 +32,7 @@ jobs:
       - run: npx playwright install --with-deps chromium firefox webkit
       - run: npm run test:browser
       - run: node scripts/browser-release.mjs
+      - run: npm run audit:performance
       - name: Dependency security audit
         if: always() && hashFiles('package-lock.json') != ''
         run: npm run audit:dependencies
