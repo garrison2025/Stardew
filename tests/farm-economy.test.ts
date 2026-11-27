@@ -1,4 +1,4 @@
-import test from 'node:test';import assert from 'node:assert/strict';import {simulateEconomy,farmMachines,type EconomySettings} from '../src/lib/farm-economy.ts';import {cycles,optimizeSeason,type SeasonInput} from '../src/lib/season-crops.ts';import {cropById} from '../src/lib/crop-data.ts';import {demoPlan,attachInterior} from '../src/lib/map-model.ts';import {emptyInterior} from '../src/lib/indoor-model.ts';
+import test from 'node:test';import assert from 'node:assert/strict';import {simulateEconomy,farmMachines,compareFarmEconomy,type EconomySettings} from '../src/lib/farm-economy.ts';import {cycles,optimizeSeason,type SeasonInput} from '../src/lib/season-crops.ts';import {cropById} from '../src/lib/crop-data.ts';import {demoPlan,attachInterior} from '../src/lib/map-model.ts';import {emptyInterior} from '../src/lib/indoor-model.ts';
 const input:SeasonInput={season:'summer',start:1,plots:1,budget:80,replant:false,strawberry:false,trellis:false};
 const a=[{cycle:cycles(cropById.get('blueberry')!,1,false)[0],tiles:1}];
 const settings:EconomySettings={initialCash:80,kegs:0,jars:1,minutesPerDay:1440,tailDays:7,artisan:false,tiller:false,strategy:'process'};
@@ -20,4 +20,16 @@ test('fertilizer costs, fixed quality and next-season harvests reach the economi
  assert.equal(r.ledger[36].harvested,1);
  assert.equal(r.totalSales,cycle.revenue);
  assert.equal(r.net,cycle.profit);
+});
+
+test('capacity comparison reports actual receipt days and never drops the baseline', () => {
+ const result=compareFarmEconomy(input,a,settings);
+ assert.equal(result.raw.net,520);
+ assert.equal(result.raw.firstReceipt,15);
+ assert.ok(result.current.net>=result.raw.net);
+ assert.ok(result.alternative.net>=result.current.net);
+ assert.ok(result.current.processed>0);
+ const without=compareFarmEconomy(input,a,{...settings,jars:0});
+ assert.equal(without.recommendation,null);
+ assert.equal(without.current.net,without.raw.net);
 });

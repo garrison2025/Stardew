@@ -1,9 +1,10 @@
+import type {SaveBundle} from './save-bundles.ts';
 import {SAVE_COLLECTION_IDS} from './save-collection-ids.ts';
 import {CATALOGS,CRAFTING} from './game-collections.ts';
 import {levelAt} from './game-rules.ts';
 export type NamedCount={name:string;count:number};
 export type ObservedCollection={done:string[];unmapped:number};
-export type SaveProgress={collections?:Partial<Record<'shipping'|'fishing'|'cooking'|'museum',ObservedCollection>>;xp:number[]|null;money:number|null;lifetimeEarnings:number|null;walnutsFound:number|null;walnutsBalance:number|null;crafting:{known:string[];done:string[];unmapped:number}|null;learnedCooking:number|null;warnings:string[]};
+export type SaveProgress={bundles?:SaveBundle[];collections?:Partial<Record<'shipping'|'fishing'|'cooking'|'museum',ObservedCollection>>;xp:number[]|null;money:number|null;lifetimeEarnings:number|null;walnutsFound:number|null;walnutsBalance:number|null;crafting:{known:string[];done:string[];unmapped:number}|null;learnedCooking:number|null;warnings:string[]};
 export function normalizeSkillXp(values:unknown[]):number[]|null{
  if((values.length!==5&&values.length!==6)||values.some(n=>typeof n!=='number'||!Number.isSafeInteger(n)||n<0||n>1000000000))return null;
  // Game slots: farming, fishing, foraging, mining, combat; slot 5 is unused luck.

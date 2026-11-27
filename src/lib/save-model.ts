@@ -1,4 +1,4 @@
-import {blankLocalMap,placementError,dimensions,itemById,SEASONS,type Plan,type Placed,type Season} from './map-model.ts';
+import {blankLocalMap,placementError,dimensions,itemById,SEASONS,type FarmMap,type Plan,type Placed,type Season} from './map-model.ts';
 import type {SaveProgress} from './save-progress.ts';
 export type RecordKind='building'|'object'|'terrain';
 export type FarmRecord={kind:RecordKind;itemId:string|null;x:number|null;y:number|null;width?:number;height?:number;reason?:string};
@@ -20,9 +20,10 @@ export function observedFarmBounds(snapshot:SaveSnapshot){
  return {w,h,eligible,outsideLimit};
 }
 export type ImportIssue={index:number;kind:RecordKind;x:number|null;y:number|null;reason:string};
-export function buildFarmImport(snapshot:SaveSnapshot,w:number,h:number){
+export function buildFarmImport(snapshot:SaveSnapshot,w:number,h:number,terrain?:FarmMap){
  if(!supportedVersion(snapshot.version)||!snapshot.farmFound)throw Error('Only recognized 1.6.x main Farm save structure can be imported in this preview.');
- const plan:Plan={schema:2,map:blankLocalMap(w,h,'Imported save — unverified terrain'),season:snapshot.season??'spring',objects:[]};
+ if(terrain&&(terrain.source!=='local'||terrain.w!==w||terrain.h!==h))throw Error('Use a private terrain grid that matches the import dimensions.');
+ const plan:Plan={schema:2,map:terrain??blankLocalMap(w,h,'Imported save — unverified terrain'),season:snapshot.season??'spring',objects:[]};
  const issues:ImportIssue[]=[];
  for(const [index,r] of snapshot.records.entries()){
  let reason=r.reason||'';

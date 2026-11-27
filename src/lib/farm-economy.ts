@@ -30,3 +30,47 @@ export function simulateEconomy(input:SeasonInput,allocation:Allocation[],s:Econ
  if(pending.length||[...stock.values()].some(n=>n!==0)||totalHarvest!==totalProcessed+totalRawSold||seedSpend!==plannedCost)throw Error('Economy conservation check failed');
  return {ledger,totalHarvest,totalProcessed,totalRawSold,seedSpend,totalSales,rawBaseline,additionalValue:totalSales-rawBaseline,net:totalSales-seedSpend,closingCash:cash,finalReceivable:receivable,settledCash:cash+receivable,horizon};
 }
+
+type EconomyResult = ReturnType<typeof simulateEconomy>;
+
+function comparisonRow(label: string, result: EconomyResult) {
+ const firstReceipt = result.ledger.find(day => day.received > 0)?.day
+  ?? (result.finalReceivable > 0 ? result.horizon + 1 : null);
+ return {
+  label,
+  net: result.net,
+  firstReceipt,
+  peakBacklog: Math.max(0, ...result.ledger.map(day => day.inventory)),
+  finalDayRawSales: result.ledger.at(-1)?.rawSold ?? 0,
+  processed: result.totalProcessed,
+ };
+}
+
+/** Compare the current mixed plan and feasible single-crop alternatives under the same rules. */
+export function compareFarmEconomy(input: SeasonInput, allocation: Allocation[], settings: EconomySettings) {
+ const raw = simulateEconomy(input, allocation, {...settings, strategy: 'raw'});
+ const processing = {...settings, strategy: 'process'} as const;
+ const baseline = simulateEconomy(input, allocation, processing);
+ let best = baseline;
+ let recommendation: Allocation | null = null;
+ const budget = Math.min(input.budget, settings.initialCash);
+ if (settings.kegs > 0 || settings.jars > 0) {
+  for (const crop of eligible(input)) {
+   for (const cycle of cycles(crop, input.start, input.replant, input)) {
+    const tiles = Math.min(input.plots, cycle.cost ? Math.floor(budget / cycle.cost) : input.plots);
+    if (!tiles) continue;
+    const candidate = {cycle, tiles};
+    const result = simulateEconomy(input, [candidate], processing);
+    if (result.net <= best.net) continue;
+    best = result;
+    recommendation = candidate;
+   }
+  }
+ }
+ return {
+  raw: comparisonRow('Current plan · sell raw', raw),
+  current: comparisonRow('Current plan · process', baseline),
+  alternative: comparisonRow(recommendation ? recommendation.tiles + ' × ' + recommendation.cycle.crop.name : 'Keep the current planting', best),
+  recommendation,
+ };
+}
