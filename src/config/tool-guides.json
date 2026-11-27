@@ -58,6 +58,10 @@
       [
         "Can I use remixed Community Center bundles?",
         "Enter the actual game requirements, or review supported save-contained definitions in the private workspace. Confirm donations separately; standard and remixed requirements are not interchangeable."
+      ],
+      [
+        "Can I track remixed bundles from a save?",
+        "In the private workspace, merge a supported main save, then load saved bundle observations in the remixed tracker. Copy supported exact definitions and positive full-slot donations only after confirmation. Standard donations are not altered."
       ]
     ]
   },

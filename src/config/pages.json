@@ -47,7 +47,7 @@
     "path": "/bundles/",
     "h1": "Stardew Valley Bundle Tracker",
     "title": "Stardew Valley Community Center Bundle Tracker | Field & Farm",
-    "description": "Track standard Community Center bundles by room, season, quantity and quality. Record remixed requirements manually or review supported local save data.",
+    "description": "Track standard Community Center bundles, seasonal requirements, remixed checklists and saved bundle definitions in a local workspace.",
     "primaryKeyword": "stardew bundles",
     "volume": 6600,
     "kd": 26,
@@ -72,12 +72,14 @@
     ],
     "priority": "P0",
     "guideTitle": "Choose the required donation slots",
-    "guideText": "Track standard donations and quantities separately. Optional bundles need only the stated number of qualifying slots. Use season and room filters, or record the actual requirements of your remixed bundle in the separate manual checklist.",
+    "guideText": "Track 30 standard Community Center bundles and the separate Missing Bundle. For a remixed set, enter custom requirements or load the actual definitions and positive full-slot flags from your merged private save. Unknown flags stay unknown.",
     "researchClusterSize": 12,
     "searchAliases": [
       "community center",
       "bundle checklist",
-      "remixed bundles"
+      "remixed bundles",
+      "community center tracker",
+      "bundle save tracker"
     ]
   },
   {
