@@ -65,6 +65,12 @@ try{
         if(isPrivate){
           await input.setInputFiles({name:'synthetic.xml',mimeType:'text/xml',buffer:Buffer.from('<SaveGame><gameVersion>synthetic</gameVersion><privateMarker>LOCAL_ONLY_RELEASE_MARKER</privateMarker></SaveGame>')});
           await page.getByText('synthetic',{exact:true}).waitFor();
+          await input.setInputFiles({name:'unsafe.xml',mimeType:'text/xml',buffer:Buffer.from('<!DOCTYPE SaveGame><SaveGame/>')});
+          await page.getByText(/DTD and entity declarations/).waitFor();
+          if(name==='chromium'){
+            await input.setInputFiles({name:'large.xml',mimeType:'text/xml',buffer:Buffer.from('<SaveGame><!--'+'x'.repeat(11*1024*1024)+'--><gameVersion>large-synthetic</gameVersion></SaveGame>')});
+            await page.getByText('large-synthetic',{exact:true}).waitFor();
+          }
         }
         const missing=await page.goto(site.origin+'/nonexistent-release-acceptance-check/');
         assert.equal(missing.status(),404);
