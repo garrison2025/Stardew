@@ -1,6 +1,5 @@
 {
   "schema": 1,
-  "id": "ref-pc-1.6.15-20261128-r4",
   "gameVersion": "1.6.15",
   "rulesVersion": "preview-2026-11-28",
   "status": "reference-only",
@@ -235,7 +234,7 @@
     },
     {
       "path": "src/lib/storage-observations.ts",
-      "gitBlob": "629a1d9725f40e5cfca2790f9698712474e288e3"
+      "gitBlob": "08eae092c1dcd97882d9e940bb71a459d56e1e7e"
     },
     {
       "path": "src/lib/team-perfection.ts",
@@ -253,5 +252,6 @@
       "path": "src/lib/walnut-progress.ts",
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
-  ]
+  ],
+  "id": "ref-pc-1.6.15-20261128-r5"
 }
