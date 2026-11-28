@@ -237,10 +237,10 @@ export const CROP_PHASES:Readonly<Record<string,readonly number[]>>={
     2
   ],
   "broccoli": [
+    1,
     2,
     2,
-    2,
-    2
+    3
   ],
   "powdermelon": [
     1,
