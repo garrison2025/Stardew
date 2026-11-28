@@ -178,7 +178,7 @@
     },
     {
       "path": "src/lib/player-observations.ts",
-      "gitBlob": "3462f1ff46bfb1cc4a52f84c1622eb8a43b218df"
+      "gitBlob": "9b313e4f288adb8d623298606e3e69a809e74a36"
     },
     {
       "path": "src/lib/private-saved-counts.ts",
@@ -214,7 +214,7 @@
     },
     {
       "path": "src/lib/save-merge.ts",
-      "gitBlob": "95c6681ab9e51c870224ee316485039458dd4a1c"
+      "gitBlob": "ff350456e0e3fe6dd1982c0048b511ae4b836cc5"
     },
     {
       "path": "src/lib/save-milestones.ts",
@@ -226,11 +226,11 @@
     },
     {
       "path": "src/lib/save-observations.ts",
-      "gitBlob": "ead789e21ef5ab7bd5a58470615d7086441a109e"
+      "gitBlob": "1eaa59dc71e6bbdb317535f3f3d7fcf14254146a"
     },
     {
       "path": "src/lib/save-parser-core.ts",
-      "gitBlob": "5c9501424eb746e8d0a4fa530b0e5dbaa47987d9"
+      "gitBlob": "a845aeda4ca31f0ea21c872f880723db7b0ef19a"
     },
     {
       "path": "src/lib/save-professions.ts",
@@ -238,7 +238,11 @@
     },
     {
       "path": "src/lib/save-progress.ts",
-      "gitBlob": "18be663a9a74590663ed0b4cda4cd808712a136c"
+      "gitBlob": "32e1a1749dc3bbd9dec1ab1e632de7f0697e7207"
+    },
+    {
+      "path": "src/lib/save-quests.ts",
+      "gitBlob": "f3079b334cce5e6a89a95e682ba8fc38fda8f7b4"
     },
     {
       "path": "src/lib/save-stats.ts",
@@ -281,5 +285,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r25"
+  "id": "ref-pc-1.6.15-20261128-r26"
 }
