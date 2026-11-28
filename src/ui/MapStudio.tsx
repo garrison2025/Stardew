@@ -119,7 +119,26 @@ export default function MapStudio({workspace}:{workspace:boolean}){
  function setCamera(v:View){viewRef.current=v;setView(v)}
  function jumpMini(e:React.MouseEvent<HTMLCanvasElement>){const r=e.currentTarget.getBoundingClientRect(),v=viewRef.current;const x=(e.clientX-r.left)/r.width*plan.map.w*TILE,y=(e.clientY-r.top)/r.height*plan.map.h*TILE;setCamera({...v,x:size.w/2-x*v.scale,y:size.h/2-y*v.scale})}
  function fit(s=size,p=plan){if(s.w<24||s.h<24)return;const scale=Math.max(.08,Math.min((s.w-24)/(p.map.w*TILE),(s.h-24)/(p.map.h*TILE)));setCamera({x:(s.w-p.map.w*TILE*scale)/2,y:(s.h-p.map.h*TILE*scale)/2,scale})}
- useEffect(()=>{if(!workspace){const hash=window.location.hash;if(!hash.startsWith('#layout=')){const params=new URLSearchParams(window.location.search),requested=params.get('landscape'),example=params.get('example');if([...REFERENCE_LAYOUT_PRESETS,...LAYOUT_PRESETS].some(p=>p.id===example)){try{const next=loadLayoutExample(example as AnyPresetId,'spring');setPlan(next);setLocalW(next.map.w);setLocalH(next.map.h);setMessage('Editable reference example opened');fit(size,next)}catch(e){setError(String(e))}}else if(requested&&BUILTIN_FARMS.some(m=>m.id===requested)){const next=builtinFarmPlan(requested,'spring',true);setPlan(next);setLocalW(next.map.w);setLocalH(next.map.h);setRestrictionLayer('access');setMaskVisible(false);setMessage('Starter terrain reference opened');fit(size,next)}else if(requested&&MAPS.some(m=>m.id===requested)){const next=demoPlan(requested);setPlan(next);fit(size,next)}}if(hash.startsWith('#layout=')){setIncomingShare(true);try{const code=hash.slice(8);const preview=decodeShare(code);setShareText(code);setSharePreview(preview)}catch(e){setShareError(String(e))}}return}let alive=true;(async()=>{try{const raw=await readLocal<unknown>(BOOK_KEY);if(!alive)return;if(raw!==undefined){const b=decodeBook(raw),p=latestPlan(b);bookRef.current=b;revisionRef.current=b.revision;savedRef.current=p;setBook(b);setPlan(p);setRename(activeProject(b).name);setMessage('Local scene restored');return}const legacy=await readLocal<unknown>('scene-plan-v2');if(!alive)return;const p=legacy!==undefined?decodePlan(legacy):starterPlan();const b=makeBook(p,new Date().toISOString());bookRef.current=b;savedRef.current=p;setBook(b);setRename(activeProject(b).name);setPlan(p);if(legacy!==undefined)setMessage('Local scene restored')}catch{if(alive){loadFailed.current=true;setError('Could not restore scene; stored data was not deleted. Export a backup before replacing anything.')}}finally{if(alive)setReady(true)}})();return()=>{alive=false}},[workspace]);
+ useEffect(()=>{if(!workspace){const hash=window.location.hash;if(!hash.startsWith('#layout=')){const params=new URLSearchParams(window.location.search),requested=params.get('landscape'),example=params.get('example');if([...REFERENCE_LAYOUT_PRESETS,...LAYOUT_PRESETS].some(p=>p.id===example)){try{const next=loadLayoutExample(example as AnyPresetId,'spring');setPlan(next);setLocalW(next.map.w);setLocalH(next.map.h);setMessage('Editable reference example opened');fit(size,next)}catch(e){setError(String(e))}}else if(requested&&BUILTIN_FARMS.some(m=>m.id===requested)){const next=builtinFarmPlan(requested,'spring',true);setPlan(next);setLocalW(next.map.w);setLocalH(next.map.h);setRestrictionLayer('access');setMaskVisible(false);setMessage('Starter terrain reference opened');fit(size,next)}else if(requested&&MAPS.some(m=>m.id===requested)){const next=demoPlan(requested);setPlan(next);fit(size,next)}}return}let alive=true;(async()=>{try{const raw=await readLocal<unknown>(BOOK_KEY);if(!alive)return;if(raw!==undefined){const b=decodeBook(raw),p=latestPlan(b);bookRef.current=b;revisionRef.current=b.revision;savedRef.current=p;setBook(b);setPlan(p);setRename(activeProject(b).name);setMessage('Local scene restored');return}const legacy=await readLocal<unknown>('scene-plan-v2');if(!alive)return;const p=legacy!==undefined?decodePlan(legacy):starterPlan();const b=makeBook(p,new Date().toISOString());bookRef.current=b;savedRef.current=p;setBook(b);setRename(activeProject(b).name);setPlan(p);if(legacy!==undefined)setMessage('Local scene restored')}catch{if(alive){loadFailed.current=true;setError('Could not restore scene; stored data was not deleted. Export a backup before replacing anything.')}}finally{if(alive)setReady(true)}})();return()=>{alive=false}},[workspace]);
+ useEffect(()=>{
+  if(workspace)return;
+  function previewLink(){
+   const hash=window.location.hash;
+   if(!hash.startsWith('#layout=')){
+    setIncomingShare(false);setSharePreview(null);
+    return;
+   }
+   setIncomingShare(true);setSharePreview(null);setShareText('');setShareLink('');setShareError('');
+   try{
+    const code=hash.slice('#layout='.length);
+    const preview=decodeShare(code);
+    setShareText(code);setSharePreview(preview);
+   }catch(e){setShareError(String(e))}
+  }
+  if(window.location.hash.startsWith('#layout='))previewLink();
+  window.addEventListener('hashchange',previewLink);
+  return()=>window.removeEventListener('hashchange',previewLink);
+ },[workspace]);
  useEffect(()=>{if(!workspace||!ready||!autoSave||saving||loadFailed.current||(savedRef.current===plan&&revisionRef.current!==null))return;let timer:number;const run=()=>{if(pointer.current||rectangleRef.current||touchPoints.current.size||busyRef.current){timer=window.setTimeout(run,1000);return}void persistCurrent(false,true)};timer=window.setTimeout(run,1200);return()=>clearTimeout(timer)},[workspace,ready,autoSave,saving,plan]);
  useEffect(()=>{const el=host.current;if(!el)return;const r=new ResizeObserver(entries=>{const b=entries[0].contentRect;setSize({w:Math.max(1,b.width),h:Math.max(1,b.height)})});r.observe(el);return()=>r.disconnect()},[]);
  useEffect(()=>{fit(size,plan)},[size.w,size.h,plan.map.id,plan.map.w,plan.map.h]);
@@ -277,9 +296,10 @@ export default function MapStudio({workspace}:{workspace:boolean}){
  const practiceCatalog=showPracticeObjects||plan.map.source==='original';
  const catalog=practiceCatalog?ITEMS:ITEMS.filter(entry=>!PRACTICE_OBJECTS.has(entry.id));
  const categories=['All',...new Set(catalog.map(i=>i.category))],results=catalog.filter(i=>(category==='All'||i.category===category)&&i.name.toLowerCase().includes(query.trim().toLowerCase()));
+ const linkedRoomCount=sharePreview?.objects.filter(o=>o.interior!==undefined).length??0;
  const shareConfirmation=sharePreview&&<div className="map-confirm">
   {incomingShare&&<SharedMapPreview plan={sharePreview}/>}
-  <p>{sharePreview.map.name} · {sharePreview.season} · {sharePreview.objects.length} objects · {sharePreview.objects.filter(o=>o.interior!==undefined).length} linked rooms.</p>
+  <p>{sharePreview.map.name} · {sharePreview.season} · {sharePreview.objects.length} objects · {linkedRoomCount} linked {linkedRoomCount===1?'room':'rooms'}.</p>
   <button onClick={applyShare}>Open shared layout</button>
   <button onClick={()=>{setSharePreview(null);dismissIncomingShare()}}>Cancel preview</button>
  </div>;
