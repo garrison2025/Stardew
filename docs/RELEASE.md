@@ -27,13 +27,26 @@ Public English search results reviewed on 2026-11-28. These representative resul
 
 The [original public Forest Farm archive](https://forums.stardewvalley.net/threads/fall-y1-forest-farm-save.49145/) contains a 1.6.15 main file and backup. The main file's 71 museum donations matched the XML and Stardew Checkup. Field & Farm counted 59 shipping targets, and Checkup counted 60, including Clam. Direct analysis of the bundle arrays counted 23 completed Community Center bundles in the main file and 22 in the backup. These represent three and two completed rooms respectively. The abandoned store's Missing Bundle is tracked separately.
 
-Fully set padded flags indicate a completed bundle but do not identify the gifts selected from optional slots. The tracker stores that signal separately and leaves individual donations unknown. The save-backed dashboard uses the number of recognized definitions from the six Community Center rooms. Checkup estimates 19.9% Perfection from the main file. That estimate is comparison evidence rather than a reading from the game. Only aggregate observations are recorded here.
+Fully set padded flags indicate a completed bundle but do not identify the gifts selected from optional slots. The tracker stores that signal separately and leaves individual donations unknown. The save-backed dashboard uses the number of recognized definitions from the six Community Center rooms. Browser testing on `75be348` also merged the main file into a separate local farm profile and verified that Collection overview retained 23/30 Community Center bundles, 71/95 museum donations and 59/154 shipping targets.
+
+### Perfection calculation comparison
+
+| Contribution | Field & Farm | Stardew Checkup |
+| --- | ---: | ---: |
+| Produce and forage shipped | 59/154 · 5.75 points | 60/155 · 5.81 points |
+| Great Friends | 3/34 · 0.97 points | 3/31 · 1.06 points |
+| Farmer level | 22/25 · 4.40 points | 22/25 · 4.40 points |
+| Crafting | 21/149 · 1.41 points | 1.41 points |
+| Fishing | 52/72 · 7.22 points | 7.22 points |
+| Total base estimate | 19.75% | 19.9% |
+
+The other contributing categories were zero in both tools. Both calculations round down to 19%. Checkup includes Clam in this shipping checklist and counts only recognized friendship rows present in this file. Field & Farm uses the [1.6 reference targets](https://stardewvalleywiki.com/Perfection) of 154 shipping items and 34 villagers. The two denominator differences account for about 0.15 percentage points. The sample has zero golden walnuts. [Qi's Walnut Room](https://stardewvalleywiki.com/Qi%27s_Walnut_Room) requires 100, so this sample cannot provide an in-game reading. A qualifying sample and a matching in-game screenshot remain open. Only aggregate observations are recorded here.
 
 ## Open release checks
 
 | Item | Evidence to record |
 | --- | --- |
-| Real 1.6.15 save | Museum, shipping, and Community Center progress were checked on public main and backup saves. An independently observed in-game Perfection reading is still needed. |
+| Real 1.6.15 save | Museum, shipping and Community Center progress were checked on public 1.6.15 saves. The browser cross-check matched at 19% after rounding down. A separate 1.6.15 save with Qi’s Walnut Room unlocked and a matching game reading is needed for direct game parity. |
 | Physical mobile devices | One iPhone Safari and one Android Chrome session. On each, place an object, pan/pinch, undo, open a shared layout, and import a test save in the workspace. Record actual device, browser and deployed revision. |
 | Production search and domains | Confirm the initial source/data scope, localized US results, main and workspace origins, indexable routes, and observable canonical/sitemap/redirect behavior. |
 | Operational recovery | Record matching last-known-good deployments and the result of any paired Cloudflare rollback or restore rehearsal. Keep preview and workspace noindex and ads disabled until the applicable release approvals. |
