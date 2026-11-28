@@ -1,5 +1,6 @@
 // Local geometry inspection only. Never treats player passability as proof of item placement.
 import type {SaveSnapshot,ImportIssue} from './save-model.ts';
+import {footprint,itemById,occupancy,posKey,type Plan} from './map-model.ts';
 type XY={x:number;y:number};
 type Area=XY&{w:number;h:number;passableOnly:boolean};
 export type BuildingGeometry={id:string;w:number;h:number;collision:string[]|null;radius:number;door:XY|null;placement:Area[];flooring:boolean};
@@ -24,9 +25,24 @@ export function geometryTile(g:BuildingGeometry,x:number,y:number){
  const placement=g.placement.filter(a=>x>=a.x&&y>=a.y&&x<a.x+a.w&&y<a.y+a.h).map(a=>a.passableOnly?'passable-only':'buildable');
  return {inside,inRadius,collision,placement,door:g.door?.x===x&&g.door?.y===y};
 }
-export function diagnoseBuildingOverlaps(snapshot:SaveSnapshot,issues:readonly ImportIssue[],geometry:Record<string,BuildingGeometry>){
- const out:{issueIndex:number;building:string;relative:XY;state:ReturnType<typeof geometryTile>}[]=[];
- for(const issue of issues){if(issue.reason!=='Overlaps an existing object'||issue.x===null||issue.y===null)continue;
-  for(const b of snapshot.records){if(b.kind!=='building'||!b.itemId||b.x===null||b.y===null)continue;const g=geometry[b.itemId];if(!g||b.width!==g.w||b.height!==g.h)continue;const x=issue.x-b.x,y=issue.y-b.y,state=geometryTile(g,x,y);if(state.inside||state.inRadius||state.placement.length||state.collision==='blocked')out.push({issueIndex:issue.index,building:g.id,relative:{x,y},state});}}
+// Reconstruct intersections with objects actually accepted before the rejected record.
+export function observedOverlapCells(snapshot:SaveSnapshot,issues:readonly ImportIssue[],plan:Plan){
+ const occupied=occupancy(plan.objects),out:{issueIndex:number;blockerIndex:number;blockerItemId:string;tile:XY;relative:XY}[]=[];
+ for(const issue of issues){
+  if(issue.reason!=='Overlaps an existing object')continue;
+  const r=snapshot.records[issue.index];if(!r?.itemId||!itemById.has(r.itemId)||r.x===null||r.y===null||!Number.isSafeInteger(r.x)||!Number.isSafeInteger(r.y))continue;
+  for(const tile of footprint({id:'candidate',itemId:r.itemId,x:r.x,y:r.y,rotation:0})){
+   const b=occupied.get(posKey(tile.x,tile.y));if(!b||!/^save-\d+$/.test(b.id))continue;
+   const blockerIndex=Number(b.id.slice(5));if(blockerIndex>=issue.index)continue;
+   out.push({issueIndex:issue.index,blockerIndex,blockerItemId:b.itemId,tile,relative:{x:tile.x-b.x,y:tile.y-b.y}});
+  }
+ }
  return out;
+}
+export function diagnoseBuildingOverlaps(snapshot:SaveSnapshot,issues:readonly ImportIssue[],geometry:Record<string,BuildingGeometry>,plan:Plan){
+ return observedOverlapCells(snapshot,issues,plan).flatMap(row=>{
+  const b=snapshot.records[row.blockerIndex],g=geometry[row.blockerItemId];
+  if(!b||b.kind!=='building'||!g||b.width!==g.w||b.height!==g.h)return [];
+  return [{...row,building:g.id,state:geometryTile(g,row.relative.x,row.relative.y)}];
+ });
 }
