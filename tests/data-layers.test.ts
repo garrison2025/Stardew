@@ -28,3 +28,8 @@ test('crop, building, generic object and watering check separate predicates',()=
  assert.match(placementError(map,[],obj('game-shipping-bin',3,0))!,/buildable/);assert.equal(placementError(map,[],obj('game-shipping-bin',4,0)),null);
  const plan:Plan={schema:2,map,season:'spring',objects:[obj('quality-sprinkler',4,1)]};assert.ok(!irrigation(plan).has('3,0'));assert.ok(irrigation(plan).has('4,0'));
 });
+
+test('legacy exports can omit empty groups without omitting any coordinate',()=>{
+ const f=fixture();delete f[2]['tillable.tilled'];f[2]['tillable.tillable'].Tiles.push(coords[4]);assert.equal(importDataLayers(f,8,8).till[4],'T');
+ const g=fixture();g[0]['accessible.clear'].Tiles[0]=coords[3];delete g[0]['accessible.warp'];assert.throws(()=>importDataLayers(g,8,8));
+});

@@ -17,7 +17,7 @@ function coord(raw:unknown):[number,number]{
 function parseLayer(raw:unknown,w:number,h:number){
  if(!raw||typeof raw!=='object'||Array.isArray(raw))throw Error('Invalid layer JSON.');
  const v=raw as Record<string,unknown>,fields=Object.keys(v);
- const kind=keys.find(k=>fields.length===Object.keys(groups[k]).length&&fields.every(f=>Object.hasOwn(groups[k],f)));
+ const kind=keys.find(k=>fields.length>0&&fields.every(f=>Object.hasOwn(groups[k],f)));
  if(!kind)throw Error('Expected one complete Accessible, Buildable or Tillable export.');
  const codes=groups[kind] as Record<string,string>,cells=new Array<string>(dimensions(w,h)).fill('');
  for(const name of fields){
