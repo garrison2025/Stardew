@@ -142,7 +142,7 @@
     },
     {
       "path": "src/lib/map-model.ts",
-      "gitBlob": "0198ce55ecbcc12a6b5783dd7513a2ba93d12a1f"
+      "gitBlob": "83ac6668ebcb68e62751d8f5d9d6157841701e4c"
     },
     {
       "path": "src/lib/monster-goals.ts",
@@ -265,5 +265,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r13"
+  "id": "ref-pc-1.6.15-20261128-r14"
 }
