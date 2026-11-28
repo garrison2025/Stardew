@@ -173,6 +173,10 @@
       "gitBlob": "eaf4e9f5d2fedb029ea1cfa53c0685e0ea7686d5"
     },
     {
+      "path": "src/lib/perfection-checklist.ts",
+      "gitBlob": "6c79457d09d4b2bd5f945406ebc79efb78c6acb3"
+    },
+    {
       "path": "src/lib/player-observations.ts",
       "gitBlob": "3462f1ff46bfb1cc4a52f84c1622eb8a43b218df"
     },
@@ -277,5 +281,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r23"
+  "id": "ref-pc-1.6.15-20261128-r24"
 }

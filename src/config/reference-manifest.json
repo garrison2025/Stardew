@@ -179,14 +179,15 @@
         "src/lib/monster-goals.ts",
         "src/lib/private-saved-counts.ts",
         "src/lib/player-observations.ts",
-        "src/lib/team-perfection.ts"
+        "src/lib/team-perfection.ts",
+        "src/lib/perfection-checklist.ts"
       ],
       "sources": [
         "https://stardewvalleywiki.com/Perfection",
         "https://stardewvalleywiki.com/Adventurer%27s_Guild"
       ],
       "sourceRights": "pending",
-      "scope": "Weighted single-player and per-category best-player team estimates; recognized save counts are minima; exact game display not verified"
+      "scope": "Weighted single-player and per-category best-player team estimates; recognized save counts are minima; exact game display not verified; goal gap priorities and per-item reference confirmation status"
     },
     {
       "path": "/crafting/",
