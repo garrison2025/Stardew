@@ -18,7 +18,7 @@
 5. Brand: identify compatibility nominatively, retain independent brand and clear disclaimer; no official logos or claim of affiliation.
 
 ## Outreach
-Prepared an English permission inquiry to concernedape@stardewvalley.net about free interactive tools, limited artwork, tile restrictions and numerical game data, display advertising and a future custom domain. Also prepared a question to the V3 planner developer (contact listed on stardew.info) on how they obtained permission. Drafts not sent or approved at this checkpoint. Do not put personal email metadata in the repository.
+Prepared an English permission inquiry to concernedape@stardewvalley.net about free interactive tools, limited artwork, tile restrictions and numerical game data, display advertising and a future custom domain. Also prepared a question to the V3 planner developer (contact listed on stardew.info) on how they obtained permission. Official inquiry sent 2026-11-28 after owner approval; the competitor inquiry remains unsent. No permission has been received or inferred. Do not put personal email metadata in the repository.
 
 ## Release decision
 No approval is inferred from silence, attribution, noncommercial use or competitor practice. If permission is granted, record scope and restrictions, implement only permitted assets, retain credits, and independently review upstream rights. Otherwise continue independently drawn maps/functional rules within appropriate scope or remove disputed derived packs for the commercial release. Global release gates and ads remain unchanged. This is project evidence and risk management, not legal advice.
