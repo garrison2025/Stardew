@@ -1,13 +1,21 @@
 import {cropById} from './crop-data.ts';
 import {cycles,eligible,plantingHorizon,rawCropPrice,type Allocation,type SeasonInput} from './season-crops.ts';
 import {availableMachines} from './processing.ts';
+import {analyzeFarmAccess,suggestedWalkOrigin} from './farm-access.ts';
 import {dailyRecipes,agedWinePrice,type DailyRecipe,type PrimaryMachine} from './economy-recipes.ts';
 import {cropReceivesTiller} from './crop-growth.ts';
 import type {Plan} from './map-model.ts';
 export type EconomySettings={initialCash:number;kegs:number;jars:number;minutesPerDay:number;tailDays:number;artisan:boolean;tiller:boolean;strategy:'raw'|'process';dehydrators?:number;millDailyLimit?:number;casks?:number;wineAgeDays?:14|28|56};
 type Batch={recipe:DailyRecipe;crop:string;batches:number;due:number};
 export type DayLedger={day:number;openingCash:number;received:number;seedCost:number;harvested:number;loaded:number;completed:number;rawSold:number;processedSold:number;sales:number;inventory:number;inFlight:number;wineWaiting:number;casksBusy:number;agedWineSold:number;closingCash:number};
-export function farmMachines(plan:Plan){let kegs=0,jars=0,blockedKegs=0,blockedJars=0,rooms=0;for(const o of plan.objects){if(!o.interior)continue;rooms++;const v=availableMachines(o.interior);kegs+=v.kegs;jars+=v.jars;blockedKegs+=v.blockedKegs;blockedJars+=v.blockedJars}return {kegs,jars,blockedKegs,blockedJars,rooms}}
+export function farmMachines(plan:Plan){
+ const indoor={kegs:0,jars:0,dehydrators:0},outdoor={kegs:0,jars:0,dehydrators:0},outdoorExcluded={kegs:0,jars:0,dehydrators:0};
+ let blockedKegs=0,blockedJars=0,blockedDehydrators=0,rooms=0;
+ for(const o of plan.objects){if(!o.interior)continue;rooms++;const v=availableMachines(o.interior);indoor.kegs+=v.kegs;indoor.jars+=v.jars;indoor.dehydrators+=v.dehydrators;blockedKegs+=v.blockedKegs;blockedJars+=v.blockedJars;blockedDehydrators+=v.blockedDehydrators;}
+ const origin=suggestedWalkOrigin(plan),reachable=new Set(origin?analyzeFarmAccess(plan,origin).equipment.filter(e=>e.distance!==null).map(e=>e.id):[]);
+ for(const o of plan.objects){const key=o.itemId==='machine-keg'?'kegs':o.itemId==='machine-jar'?'jars':o.itemId==='machine-dehydrator'?'dehydrators':null;if(key)(reachable.has(o.id)?outdoor:outdoorExcluded)[key]++;}
+ return {kegs:indoor.kegs+outdoor.kegs,jars:indoor.jars+outdoor.jars,dehydrators:indoor.dehydrators+outdoor.dehydrators,blockedKegs,blockedJars,blockedDehydrators,rooms,indoor,outdoor,outdoorExcluded,origin};
+}
 export function simulateEconomy(input:SeasonInput,allocation:Allocation[],s:EconomySettings){
  const whole=(n:number,min:number,max:number)=>Number.isInteger(n)&&n>=min&&n<=max;
  if(!whole(input.start,1,28)||!whole(input.plots,0,100)||!whole(input.budget,0,20000)||!['spring','summer','autumn','winter'].includes(input.season)||!whole(s.initialCash,0,100000000)||!whole(s.kegs,0,10000)||!whole(s.jars,0,10000)||!whole(s.minutesPerDay,1,2000)||!whole(s.tailDays,0,112)||!whole(s.dehydrators??0,0,10000)||!whole(s.millDailyLimit??0,0,10000)||!whole(s.casks??0,0,10000)||![14,28,56].includes(s.wineAgeDays??28)||!['raw','process'].includes(s.strategy))throw Error('Invalid economy settings.');
