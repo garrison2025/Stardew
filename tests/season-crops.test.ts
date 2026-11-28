@@ -24,3 +24,11 @@ test('fertilizer is paid once and fixed quality and Tiller price the harvest',()
  assert.deepEqual(r.allocation[0].cycle.days,[28]);
  assert.equal(optimizeSeason({...budget,budget:26}).planted,0);
 });
+
+import {eligible} from '../src/lib/season-crops.ts';
+test('rice shoots are stock-limited in year one, purchasable in year two',()=>{
+ assert.ok(!eligible(input).some(c=>c.id==='unmilled-rice'));
+ assert.ok(eligible({...input,year2:true}).some(c=>c.id==='unmilled-rice'));
+ assert.deepEqual(ownedSeedPlan('unmilled-rice','spring',1,2,3,0),{planted:2,days:[9],cost:0,revenue:60,profit:60});
+ assert.equal(ownedSeedPlan('unmilled-rice','spring',1,2,3,0,{season:'spring',growth:{fertilizer:'none',agriculturist:false,irrigated:true,cost:0}}).days[0],7);
+});
