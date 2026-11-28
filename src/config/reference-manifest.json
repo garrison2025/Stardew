@@ -22,7 +22,8 @@
         "src/lib/builtin-farm-preview.ts",
         "src/lib/compact-farm-identity.ts",
         "src/lib/farm-access.ts",
-        "src/lib/junimo-coverage.ts"
+        "src/lib/junimo-coverage.ts",
+        "src/lib/garden-diagnostics.ts"
       ],
       "sources": [
         "https://stardewvalleywiki.com/Farm_Maps",
@@ -31,10 +32,12 @@
         "https://github.com/Pathoschild/StardewMods/tree/f804f7135d3f7c3aa663be9f78187cee0fe2f997/DataLayers",
         "https://github.com/StephenFluin/starplan/tree/7ee52554a2e48f47a9d99e256830d7b1b2e5954f/public/assets/restrictions",
         "https://stardew.gs/buildings/",
-        "https://stardewvalleywiki.com/Junimo_Hut"
+        "https://stardewvalleywiki.com/Junimo_Hut",
+        "https://stardewvalleywiki.com/Bee_House",
+        "https://stardewvalleywiki.com/Fruit_Trees"
       ],
       "sourceRights": "pending",
-      "scope": "Eight built-in property-derived terrain reference previews using original schematic art, separate practice maps, local screenshot and compact import; source patch and dynamic game parity unverified; Junimo Hut geometric harvest range preview, not actual harvesting."
+      "scope": "Eight built-in property-derived terrain reference previews using original schematic art, separate practice maps, local screenshot and compact import; source patch and dynamic game parity unverified; Junimo Hut geometric harvest range preview, not actual harvesting.; advisory bee flower range and immature fruit sapling clearance."
     },
     {
       "path": "/bundles/",
