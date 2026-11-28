@@ -335,6 +335,10 @@
       [
         "How do monster eradication goals affect perfection?",
         "All 12 reference Guild goals must be complete for the monster component. Enter counters or load recognized per-player save statistics."
+      ],
+      [
+        "How can I find what I still need for perfection?",
+        "Review the goal-gap table and open the individual collection checklist for shipping, fishing, cooking or crafting. Local positive completions are marked as recorded; items without a positive record remain unconfirmed, not necessarily missing. Manual category counts do not mark individual items complete."
       ]
     ]
   },
