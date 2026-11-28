@@ -28,7 +28,7 @@ export const SHOP_CROPS:GameCrop[]=[
 {id:'tulip',name:'Tulip',seasons:['spring'],seed:20,price:30,growth:6,regrow:0,yield:1,color:'#d97185'},
 {id:'garlic',name:'Garlic',seasons:['spring'],seed:40,price:60,growth:4,regrow:0,yield:1,color:'#d9c8ab',special:'year2'},
 {id:'rhubarb',name:'Rhubarb',seasons:['spring'],seed:100,price:220,growth:13,regrow:0,yield:1,color:'#b75c66',special:'oasis'},
-{id:'unmilled-rice',name:'Unmilled Rice (dry tile)',seasons:['spring'],seed:40,price:30,growth:8,regrow:0,yield:1,color:'#d9c890'},
+{id:'unmilled-rice',name:'Unmilled Rice (dry tile)',seasons:['spring'],seed:40,price:30,growth:8,regrow:0,yield:1,color:'#d9c890',special:'year2'},
 {id:'hops',name:'Hops',seasons:['summer'],seed:60,price:25,growth:11,regrow:1,yield:1,color:'#84a66a',trellis:true},
 {id:'poppy',name:'Poppy',seasons:['summer'],seed:100,price:140,growth:7,regrow:0,yield:1,color:'#e56e5a'},
 {id:'red-cabbage',name:'Red Cabbage',seasons:['summer'],seed:100,price:260,growth:9,regrow:0,yield:1,color:'#945a9c',special:'year2'},
