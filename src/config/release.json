@@ -11,5 +11,12 @@
     "1.6": "1.6.15 numerical reference; structural save preview, independent fixtures pending",
     "1.7": "in development; no verified released adapter"
   },
-  "dataPolicy": "Independent schematic art and factual reference rules only. Original assets, copied Wiki material, unverified compatibility claims and advertising remain prohibited."
+  "dataPolicy": "Independent schematic art and factual reference rules only. Original assets, copied Wiki material, unverified compatibility claims and advertising remain prohibited.",
+  "acceptancePolicy": {
+    "development": "competitor-aligned-reference",
+    "scope": "existing 16 tools; supported reference features, CI and deployment evidence",
+    "exhaustiveGameplayCertificationRequiredForDevelopment": false,
+    "originalGameArtworkRequiredForDevelopment": false,
+    "commercialReview": "scope-specific rights and evidence; permission email is not the exclusive basis; unresolved material remains excluded or unapproved"
+  }
 }
