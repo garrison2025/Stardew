@@ -1,0 +1,194 @@
+{
+  "": [
+    [
+      "Choose a farm for your play style",
+      "Compare terrain, starter footprints and planning capacity before committing to a layout.",
+      "/farm-comparison/"
+    ],
+    [
+      "Turn your crop layout into a budget",
+      "Estimate planting costs, seasonal harvests and processing returns for the crops you intend to grow.",
+      "/crop-calculator/"
+    ]
+  ],
+  "bundles": [
+    [
+      "Find the fish your bundle needs",
+      "Check fish location, season, time and weather before planning a fishing trip.",
+      "/fishing/"
+    ],
+    [
+      "Review collection completion",
+      "Connect Community Center progress with broader saved collection observations and perfection goals.",
+      "/perfection/"
+    ]
+  ],
+  "museum": [
+    [
+      "Plan your next geode opening",
+      "Compare alternate container outcomes for missing minerals and artifacts. Results depend on the opening count and seed.",
+      "/predictor/"
+    ],
+    [
+      "Review museum progress in your save",
+      "Inspect recognized donations in the private workspace before updating your checklist.",
+      "/tracker/"
+    ]
+  ],
+  "predictor": [
+    [
+      "Find a missing museum donation",
+      "Check which artifacts and minerals are still missing, then search for relevant geode opening alternatives.",
+      "/museum/"
+    ],
+    [
+      "Check your save counters",
+      "Use the private workspace for supported local save observations. Confirm the correct farmer and relevant opening counters before predicting.",
+      "/tracker/"
+    ]
+  ],
+  "tracker": [
+    [
+      "Review your perfection gaps",
+      "Use the observed collections and milestones to identify remaining perfection tasks.",
+      "/perfection/"
+    ],
+    [
+      "Review skill and profession choices",
+      "Compare recognized skill observations with the profession and mastery reference.",
+      "/skills/"
+    ]
+  ],
+  "crop-calculator": [
+    [
+      "Plan enough space for crops",
+      "Design irrigated crop blocks in the farm planner, then estimate planting and processing returns.",
+      "/"
+    ],
+    [
+      "Complete your shipping collection",
+      "Use the shipping checklist to identify products you still need to ship rather than judging crops only by profit.",
+      "/shipping/"
+    ]
+  ],
+  "fair-calculator": [
+    [
+      "Find valuable crops and products",
+      "Compare expected harvest and processing returns, then enter actual item prices and quality in the Fair calculator.",
+      "/crop-calculator/"
+    ],
+    [
+      "Inspect available items",
+      "Review recognized backpack and ordinary storage observations in the private workspace before planning a display.",
+      "/tracker/"
+    ]
+  ],
+  "fishing": [
+    [
+      "Complete fishing bundles",
+      "Check which fish are required for standard Community Center donations.",
+      "/bundles/"
+    ],
+    [
+      "Finish the fishing collection",
+      "Review fishing progress alongside the other weighted perfection goals.",
+      "/perfection/"
+    ]
+  ],
+  "perfection": [
+    [
+      "Complete crafting and cooking tasks",
+      "Review each missing recipe and its material requirements rather than relying only on a completion percentage.",
+      "/crafting/"
+    ],
+    [
+      "Find remaining Golden Walnuts",
+      "Check the regional task hints and known tile coordinates to plan Ginger Island progress.",
+      "/golden-walnuts/"
+    ]
+  ],
+  "crafting": [
+    [
+      "Review available materials",
+      "Inspect recognized local inventory before deciding which materials to gather for a batch.",
+      "/tracker/"
+    ],
+    [
+      "Find recipes still needed for perfection",
+      "Compare individual crafted-item observations with the perfection checklist.",
+      "/perfection/"
+    ]
+  ],
+  "shipping": [
+    [
+      "Plan the next profitable harvest",
+      "Compare crops and processing policies, while accounting for missing shipping entries.",
+      "/crop-calculator/"
+    ],
+    [
+      "Check the shipping component of perfection",
+      "Review shipping observations alongside other collection categories.",
+      "/perfection/"
+    ]
+  ],
+  "cooking": [
+    [
+      "Find missing fish ingredients",
+      "Compare the reference fishing routes, seasons and weather before gathering ingredients.",
+      "/fishing/"
+    ],
+    [
+      "Check cooking completion",
+      "Review missing cooking entries in the perfection checklist.",
+      "/perfection/"
+    ]
+  ],
+  "golden-walnuts": [
+    [
+      "Connect island progress to perfection",
+      "Check your other completion categories while keeping walnut task observations separate from lifetime counts.",
+      "/perfection/"
+    ],
+    [
+      "Review supported save evidence",
+      "Inspect recognized save markers locally; missing fields are not treated as proof of completion.",
+      "/tracker/"
+    ]
+  ],
+  "farm-comparison": [
+    [
+      "Open an editable example",
+      "Compare the eight reference terrains, then plan a layout in the editor before placing buildings in game.",
+      "/"
+    ],
+    [
+      "Compare farming economics",
+      "Estimate seasonal and processed crop returns for the amount of land you plan to use.",
+      "/crop-calculator/"
+    ]
+  ],
+  "grandpa-calculator": [
+    [
+      "Review skill milestones",
+      "Check skill levels, profession choices and mastery experience before entering evaluation details.",
+      "/skills/"
+    ],
+    [
+      "Plan long-term collection progress",
+      "Review perfection goals separately from Grandpa’s evaluation.",
+      "/perfection/"
+    ]
+  ],
+  "skills": [
+    [
+      "Check Grandpa’s evaluation",
+      "Use skill and friendship milestones with the other evaluation criteria.",
+      "/grandpa-calculator/"
+    ],
+    [
+      "Compare profession-sensitive crop returns",
+      "Use the crop calculator to compare supported farming and processing scenarios.",
+      "/crop-calculator/"
+    ]
+  ]
+}
