@@ -5,6 +5,7 @@ on:
     paths:
       - '.github/workflows/starplan-reference.yml'
       - 'scripts/audit-starplan-reference.mjs'
+      - 'src/lib/builtin-farm-preview.ts'
       - 'src/lib/compact-farm-identity.ts'
       - 'src/lib/data-layers.ts'
       - 'src/lib/map-model.ts'

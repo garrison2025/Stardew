@@ -255,7 +255,11 @@
     {
       "path": "src/lib/walnut-progress.ts",
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
+    },
+    {
+      "path": "src/lib/builtin-farm-preview.ts",
+      "gitBlob": "6debd5d6160fb07b00bf4748ebce52fa2423aaf2"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r11"
+  "id": "ref-pc-1.6.15-20261128-r12"
 }
