@@ -142,11 +142,11 @@
     },
     {
       "path": "src/lib/layout-presets.ts",
-      "gitBlob": "94fea222d531fbfc4fd8ed09b7148cddc921dc66"
+      "gitBlob": "170a2ebd5268e575405b5ebb2cbdd8b2cd1ae175"
     },
     {
       "path": "src/lib/map-model.ts",
-      "gitBlob": "83ac6668ebcb68e62751d8f5d9d6157841701e4c"
+      "gitBlob": "5eb8cc1225e00ab4b93c7e10730aa3314da9be95"
     },
     {
       "path": "src/lib/monster-goals.ts",
@@ -210,7 +210,7 @@
     },
     {
       "path": "src/lib/save-model.ts",
-      "gitBlob": "132c20a4d93f2ac364889416767128d883d012d9"
+      "gitBlob": "317e2a588a75ca33c05938015b4185a6fb49e6a7"
     },
     {
       "path": "src/lib/save-observations.ts",
@@ -269,5 +269,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r15"
+  "id": "ref-pc-1.6.15-20261128-r16"
 }

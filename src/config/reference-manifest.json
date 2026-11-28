@@ -28,7 +28,8 @@
         "https://stardewvalleywiki.com/Carpenter%27s_Shop",
         "https://stardewvalleywiki.com/Sprinkler",
         "https://github.com/Pathoschild/StardewMods/tree/f804f7135d3f7c3aa663be9f78187cee0fe2f997/DataLayers",
-        "https://github.com/StephenFluin/starplan/tree/7ee52554a2e48f47a9d99e256830d7b1b2e5954f/public/assets/restrictions"
+        "https://github.com/StephenFluin/starplan/tree/7ee52554a2e48f47a9d99e256830d7b1b2e5954f/public/assets/restrictions",
+        "https://stardew.gs/buildings/"
       ],
       "sourceRights": "pending",
       "scope": "Eight built-in property-derived terrain reference previews using original schematic art, separate practice maps, local screenshot and compact import; source patch and dynamic game parity unverified"
@@ -101,7 +102,8 @@
       "sources": [
         "https://stardewvalleywiki.com/Saves",
         "https://stardewvalleywiki.com/Modding:Console_commands",
-        "https://stardewvalleywiki.com/Modding:Stats"
+        "https://stardewvalleywiki.com/Modding:Stats",
+        "https://stardew.gs/buildings/"
       ],
       "sourceRights": "pending",
       "scope": "Structural 1.6.x observations; not full compatibility; separate read-only latest player observations, not stable player identity or aggregate multiplayer rules"

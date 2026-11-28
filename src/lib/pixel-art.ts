@@ -140,11 +140,32 @@ function starterStructure(c:Ctx,id:string,w:number,h:number,season:Season):boole
  }
  return false;
 }
+function magicalStructure(c:Ctx,id:string,w:number,h:number,color:string,season:Season){
+ const edge=shade(color,-45),light=shade(color,45);
+ oval(c,w*.06,h*.74,w*.88,h*.24,'#30433255');
+ if(id==='game-junimo-hut'){
+  rect(c,w*.16,h*.42,w*.68,h*.49,'#71533a');rect(c,w*.22,h*.47,w*.56,h*.39,'#c5a775');
+  oval(c,w*.06,h*.09,w*.88,h*.53,edge);oval(c,w*.11,h*.08,w*.78,h*.42,color);oval(c,w*.26,h*.11,w*.42,h*.20,light);
+  rect(c,w*.42,h*.60,w*.16,h*.31,'#514738');rect(c,w*.28,h*.57,w*.10,h*.12,'#cde1cb');
+ }else if(id==='game-gold-clock'){
+  rect(c,w*.17,h*.76,w*.66,h*.14,edge);rect(c,w*.28,h*.66,w*.44,h*.13,color);
+  rect(c,w*.39,h*.40,w*.22,h*.28,edge);oval(c,w*.25,h*.03,w*.5,h*.66,edge);
+  oval(c,w*.29,h*.08,w*.42,h*.56,color);oval(c,w*.35,h*.15,w*.30,h*.42,'#f6e7b4');
+  rect(c,w*.49,h*.21,2,h*.17,'#544738');rect(c,w*.49,h*.36,w*.10,2,'#544738');rect(c,w*.47,h*.34,3,3,'#795331');
+ }else{
+  rect(c,w*.18,h*.76,w*.64,h*.16,edge);rect(c,w*.28,h*.68,w*.44,h*.10,color);
+  rect(c,w*.35,h*.24,w*.30,h*.46,edge);rect(c,w*.40,h*.24,w*.19,h*.43,color);rect(c,w*.42,h*.25,2,h*.40,light);
+  for(let y=0;y<Math.round(h*.26);y++){const half=Math.max(1,w*.17*(y+1)/(h*.26));rect(c,w*.5-half,h*.03+y,half*2,1,y%4===0?light:color);}
+  rect(c,w*.47,h*.37,w*.06,h*.12,'#eee0b4');
+ }
+ if(season==='winter')rect(c,w*.22,h*.76,w*.56,2,'#dce8e2');
+}
 const cache=new Map<string,HTMLCanvasElement>();
 export function sprite(o:Placed,season:Season):HTMLCanvasElement|null{
  if(typeof document==='undefined')return null;const i=itemById.get(o.itemId);if(!i)return null;const k=[o.itemId,o.rotation,season].join('|');const old=cache.get(k);if(old)return old;
  const d=dimensions(o),w=d.w*TILE,h=d.h*TILE,canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const c=canvas.getContext('2d');if(!c)return null;c.imageSmoothingEnabled=false;
  if(starterStructure(c,o.itemId,w,h,season)){}
+ else if(i.art==='magical')magicalStructure(c,o.itemId,w,h,i.color,season);
  else if(i.art==='house'||i.art==='glass')house(c,w,h,o.itemId,i.color,i.art==='glass',season);
  else if(i.art==='tree'||i.art==='pine')foliage(c,0,0,w,h,season,i.art==='pine',17);
  else if(i.art==='pond'){oval(c,0,1,w,h-2,'#806d50');oval(c,2,2,w-4,h-5,'#c6b78c');oval(c,5,5,w-10,h-11,i.color);rect(c,w*.23,h*.3,w*.4,1,'#b1d7d6');rect(c,w*.4,h*.57,w*.3,1,'#a2cbd3')}
