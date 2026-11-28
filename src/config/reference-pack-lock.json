@@ -133,6 +133,10 @@
       "gitBlob": "cfd88fd9053bde454db2cb9433024ab05aea30f5"
     },
     {
+      "path": "src/lib/geode-targets.ts",
+      "gitBlob": "5333881b8e5f9ca1742703fefe2817c2fa99abda"
+    },
+    {
       "path": "src/lib/indoor-model.ts",
       "gitBlob": "4b5dfdf81a9c250613635cc74275c4e1982668b4"
     },
@@ -163,6 +167,14 @@
     {
       "path": "src/lib/museum-data.ts",
       "gitBlob": "3b7eeb7a4b6092fb43c9f09cc3fc0e8837aa04fd"
+    },
+    {
+      "path": "src/lib/museum-display.ts",
+      "gitBlob": "3cbe2b08dcf0051e38a8c200ed6f514844c5f7fd"
+    },
+    {
+      "path": "src/lib/museum-position-inspection.ts",
+      "gitBlob": "bc8bba5890147969e2f41e990b9c8607e4cb188e"
     },
     {
       "path": "src/lib/museum-progress.ts",
@@ -282,12 +294,12 @@
     },
     {
       "path": "src/lib/walnut-observations.ts",
-      "gitBlob": "61268ea10ffe10e11af510ef53467e240f356a47"
+      "gitBlob": "d17a2c11d56fdc0d5b99775c704457a0ffe52066"
     },
     {
       "path": "src/lib/walnut-progress.ts",
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r28"
+  "id": "ref-pc-1.6.15-20261128-r29"
 }
