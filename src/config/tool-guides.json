@@ -3,15 +3,15 @@
     "steps": [
       [
         "Choose a farm landscape",
-        "Pick an original practice landscape and season, then open the object library to choose crops, buildings and paths."
+        "Select one of eight built-in base terrain references or an independent practice landscape. Choose Start farm for initial buildings or Start empty for an empty reference grid."
       ],
       [
         "Check the layout",
-        "Paint or place objects, toggle sprinkler coverage, and inspect collisions. Use undo or select multiple objects before moving them."
+        "Place crops, buildings and paths, inspect terrain restrictions and coverage, and use undo, selection or move tools. Reference maps do not include every dynamic object or exact game collision."
       ],
       [
-        "Export or continue",
-        "Download editable JSON or a PNG image. A separate private workspace is required for saved projects and personal screenshots."
+        "Share, export or continue",
+        "Generate a layout code for a supported built-in reference, or export editable JSON or PNG. Personal screenshots, saves and persistent local projects require the separate private workspace."
       ]
     ],
     "example": "Place nine crop markers around an iridium sprinkler on an unobstructed practice grid. Turn on water coverage to see which crop cells are reached; the sprinkler occupies its own tile.",
@@ -22,7 +22,7 @@
       ],
       [
         "Are these the exact game maps?",
-        "No. The eight landscapes and indoor templates are independently authored practice scenes. Actual terrain and building compatibility are not fully verified."
+        "The eight terrain references use pinned, game-derived passability, building and tilling flags with independent schematic artwork. They are not original map images or verified live game maps. Separate practice maps and indoor templates are illustrative."
       ],
       [
         "Where can I find Stardew Valley farm layout ideas?",
@@ -35,6 +35,10 @@
       [
         "Can I optimize sprinkler coverage within a budget?",
         "Choose a sprinkler, available device count, estimated unit cost and budget. Restrict the search to a rectangle or selected crop markers. Small candidate sets use exact enumeration; larger sets return feasible greedy suggestions."
+      ],
+      [
+        "Can I share my farm layout?",
+        "Yes. Generate a compact layout code or public link for a built-in reference or original practice map. Supported greenhouse ground changes are preserved. Custom terrain and linked room layouts require JSON export. A share link contains object types and positions, not a raw save or screenshot."
       ]
     ]
   },
@@ -167,6 +171,10 @@
       [
         "Can I inspect chest and fridge inventory in my save?",
         "Recognized positive backpack and ordinary chest/fridge quantities in supported saved locations can be reviewed separately in the private workspace. Linked/global containers, machine contents and complete farm inventory are not guaranteed; missing observations do not prove zero stock."
+      ],
+      [
+        "Can I import my farm layout from a save?",
+        "Use the farm planner in the private workspace. It can inspect recognized 1.6.x main Farm records, preview compatible building footprints, crop and equipment positions, and report unsupported or conflicting records before applying the partial layout. The save stays on your device."
       ]
     ]
   },
@@ -473,8 +481,8 @@
         "Read each farm's terrain and playstyle characteristics."
       ],
       [
-        "Open an illustrative layout",
-        "Follow the corresponding link to start practicing in the planner."
+        "Open the planner",
+        "Use the farm planner to choose the matching built-in terrain reference and starter buildings, or open a separate illustrative practice layout."
       ]
     ],
     "example": "Compare Standard with Beach using the reference tillable counts, but remember that beach sand and terrain constraints limit sprinkler use.",
@@ -485,7 +493,7 @@
       ],
       [
         "Are the linked maps exact farm maps?",
-        "No. Each is an independently authored landscape inspired by a general terrain type, not an official map."
+        "The planner provides eight functional terrain references and independent practice landscapes. Neither contains official game imagery. Reference terrain flags do not guarantee exact current-version gameplay or dynamic obstacle positions."
       ],
       [
         "Which farm is best for my playstyle?",

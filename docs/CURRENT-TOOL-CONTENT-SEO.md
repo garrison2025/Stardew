@@ -1,0 +1,2 @@
+# Content synchronization
+Updated page descriptions, search metadata, static FAQ and preview labels to match merged eight-map planner and FF3 sharing. Preserve 16 paths, keyword clusters, search volumes, KD, noindex and all release approvals. No unverified SERP claims. Farm comparison links and save matching feature are separate PRs; copy describes the existing manual planner workflow without promising unmerged functions.
