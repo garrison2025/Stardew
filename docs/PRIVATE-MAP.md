@@ -4,3 +4,6 @@ Three independently implemented geometric facts (unmodified basic cross 4, quali
 Official artwork rights remain separate; wiki about https://stardewvalleywiki.com/Stardew_Valley_Wiki:About . No production gate or SEO configuration changed.
 
 Private rectangle editor accelerates manual local mask painting; entire rectangle rejected if an existing object would become illegal. No game map is automatically reconstructed.
+
+## R6 vanilla frame presets
+Independent game-data tables: https://stardew.gs/maps/farm/tables/ and https://stardew.gs/maps/browse/ (1.6.15.24356). Standard, Riverland, Forest, Hill-top, Wilderness 80×65; Four Corners 80×80; Beach 110×110; Meadowlands 100×75. The eight standard numeric farm indices are referenced in https://stardewvalleywiki.com/Farm_Maps . These dimensions are factual map metadata, not a reproduced map. They are selectable in private screenshot setup and automatically suggested on supported main Farm imports. If recognized footprints exceed the vanilla frame, the suggestion grows and warns; unknown farm type or unsupported version has no reference. Custom mods and map masks remain unverified. No licensed asset or public terrain release gate changed.

@@ -4,6 +4,21 @@ export type RecordKind='building'|'object'|'terrain';
 export type FarmRecord={kind:RecordKind;itemId:string|null;x:number|null;y:number|null;width?:number;height?:number;reason?:string};
 export type SaveSnapshot={version:string;farmType:number|null;year:number|null;day:number|null;season:Season|null;fields:number;records:FarmRecord[];farmFound:boolean;fingerprint?:string|null;progress?:SaveProgress;farmhands?:SaveProgress[]};
 export const supportedVersion=(v:string)=>/^1\.6\.\d+(?:\.\d+)?$/.test(v);
+// Vanilla tilemap dimensions only, independently checked against the 1.6.15 data tables.
+// No claim about passability, buildability, tillability, map variants or modded terrain.
+export const VANILLA_FARM_GRIDS=[
+ {id:0,name:'Standard',w:80,h:65}, {id:1,name:'Riverland',w:80,h:65},
+ {id:2,name:'Forest',w:80,h:65}, {id:3,name:'Hill-top',w:80,h:65},
+ {id:4,name:'Wilderness',w:80,h:65}, {id:5,name:'Four Corners',w:80,h:80},
+ {id:6,name:'Beach',w:110,h:110}, {id:7,name:'Meadowlands',w:100,h:75}
+] as const;
+export function vanillaFarmGrid(farmType:number|null){return VANILLA_FARM_GRIDS.find(g=>g.id===farmType)}
+/** Prefer the documented vanilla frame; never silently truncate larger observed footprints. */
+export function suggestedFarmGrid(snapshot:SaveSnapshot){
+ const bounds=observedFarmBounds(snapshot),reference=supportedVersion(snapshot.version)&&snapshot.farmFound?vanillaFarmGrid(snapshot.farmType):undefined;
+ if(!reference)return {w:bounds.w,h:bounds.h,reference:undefined,exceedsReference:false};
+ return {w:Math.max(reference.w,bounds.w),h:Math.max(reference.h,bounds.h),reference,exceedsReference:bounds.w>reference.w||bounds.h>reference.h||bounds.outsideLimit>0};
+}
 export function buildingItem(type:string){const names:Record<string,string>={'Barn':'game-barn','Big Barn':'game-barn','Deluxe Barn':'game-barn','Coop':'game-coop','Big Coop':'game-coop','Deluxe Coop':'game-coop','Shed':'game-shed','Big Shed':'game-shed','Silo':'game-silo',"Fish Pond":"game-fish-pond","Mill":"game-mill","Slime Hutch":"game-slime-hutch","Stable":"game-stable","Well":"game-well","Cabin":"game-cabin","Shipping Bin":"game-shipping-bin","Pet Bowl":"game-pet-bowl"};return Object.hasOwn(names,type)?names[type]:null}
 export function sprinklerItem(id:string,big:boolean){if(big||!/^\(O\)\d+$|^\d+$/.test(id))return null;const ids:Record<string,string>={'599':'basic-sprinkler','621':'quality-sprinkler','645':'iridium-sprinkler'};const k=id.replace(/^\(O\)/,'');return Object.hasOwn(ids,k)?ids[k]:null}
 /** Lower bound for recognized object footprints, never a claim about the actual game map. */
