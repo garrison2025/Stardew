@@ -12,3 +12,6 @@ The public preview can be audited independently before the private deployment ex
 
 ## Guarded production output
 After all approval evidence is recorded and the real apex / app origins are configured, `npm run build:production` can generate a separate `dist-production` output. The default `npm run build` and workspace build remain preview/noindex. The command currently refuses to run. The Cloudflare Pages project must serve the approved custom domain and redirect the pages.dev mirror and www correctly; do not use the guarded output on an unapproved host. No ads are included. Run full live acceptance on the actual domains before advertising.
+
+## Revision-pinned main deployment evidence
+Every main push now triggers the read-only Live preview verification workflow. It polls the two configured Pages roots for the exact main commit revision, then runs the existing full route/headers/assets/404/save separation audit against both origins with that same expected SHA. Older or mixed deployments cannot pass. The bounded poll fails if either site does not catch up; overlapping main pushes cancel obsolete checks. PR checks still inspect the deployed preview pair, not the proposed commit; manual runs require an explicit revision. No write access to Cloudflare or production approval is implied. These are preview gates only; noindex and ads-off remain unchanged.
