@@ -37,3 +37,9 @@ test('documented stage reduction edge cases do not overpromise harvest dates',()
  assert.equal(growthProfile(crop('unmilled-rice'),{...setting,irrigated:true,fertilizer:'deluxe'}).days,4);
  for(const c of [...SEASON_CROPS,...OWNED_CROPS])for(const fertilizer of ['none','speed','deluxe','hyper'] as const)for(const agriculturist of [false,true])for(const irrigated of [false,true]){const r=growthProfile(c,{...setting,fertilizer,agriculturist,irrigated});assert.ok(r.days>=1&&r.days<=c.growth);assert.ok(r.phases.every(n=>n>=0));}
 });
+
+// Individual 1.6.15 game-data-derived pages: https://stardew.gs/crops/<id>/.
+test('independent game-data phase sequences for selected crops',()=>{
+ const expected:Record<string,number[]>={'green-bean':[1,1,1,3,4],hops:[1,1,2,3,4],grape:[1,1,2,3,3],'unmilled-rice':[1,2,2,3],'taro-root':[1,2,3,4],carrot:[1,1,1],'summer-squash':[1,1,1,1,2],broccoli:[1,2,2,3],powdermelon:[1,1,1,2,2],'coffee-bean':[1,2,2,3,2],pineapple:[1,3,3,4,3],cranberries:[1,2,1,1,2],blueberry:[1,3,3,4,2],starfruit:[2,3,2,3,3],strawberry:[1,1,2,2,2],potato:[1,1,1,2,1],tomato:[2,2,2,2,3],pumpkin:[1,2,3,4,3],amaranth:[1,2,2,2],corn:[2,3,3,3,3],melon:[1,2,3,3,3],'hot-pepper':[1,1,1,1,1],'blue-jazz':[1,2,2,2],'summer-spangle':[1,2,3,2],poppy:[1,2,2,2]};
+ for(const [id,phases] of Object.entries(expected))assert.deepEqual(CROP_PHASES[id],phases,id);
+});
