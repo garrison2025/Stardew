@@ -55,7 +55,7 @@ export function readSaveMilestones(root:SaveElement,player:SaveElement|undefined
 export function decodeMilestones(value:unknown):SaveMilestones{
  if(!value||typeof value!=='object')throw Error('Invalid save milestone record');
  const v=value as Record<string,unknown>,out={} as SaveMilestones;
- for(const key of Object.keys(MILESTONE_MAX) as (keyof SaveMilestones)[]){
+ for(const key of Object.keys(MILESTONE_MAX) as (keyof typeof MILESTONE_MAX)[]){
   const n=v[key];if(n!==null&&(typeof n!=='number'||!Number.isInteger(n)||n<0||n>MILESTONE_MAX[key]))throw Error('Invalid observed '+key);
   out[key]=n as number|null;
  }
