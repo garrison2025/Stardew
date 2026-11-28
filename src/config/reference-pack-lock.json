@@ -141,6 +141,10 @@
       "gitBlob": "75f079300ddcac33b6f2bece46f1420292dfa51d"
     },
     {
+      "path": "src/lib/junimo-coverage.ts",
+      "gitBlob": "6af44e7082dacf8e50cc70a30295feadb41083e8"
+    },
+    {
       "path": "src/lib/layout-presets.ts",
       "gitBlob": "170a2ebd5268e575405b5ebb2cbdd8b2cd1ae175"
     },
@@ -269,5 +273,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r16"
+  "id": "ref-pc-1.6.15-20261128-r17"
 }
