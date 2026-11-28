@@ -61,7 +61,9 @@
       "path": "/museum/",
       "files": [
         "src/lib/museum-data.ts",
-        "src/lib/museum-progress.ts"
+        "src/lib/museum-progress.ts",
+        "src/lib/museum-display.ts",
+        "src/lib/museum-position-inspection.ts"
       ],
       "sources": [
         "https://stardewvalleywiki.com/Museum",
@@ -69,7 +71,7 @@
         "https://stardewvalleywiki.com/Minerals"
       ],
       "sourceRights": "pending",
-      "scope": "Donation catalogue and schematic display"
+      "scope": "Donation catalogue and schematic display; validated practice sheet and private observed donation positions, not room geometry"
     },
     {
       "path": "/predictor/",
@@ -78,7 +80,8 @@
         "src/lib/event-calendar.ts",
         "src/lib/cart-forecast.ts",
         "src/lib/cart-stock.ts",
-        "src/lib/cart-stock-reference.ts"
+        "src/lib/cart-stock-reference.ts",
+        "src/lib/geode-targets.ts"
       ],
       "sources": [
         "https://stardewvalleywiki.com/Traveling_Cart",
@@ -88,7 +91,7 @@
         "https://stardewvalleywiki.com/Luck"
       ],
       "sourceRights": "pending",
-      "scope": "PC 1.6.15 numerical reference; exact save-day and game fixtures pending"
+      "scope": "PC 1.6.15 numerical reference; exact save-day and game fixtures pending; cross-container alternative and stock-bounded greedy target planning"
     },
     {
       "path": "/tracker/",
@@ -247,7 +250,7 @@
         "https://stardewvalleywiki.com/Golden_Walnut"
       ],
       "sourceRights": "pending",
-      "scope": "69 task groups; real-game fixture pending"
+      "scope": "69 task groups; real-game fixture pending; coordinate plots of pinned tile markers and separate lifetime/parrot evidence"
     },
     {
       "path": "/farm-comparison/",
