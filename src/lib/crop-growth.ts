@@ -297,17 +297,17 @@ export function growthProfile(crop:GameCrop,settings?:GrowthSettings){
  if(!source||source.reduce((a,b)=>a+b,0)!==crop.growth)throw Error('Missing or mismatched growth stages: '+crop.id);
  const paddy=!!settings?.irrigated&&['unmilled-rice','taro-root'].includes(crop.id);
  const percent=settings?rates[settings.fertilizer]+(settings.agriculturist?10:0)+(paddy?25:0):0;
- // Model the documented stage decrement quirk: later zero-length phases may
- // consume an additional reduction, but negative phases contribute zero elapsed days.
- // Use single-precision operations rather than integer percentage division.
+ // Game 1.6 fixed negative phase durations (official 1.6 changelog).
+ // Only positive stages may consume reductions; keep the first stage at least one day.
+ // Retain single-precision arithmetic and the game's fertilizer/paddy/profession order.
  let speed=Math.fround((settings?rates[settings.fertilizer]:0)/100);
- if(settings?.agriculturist)speed=Math.fround(speed+Math.fround(.10));
  if(paddy)speed=Math.fround(speed+Math.fround(.25));
+ if(settings?.agriculturist)speed=Math.fround(speed+Math.fround(.10));
  const requested=Math.ceil(Math.fround(crop.growth*speed));
  const phaseRoll=[...source];
  let remaining=requested;
  for(let pass=0;pass<3&&remaining>0;pass++)for(let i=0;i<phaseRoll.length&&remaining>0;i++){
-   if(i>0||phaseRoll[i]>1){phaseRoll[i]--;remaining--}
+   if(phaseRoll[i]>0&&(i>0||phaseRoll[i]>1)){phaseRoll[i]--;remaining--}
  }
  const phases=phaseRoll.map(n=>Math.max(0,n)),days=phases.reduce((a,b)=>a+b,0);
  return {baseDays:crop.growth,days,phases,percent,paddy,unappliedDays:Math.max(0,requested-(crop.growth-days))};
