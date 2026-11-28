@@ -42,6 +42,14 @@ Fully set padded flags indicate a completed bundle but do not identify the gifts
 
 The other contributing categories were zero in both tools. Both calculations round down to 19%. Checkup includes Clam in this shipping checklist and counts only recognized friendship rows present in this file. Field & Farm uses the [1.6 reference targets](https://stardewvalleywiki.com/Perfection) of 154 shipping items and 34 villagers. The two denominator differences account for about 0.15 percentage points. The sample has zero golden walnuts. [Qi's Walnut Room](https://stardewvalleywiki.com/Qi%27s_Walnut_Room) requires 100, so this sample cannot provide an in-game reading. A qualifying sample and a matching in-game screenshot remain open. Only aggregate observations are recorded here.
 
+## Mobile and production rehearsal
+
+[PR #97](https://github.com/garrison2025/Stardew/pull/97) and its [passing CI run](https://github.com/garrison2025/Stardew/actions/runs/46129559458) verified all 326 tests and the three-engine, five-width suite. iPhone 13 WebKit and Pixel 7 Chromium device profiles both passed touch placement, undo, zoom control, opening a shared layout, and local file import. Android Chromium also passed emulated pinch and drag. Physical iPhone and Android devices remain untested.
+
+The normal production build rejected the current preview config. The same build then passed in an isolated copy on reserved `example.org` origins with test approval values. It validated all 16 pages, HTML canonical URLs, JSON-LD, the sitemap, robots and workspace link separation. No rehearsal files were deployed. The live preview and workspace continue to use their existing noindex configuration.
+
+The additional [public co-op sample](https://forums.stardewvalley.net/threads/stardew-valley-1-6-co-op-game-crash-issue.37528/) has a 1.6.15 main save and backup from year 2. Both show zero golden walnuts, so they cannot supply a game-screen Perfection reading.
+
 ## Open release checks
 
 | Item | Evidence to record |
@@ -57,4 +65,4 @@ Use `npm run build:production` and deploy `dist-production` on the public Pages 
 
 Verify the exact commit on both hosts. On the public host check all 16 status codes, matching canonical and sitemap URLs, crawlability, no noindex header, and the 404 response. On the workspace confirm noindex and local save import. On separate iPhone Safari and Android Chrome devices, verify placement, pan, undo, opening and canceling a shared link, and a local save import. Record the commit and the device/browser for each run. Run the local fixture audit with the claimed 1.6.15 observations before expanding support. A pinned 1.6.8 structural sample does not establish the 1.6.15 game results or a perfection score.
 
-Once both custom hosts pass, set up a path-preserving 301 from the old public Pages host, verify a deep tool route and a shared-layout link, then submit the custom-domain sitemap in Search Console. Keep workspace backups available through the migration.
+Once both custom hosts pass, configure the old public Pages host using [Cloudflare Bulk Redirects](https://developers.cloudflare.com/pages/how-to/redirect-to-custom-domain/). Match the old production hostname and enable subpath matching, preserve path suffix, and preserve query string. Use a 301 target without a replacement fragment so the browser can retain an existing layout fragment. Test a deep tool URL with its query, a shared layout URL with its fragment, and the unchanged separation of the workspace. Submit the custom-domain sitemap in Search Console once available. Keep workspace backups available through the migration.
