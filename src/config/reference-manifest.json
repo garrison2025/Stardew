@@ -104,17 +104,20 @@
         "src/lib/save-stats.ts",
         "src/lib/backpack-observations.ts",
         "src/lib/storage-observations.ts",
-        "src/lib/player-observations.ts"
+        "src/lib/player-observations.ts",
+        "src/lib/save-quests.ts"
       ],
       "sources": [
         "https://stardewvalleywiki.com/Saves",
         "https://stardewvalleywiki.com/Modding:Console_commands",
         "https://stardewvalleywiki.com/Modding:Stats",
         "https://stardew.gs/buildings/",
-        "https://stardewvalleywiki.com/Modding:Recipe_data"
+        "https://stardewvalleywiki.com/Modding:Recipe_data",
+        "https://stardewvalleywiki.com/Modding:Achievement_data",
+        "https://stardewvalleywiki.com/Quests"
       ],
       "sourceRights": "pending",
-      "scope": "Structural 1.6.x observations; not full compatibility; separate read-only latest player observations, not stable player identity or aggregate multiplayer rules; recognized outdoor machine markers without processing state."
+      "scope": "Structural 1.6.x observations; not full compatibility; separate read-only latest player observations, not stable player identity or aggregate multiplayer rules; recognized outdoor machine markers without processing state.; recognized completed special-order IDs and in-game numeric achievement IDs"
     },
     {
       "path": "/crop-calculator/",
