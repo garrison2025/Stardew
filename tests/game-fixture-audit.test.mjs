@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {checkSnapshot,checkGeodeRows,observedPath,checkCartRows} from '../scripts/game-fixture-compare.mjs';
+import {checkSnapshot,checkGeodeRows,observedPath,checkCartRows,checkMachineRows} from '../scripts/game-fixture-compare.mjs';
 test('fixture checks distinguish missing, unknown and incorrect values',()=>{const sample={version:'1.6.15',progress:{xp:[10,20,30,40,50],money:null}};assert.deepEqual(checkSnapshot(sample,{'version':'1.6.15','progress.xp.1':20,'progress.money':null,'progress.walnutsFound':null,'progress.xp.0':0}).map(x=>x.passed),[true,true,true,false,false]);assert.throws(()=>checkSnapshot(sample,{}));assert.throws(()=>observedPath(sample,'progress.constructor'));assert.throws(()=>observedPath(sample,'fingerprint'))});
 test('observed geode sequence checks both identity and quantity without generating expected values',()=>{const rows=[{id:390,quantity:3},{id:74,quantity:1}];assert.deepEqual(checkGeodeRows(rows,[{id:390,quantity:3},{id:74,quantity:2},{id:330,quantity:1}]).map(x=>x.passed),[true,false,false]);assert.throws(()=>checkGeodeRows(rows,[]));assert.throws(()=>checkGeodeRows(rows,[{id:390,quantity:0}]))});
 
@@ -27,3 +27,27 @@ test('actual local fixture command evaluates save, geode and cart and rejects mi
 });
 
 test('fixture comparator cannot confirm uncertain downstream cart stock',()=>{const v={absoluteDay:21,venue:'Forest Cart',downstreamUncertain:true,stock:[{kind:'ordinary',label:'Raw',price:100,quantity:1},{kind:'furniture',label:'Chair',price:250,quantity:1}]};const observations=v.stock.map(s=>({...s,absoluteDay:21,venue:'Forest Cart'}));assert.deepEqual(checkCartRows([v],observations).map(s=>s.passed),[true,false])});
+
+test('machine comparisons use coordinates and building identity, reject ambiguous or unknown observations',()=>{
+ const outdoor={kind:'object',itemId:'machine-keg',x:3,y:4,machine:{state:'processing',minutes:720}};
+ const indoor={itemId:'machine-jar',buildingItemId:'game-shed',buildingX:10,buildingY:20,x:3,y:4,machine:{state:'ready',minutes:0}};
+ const s={records:[outdoor],indoorMachines:[indoor]};
+ const a={scope:'outdoor',itemId:'machine-keg',x:3,y:4,state:'processing',minutes:720};
+ const b={scope:'indoor',itemId:'machine-jar',buildingItemId:'game-shed',buildingX:10,buildingY:20,x:3,y:4,state:'ready'};
+ assert.deepEqual(checkMachineRows(s,[a,b]).map(v=>v.passed),[true,true]);
+ assert.equal(checkMachineRows(s,[{...a,minutes:721}])[0].passed,false);
+ assert.equal(checkMachineRows(s,[{...b,buildingX:11}])[0].passed,false);
+ assert.equal(checkMachineRows({...s,records:[outdoor,outdoor]},[a])[0].passed,false);
+ assert.equal(checkMachineRows({records:[]},[a])[0].passed,false);
+ assert.throws(()=>checkMachineRows(s,[a,a]));assert.throws(()=>checkMachineRows(s,[{...a,state:'unknown'}]));
+});
+test('actual local CLI machine case checks synthetic XML without emitting coordinates or contents',()=>{
+ const root=mkdtempSync(join(tmpdir(),'machine-fixture-'));try{
+ const xml='<SaveGame><gameVersion>1.6.15</gameVersion><locations><GameLocation><name>Farm</name><objects><item><key><Vector2><X>3</X><Y>4</Y></Vector2></key><value><Object><itemId>12</itemId><bigCraftable>true</bigCraftable><heldObject><itemId>348</itemId></heldObject><readyForHarvest>false</readyForHarvest><minutesUntilReady>720</minutesUntilReady></Object></value></item></objects></GameLocation></locations></SaveGame>';
+ writeFileSync(join(root,'local-save'),xml);const manifest=join(root,'observations.json');
+ const row={scope:'outdoor',itemId:'machine-keg',x:3,y:4,state:'processing',minutes:720};
+ const run=observed=>{writeFileSync(manifest,JSON.stringify({schema:1,cases:[{kind:'machine',version:'1.6.15',save:'local-save',observationSource:'Synthetic test only',observed}]}));const r=spawnSync(process.execPath,['--experimental-strip-types',fileURLToPath(new URL('../scripts/verify-game-fixtures.mjs',import.meta.url)),manifest],{encoding:'utf8',timeout:30000});assert.ifError(r.error);const output=r.stdout+r.stderr;for(const secret of ['348','720','machine-keg','local-save',root])assert.ok(!output.includes(secret));return {status:r.status,output}};
+ const ok=run([row]);assert.equal(ok.status,0,ok.output);assert.match(ok.output,/1 passed, 0 failed/);
+ const bad=run([{...row,state:'ready'}]);assert.equal(bad.status,1,bad.output);assert.match(bad.output,/0 passed, 1 failed/);
+ }finally{rmSync(root,{recursive:true,force:true})}
+});

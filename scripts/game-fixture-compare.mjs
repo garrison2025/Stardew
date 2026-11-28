@@ -27,3 +27,21 @@ export function checkCartRows(rows,observed){
   return {check:i+1,passed:candidates.some(x=>x.label===o.label&&x.price===o.price&&x.quantity===o.quantity)};
  });
 }
+
+const machineIds=new Set(['machine-keg','machine-jar','machine-furnace','machine-cheese','machine-mayonnaise','machine-loom','machine-oil','machine-dehydrator','bee-house']);
+const coordinate=n=>Number.isSafeInteger(n)&&n>=0&&n<=10000;
+const states=new Set(['empty','processing','ready','unknown']);
+// Match independently recorded coordinates, not parser-dependent record order.
+export function checkMachineRows(snapshot,observed){
+ if(!Array.isArray(observed)||!observed.length||observed.length>100)throw Error('Provide 1–100 independent machine observations');
+ const seen=new Set();
+ return observed.map((o,i)=>{
+  if(!o||!['outdoor','indoor'].includes(o.scope)||!machineIds.has(o.itemId)||!coordinate(o.x)||!coordinate(o.y)||!states.has(o.state)||o.state==='unknown'||(Object.hasOwn(o,'minutes')&&(!Number.isSafeInteger(o.minutes)||o.minutes< -1||o.minutes>10000000)))throw Error('Invalid machine observation');
+  if(o.scope==='indoor'&&(!coordinate(o.buildingX)||!coordinate(o.buildingY)||typeof o.buildingItemId!=='string'||!/^game-[a-z-]+$/.test(o.buildingItemId)))throw Error('Indoor observation requires building coordinates and type');
+  const key=JSON.stringify([o.scope,o.scope==='indoor'?o.buildingX:null,o.scope==='indoor'?o.buildingY:null,o.x,o.y]);
+  if(seen.has(key))throw Error('Duplicate machine observation');seen.add(key);
+  const matches=o.scope==='outdoor'?(snapshot.records??[]).filter(r=>r.kind==='object'&&r.x===o.x&&r.y===o.y):(snapshot.indoorMachines??[]).filter(r=>r.buildingX===o.buildingX&&r.buildingY===o.buildingY&&r.x===o.x&&r.y===o.y);
+  const r=matches[0];
+  return {check:i+1,passed:matches.length===1&&r.itemId===o.itemId&&(o.scope==='outdoor'||r.buildingItemId===o.buildingItemId)&&r.machine?.state===o.state&&(!Object.hasOwn(o,'minutes')||r.machine.minutes===o.minutes)};
+ });
+}

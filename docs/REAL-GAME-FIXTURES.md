@@ -16,3 +16,12 @@ Cart observation format (illustrative only):
 Use exact in-game displayed labels and quantities; the example above is not real data. Absolute day = (year - 1) × 112 + season index × 28 + day, with spring index 0. Record actual unlock flags; no route or festival unlock is inferred from a save. Report uncertain/missing results rather than treating them as validated.
 
 CI also runs the actual command on a temporary synthetic main save, with pinned reference expectations for geodes and cart stock, and checks mismatches, path containment and private-output suppression. This tests the runner, not game accuracy.
+
+## Machine-state observations
+The local runner accepts a `machine` case with 1–100 independently observed machines. Use zero-based tile coordinates, stable editor item IDs, and for indoor entries the exterior building origin and item ID. A timer is optional: record exact game minutes only when independently known. Unknown state is not positive evidence. Duplicate locations, missing devices, ambiguous matches and different states fail; records are matched by position, not XML order. This is not a test of full inventory or current usable capacity.
+
+Illustrative format only:
+```json
+{"kind":"machine","version":"1.6.15","save":"local-main-save","observationSource":"Independently observed matching saved machine states","observed":[{"scope":"outdoor","itemId":"machine-keg","x":3,"y":4,"state":"processing"},{"scope":"indoor","buildingItemId":"game-shed","buildingX":10,"buildingY":20,"itemId":"machine-jar","x":2,"y":3,"state":"ready"}]}
+```
+These are synthetic examples, not actual game evidence. No original save or personal data is committed.
