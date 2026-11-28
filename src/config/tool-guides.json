@@ -3,7 +3,7 @@
     "steps": [
       [
         "Choose a farm map",
-        "Select one of eight terrain references or an independent practice landscape. Use a starter scene or blank map, then preview one of 16 editable examples before replacing your layout."
+        "Start on Standard Farm with its starter structures. Choose another terrain reference or practice landscape from the landscape menu, or preview one of 16 editable examples."
       ],
       [
         "Check the layout",
@@ -11,7 +11,7 @@
       ],
       [
         "Share, export or continue",
-        "Generate a layout code for a supported built-in reference, or export editable JSON or PNG. Personal screenshots, saves and persistent local projects require the separate private workspace."
+        "Copy a share link for a supported map or export editable JSON or PNG. Recipients can preview the shared map before opening it. Personal screenshots, saves and persistent local projects require the separate private workspace."
       ]
     ],
     "example": "Place nine crop markers around an iridium sprinkler on an unobstructed practice grid. Turn on water coverage to see which crop cells are reached; the sprinkler occupies its own tile.",

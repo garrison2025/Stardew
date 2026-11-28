@@ -23,3 +23,12 @@ Reference-pack candidate: the lock records exact Git blob hashes of every manife
 
 ## Consolidated stop-scope acceptance (2026-11-28)
 R28 main c1d484d8; R29/R30 candidates cover geode alternatives, bounded stock planning, museum practice arrangement and observed positions, walnut coordinate markers and golden-parrot evidence, and observed-only farm coordinates. Independent pinned 1.6.8 sample audit 46116735483: 698 coordinate records plotted, 697 editable placements, one observed-only; not a collision fix. R31 candidate compares eight starter layouts using pinned masks, occupied footprint deductions and reachability. Scope frozen to existing 16 routes; no new tools needed for acceptance. The current 182-intent review remains 142 reference implemented, 35 partial, 2 mixed, 3 excluded until a separate evidence-based re-review. Record exact final CI/deployed revision before acceptance. Production remains HOLD pending actual matching-version fixtures, rights, domain, US-localized SERP, real physical devices and paired rollback. No approval flag changed.
+
+
+## Production cutover
+
+Use `npm run build:production` and deploy `dist-production` on the public Pages project after choosing the domain and recording the existing release approvals. Build the workspace with `npm run build:workspace`, output `dist-workspace`, and bind it to the separate `app` subdomain. Configure the public build with both HTTPS origins. Before redirecting the old workspace origin, export local project and progress backups and verify restore on the new origin. IndexedDB is origin-specific.
+
+Verify the exact commit on both hosts. On the public host check all 16 status codes, matching canonical and sitemap URLs, crawlability, no noindex header, and the 404 response. On the workspace confirm noindex and local save import. On separate iPhone Safari and Android Chrome devices, verify placement, pan, undo, opening and canceling a shared link, and a local save import. Record the commit and the device/browser for each run. Run the local fixture audit with the claimed 1.6.15 observations before expanding support. A pinned 1.6.8 structural sample does not establish the 1.6.15 game results or a perfection score.
+
+Once both custom hosts pass, set up a path-preserving 301 from the old public Pages host, verify a deep tool route and a shared-layout link, then submit the custom-domain sitemap in Search Console. Keep workspace backups available through the migration.
