@@ -75,7 +75,7 @@ export const LIMITED_WALNUT_KEYS:Readonly<Record<string,string>>={
   "volcano-rare": "VolcanoRareChest",
   "darts": "Darts"
 };
-export type WalnutObservation={found:Record<string,number>};
+export type WalnutObservation={found:Record<string,number>;goldenParrot?:boolean};
 const child=(e:SaveElement|undefined,n:string)=>e?.children.find(c=>c.localName===n);
 const text=(e:SaveElement|undefined,n:string)=>child(e,n)?.textContent.trim()??'';
 const nil=(e:SaveElement|undefined)=>e?.getAttributeNS('http://www.w3.org/2001/XMLSchema-instance','nil')==='true';
@@ -83,11 +83,13 @@ export function decodeWalnutObservation(raw:unknown):WalnutObservation{
  const v=raw as WalnutObservation;if(!v||!v.found||typeof v.found!=='object'||Array.isArray(v.found)||Object.keys(v.found).length>69)throw Error('Invalid walnut observation');
  const found:Record<string,number>={};
  for(const [id,n] of Object.entries(v.found)){const t=TASK_MAP.get(id);if(!t||!Number.isSafeInteger(n)||n<=0||n>t.count||!t.partial&&n!==t.count)throw Error('Invalid observed walnut task');found[id]=n}
- return {found};
+ if(v.goldenParrot!==undefined&&typeof v.goldenParrot!=='boolean')throw Error('Invalid golden parrot marker');
+ return {found,...(v.goldenParrot!==undefined?{goldenParrot:v.goldenParrot}:{})};
 }
 export function readWalnutObservation(root:SaveElement):WalnutObservation|undefined{
  const flags=child(root,'collectedNutTracker'),limited=child(root,'limitedNutDrops'),coconut=text(root,'goldenCoconutCracked');
  const found:Record<string,number>={};let readable=false;
+ const parrot=text(root,'activatedGoldenParrot');const goldenParrot=parrot==='true'?true:parrot==='false'?false:undefined;if(goldenParrot!==undefined)readable=true;
  if(flags&&!nil(flags)&&flags.children.length<=500&&flags.children.every(e=>e.localName==='string'&&e.textContent.length<=160)){
   readable=true;const keys=new Set(flags.children.map(e=>e.textContent.trim()));
   for(const [id,k] of Object.entries(FULL_WALNUT_KEYS))if(keys.has(k))found[id]=TASK_MAP.get(id)!.count;
@@ -101,7 +103,7 @@ export function readWalnutObservation(root:SaveElement):WalnutObservation|undefi
   if(valid){readable=true;for(const [id,k] of Object.entries(LIMITED_WALNUT_KEYS)){const n=values.get(k)??0,t=TASK_MAP.get(id)!;if(n>0&&(t.partial||n>=t.count))found[id]=Math.min(n,t.count)}}
  }
  if(coconut==='true'||coconut==='false'){readable=true;if(coconut==='true')found.coconut=1}
- return readable?decodeWalnutObservation({found}):undefined;
+ return readable?decodeWalnutObservation({found,...(goldenParrot!==undefined?{goldenParrot}:{})}):undefined;
 }
 export function mergeWalnutObservation(current:WalnutState,observation:WalnutObservation){
  let state=decodeWalnuts(current);for(const [id,n] of Object.entries(decodeWalnutObservation(observation).found))state=setFound(state,id,Math.max(state.found[id]??0,n));return state;
