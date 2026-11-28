@@ -1,7 +1,8 @@
 import {blankLocalMap,placementError,dimensions,itemById,SEASONS,type FarmMap,type Plan,type Placed,type Season} from './map-model.ts';
 import type {SaveProgress} from './save-progress.ts';
 export type RecordKind='building'|'object'|'terrain';
-export type FarmRecord={kind:RecordKind;itemId:string|null;x:number|null;y:number|null;width?:number;height?:number;reason?:string};
+export type MachineObservation={state:'empty'|'processing'|'ready'|'unknown';minutes:number|null};
+export type FarmRecord={kind:RecordKind;itemId:string|null;x:number|null;y:number|null;width?:number;height?:number;reason?:string;machine?:MachineObservation};
 export type SaveSnapshot={version:string;farmType:number|null;year:number|null;day:number|null;season:Season|null;fields:number;records:FarmRecord[];farmFound:boolean;fingerprint?:string|null;progress?:SaveProgress;farmhands?:SaveProgress[]};
 export const supportedVersion=(v:string)=>/^1\.6\.\d+(?:\.\d+)?$/.test(v);
 // Vanilla tilemap dimensions only, independently checked against the 1.6.15 data tables.
