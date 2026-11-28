@@ -25,6 +25,7 @@ async function serve(dir){
   await new Promise(r=>server.listen(0,'127.0.0.1',r));
   return {server,origin:'http://127.0.0.1:'+server.address().port};
 }
+await import('./audit-production-rehearsal.mjs');
 const publicSite=await serve('dist');
 const privateSite=await serve('dist-workspace');
 
@@ -60,6 +61,19 @@ async function verifyMobile(browser, device, testAndroidPinch){
     await page.getByRole('button',{name:'Zoom in map',exact:true}).tap();
     await page.waitForFunction(before=>Number(document.querySelector('.map-viewport').dataset.cameraScale)>before,beforeZoom);
 
+    await page.locator('.map-project-menu summary').tap();
+    await page.locator('.map-project-menu[open]').waitFor({timeout:8000});
+    await page.getByRole('button',{name:'Share layout',exact:true}).tap();
+    await page.getByRole('button',{name:'Copy share link',exact:true}).tap();
+    const shareUrl=await page.getByLabel('Public share link').inputValue();
+    assert.match(new URL(shareUrl).hash,/^#layout=ff[234]\./);
+    const receiver=await context.newPage();
+    await receiver.goto(shareUrl);
+    await receiver.getByRole('img',{name:/Shared farm map/}).waitFor();
+    await receiver.getByRole('button',{name:'Open shared layout',exact:true}).tap();
+    await receiver.locator('[data-scene-count="'+initial+'"]').waitFor();
+    await receiver.close();
+
     if(testAndroidPinch){
       await viewport.scrollIntoViewIfNeeded();
       const rect=await viewport.boundingBox();
@@ -80,18 +94,6 @@ async function verifyMobile(browser, device, testAndroidPinch){
         assert.equal(Number(await counter.getAttribute('data-scene-count')),initial);
       }finally{await cdp.detach();}
     }
-
-    await page.locator('.map-project-menu summary').tap();
-    await page.getByRole('button',{name:'Share layout',exact:true}).tap();
-    await page.getByRole('button',{name:'Copy share link',exact:true}).tap();
-    const shareUrl=await page.getByLabel('Public share link').inputValue();
-    assert.match(new URL(shareUrl).hash,/^#layout=ff[234]\./);
-    const receiver=await context.newPage();
-    await receiver.goto(shareUrl);
-    await receiver.getByRole('img',{name:/Shared farm map/}).waitFor();
-    await receiver.getByRole('button',{name:'Open shared layout',exact:true}).tap();
-    await receiver.locator('[data-scene-count="'+initial+'"]').waitFor();
-    await receiver.close();
 
     await page.goto(privateSite.origin+'/tracker/');
     await page.waitForFunction(()=>!document.querySelector('astro-island[ssr]'));
@@ -177,5 +179,3 @@ try{
     }finally{await browser.close();}
   }
 }finally{publicSite.server.close();privateSite.server.close();}
-
-await import('./audit-production-rehearsal.mjs');
