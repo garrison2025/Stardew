@@ -15,3 +15,13 @@ test('machine observations distinguish explicit fields, unknown and inconsistent
  assert.ok(!JSON.stringify(s.records).includes('348'));assert.ok(!JSON.stringify(s.records).includes('"stack"'));
  const p=buildFarmImport(s,80,65).plan;assert.equal(p.objects.length,8);assert.ok(p.objects.every(o=>!Object.hasOwn(o,'machine')));
 });
+
+test('direct building interiors are separate observations, not outdoor records or duplicated top-level locations',()=>{
+ const object='<item><key><Vector2><X>2</X><Y>3</Y></Vector2></key><value><Object><itemId>12</itemId><bigCraftable>true</bigCraftable><heldObject><itemId>348</itemId></heldObject><readyForHarvest>false</readyForHarvest><minutesUntilReady>1440</minutesUntilReady></Object></value></item>';
+ const contents='<objects>'+object+'</objects>';
+ const building=(type:string,x:number,interior:string)=>'<Building><buildingType>'+type+'</buildingType><tileX>'+x+'</tileX><tileY>10</tileY><tilesWide>7</tilesWide><tilesHigh>3</tilesHigh>'+interior+'</Building>';
+ const xml='<SaveGame xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><player><gameVersion>1.6.15</gameVersion></player><locations><GameLocation><name>Farm</name><buildings>'+building('Shed',10,'<indoors>'+contents+'</indoors>')+building('Shed',20,'<indoors><GameLocation>'+contents+'</GameLocation></indoors>')+building('Unknown mod',30,'<indoors>'+contents+'</indoors>')+building('Shed',40,'<indoors xsi:nil="true"/>')+building('Shed',50,'<nonInstancedIndoorsName>Shared</nonInstancedIndoorsName><indoors>'+contents+'</indoors>')+'</buildings></GameLocation><GameLocation><name>Shared</name>'+contents+'</GameLocation></locations></SaveGame>';
+ const s=parseSave(xml);assert.equal(s.records.length,5);assert.equal(s.indoorMachines?.length,2);
+ assert.deepEqual(s.indoorMachines?.map(m=>[m.buildingIndex,m.buildingX,m.x,m.y,m.machine.state,m.machine.minutes]),[[0,10,2,3,'processing',1440],[1,20,2,3,'processing',1440]]);
+ assert.ok(!JSON.stringify(s.indoorMachines).includes('348'));const p=buildFarmImport(s,80,65).plan;assert.ok(p.objects.every(o=>!Object.hasOwn(o,'machine')&&!o.itemId.startsWith('machine-')));
+});

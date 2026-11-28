@@ -218,7 +218,7 @@
     },
     {
       "path": "src/lib/save-model.ts",
-      "gitBlob": "73041d2f925fd9ed6a4e8139981de7209b70823a"
+      "gitBlob": "79a2631ad3cb18e8f71ad0074b2a8fa2f25712c4"
     },
     {
       "path": "src/lib/save-observations.ts",
@@ -226,7 +226,7 @@
     },
     {
       "path": "src/lib/save-parser-core.ts",
-      "gitBlob": "61bbb78358156ca9c61cb3f5ecb76df51e076646"
+      "gitBlob": "5c9501424eb746e8d0a4fa530b0e5dbaa47987d9"
     },
     {
       "path": "src/lib/save-professions.ts",
@@ -277,5 +277,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r21"
+  "id": "ref-pc-1.6.15-20261128-r22"
 }

@@ -11,7 +11,7 @@ import {readBundleDefinition, type SaveBundle} from './save-bundles.ts';
 import type {GeodeInput} from './geode-prediction.ts';
 import {parseSaveXml, MAX_SAVE_BYTES, type SaveElement} from './save-xml.ts';
 import {SEASONS,type Season} from './map-model.ts';
-import {parseVanillaFarmType,buildingItem,observedObjectItem,observedBushItem,observedClumpItem,supportedVersion,type FarmRecord,type SaveSnapshot,type MachineObservation} from './save-model.ts';
+import {parseVanillaFarmType,buildingItem,observedObjectItem,observedBushItem,observedClumpItem,supportedVersion,type FarmRecord,type SaveSnapshot,type MachineObservation,type IndoorMachineObservation} from './save-model.ts';
 import {normalizeSkillXp,normalizeCrafting,normalizeObjectCollection,safeCount,type SaveProgress,type NamedCount} from './save-progress.ts';
 const child=(el:SaveElement|undefined|null,name:string)=>el?Array.from(el.children).find(c=>c.localName===name):undefined;
 const text=(el:SaveElement|undefined|null,name:string)=>child(el,name)?.textContent?.trim()??'';
@@ -124,9 +124,29 @@ function inspectSaveRoot({root, fields, player, version}:ReturnType<typeof parse
   }
  }
  if(!supportedVersion(version)||!farm)return snapshot;
+ const indoorMachines:IndoorMachineObservation[]=[];
  for(const b of Array.from(child(farm,'buildings')?.children??[])){
+ const buildingIndex=records.length;
  const itemId=buildingItem(text(b,'buildingType'));records.push({kind:'building',itemId,x:num(text(b,'tileX')),y:num(text(b,'tileY')),width:num(text(b,'tilesWide'))??undefined,height:num(text(b,'tilesHigh'))??undefined,...(!itemId?{reason:'Unmapped building type'}:{})});
+ // Only directly linked instanced interiors, not top-level locations or non-instanced aliases.
+ if(!itemId||b.localName!=='Building'||['true','1'].includes(xsi(b,'nil')))continue;
+ const interiors=b.children.filter(e=>e.localName==='indoors');
+ if(interiors.length!==1||['true','1'].includes(xsi(interiors[0],'nil'))||text(b,'nonInstancedIndoorsName'))continue;
+ const inner=interiors[0],wrapped=inner.children.filter(e=>e.localName==='GameLocation');
+ if(wrapped.length>1||(wrapped.length===1&&child(inner,'objects')))continue;
+ const loc=wrapped[0]??inner;
+ if(['true','1'].includes(xsi(loc,'nil')))continue;
+ const dictionaries=loc.children.filter(e=>e.localName==='objects');
+ if(dictionaries.length!==1||['true','1'].includes(xsi(dictionaries[0],'nil')))continue;
+ for(const entry of dictionary(dictionaries[0])){
+  const o=child(child(entry,'value'),'Object');if(!o||['true','1'].includes(xsi(o,'nil')))continue;
+  const id=observedObjectItem(text(o,'itemId')||text(o,'parentSheetIndex'),text(o,'bigCraftable'),xsi(o,'type'));
+  if(!id||(!id.startsWith('machine-')&&id!=='bee-house'))continue;
+  if(indoorMachines.length>=20000)throw Error('Too many indoor machine observations.');
+  indoorMachines.push({buildingIndex,buildingItemId:itemId,buildingX:records[buildingIndex].x,buildingY:records[buildingIndex].y,itemId:id,...point(child(child(entry,'key'),'Vector2')),machine:observeMachine(o)});
  }
+ }
+ if(indoorMachines.length)snapshot.indoorMachines=indoorMachines;
  for(const entry of dictionary(child(farm,'objects'))){
  const keyPoint=point(child(child(entry,'key'),'Vector2')),o=child(child(entry,'value'),'Object');
  const id=text(o,'itemId')||text(o,'parentSheetIndex'),big=text(o,'bigCraftable');
