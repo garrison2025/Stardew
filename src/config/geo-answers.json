@@ -1,0 +1,262 @@
+{
+  "": {
+    "question": "What can I check before building my Stardew Valley farm?",
+    "answer": "Use Field & Farm to plan a farm on one of eight terrain references, compare 16 editable examples, check building footprints and visualize sprinkler and scarecrow coverage. A standard iridium sprinkler reaches up to 24 surrounding tiles in a 5 by 5 square, excluding its own tile.",
+    "method": "The editor tests placements against reference terrain and existing objects. It separates schematic art from restriction flags and offers independent practice layouts.",
+    "limit": "A reference grid is not the original game map; terrain changes, unsupported objects and some building collisions may differ. Personal saves and persistent projects are handled in the private workspace.",
+    "sources": [
+      {
+        "label": "Farm types and layouts",
+        "url": "https://stardewvalleywiki.com/Farm_Maps"
+      },
+      {
+        "label": "Sprinkler patterns",
+        "url": "https://stardewvalleywiki.com/Sprinkler"
+      },
+      {
+        "label": "Pinned Starplan terrain reference",
+        "url": "https://github.com/StephenFluin/starplan/tree/7ee52554a2e48f47a9d99e256830d7b1b2e5954f/public/assets/restrictions"
+      }
+    ]
+  },
+  "bundles": {
+    "question": "How do I track standard and remixed Community Center bundles?",
+    "answer": "The bundle tracker covers 30 standard Community Center bundles and the separate Missing Bundle. Complete the required number of fully donated slots, not necessarily every optional candidate.",
+    "method": "Filter seasonal requirements and mark donations manually. The private workspace imports recognized positive observations only when the saved definition matches; unmatched definitions are retained separately.",
+    "limit": "Remixed and modded bundle definitions can differ; a partial donation is not a completed slot.",
+    "sources": [
+      {
+        "label": "Bundle requirements",
+        "url": "https://stardewvalleywiki.com/Bundles"
+      },
+      {
+        "label": "Saved bundle definitions",
+        "url": "https://stardewvalleywiki.com/Modding:Bundles"
+      }
+    ]
+  },
+  "museum": {
+    "question": "How many items are in the Stardew Valley museum collection?",
+    "answer": "The reference catalogue contains 95 museum donations: 42 artifacts and 53 minerals. Track found and donated items separately, filter acquisition hints and arrange a practice display.",
+    "method": "Donation progress increases when an item is marked donated, not merely found. The private workspace can inspect recognized saved donation positions.",
+    "limit": "The practice layout does not reproduce the exact museum room geometry; unknown save entries remain unverified.",
+    "sources": [
+      {
+        "label": "Museum and donation rewards",
+        "url": "https://stardewvalleywiki.com/Museum"
+      },
+      {
+        "label": "Artifacts",
+        "url": "https://stardewvalleywiki.com/Artifacts"
+      },
+      {
+        "label": "Minerals",
+        "url": "https://stardewvalleywiki.com/Minerals"
+      }
+    ]
+  },
+  "predictor": {
+    "question": "What can the Stardew Valley seed predictor forecast?",
+    "answer": "The predictor compares geode opening alternatives, Golden Coconuts, three Mystery Box reward scenarios, special mine floors, Traveling Cart stock and seeded event candidates. The container sequence depends on the seed, farmer ID, opening count and applicable randomization mode.",
+    "method": "Select the correct counter and scenario switches. The private workspace accepts personal game IDs locally. The extra prediction models were compared with pinned Stardew Predictor outputs in two RNG scenarios.",
+    "limit": "This is a PC 1.6 reference, not a world-map generator. Conditional rewards, event state and potential dinosaur floors are not guarantees.",
+    "sources": [
+      {
+        "label": "Pinned predictor implementation",
+        "url": "https://github.com/MouseyPounds/stardew-predictor/blob/master/stardew-predictor.js"
+      },
+      {
+        "label": "Geode rules",
+        "url": "https://stardewvalleywiki.com/Geode"
+      },
+      {
+        "label": "Traveling Cart",
+        "url": "https://stardewvalleywiki.com/Traveling_Cart"
+      },
+      {
+        "label": "Golden Coconut",
+        "url": "https://stardewvalleywiki.com/Golden_Coconut"
+      }
+    ]
+  },
+  "tracker": {
+    "question": "Can I check Stardew Valley save progress without uploading my file?",
+    "answer": "The public tracker provides collection and progress tools. In the separate private workspace, a selected save is inspected locally for supported collections, skill and step counts, friendship, quests, achievements, and recognized inventory observations.",
+    "method": "The parser reads recognized fields and distinguishes positive observations from missing information. It does not edit the original game save.",
+    "limit": "Unsupported fields, game versions, mods and storage types may be incomplete. Missing evidence is not proof of zero progress.",
+    "sources": [
+      {
+        "label": "Save file reference",
+        "url": "https://stardewvalleywiki.com/Saves"
+      },
+      {
+        "label": "Game statistics",
+        "url": "https://stardewvalleywiki.com/Modding:Stats"
+      },
+      {
+        "label": "Special orders",
+        "url": "https://stardewvalleywiki.com/Modding:Special_orders"
+      }
+    ]
+  },
+  "crop-calculator": {
+    "question": "How do I compare crop profit and processing returns?",
+    "answer": "Compare crop revenue minus seed and modeled input costs across seasons, planting windows and processing choices. For example, one 20g Parsnip seed sold as a normal-quality 35g crop yields 15g before other costs.",
+    "method": "Choose the season, available tiles, budget, quality and device capacity. Compare direct shipping, processing and reinvestment under the same modeled constraints.",
+    "limit": "Results depend on harvest timing, assumed yields and inputs; a tested policy is not a proof of globally maximum profit.",
+    "sources": [
+      {
+        "label": "Crop rules",
+        "url": "https://stardewvalleywiki.com/Crops"
+      },
+      {
+        "label": "Keg processing",
+        "url": "https://stardewvalleywiki.com/Keg"
+      },
+      {
+        "label": "Preserves Jar",
+        "url": "https://stardewvalleywiki.com/Preserves_Jar"
+      },
+      {
+        "label": "Cask aging",
+        "url": "https://stardewvalleywiki.com/Cask"
+      }
+    ]
+  },
+  "fair-calculator": {
+    "question": "How many points are needed to win the Stardew Valley Fair?",
+    "answer": "The reference Grange Display model awards first place at 90 points or more in a normal display. Up to nine active slots are scored using item value, quality and category diversity.",
+    "method": "Enter actual item values and qualities, confirm quantities, and compare a recommended display against the score. Six recognized categories can contribute up to 30 diversity points.",
+    "limit": "A recommendation depends on the entered inventory and ordinary scoring rules; the special shorts result is separate.",
+    "sources": [
+      {
+        "label": "Stardew Valley Fair scoring",
+        "url": "https://stardewvalleywiki.com/Stardew_Valley_Fair"
+      },
+      {
+        "label": "Item reference",
+        "url": "https://stardewvalleywiki.com/Modding:Items"
+      }
+    ]
+  },
+  "fishing": {
+    "question": "How can I find missing fish in Stardew Valley?",
+    "answer": "The fish tracker covers 72 reference collection entries, with searchable location, season, time, weather, difficulty and price information.",
+    "method": "Choose a fish and check its acquisition route before marking it caught. Compare bundle requirements and perfection progress separately.",
+    "limit": "Special bait, alternate sources and later or modded fish may change the conditions; the reference is not exhaustive.",
+    "sources": [
+      {
+        "label": "Fish collection and conditions",
+        "url": "https://stardewvalleywiki.com/Fish"
+      }
+    ]
+  },
+  "perfection": {
+    "question": "How does the Stardew Valley perfection calculator work?",
+    "answer": "The calculator estimates completion across eleven weighted goals. For example, 77 of 154 shipping entries account for 7.5 percentage points of the 15-point shipping category.",
+    "method": "Combine manual checklist progress and recognized save observations, review unknown categories, and compare individual or reference multiplayer totals.",
+    "limit": "A missing save field does not prove zero completion. Reference estimates and multiplayer aggregation are not certified in-game display values.",
+    "sources": [
+      {
+        "label": "Perfection scoring",
+        "url": "https://stardewvalleywiki.com/Perfection"
+      },
+      {
+        "label": "Monster eradication goals",
+        "url": "https://stardewvalleywiki.com/Adventurer%27s_Guild"
+      }
+    ]
+  },
+  "crafting": {
+    "question": "How do I calculate materials for all missing crafting recipes?",
+    "answer": "The crafting checklist covers 149 reference recipes. Select missing recipes, multiply their ingredients by the required batch count, and optionally deduct recognized local stock.",
+    "method": "Account for the recipe's output quantity and unlock conditions. The Trapper profession has a separate Crab Pot ingredient option.",
+    "limit": "Learning a recipe does not count as crafting it; unknown inventory and unsupported recipes are not assumed complete.",
+    "sources": [
+      {
+        "label": "Crafting recipes",
+        "url": "https://stardewvalleywiki.com/Crafting"
+      },
+      {
+        "label": "Crab Pot recipe",
+        "url": "https://stardewvalleywiki.com/Crab_Pot"
+      }
+    ]
+  },
+  "shipping": {
+    "question": "How many items are required for the shipping collection?",
+    "answer": "The reference shipping checklist contains 154 entries. Filter categories and common acquisition seasons, track shipped items and export a missing-item list.",
+    "method": "Mark a collection entry after the relevant shipping action; the private workspace can merge recognized positive shipping observations.",
+    "limit": "Finding an item or selling it elsewhere is not automatically evidence of a shipping collection entry.",
+    "sources": [
+      {
+        "label": "Shipping collection",
+        "url": "https://stardewvalleywiki.com/Shipping"
+      }
+    ]
+  },
+  "cooking": {
+    "question": "How can I plan ingredients for Stardew Valley cooking recipes?",
+    "answer": "The cooking checklist includes 81 reference recipes, with ingredient requirements, unlock sources and batch planning. The ingredient planner can expand supported intermediate dishes and account for selected stock.",
+    "method": "Choose recipes and batch sizes, confirm substitutions and stock, and distinguish learned recipes from cooked dishes.",
+    "limit": "Inventory is a recognized local observation or manual input, not a complete guarantee of what is available in game.",
+    "sources": [
+      {
+        "label": "Cooking recipe reference",
+        "url": "https://stardewvalleywiki.com/Cooking"
+      }
+    ]
+  },
+  "golden-walnuts": {
+    "question": "How many Golden Walnuts are there and how do I track the remaining ones?",
+    "answer": "The reference target is 130 Golden Walnuts across 69 task groups. Filter regional hints, check available coordinate markers and record collection progress separately from island upgrade spending.",
+    "method": "Review individual task groups and recognized save evidence, keeping lifetime walnuts found and available balance distinct.",
+    "limit": "Not every task has an exact coordinate marker, and the schematic plots are not original island maps. Unknown save evidence remains unknown.",
+    "sources": [
+      {
+        "label": "Golden Walnut tasks and locations",
+        "url": "https://stardewvalleywiki.com/Golden_Walnut"
+      }
+    ]
+  },
+  "farm-comparison": {
+    "question": "Which Stardew Valley farm type should I choose?",
+    "answer": "The eight farm types support different priorities: Standard offers broad crop space, Riverland emphasizes water, Forest offers forage and hardwood, and Meadowlands starts with livestock-oriented features. Compare all eight before choosing.",
+    "method": "Use the terrain reference comparison, starter footprints and reachable-capacity diagnostics, then open an editable layout for the chosen farm.",
+    "limit": "Reference tile counts are not verified live-game usable area. The Beach farm has sprinkler restrictions on sandy soil; no farm is universally best.",
+    "sources": [
+      {
+        "label": "All eight farm types",
+        "url": "https://stardewvalleywiki.com/Farm_Maps"
+      }
+    ]
+  },
+  "grandpa-calculator": {
+    "question": "How many points does Grandpa need for four candles?",
+    "answer": "The reference Grandpa evaluation gives four candles at 12 points or more. Earnings, skill levels, friendships and recognized milestones contribute to the total.",
+    "method": "Enter lifetime earnings, total skill levels, eligible friendships and completed milestones. One million gold of lifetime earnings contributes seven points.",
+    "limit": "The calculator estimates the score from supplied evidence and does not trigger or alter the in-game evaluation.",
+    "sources": [
+      {
+        "label": "Grandpa evaluation rules",
+        "url": "https://stardewvalleywiki.com/Grandpa"
+      }
+    ]
+  },
+  "skills": {
+    "question": "How much XP is needed for level 10 in Stardew Valley?",
+    "answer": "The reference threshold for level 10 is 15,000 XP in a base skill. The tool covers Farming, Mining, Foraging, Fishing and Combat, along with profession effects and mastery thresholds.",
+    "method": "Enter XP or inspect recognized saved skill and profession observations in the private workspace, then compare threshold progress.",
+    "limit": "The reference does not grant professions, change XP or establish compatibility with modded skill systems.",
+    "sources": [
+      {
+        "label": "Skills and XP thresholds",
+        "url": "https://stardewvalleywiki.com/Skills"
+      },
+      {
+        "label": "Game commands and identifiers",
+        "url": "https://stardewvalleywiki.com/Modding:Console_commands"
+      }
+    ]
+  }
+}
