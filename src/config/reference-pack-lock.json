@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "id": "ref-pc-1.6.15-20261128-r3",
+  "id": "ref-pc-1.6.15-20261128-r4",
   "gameVersion": "1.6.15",
   "rulesVersion": "preview-2026-11-28",
   "status": "reference-only",
@@ -63,7 +63,7 @@
     },
     {
       "path": "src/lib/extra-processing.ts",
-      "gitBlob": "0f85bce7a6076befdcbc490a314863d79feff192"
+      "gitBlob": "665e808ea05bdb93672427d9ed1e7bd29d175a6e"
     },
     {
       "path": "src/lib/fair-optimize.ts",
@@ -159,7 +159,7 @@
     },
     {
       "path": "src/lib/processing.ts",
-      "gitBlob": "efc8461b687eae9e93f12e32ff820f7b6b091067"
+      "gitBlob": "076dbe5808f9e29ca2d8437c1cc6b030a316251e"
     },
     {
       "path": "src/lib/protected-cashflow.ts",
