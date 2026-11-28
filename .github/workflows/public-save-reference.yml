@@ -5,6 +5,13 @@ on:
     paths:
       - '.github/workflows/public-save-reference.yml'
       - 'scripts/audit-public-save-reference.mjs'
+      - 'src/lib/save-*.ts'
+      - 'src/lib/map-model.ts'
+      - 'src/lib/data-layers.ts'
+      - 'src/lib/storage-observations.ts'
+      - 'src/lib/backpack-observations.ts'
+      - 'src/lib/player-observations.ts'
+      - 'src/lib/indoor-model.ts'
 permissions:
   contents: read
 jobs:
