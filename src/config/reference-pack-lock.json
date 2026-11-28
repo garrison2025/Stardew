@@ -22,7 +22,7 @@
     },
     {
       "path": "src/lib/bundle-observations.ts",
-      "gitBlob": "69fcc1f1bc29616fb83d3299ec6c8932258c015a"
+      "gitBlob": "6523cb6bcba01833ae642194ecb1e07a0d9db239"
     },
     {
       "path": "src/lib/bundle-progress.ts",
@@ -206,7 +206,7 @@
     },
     {
       "path": "src/lib/private-saved-counts.ts",
-      "gitBlob": "85674ec9b3bd8f1df3b4f9a2233a5bc293df8136"
+      "gitBlob": "840778d67b343730203e6f7dcc78811b4cdaee03"
     },
     {
       "path": "src/lib/processing.ts",
@@ -230,7 +230,7 @@
     },
     {
       "path": "src/lib/save-bundles.ts",
-      "gitBlob": "b01f4032e2dd57ee2b749c9d102e9db15fb11c70"
+      "gitBlob": "786d73fa9cc4d5bad2160559a83d04baf823f95b"
     },
     {
       "path": "src/lib/save-collection-ids.ts",
@@ -313,5 +313,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r33"
+  "id": "ref-pc-1.6.15-20261128-r34"
 }

@@ -15,7 +15,8 @@ export function decodeBundleObservations(raw:unknown):SaveBundle[]{
    if(!s||typeof s.item!=='string'||!/^(?:-1|(?:\(O\))?[A-Za-z0-9_.-]{1,80})$/.test(s.item)||!int(s.quantity,1,9999999)||![0,1,2,4].includes(s.quality)||![true,false,null].includes(s.donated)||s.item==='-1'&&(b.slots.length!==1||s.quality!==0))throw Error('Invalid observed bundle slot');
    return {item:s.item,quantity:s.quantity,quality:s.quality,donated:s.donated};
   });
-  return {id:b.id,room:b.room,name:b.name,needed:b.needed,slots};
+  if(b.completedInSave!==undefined&&(b.completedInSave!==true||slots.some((slot:SaveBundle['slots'][number])=>slot.donated!==null)))throw Error('Invalid saved bundle completion marker');
+  return {id:b.id,room:b.room,name:b.name,needed:b.needed,slots,...(b.completedInSave?{completedInSave:true as const}:{})};
  });
 }
 export function observedSlotName(s:SaveBundle['slots'][number]){
@@ -26,7 +27,12 @@ export function observedSlotName(s:SaveBundle['slots'][number]){
 }
 export function observedBundleStatus(b:SaveBundle){
  const positive=b.slots.filter(s=>s.donated===true).length,unknown=b.slots.filter(s=>s.donated===null).length;
- return {positive,unknown,remaining:Math.max(0,b.needed-positive),done:positive>=b.needed};
+ const done=b.completedInSave===true||positive>=b.needed;
+ return {positive,unknown,remaining:done?0:b.needed-positive,done};
+}
+export function observedCommunityCenterSummary(bundles:readonly SaveBundle[]){
+ const center=bundles.filter(b=>Object.hasOwn(roomMap,b.room)&&roomMap[b.room]!=='missing');
+ return {total:center.length,completed:center.filter(b=>observedBundleStatus(b).done).length};
 }
 export function copyObservedBundles(current:RemixedState,raw:unknown){
  const base=decodeRemixed(current),observations=decodeBundleObservations(raw);

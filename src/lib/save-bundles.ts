@@ -3,6 +3,7 @@ export type SaveBundle = {
   room: string;
   name: string;
   needed: number;
+  completedInSave?: true;
   slots: { item: string; quantity: number; quality: number; donated: boolean | null }[];
 };
 
@@ -15,6 +16,8 @@ export function readBundleDefinition(key: string, value: string, progress: reado
   if (!Number.isInteger(length) || length < 1 || length > 48) return null;
   const needed = required ? (/^\d{1,2}$/.test(required) ? Number(required) : -1) : length;
   if (needed < 1 || needed > length) return null;
+  // Completed bundles may have the entire padded flag array set, including unused slots.
+  const completedInSave = progress !== undefined && progress.length > length && progress.every(Boolean);
   const trustworthy = progress && progress.length >= length && !progress.slice(length).includes(true);
   const slots: SaveBundle['slots'] = [];
   for (let i = 0; i < length; i++) {
@@ -24,5 +27,5 @@ export function readBundleDefinition(key: string, value: string, progress: reado
     if (quantity < 1 || (item === '-1' ? length !== 1 || quantity !== quality : ![0, 1, 2, 4].includes(quality))) return null;
     slots.push({ item, quantity, quality: item === '-1' ? 0 : quality, donated: trustworthy ? progress[i] : null });
   }
-  return { id: Number(match[2]), room: match[1], name, needed, slots };
+  return { id: Number(match[2]), room: match[1], name, needed, slots, ...(completedInSave ? {completedInSave:true as const} : {}) };
 }
