@@ -1,4 +1,4 @@
-import {decodeTileRestrictions,importDataLayers,restrictionError,type TileRestrictions} from './data-layers.ts';
+import {decodeTileRestrictions,importDataLayers,importRestrictionMask,restrictionError,type TileRestrictions} from './data-layers.ts';
 // Independently authored terrain and object model. None of these maps or footprints are official game data.
 import {GAME_CROPS} from './crop-data.ts';
 import {decodeInterior,type Interior,type RoomId} from './indoor-model.ts';
@@ -179,4 +179,10 @@ export function paintTerrainRect(plan:Plan,rect:{x:number;y:number;w:number;h:nu
 export function dataLayersMap(raw:readonly unknown[],w:number,h:number):FarmMap{
  const restrictions=importDataLayers(raw,w,h),map=blankLocalMap(w,h,'Data Layers snapshot');
  return {...map,id:'local-data-layers',tiles:[...restrictions.till].map(t=>t==='T'||t==='D'?'soil':'grass'),restrictions};
+}
+
+/** Local factual restriction reference, not a rendered map or live-game occupancy. */
+export function restrictionMaskMap(raw:string,w:number,h:number):FarmMap{
+ const restrictions=importRestrictionMask(raw,w,h),map=blankLocalMap(w,h,'Local restriction reference — version unverified');
+ return {...map,id:'local-restriction-mask',tiles:[...restrictions.till].map(t=>t==='T'?'soil':'grass'),restrictions};
 }
