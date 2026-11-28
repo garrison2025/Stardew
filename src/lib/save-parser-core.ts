@@ -11,12 +11,28 @@ import {readBundleDefinition, type SaveBundle} from './save-bundles.ts';
 import type {GeodeInput} from './geode-prediction.ts';
 import {parseSaveXml, MAX_SAVE_BYTES, type SaveElement} from './save-xml.ts';
 import {SEASONS,type Season} from './map-model.ts';
-import {parseVanillaFarmType,buildingItem,observedObjectItem,observedBushItem,observedClumpItem,supportedVersion,type FarmRecord,type SaveSnapshot} from './save-model.ts';
+import {parseVanillaFarmType,buildingItem,observedObjectItem,observedBushItem,observedClumpItem,supportedVersion,type FarmRecord,type SaveSnapshot,type MachineObservation} from './save-model.ts';
 import {normalizeSkillXp,normalizeCrafting,normalizeObjectCollection,safeCount,type SaveProgress,type NamedCount} from './save-progress.ts';
 const child=(el:SaveElement|undefined|null,name:string)=>el?Array.from(el.children).find(c=>c.localName===name):undefined;
 const text=(el:SaveElement|undefined|null,name:string)=>child(el,name)?.textContent?.trim()??'';
 const num=(s:string):number|null=>/^-?\d+$/.test(s)&&Number.isSafeInteger(Number(s))?Number(s):null;
 const xsi=(el:SaveElement|undefined|null,key:string)=>el?.getAttributeNS('http://www.w3.org/2001/XMLSchema-instance',key)??el?.getAttribute('xsi:'+key)??'';
+// The three saved fields are independent observations. Do not infer missing flags or retain product data.
+function observeMachine(o:SaveElement):MachineObservation{
+ const single=(name:string)=>{const nodes=o.children.filter(c=>c.localName===name);return nodes.length===1?nodes[0]:undefined};
+ const held=single('heldObject'),timer=single('minutesUntilReady'),flag=single('readyForHarvest');
+ const minutes=timer&&!timer.children.length?num(timer.textContent.trim()):null;
+ const validMinutes=minutes!==null&&minutes>=-1&&minutes<=10000000?minutes:null;
+ const ready=flag&&!flag.children.length?flag.textContent.trim():'';
+ const nil=held?xsi(held,'nil'):'';
+ const empty=!!held&&['true','1'].includes(nil)&&!held.children.length&&!held.textContent.trim();
+ const filled=!!held&&['','false','0'].includes(nil)&&held.children.length>0;
+ let state:MachineObservation['state']='unknown';
+ if(filled&&ready==='true'&&validMinutes===0)state='ready';
+ else if(filled&&ready==='false'&&validMinutes!==null&&validMinutes>0)state='processing';
+ else if(empty&&ready==='false'&&(validMinutes===-1||validMinutes===0))state='empty';
+ return {state,minutes:validMinutes};
+}
 function point(el:SaveElement|undefined){return {x:num(text(el,'X')),y:num(text(el,'Y'))}}
 function dictionary(el:SaveElement|undefined){return Array.from(el?.children??[]).filter(e=>e.localName==='item')}
 function readBundles(root: SaveElement): SaveBundle[] | undefined {
@@ -116,10 +132,10 @@ function inspectSaveRoot({root, fields, player, version}:ReturnType<typeof parse
  const id=text(o,'itemId')||text(o,'parentSheetIndex'),big=text(o,'bigCraftable');
  const itemId=o&&xsi(o,'nil')!=='true'?observedObjectItem(id,big,xsi(o,'type')):null;
  // Base sprinkler geometry only. A nonempty attachment is not interpreted.
- // Recognized production machines retain their placement marker, never the held product or processing state.
+ // Recognized production machines retain placement and bounded transient observations, never the held product payload.
  const geometryOnlyMachine=!!itemId&&(itemId.startsWith('machine-')||itemId==='bee-house');
  const hasAttachment=itemId!=='chest'&&!geometryOnlyMachine&&['heldObject','attachments'].some(key=>{const attachment=child(o,key);return !!attachment&&xsi(attachment,'nil')!=='true'&&(attachment.children.length>0||!!attachment.textContent?.trim())});
- records.push({kind:'object',itemId:hasAttachment?null:itemId,...keyPoint,...(hasAttachment?{reason:'Attachment or held object not mapped'}:!itemId?{reason:'Unmapped placed object'}:{})});
+ records.push({kind:'object',itemId:hasAttachment?null:itemId,...keyPoint,...(geometryOnlyMachine&&o?{machine:observeMachine(o)}:{}),...(hasAttachment?{reason:'Attachment or held object not mapped'}:!itemId?{reason:'Unmapped placed object'}:{})});
  }
  for(const entry of dictionary(child(farm,'terrainFeatures'))){
  const coords=point(child(child(entry,'key'),'Vector2')),feature=child(child(entry,'value'),'TerrainFeature'),crop=child(feature,'crop');
