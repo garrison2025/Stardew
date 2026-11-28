@@ -45,7 +45,7 @@ try{
   assert.deepEqual([...(actual.outsideTarget??[])].sort(),[...outsideTarget].sort());
   if(kind==='shipping'){
    assert.deepEqual([...actual.done].sort(),['Daffodil','Fiber','Leek']);
-   assert.deepEqual([...actual.outsideTarget].sort(),['Clam','Snail','Sunfish']);
+   assert.deepEqual([...actual.outsideTarget].sort(),['Clam','Oyster','Sunfish']);
   }
   console.log('Independent XML '+kind+': '+recognized.size+' positive entries, '+outsideTarget.size+' known outside checklist, '+unknown+' unmatched IDs.');
  }
