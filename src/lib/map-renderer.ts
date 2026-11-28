@@ -9,17 +9,19 @@ export function drawTerrain(c:CanvasRenderingContext2D,map:FarmMap,season:Season
  const r=map.restrictions;if(r?.source!=='local-restriction-mask'||!/^local-starplan-[0-7]$/.test(map.id))return;
  // Restriction classes, not inferred lakes, rocks or game artwork. Draw readable boundaries at all zooms.
  const blocked=(x:number,y:number)=>x>=0&&y>=0&&x<map.w&&y<map.h&&r.access[y*map.w+x]==='N';
- const dark=season==='winter'?'#697a7e':'#3e5351',edge=season==='winter'?'#a0b0ad':'#82958a';
+ const dark=season==='winter'?'#71888b':season==='autumn'?'#655848':'#39594c',edge=season==='winter'?'#b5c9ca':season==='autumn'?'#b09a72':'#8ea77a';
  c.save();
  for(let i=0;i<r.access.length;i++){
   const x=i%map.w,y=Math.floor(i/map.w),px=x*TILE,py=y*TILE;
   if(r.access[i]==='N'){
    rect(c,px,py,TILE,TILE,dark);
-   if((x+y)%3===0){rect(c,px+4,py+5,3,1,'#ffffff12');rect(c,px+9,py+11,4,1,'#00000018')}
+   const grain=(Math.imul(x+13,73856093)^Math.imul(y+7,19349663))>>>0;rect(c,px+2+(grain%9),py+3,3,2,'#ffffff12');rect(c,px+3,py+8+(grain%5),5,1,'#00000024');if((grain%4)===0)rect(c,px+10,py+9,2,2,'#ffffff1c');
    if(!blocked(x-1,y))rect(c,px,py,2,TILE,edge);if(!blocked(x+1,y))rect(c,px+14,py,2,TILE,edge);
    if(!blocked(x,y-1))rect(c,px,py,TILE,2,edge);if(!blocked(x,y+1))rect(c,px,py+14,TILE,2,edge);
   }else if(r.build[i]!=='B'&&r.till[i]!=='T'){
-   rect(c,px,py,TILE,TILE,'#b4c1b14a');rect(c,px+3,py+11,4,1,'#4d625554');
+   rect(c,px,py,TILE,TILE,'#cbd3ad38');rect(c,px+3,py+11,4,1,'#50685250');
+  }else if(r.till[i]==='T'||r.till[i]==='D'){
+   rect(c,px,py,TILE,TILE,'#b7814820');if((x+y)%2===0)rect(c,px+3,py+12,4,1,'#76552d32');
   }
  }
  c.restore();
