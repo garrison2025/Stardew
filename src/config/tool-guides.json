@@ -152,6 +152,10 @@
       [
         "Can I find which geode opening gives a particular museum item?",
         "Choose a museum target and up to 100 opening indices. All five container types are shown as alternative outcomes at each index. Enter available containers for a feasible greedy sequence; do not count multiple alternatives at the same index as simultaneous rewards. Results are reference predictions, not verified actual game outputs."
+      ],
+      [
+        "Can I predict Golden Coconuts, Mystery Boxes and mine floors?",
+        "Yes, using the separate reference sections. Golden Coconuts share the geode count; Mystery Boxes use a distinct counter but openings also advance the geode count. Three mystery box scenarios use fixed book and mastery assumptions; skill-dependent rewards are conditional. Dinosaur floors are potential candidates, not guaranteed maps."
       ]
     ]
   },

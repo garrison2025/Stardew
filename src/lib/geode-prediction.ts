@@ -99,10 +99,10 @@ const prime1=0x9e3779b1, prime2=0x85ebca77, prime3=0xc2b2ae3d, prime4=0x27d4eb2f
 const rotate=(word:number,count:number)=>(word<<count)|(word>>>(32-count));
 function combine(seed:number,value:number){return Math.imul(rotate(seed+Math.imul(value,prime2),13),prime1)}
 // xxHash32 of exactly five little-endian signed 32-bit words, with zero hash seed.
-export function hashWords(a:number,b:number,c:number){
- const lanes=[combine(prime1+prime2,a),combine(prime2,b),combine(0,c),combine(-prime1,0)];
+export function hashWords(a:number,b:number,c:number,d=0,e=0){
+ const lanes=[combine(prime1+prime2,a),combine(prime2,b),combine(0,c),combine(-prime1,d)];
  let hash=(rotate(lanes[0],1)+rotate(lanes[1],7)+rotate(lanes[2],12)+rotate(lanes[3],18)+20)|0;
- hash=Math.imul(rotate(hash,17),prime4);
+ hash=Math.imul(rotate(hash+Math.imul(e,prime3),17),prime4);
  hash=Math.imul(hash^(hash>>>15),prime2);
  hash=Math.imul(hash^(hash>>>13),prime3);
  return hash^(hash>>>16);
@@ -133,7 +133,7 @@ export function random(seed:number){
   return value*(1/max);
  };
 }
-function identifier(raw:string,signed=false){
+export function identifier(raw:string,signed=false){
  const value=raw.trim();
  if(!/^-?\d{1,20}$/.test(value))throw Error('Enter both complete numeric IDs from the main save.');
  const id=BigInt(value);

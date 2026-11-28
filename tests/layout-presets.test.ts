@@ -6,7 +6,8 @@ test('four distinct original presets are valid, editable and deterministic',()=>
 test('deluxe range 888, clipped on boundaries',()=>{const p:Plan={schema:2,map:blankLocalMap(40,40),season:'spring',objects:[{id:'d',itemId:'deluxe-scarecrow',x:20,y:20,rotation:0}]};assert.equal(scarecrowCoverage(p).size,888);assert.ok(scarecrowCoverage({...p,objects:[{...p.objects[0],x:1,y:1}]}).size<888);});
 test('new documented building footprints and construction costs',()=>{const p:Plan={schema:2,map:blankLocalMap(30,30),season:'spring',objects:[{id:'a',itemId:'game-fish-pond',x:1,y:1,rotation:0},{id:'b',itemId:'game-mill',x:7,y:1,rotation:0}]};assert.equal(buildingItem('Fish Pond'),'game-fish-pond');assert.equal(itemById.get('game-fish-pond')?.w,5);assert.equal(itemById.get('game-mill')?.h,2);assert.match(placementError(p.map,[],{...p.objects[1],rotation:1})!,/fixed orientation/);const s=layoutReferenceSummary(p);assert.equal(s.gold,7500);assert.equal(s.materials.Stone,250);assert.equal(s.priced,2)});
 
-test('eight farm-specific examples retain starter structures, are valid, irrigated and protected',()=>{
+test('twelve farm-reference examples retain starter structures, are valid, irrigated and protected',()=>{
+ assert.equal(REFERENCE_LAYOUT_PRESETS.length,12);
  for(const spec of REFERENCE_LAYOUT_PRESETS){
   const p=referenceLayoutPreset(spec.id,'autumn');assert.equal(p.map.id,'local-starplan-'+spec.farm);assert.equal(p.season,'autumn');
   const s=layoutReferenceSummary(p);assert.equal(s.crops,spec.blocks*8);assert.equal(s.watered,s.crops);assert.equal(s.protected,s.crops);
@@ -19,3 +20,5 @@ test('eight farm-specific examples retain starter structures, are valid, irrigat
   assert.deepEqual(referenceLayoutPreset(spec.id,'autumn'),p);
  }
 });
+
+test('purpose-specific layouts expose useful crop and decoration options',()=>{const a=referenceLayoutPreset('ref-profit');assert.equal(layoutReferenceSummary(a).crops,32);assert.ok(a.objects.filter(o=>o.itemId==='machine-keg').length>=2);const b=referenceLayoutPreset('ref-garden');assert.ok(b.objects.some(o=>o.itemId==='flowerbed'));assert.ok(b.objects.some(o=>o.itemId==='stone-path'));});

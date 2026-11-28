@@ -73,6 +73,10 @@
       "gitBlob": "49f866363b2602cbba1511e90947ec361ee26ef6"
     },
     {
+      "path": "src/lib/extra-predictions.ts",
+      "gitBlob": "d4446a76b81ef23f595674941ef66f90b4712414"
+    },
+    {
       "path": "src/lib/extra-processing.ts",
       "gitBlob": "665e808ea05bdb93672427d9ed1e7bd29d175a6e"
     },
@@ -134,7 +138,7 @@
     },
     {
       "path": "src/lib/geode-prediction.ts",
-      "gitBlob": "cfd88fd9053bde454db2cb9433024ab05aea30f5"
+      "gitBlob": "d5af4011cdb2be534083d1ed715222aa806c8b59"
     },
     {
       "path": "src/lib/geode-targets.ts",
@@ -158,7 +162,7 @@
     },
     {
       "path": "src/lib/layout-presets.ts",
-      "gitBlob": "41403dfe37d147bb0b0bab2890caaee2a13be527"
+      "gitBlob": "f0525dc02132df2023fdc0df54b5b3b33f677651"
     },
     {
       "path": "src/lib/map-model.ts",
@@ -309,5 +313,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r31"
+  "id": "ref-pc-1.6.15-20261128-r32"
 }

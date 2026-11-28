@@ -35,7 +35,11 @@ export const REFERENCE_LAYOUT_PRESETS=[
  {id:'ref-wilderness',name:'Wilderness · compact homestead',farm:4,stage:'Early expansion',buildings:['game-silo'],machines:['chest'],blocks:1,note:'Small irrigated plot, silo and storage marker. Night monsters are not modeled.'},
  {id:'ref-four-corners',name:'Four Corners · production zones',farm:5,stage:'Expansion',buildings:['game-shed','game-silo'],machines:['machine-keg','machine-jar'],blocks:2,note:'Two planting blocks and separate production building markers; not an exact zoning optimizer.'},
  {id:'ref-beach',name:'Beach · non-sand crop patch',farm:6,stage:'Early expansion',buildings:['game-fish-pond'],machines:[],blocks:1,note:'Use reference-approved irrigable soil for one block and reserve other land for buildings.'},
- {id:'ref-meadowlands',name:'Meadowlands · livestock expansion',farm:7,stage:'Early expansion',buildings:['game-barn','game-silo'],machines:['machine-cheese','machine-mayonnaise'],blocks:1,note:'Retain the starter coop and fences, add barn, silo and small irrigated field.'}
+ {id:'ref-meadowlands',name:'Meadowlands · livestock expansion',farm:7,stage:'Early expansion',buildings:['game-barn','game-silo'],machines:['machine-cheese','machine-mayonnaise'],blocks:1,note:'Retain the starter coop and fences, add barn, silo and small irrigated field.'},
+ {id:'ref-beginner',name:'Standard · simple beginner farm',farm:0,stage:'Beginner',buildings:['game-silo'],machines:['chest'],blocks:1,note:'One protected crop block, storage, silo and a small path; expand gradually.'},
+ {id:'ref-animal',name:'Meadowlands · animal ranch',farm:7,stage:'Livestock',buildings:['game-barn','game-silo','game-stable'],machines:['machine-cheese','machine-mayonnaise'],blocks:1,note:'Keep starter coop; add modeled livestock buildings and production markers.'},
+ {id:'ref-profit',name:'Standard · high-throughput crop farm',farm:0,stage:'Production',buildings:['game-shed','game-shed'],machines:['machine-keg','machine-keg','machine-jar','machine-jar'],blocks:4,note:'Four protected crop blocks and processing capacity; compare estimated profit using the crop planner.'},
+ {id:'ref-garden',name:'Forest · decorative garden',farm:2,stage:'Decorative',buildings:['game-well'],machines:['chest'],blocks:1,note:'A protected kitchen garden, flower beds, shade trees and paths; independent decorative reference, not a game screenshot.'}
 ] as const;
 export type ReferencePresetId=typeof REFERENCE_LAYOUT_PRESETS[number]['id'];
 export type AnyPresetId=PresetId|ReferencePresetId;
@@ -77,6 +81,7 @@ export function referenceLayoutPreset(id:ReferencePresetId,season:Season='spring
  }
  let i=0;for(const building of p.buildings){addNear(building,Math.floor(w*0.7),Math.floor(h*0.55)+i*5);i++}
  for(const machine of p.machines)addNear(machine,Math.floor(w*0.7),Math.floor(h*0.45));
+ if(id==='ref-beginner'||id==='ref-garden'||id==='ref-animal'){const center=plan.objects.find(o=>o.id.startsWith('ref-example-')&&o.itemId==='quality-sprinkler')!;const path=id==='ref-garden'?'stone-path':'wood-path';for(let n=0;n<5;n++)addNear(path,center.x-3+n,center.y+3);if(id==='ref-garden'){for(let n=0;n<6;n++)addNear('flowerbed',center.x-3+n,center.y+5);addNear('oak',center.x-5,center.y+5);addNear('pine',center.x+5,center.y+5);}}
  return plan;
 }
 export function loadLayoutExample(id:AnyPresetId,season:Season='spring'){

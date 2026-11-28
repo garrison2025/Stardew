@@ -9,8 +9,8 @@
     {
       "path": "/",
       "total": 38,
-      "referenceImplemented": 19,
-      "partial": 19,
+      "referenceImplemented": 36,
+      "partial": 2,
       "mixedIntent": 0,
       "explicitlyConfigured": 9
     },
@@ -25,16 +25,16 @@
     {
       "path": "/museum/",
       "total": 13,
-      "referenceImplemented": 12,
-      "partial": 1,
+      "referenceImplemented": 13,
+      "partial": 0,
       "mixedIntent": 0,
       "explicitlyConfigured": 9
     },
     {
       "path": "/predictor/",
       "total": 6,
-      "referenceImplemented": 1,
-      "partial": 5,
+      "referenceImplemented": 6,
+      "partial": 0,
       "mixedIntent": 0,
       "explicitlyConfigured": 6
     },
@@ -105,16 +105,16 @@
     {
       "path": "/golden-walnuts/",
       "total": 1,
-      "referenceImplemented": 0,
-      "partial": 1,
+      "referenceImplemented": 1,
+      "partial": 0,
       "mixedIntent": 0,
       "explicitlyConfigured": 1
     },
     {
       "path": "/farm-comparison/",
       "total": 26,
-      "referenceImplemented": 17,
-      "partial": 9,
+      "referenceImplemented": 25,
+      "partial": 1,
       "mixedIntent": 0,
       "explicitlyConfigured": 9
     },
@@ -145,6 +145,7 @@
     "US-targeted 16 primary query sample completed previously; full Google localized SERP and production approval remain pending.",
     "Follow-up task review: two step-count queries match the existing local stepsTaken parser and observed progress display; one geode-luck query is answered by the new sourced FAQ. No other predictor or tracker task is promoted. Actual game fixtures and localized SERP validation remain pending.",
     "Follow-up after PR 79/80: reviewed all 64 farm tasks again. The 19 planner tasks are 17 explicit editor/planning variants and two crop-layout variants; the 17 comparison tasks are general type/choice/all-farms queries and unambiguous named farm types. Remaining 19 planner and nine comparison tasks conservatively retain partial status for exact map imagery/layout, mobile physical-device acceptance, decoration/setup or ambiguous mountain/map intent. Reference functionality is not actual-game certification or SERP evidence.",
-    "Post-PR86 re-review: all ten perfection checklist/calculator/tracker variants and three general tracker variants have reference task implementations, based on merged weighted estimates, per-item checklists and structural observations. The two step-count tasks remain implemented. This is not confirmation of exact game completion, comprehensive mod support, localized SERP or ranking."
+    "Post-PR86 re-review: all ten perfection checklist/calculator/tracker variants and three general tracker variants have reference task implementations, based on merged weighted estimates, per-item checklists and structural observations. The two step-count tasks remain implemented. This is not confirmation of exact game completion, comprehensive mod support, localized SERP or ranking.",
+    "R32 candidate under the owner-approved competitor reference standard: reread all 64 farm tasks in Appendix B, all six in-scope predictor tasks, museum and walnut intents. Promote 17 home layout/setup/decoration terms after 16 editable examples; keep two mobile-specific terms partial until direct phone UX evidence. Promote eight farm comparison map/layout terms based on the existing eight reference masks, comparison, examples and starter capacity. Keep ambiguous mountain farm term partial. Promote five seed/geode task variants after coconut, mystery box and mine model addition, one museum layout task with editable practice display/observed coordinates, one walnut task with 69 groups and coordinate guidance. 174 reference implemented, 3 partial, 2 mixed, 3 excluded. These are proposed task classifications, contingent on CI and deployment, not exact visual parity or Google ranking. Full US-localized SERP still pending."
   ]
 }
