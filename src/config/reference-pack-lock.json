@@ -154,7 +154,7 @@
     },
     {
       "path": "src/lib/map-model.ts",
-      "gitBlob": "37d06e2d7e29d945ca8d7c268b63673954b28d00"
+      "gitBlob": "bc4fbd57614dca64f7801b5737f57dda9bea9a55"
     },
     {
       "path": "src/lib/monster-goals.ts",
@@ -218,7 +218,7 @@
     },
     {
       "path": "src/lib/save-model.ts",
-      "gitBlob": "317e2a588a75ca33c05938015b4185a6fb49e6a7"
+      "gitBlob": "c4bfa00d854881353a6484b2dbe75a513c4693b1"
     },
     {
       "path": "src/lib/save-observations.ts",
@@ -226,7 +226,7 @@
     },
     {
       "path": "src/lib/save-parser-core.ts",
-      "gitBlob": "e1f55561d39f91e3be6ba649d92968f7d393a3c0"
+      "gitBlob": "206ee1713a74c53573a38c90ea1c85fa0c673f55"
     },
     {
       "path": "src/lib/save-professions.ts",
@@ -277,5 +277,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r18"
+  "id": "ref-pc-1.6.15-20261128-r19"
 }

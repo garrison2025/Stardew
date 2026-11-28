@@ -9,6 +9,14 @@ export type Season=typeof SEASONS[number];
 export type FarmMap={id:string;name:string;w:number;h:number;tiles:Terrain[];source:'original'|'local';restrictions?:TileRestrictions};
 export type Item={id:string;name:string;category:string;w:number;h:number;art:string;color:string;radius?:number;pattern?:'cross'|'square';fixedOrientation?:boolean;documented?:boolean};
 export const ITEMS:Item[]=[
+{"id":"machine-keg","name":"Keg","category":"Equipment","w":1,"h":1,"art":"machine","color":"#b78652","fixedOrientation":true,"documented":true},
+{"id":"machine-jar","name":"Preserves Jar","category":"Equipment","w":1,"h":1,"art":"machine","color":"#ae685b","fixedOrientation":true,"documented":true},
+{"id":"machine-furnace","name":"Furnace","category":"Equipment","w":1,"h":1,"art":"machine","color":"#747d85","fixedOrientation":true,"documented":true},
+{"id":"machine-cheese","name":"Cheese Press","category":"Equipment","w":1,"h":1,"art":"machine","color":"#d6b85b","fixedOrientation":true,"documented":true},
+{"id":"machine-mayonnaise","name":"Mayonnaise Machine","category":"Equipment","w":1,"h":1,"art":"machine","color":"#d4d9c6","fixedOrientation":true,"documented":true},
+{"id":"machine-loom","name":"Loom","category":"Equipment","w":1,"h":1,"art":"machine","color":"#9f806a","fixedOrientation":true,"documented":true},
+{"id":"machine-oil","name":"Oil Maker","category":"Equipment","w":1,"h":1,"art":"machine","color":"#8fa65f","fixedOrientation":true,"documented":true},
+{"id":"machine-dehydrator","name":"Dehydrator","category":"Equipment","w":1,"h":1,"art":"machine","color":"#bc8371","fixedOrientation":true,"documented":true},
 {"id":"flower-tulip","name":"Tulip","category":"Crops","w":1,"h":1,"art":"flower","color":"#dc859d","fixedOrientation":true,"documented":true},
 {"id":"flower-blue-jazz","name":"Blue Jazz","category":"Crops","w":1,"h":1,"art":"flower","color":"#728ad0","fixedOrientation":true,"documented":true},
 {"id":"flower-poppy","name":"Poppy","category":"Crops","w":1,"h":1,"art":"flower","color":"#e56e5a","fixedOrientation":true,"documented":true},
