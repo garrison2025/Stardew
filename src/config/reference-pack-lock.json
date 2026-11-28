@@ -101,6 +101,10 @@
       "gitBlob": "33e72dcecea12b39e60bc3820a73fc776b8c9a20"
     },
     {
+      "path": "src/lib/farm-reference-capacity.ts",
+      "gitBlob": "d22528713f2f483c2c17e12b3b47dbcde47a274d"
+    },
+    {
       "path": "src/lib/farm-templates.ts",
       "gitBlob": "8db22fa12bd101987dfeabe56109ef6763fcb736"
     },
@@ -305,5 +309,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r30"
+  "id": "ref-pc-1.6.15-20261128-r31"
 }

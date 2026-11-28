@@ -258,13 +258,14 @@
       "files": [
         "src/lib/game-rules.ts",
         "src/lib/farm-details.ts",
-        "src/lib/farm-templates.ts"
+        "src/lib/farm-templates.ts",
+        "src/lib/farm-reference-capacity.ts"
       ],
       "sources": [
         "https://stardewvalleywiki.com/Farm_Maps"
       ],
       "sourceRights": "pending",
-      "scope": "Reference areas, schematic previews"
+      "scope": "Reference areas, schematic previews; starter footprint deductions and reference access capacity"
     },
     {
       "path": "/grandpa-calculator/",
