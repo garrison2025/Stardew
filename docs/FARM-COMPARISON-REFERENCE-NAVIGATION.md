@@ -1,0 +1,2 @@
+# Farm comparison navigation
+The comparison cards now render the same eight pinned reference restriction maps as the planner, in an independently authored four-class diagram. Base mask counts and Wiki table counts retain separate labels and are not treated as equivalent. Deep links open the matching starter farm in the public planner; old practice links and shared-layout fragment handling are preserved. No game art, external runtime request, rights flag or indexing change.
