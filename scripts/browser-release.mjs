@@ -29,6 +29,130 @@ await import('./audit-production-rehearsal.mjs');
 const publicSite=await serve('dist');
 const privateSite=await serve('dist-workspace');
 
+
+async function verifyWorkspaceMigration(browser){
+  const destination=await serve('dist-workspace');
+  const context=await browser.newContext({viewport:{width:1280,height:900},acceptDownloads:true});
+  try{
+    const source=await context.newPage();
+    await source.goto(privateSite.origin+'/');
+    await source.waitForFunction(()=>!document.querySelector('astro-island[ssr]'));
+    await source.getByLabel('Quick season',{exact:true}).selectOption('summer');
+    const settings=source.getByRole('button',{name:'Toggle map settings',exact:true});
+    if(await settings.getAttribute('aria-expanded')!=='true')await settings.click();
+    await source.getByRole('button',{name:'Save scene locally',exact:true}).click();
+    await source.getByText('Scene saved on this device',{exact:true}).waitFor();
+    await source.goto(privateSite.origin+'/cooking/');
+    await source.getByLabel('Progress Fried Egg',{exact:true}).selectOption('done');
+    await source.getByRole('button',{name:'Save collection',exact:true}).click();
+    await source.getByText('Collection saved locally',{exact:true}).waitFor();
+
+    async function exportBackup(page, origin){
+      await page.goto(origin+'/tracker/');
+      await page.waitForFunction(()=>!document.querySelector('astro-island[ssr]'));
+      const pending=page.waitForEvent('download');
+      await page.getByRole('button',{name:'Export saved projects',exact:true}).click();
+      const file=await pending;
+      assert.equal(file.suggestedFilename(),'field-and-farm-backup.json');
+      const path=await file.path();
+      return {path,records:JSON.parse(await readFile(path,'utf8')).records};
+    }
+
+    const before=await exportBackup(source,privateSite.origin);
+    const savedLayout=before.records['scene-plan-v2'];
+    const savedCollection=before.records['collection-v1:cooking'];
+    assert.equal(savedLayout.season,'summer');
+    assert.ok(savedLayout.objects.length>0);
+    assert.deepEqual(savedCollection.done,['Fried Egg']);
+
+    const target=await context.newPage();
+    await target.goto(destination.origin+'/cooking/');
+    await target.waitForFunction(()=>!document.querySelector('astro-island[ssr]'));
+    assert.equal(await target.getByLabel('Progress Fried Egg',{exact:true}).inputValue(),'missing');
+    await target.goto(destination.origin+'/tracker/');
+    await target.waitForFunction(()=>!document.querySelector('astro-island[ssr]'));
+    const profile=target.locator('summary').filter({hasText:'Farm profile'});
+    await profile.click();
+    await target.getByLabel('New farm name',{exact:true}).fill('Migration test farm');
+    await Promise.all([target.waitForEvent('load'),target.getByRole('button',{name:'Create farm profile',exact:true}).click()]);
+    await target.getByText('Farm profile · Migration test farm',{exact:true}).waitFor();
+    await target.getByLabel('Restore workspace backup',{exact:true}).setInputFiles(before.path);
+    await target.getByText('Backup validated. Nothing has been changed.',{exact:true}).waitFor();
+    target.once('dialog',dialog=>dialog.accept());
+    await Promise.all([target.waitForEvent('load'),target.getByRole('button',{name:'Replace with validated backup',exact:true}).click()]);
+
+    await target.goto(destination.origin+'/');
+    await target.getByText('Local scene restored',{exact:true}).waitFor();
+    assert.equal(await target.getByLabel('Quick season',{exact:true}).inputValue(),'summer');
+    await target.goto(destination.origin+'/cooking/');
+    await target.getByText('Collection restored',{exact:true}).waitFor();
+    assert.equal(await target.getByLabel('Progress Fried Egg',{exact:true}).inputValue(),'done');
+    const after=await exportBackup(target,destination.origin);
+    assert.deepEqual(after.records['scene-plan-v2'],savedLayout);
+    const sourceBook=before.records['scene-book-v1'];
+    const restoredBook=after.records['scene-book-v1'];
+    assert.ok(restoredBook.revision>sourceBook.revision);
+    assert.deepEqual({...restoredBook,revision:sourceBook.revision},sourceBook);
+    assert.deepEqual(after.records['collection-v1:cooking'],savedCollection);
+
+    const targetProfile=target.locator('summary').filter({hasText:'Farm profile'});
+    if(await target.getByLabel('Open farm profile',{exact:true}).isHidden())await targetProfile.click();
+    await Promise.all([target.waitForEvent('load'),target.getByLabel('Open farm profile',{exact:true}).selectOption({label:'Default farm'})]);
+    await target.goto(destination.origin+'/cooking/');
+    await target.waitForFunction(()=>!document.querySelector('astro-island[ssr]'));
+    assert.equal(await target.getByLabel('Progress Fried Egg',{exact:true}).inputValue(),'missing');
+    await source.goto(privateSite.origin+'/cooking/');
+    await source.getByText('Collection restored',{exact:true}).waitFor();
+    assert.equal(await source.getByLabel('Progress Fried Egg',{exact:true}).inputValue(),'done');
+    console.log('Workspace migration: actual backup export and restore across two isolated origins; exact layout and cooking progress, target farm isolation and original data verified.');
+  }finally{
+    await context.close();
+    destination.server.close();
+  }
+}
+
+async function verifyLegacyRedirect(browser){
+  const requests=[];
+  const redirector=createServer((req,res)=>{
+    const url=new URL(req.url??'/','http://127.0.0.1');
+    requests.push(url.pathname+url.search);
+    res.writeHead(301,{Location:publicSite.origin+url.pathname+url.search}).end();
+  });
+  await new Promise(resolve=>redirector.listen(0,'127.0.0.1',resolve));
+  const oldOrigin='http://127.0.0.1:'+redirector.address().port;
+  const context=await browser.newContext({viewport:{width:1280,height:900}});
+  try{
+    const page=await context.newPage();
+    const deep='/crop-calculator/?source=old-bookmark&filter=a%2Bb';
+    let response=await page.goto(oldOrigin+deep);
+    assert.equal(response.status(),200);
+    assert.equal(page.url(),publicSite.origin+deep);
+    assert.equal(await (await response.request().redirectedFrom().response()).status(),301);
+    assert.equal(await page.locator('h1').textContent(),pages.find(entry=>entry.slug==='crop-calculator').h1);
+
+    await page.goto(publicSite.origin+'/?landscape=orchard');
+    await page.waitForFunction(()=>!document.querySelector('astro-island[ssr]'));
+    await page.locator('.map-project-menu summary').click();
+    await page.getByRole('button',{name:'Share layout',exact:true}).click();
+    await page.getByRole('button',{name:'Copy share link',exact:true}).click();
+    const link=new URL(await page.getByLabel('Public share link').inputValue());
+    const count=await page.locator('[data-scene-count]').getAttribute('data-scene-count');
+    const oldShare='/?source=old-share'+link.hash;
+    response=await page.goto(oldOrigin+oldShare);
+    assert.equal(await (await response.request().redirectedFrom().response()).status(),301);
+    assert.equal(page.url(),publicSite.origin+oldShare);
+    await page.getByRole('img',{name:/Shared farm map/}).waitFor();
+    await page.getByRole('button',{name:'Open shared layout',exact:true}).click();
+    await page.getByText('Shared layout opened',{exact:true}).waitFor();
+    await page.locator('[data-scene-count="'+count+'"]').waitFor();
+    assert.deepEqual(requests,[deep,'/?source=old-share']);
+    console.log('Local 301 rehearsal: the browser preserved a deep path and encoded query, inherited the layout fragment and reopened the shared farm.');
+  }finally{
+    await context.close();
+    redirector.close();
+  }
+}
+
 async function verifyMobile(browser, device, testAndroidPinch){
   const context=await browser.newContext(devices[device]);
   try{
@@ -111,7 +235,11 @@ try{
   for(const [name,engine] of Object.entries({chromium,firefox,webkit})){
     const browser=await engine.launch({headless:true});
     try{
-      if(name==='chromium')await verifyMobile(browser,'Pixel 7',true);
+      if(name==='chromium'){
+        await verifyWorkspaceMigration(browser);
+        await verifyLegacyRedirect(browser);
+        await verifyMobile(browser,'Pixel 7',true);
+      }
       if(name==='webkit')await verifyMobile(browser,'iPhone 13',false);
       for(const [site,isPrivate] of [[publicSite,false],[privateSite,true]]){
         const context=await browser.newContext({viewport:{width:390,height:844}});
