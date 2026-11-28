@@ -39,7 +39,7 @@ export default function SeasonalCropTool({workspace}:{workspace:boolean}){
    setValidResult(false);
    setStatus(markers.length>100
     ? 'Loaded this farm. The calculator uses 100 of its '+markers.length+' marked crop tiles per scenario.'
-    : 'Loaded this farm’s season, marked crop tiles and linked indoor machines. Choose the planting day and budget, then optimize.');
+    : 'Loaded this farm’s season, marked crop tiles and modeled indoor/outdoor machine counts. Choose the planting day and budget, then optimize.');
    setError('');
   }catch(e){setError(String(e))}finally{setLoading(false)}
  }
@@ -52,7 +52,7 @@ export default function SeasonalCropTool({workspace}:{workspace:boolean}){
  const horizon=plantingHorizon(input);
  let ranking:ReturnType<typeof cycles>[number][]=[];try{ranking=eligible(input).flatMap(c=>cycles(c,input.start,input.replant,input).slice(-1)).sort((a,b)=>b.profit-a.profit||a.crop.name.localeCompare(b.crop.name))}catch{}
  return <><section className="panel seasonal-crops"><div className="tool-heading"><span className="studio-symbol" aria-hidden="true">🌱</span><div><h2>Seasonal crop planner</h2><span className="muted">{SEASON_CROPS.length} shop-price reference crops · guaranteed base yield</span></div></div><p className="muted">Plan outdoor plantings with daily watering. Reserve seed and fertilizer costs up front. Harvest counts use guaranteed yield. Quality and accelerated growth are explicit scenario inputs.</p>
- {workspace&&<div className="crop-link-panel"><button disabled={loading} onClick={()=>void loadLayout()}>Load saved farm crop count</button><a href="/">Open farm designer</a>{status&&<p role="status">{status}</p>}{layout&&<><p>{layout.total} crop markers · {layout.known} named · {layout.machines.kegs} reachable kegs · {layout.machines.jars} reachable jars. Existing growth stages are not known; this is a new planting scenario, not a harvest prediction.</p>{layout.counts.map(c=><span className="crop-count-tag" key={c.name}>{c.name}: {c.count}</span>)}</>}</div>}
+ {workspace&&<div className="crop-link-panel"><button disabled={loading} onClick={()=>void loadLayout()}>Load saved farm crop count</button><a href="/">Open farm designer</a>{status&&<p role="status">{status}</p>}{layout&&<><p>{layout.total} crop markers · {layout.known} named · {layout.machines.kegs} modeled kegs · {layout.machines.jars} modeled jars · {layout.machines.dehydrators} modeled dehydrators (room entry / outdoor walking reference). Existing growth stages are not known; this is a new planting scenario, not a harvest prediction.</p>{layout.counts.map(c=><span className="crop-count-tag" key={c.name}>{c.name}: {c.count}</span>)}</>}</div>}
  <div className="journal-crop-workbench"><div className="journal-crop-inputs">
  <div className="crop-season-tabs" role="group" aria-label="Season">{(['spring','summer','autumn','winter'] as CropSeason[]).map(s=><button key={s} aria-pressed={input.season===s} onClick={()=>change('season',s)}>{s}</button>)}</div>
  <div className="formgrid"><label>Planting day<input type="number" min={1} max={28} value={input.start} onChange={e=>change('start',Number(e.target.value))}/></label><label>Planting tiles<input type="number" min={0} max={100} value={input.plots} onChange={e=>change('plots',Number(e.target.value))}/></label><label>Total planting budget (g)<input type="number" min={0} max={20000} value={input.budget} onChange={e=>change('budget',Number(e.target.value))}/></label></div>
