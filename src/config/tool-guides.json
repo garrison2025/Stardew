@@ -2,8 +2,8 @@
   "": {
     "steps": [
       [
-        "Choose a farm landscape",
-        "Select one of eight built-in base terrain references or an independent practice landscape. Choose Start farm for initial buildings or Start empty for an empty reference grid."
+        "Choose a farm map",
+        "Select one of eight terrain references or an independent practice landscape. Use a starter scene or blank map, then preview one of 16 editable examples before replacing your layout."
       ],
       [
         "Check the layout",
@@ -115,19 +115,19 @@
   "predictor": {
     "steps": [
       [
-        "Select a container",
-        "Choose one of four geode types or an Artifact Trove."
+        "Choose a prediction model",
+        "Start with geode alternatives, Golden Coconuts, Mystery Boxes, special mine floors, Traveling Cart stock or the event calendar."
       ],
       [
-        "Set the opening count",
-        "Use the number already cracked. Each row represents one subsequent count for the selected container."
+        "Set the appropriate inputs",
+        "Use the relevant opening counter, game day, randomization mode and conditional switches. The private workspace accepts your own game and farmer IDs locally."
       ],
       [
-        "Compare with your museum checklist",
-        "Use the collection section for possible sources and record donations only after confirming them in the game."
+        "Compare results and conditions",
+        "Use target search to compare geode alternatives and a stock-bounded sequence. Check conditional rewards, mine-floor candidates and your museum donations before acting."
       ]
     ],
-    "example": "With zero geodes previously opened, the first row is opening number 1. Switch the container to see how the same slot changes.",
+    "example": "With zero geodes previously opened, opening 1 is the first candidate. Compare the five geode types, check Golden Coconut separately, and use the independent Mystery Box count for its three reward scenarios.",
     "faq": [
       [
         "Can I enter my own game IDs?",
