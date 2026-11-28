@@ -22,3 +22,6 @@ Prepared an English permission inquiry to concernedape@stardewvalley.net about f
 
 ## Release decision
 No approval is inferred from silence, attribution, noncommercial use or competitor practice. If permission is granted, record scope and restrictions, implement only permitted assets, retain credits, and independently review upstream rights. Otherwise continue independently drawn maps/functional rules within appropriate scope or remove disputed derived packs for the commercial release. Global release gates and ads remain unchanged. This is project evidence and risk management, not legal advice.
+
+## Owner revised acceptance standard
+See COMPETITOR-ACCEPTANCE-STANDARD.md. Commercial use may rely on a documented applicable license or another defensible legal basis, rather than necessarily obtaining a permission email. Competitor public practices do not confer permission. Separate development acceptance from commercial authorization; unresolved derived material must not be treated as cleared. No approval flags changed.
