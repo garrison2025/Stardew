@@ -20,7 +20,8 @@
         "src/lib/screenshot-grids.ts",
         "src/lib/data-layers.ts",
         "src/lib/builtin-farm-preview.ts",
-        "src/lib/compact-farm-identity.ts"
+        "src/lib/compact-farm-identity.ts",
+        "src/lib/farm-access.ts"
       ],
       "sources": [
         "https://stardewvalleywiki.com/Farm_Maps",
