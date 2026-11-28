@@ -11,12 +11,28 @@ import {readBundleDefinition, type SaveBundle} from './save-bundles.ts';
 import type {GeodeInput} from './geode-prediction.ts';
 import {parseSaveXml, MAX_SAVE_BYTES, type SaveElement} from './save-xml.ts';
 import {SEASONS,type Season} from './map-model.ts';
-import {parseVanillaFarmType,buildingItem,observedObjectItem,observedBushItem,observedClumpItem,supportedVersion,type FarmRecord,type SaveSnapshot} from './save-model.ts';
+import {parseVanillaFarmType,buildingItem,observedObjectItem,observedBushItem,observedClumpItem,supportedVersion,type FarmRecord,type SaveSnapshot,type MachineObservation,type IndoorMachineObservation} from './save-model.ts';
 import {normalizeSkillXp,normalizeCrafting,normalizeObjectCollection,safeCount,type SaveProgress,type NamedCount} from './save-progress.ts';
 const child=(el:SaveElement|undefined|null,name:string)=>el?Array.from(el.children).find(c=>c.localName===name):undefined;
 const text=(el:SaveElement|undefined|null,name:string)=>child(el,name)?.textContent?.trim()??'';
 const num=(s:string):number|null=>/^-?\d+$/.test(s)&&Number.isSafeInteger(Number(s))?Number(s):null;
 const xsi=(el:SaveElement|undefined|null,key:string)=>el?.getAttributeNS('http://www.w3.org/2001/XMLSchema-instance',key)??el?.getAttribute('xsi:'+key)??'';
+// The three saved fields are independent observations. Do not infer missing flags or retain product data.
+function observeMachine(o:SaveElement):MachineObservation{
+ const single=(name:string)=>{const nodes=o.children.filter(c=>c.localName===name);return nodes.length===1?nodes[0]:undefined};
+ const held=single('heldObject'),timer=single('minutesUntilReady'),flag=single('readyForHarvest');
+ const minutes=timer&&!timer.children.length?num(timer.textContent.trim()):null;
+ const validMinutes=minutes!==null&&minutes>=-1&&minutes<=10000000?minutes:null;
+ const ready=flag&&!flag.children.length?flag.textContent.trim():'';
+ const nil=held?xsi(held,'nil'):'';
+ const empty=!!held&&['true','1'].includes(nil)&&!held.children.length&&!held.textContent.trim();
+ const filled=!!held&&['','false','0'].includes(nil)&&held.children.length>0;
+ let state:MachineObservation['state']='unknown';
+ if(filled&&ready==='true'&&validMinutes===0)state='ready';
+ else if(filled&&ready==='false'&&validMinutes!==null&&validMinutes>0)state='processing';
+ else if(empty&&ready==='false'&&(validMinutes===-1||validMinutes===0))state='empty';
+ return {state,minutes:validMinutes};
+}
 function point(el:SaveElement|undefined){return {x:num(text(el,'X')),y:num(text(el,'Y'))}}
 function dictionary(el:SaveElement|undefined){return Array.from(el?.children??[]).filter(e=>e.localName==='item')}
 function readBundles(root: SaveElement): SaveBundle[] | undefined {
@@ -108,18 +124,38 @@ function inspectSaveRoot({root, fields, player, version}:ReturnType<typeof parse
   }
  }
  if(!supportedVersion(version)||!farm)return snapshot;
+ const indoorMachines:IndoorMachineObservation[]=[];
  for(const b of Array.from(child(farm,'buildings')?.children??[])){
+ const buildingIndex=records.length;
  const itemId=buildingItem(text(b,'buildingType'));records.push({kind:'building',itemId,x:num(text(b,'tileX')),y:num(text(b,'tileY')),width:num(text(b,'tilesWide'))??undefined,height:num(text(b,'tilesHigh'))??undefined,...(!itemId?{reason:'Unmapped building type'}:{})});
+ // Only directly linked instanced interiors, not top-level locations or non-instanced aliases.
+ if(!itemId||b.localName!=='Building'||['true','1'].includes(xsi(b,'nil')))continue;
+ const interiors=b.children.filter(e=>e.localName==='indoors');
+ if(interiors.length!==1||['true','1'].includes(xsi(interiors[0],'nil'))||text(b,'nonInstancedIndoorsName'))continue;
+ const inner=interiors[0],wrapped=inner.children.filter(e=>e.localName==='GameLocation');
+ if(wrapped.length>1||(wrapped.length===1&&child(inner,'objects')))continue;
+ const loc=wrapped[0]??inner;
+ if(['true','1'].includes(xsi(loc,'nil')))continue;
+ const dictionaries=loc.children.filter(e=>e.localName==='objects');
+ if(dictionaries.length!==1||['true','1'].includes(xsi(dictionaries[0],'nil')))continue;
+ for(const entry of dictionary(dictionaries[0])){
+  const o=child(child(entry,'value'),'Object');if(!o||['true','1'].includes(xsi(o,'nil')))continue;
+  const id=observedObjectItem(text(o,'itemId')||text(o,'parentSheetIndex'),text(o,'bigCraftable'),xsi(o,'type'));
+  if(!id||(!id.startsWith('machine-')&&id!=='bee-house'))continue;
+  if(indoorMachines.length>=20000)throw Error('Too many indoor machine observations.');
+  indoorMachines.push({buildingIndex,buildingItemId:itemId,buildingX:records[buildingIndex].x,buildingY:records[buildingIndex].y,itemId:id,...point(child(child(entry,'key'),'Vector2')),machine:observeMachine(o)});
  }
+ }
+ if(indoorMachines.length)snapshot.indoorMachines=indoorMachines;
  for(const entry of dictionary(child(farm,'objects'))){
  const keyPoint=point(child(child(entry,'key'),'Vector2')),o=child(child(entry,'value'),'Object');
  const id=text(o,'itemId')||text(o,'parentSheetIndex'),big=text(o,'bigCraftable');
  const itemId=o&&xsi(o,'nil')!=='true'?observedObjectItem(id,big,xsi(o,'type')):null;
  // Base sprinkler geometry only. A nonempty attachment is not interpreted.
- // Recognized production machines retain their placement marker, never the held product or processing state.
+ // Recognized production machines retain placement and bounded transient observations, never the held product payload.
  const geometryOnlyMachine=!!itemId&&(itemId.startsWith('machine-')||itemId==='bee-house');
  const hasAttachment=itemId!=='chest'&&!geometryOnlyMachine&&['heldObject','attachments'].some(key=>{const attachment=child(o,key);return !!attachment&&xsi(attachment,'nil')!=='true'&&(attachment.children.length>0||!!attachment.textContent?.trim())});
- records.push({kind:'object',itemId:hasAttachment?null:itemId,...keyPoint,...(hasAttachment?{reason:'Attachment or held object not mapped'}:!itemId?{reason:'Unmapped placed object'}:{})});
+ records.push({kind:'object',itemId:hasAttachment?null:itemId,...keyPoint,...(geometryOnlyMachine&&o?{machine:observeMachine(o)}:{}),...(hasAttachment?{reason:'Attachment or held object not mapped'}:!itemId?{reason:'Unmapped placed object'}:{})});
  }
  for(const entry of dictionary(child(farm,'terrainFeatures'))){
  const coords=point(child(child(entry,'key'),'Vector2')),feature=child(child(entry,'value'),'TerrainFeature'),crop=child(feature,'crop');
