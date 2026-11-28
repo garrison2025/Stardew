@@ -1,4 +1,5 @@
 import React from 'react';
+import {observedBundleStatus} from '../lib/bundle-observations';
 import {CATALOGS} from '../lib/game-collections';
 import {MUSEUM_ITEMS} from '../lib/museum-data';
 import {SAVE_COLLECTION_IDS} from '../lib/save-collection-ids';
@@ -25,7 +26,7 @@ export default function SaveNextActions({progress, season}: {progress: SaveProgr
     : [];
   const learned = (progress.crafting?.known ?? []).filter(name => !progress.crafting?.done.includes(name));
   const bundles = progress.bundles ?? [];
-  const openBundles = bundles.filter(bundle => !bundle.slots.every(slot => slot.donated !== null) || bundle.slots.filter(slot => slot.donated).length < bundle.needed);
+  const openBundles = bundles.filter(bundle => !observedBundleStatus(bundle).done);
 
   const collectionFollowUps = [
     {kind: 'museum', label: 'Museum donations', entries: MUSEUM_ITEMS},
@@ -42,12 +43,11 @@ export default function SaveNextActions({progress, season}: {progress: SaveProgr
     </details>}
     {bundles.length > 0 && <details open>
       <summary>Community Center · {openBundles.length} bundles to check</summary>
-      <p className="muted">Uses the requirements stored in this file, including a custom set where present. Merge recognized progress to retain these observations, then open the private bundle tracker and load the saved definitions. Exact standard definitions can add positive full-slot donations automatically during merge; other definitions remain separate until you explicitly copy observations.</p>
+      <p className="muted">Uses the requirements stored in this file, including a custom set where present. Merge recognized progress to retain these observations, then open the private bundle tracker and load the saved definitions. Some completed bundles in the save omit which individual slots were donated. Exact standard definitions can add positive full-slot donations automatically during merge; other definitions remain separate until you explicitly copy observations.</p>
       {openBundles.map(bundle => {
-        const flagged = bundle.slots.filter(slot => slot.donated).length;
-        const complete = bundle.slots.every(slot => slot.donated !== null);
+        const status = observedBundleStatus(bundle);
         return <details key={bundle.id}>
-          <summary>{bundle.room} · {bundle.name} · {complete ? (bundle.needed - flagged) + ' remaining' : 'donations unknown'}</summary>
+          <summary>{bundle.room} · {bundle.name} · {status.unknown ? 'donations unknown' : status.remaining + ' remaining'}</summary>
           <ul>{bundle.slots.filter(slot => slot.donated !== true).map((slot, i) => {
             const id = slot.item.replace(/^\(O\)/, '');
             const label = slot.item === '-1' ? slot.quantity.toLocaleString('en-US') + 'g' : slot.quantity + ' × ' + (itemNames.get(id) ?? 'game item ' + slot.item) + ' · ' + qualities[slot.quality];

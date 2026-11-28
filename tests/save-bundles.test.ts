@@ -19,3 +19,12 @@ test('invalid requirements are refused and ambiguous donations remain unknown', 
  assert.equal(readBundleDefinition('Pantry/3', 'Example//24 1 0/4', [false, true])?.slots[0].donated, null);
  assert.equal(readBundleDefinition('Pantry/3', 'Example//24 1 0 25 1 0/4', [true])?.slots[0].donated, null);
 });
+
+test('padded all-true completion leaves individual donations unknown', () => {
+ const record = readBundleDefinition('Pantry/3', 'Example//24 1 0 25 1 0 26 1 0/4/2', Array(9).fill(true));
+ assert.equal(record?.completedInSave, true);
+ assert.deepEqual(record?.slots.map(slot => slot.donated), [null, null, null]);
+ const mixed = readBundleDefinition('Pantry/3', 'Example//24 1 0 25 1 0 26 1 0/4/2', [true, false, false, true]);
+ assert.equal(mixed?.completedInSave, undefined);
+ assert.deepEqual(mixed?.slots.map(slot => slot.donated), [null, null, null]);
+});

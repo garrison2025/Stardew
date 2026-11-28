@@ -23,11 +23,17 @@ Public English search results reviewed on 2026-11-28. These representative resul
 | stardew bundles | `/bundles/` | Requirements plus tracking, [stardew.app bundles](https://stardew.app/bundles) |
 | stardew valley museum | `/museum/` | Donation requirements and tracker, [wiki](https://stardewvalleywiki.com/Museum) and [stardew.app museum](https://stardew.app/museum) |
 
+## Real 1.6.15 save comparison
+
+The [original public Forest Farm archive](https://forums.stardewvalley.net/threads/fall-y1-forest-farm-save.49145/) contains a 1.6.15 main file and backup. The main file's 71 museum donations matched the XML and Stardew Checkup. Field & Farm counted 59 shipping targets, and Checkup counted 60, including Clam. Direct analysis of the bundle arrays counted 23 completed Community Center bundles in the main file and 22 in the backup. These represent three and two completed rooms respectively. The abandoned store's Missing Bundle is tracked separately.
+
+Fully set padded flags indicate a completed bundle but do not identify the gifts selected from optional slots. The tracker stores that signal separately and leaves individual donations unknown. The save-backed dashboard uses the number of recognized definitions from the six Community Center rooms. Checkup estimates 19.9% Perfection from the main file. That estimate is comparison evidence rather than a reading from the game. Only aggregate observations are recorded here.
+
 ## Open release checks
 
 | Item | Evidence to record |
 | --- | --- |
-| Real 1.6.15 save | A main save with the XML version confirmed, positive museum and Community Center observations, and an independently observed in-game Perfection reading. A public support thread supplied a candidate attachment, but browser download was unavailable. Use the local fixture comparator to cross-check supported observations. |
+| Real 1.6.15 save | Museum, shipping, and Community Center progress were checked on public main and backup saves. An independently observed in-game Perfection reading is still needed. |
 | Physical mobile devices | One iPhone Safari and one Android Chrome session. On each, place an object, pan/pinch, undo, open a shared layout, and import a test save in the workspace. Record actual device, browser and deployed revision. |
 | Production search and domains | Confirm the initial source/data scope, localized US results, main and workspace origins, indexable routes, and observable canonical/sitemap/redirect behavior. |
 | Operational recovery | Record matching last-known-good deployments and the result of any paired Cloudflare rollback or restore rehearsal. Keep preview and workspace noindex and ads disabled until the applicable release approvals. |
