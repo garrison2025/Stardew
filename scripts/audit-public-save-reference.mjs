@@ -14,12 +14,12 @@ try{
  assert.equal(s.version,'1.6.8');assert.equal(s.farmFound,true);assert.equal(s.farmType,3);assert.equal(s.year,1);assert.equal(s.day,6);assert.equal(s.season,'spring');
  assert.equal(s.records.filter(x=>x.kind==='building').length,4);
  assert.equal(s.records.filter(x=>x.kind==='object').length,407);
- assert.equal(s.records.filter(x=>x.kind==='terrain').length,209);
- assert.equal(s.records.length,620);
+ assert.equal(s.records.filter(x=>x.kind==='terrain').length,287);
+ assert.equal(s.records.length,698);
  assert.ok(s.progress);const b=s.progress.backpack,storage=s.progress.storage;
  assert.ok(b&&storage);assert.equal(b.stacks.length,1);assert.equal(b.unmapped,4);assert.equal(b.stacks.reduce((n,x)=>n+x.quantity,0),1);
  assert.equal(storage.containers,3);assert.equal(storage.skippedContainers,0);assert.equal(storage.unmapped,6);assert.equal(storage.stacks.length,12);assert.equal(storage.stacks.reduce((n,x)=>n+x.quantity,0),175);
  const grid=suggestedFarmGrid(s);assert.equal(grid.w,80);assert.equal(grid.h,65);assert.equal(grid.exceedsReference,false);
- const result=buildFarmImport(s,grid.w,grid.h);assert.equal(result.total,620);assert.equal(result.imported+result.issues.length,result.total);assert.ok(result.imported>=500,'Expected improved coverage of observed farm records');
- console.log('Pinned public 1.6.8 save: metadata, 620 farm records, backpack, three local storage roots and coordinate frame passed. Mapped '+result.imported+' records; '+result.issues.length+' deliberately unmapped. No raw XML, player identity or item-level payload emitted. Not 1.6.15 gameplay or full map validation.');
+ const result=buildFarmImport(s,grid.w,grid.h);assert.equal(result.total,698);assert.equal(result.imported+result.issues.length,result.total);assert.ok(result.imported>=618,'Existing mapping coverage must not regress');assert.equal(s.records.filter(x=>x.itemId?.startsWith('observed-bush-')).length,54);assert.equal(s.records.filter(x=>['observed-stump','observed-log','observed-boulder'].includes(x.itemId)).length,24);assert.equal(s.records.filter(x=>!x.itemId).length,0);
+ console.log('Pinned public 1.6.8 save: metadata, 698 farm records, backpack, three local storage roots and coordinate frame passed. Mapped '+result.imported+' records; '+result.issues.length+' deliberately unmapped. No raw XML, player identity or item-level payload emitted. Not 1.6.15 gameplay or full map validation.');
 }catch{console.error('Pinned public save reference check failed; inspect source locally. No raw save details emitted.');process.exitCode=1}

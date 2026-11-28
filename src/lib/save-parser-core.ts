@@ -11,7 +11,7 @@ import {readBundleDefinition, type SaveBundle} from './save-bundles.ts';
 import type {GeodeInput} from './geode-prediction.ts';
 import {parseSaveXml, MAX_SAVE_BYTES, type SaveElement} from './save-xml.ts';
 import {SEASONS,type Season} from './map-model.ts';
-import {buildingItem,observedObjectItem,supportedVersion,type FarmRecord,type SaveSnapshot} from './save-model.ts';
+import {buildingItem,observedObjectItem,observedBushItem,observedClumpItem,supportedVersion,type FarmRecord,type SaveSnapshot} from './save-model.ts';
 import {normalizeSkillXp,normalizeCrafting,normalizeObjectCollection,safeCount,type SaveProgress,type NamedCount} from './save-progress.ts';
 const child=(el:SaveElement|undefined|null,name:string)=>el?Array.from(el.children).find(c=>c.localName===name):undefined;
 const text=(el:SaveElement|undefined|null,name:string)=>child(el,name)?.textContent?.trim()??'';
@@ -124,6 +124,16 @@ function inspectSaveRoot({root, fields, player, version}:ReturnType<typeof parse
  const planted=xsi(feature,'type')==='HoeDirt'&&!!crop&&xsi(crop,'nil')!=='true'&&crop.children.length>0;
  const type=xsi(feature,'type');const itemId=planted?'seedling':type==='Tree'?'observed-tree':type==='Grass'?'observed-grass':null;
  records.push({kind:'terrain',itemId,...coords,...(!itemId?{reason:'Unmapped terrain feature'}:{})});
+ }
+ for(const e of child(farm,'largeTerrainFeatures')?.children??[]){
+  if(xsi(e,'nil')==='true'||xsi(e,'nil')==='1')continue;
+  const itemId=e.localName==='LargeTerrainFeature'&&xsi(e,'type')==='Bush'?observedBushItem(num(text(e,'size'))):null;
+  records.push({kind:'terrain',itemId,...point(child(e,'tilePosition')),...(!itemId?{reason:'Unmapped large terrain feature'}:{})});
+ }
+ for(const e of child(farm,'resourceClumps')?.children??[]){
+  if(xsi(e,'nil')==='true'||xsi(e,'nil')==='1')continue;
+  const itemId=e.localName==='ResourceClump'&&(!xsi(e,'type')||xsi(e,'type')==='ResourceClump')?observedClumpItem(num(text(e,'parentSheetIndex')),num(text(e,'width')),num(text(e,'height'))):null;
+  records.push({kind:'terrain',itemId,...point(child(e,'tile')),...(!itemId?{reason:'Unknown or mismatched resource clump'}:{})});
  }
  if(records.length>20000)throw Error('Too many farm records.');
  return snapshot;

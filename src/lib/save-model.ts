@@ -19,7 +19,7 @@ export function suggestedFarmGrid(snapshot:SaveSnapshot){
  if(!reference)return {w:bounds.w,h:bounds.h,reference:undefined,exceedsReference:false};
  return {w:Math.max(reference.w,bounds.w),h:Math.max(reference.h,bounds.h),reference,exceedsReference:bounds.w>reference.w||bounds.h>reference.h||bounds.outsideLimit>0};
 }
-export function buildingItem(type:string){const names:Record<string,string>={'Barn':'game-barn','Big Barn':'game-barn','Deluxe Barn':'game-barn','Coop':'game-coop','Big Coop':'game-coop','Deluxe Coop':'game-coop','Shed':'game-shed','Big Shed':'game-shed','Silo':'game-silo',"Fish Pond":"game-fish-pond","Mill":"game-mill","Slime Hutch":"game-slime-hutch","Stable":"game-stable","Well":"game-well","Cabin":"game-cabin","Shipping Bin":"game-shipping-bin","Pet Bowl":"game-pet-bowl"};return Object.hasOwn(names,type)?names[type]:null}
+export function buildingItem(type:string){const names:Record<string,string>={'Barn':'game-barn','Big Barn':'game-barn','Deluxe Barn':'game-barn','Coop':'game-coop','Big Coop':'game-coop','Deluxe Coop':'game-coop','Shed':'game-shed','Big Shed':'game-shed','Silo':'game-silo',"Fish Pond":"game-fish-pond","Mill":"game-mill","Slime Hutch":"game-slime-hutch","Stable":"game-stable","Well":"game-well","Cabin":"game-cabin","Shipping Bin":"game-shipping-bin","Pet Bowl":"game-pet-bowl","Farmhouse":"game-farmhouse","Farm House":"game-farmhouse","Greenhouse":"game-greenhouse"};return Object.hasOwn(names,type)?names[type]:null}
 export function sprinklerItem(id:string,big:boolean){if(big||!/^\(O\)\d+$|^\d+$/.test(id))return null;const ids:Record<string,string>={'599':'basic-sprinkler','621':'quality-sprinkler','645':'iridium-sprinkler'};const k=id.replace(/^\(O\)/,'');return Object.hasOwn(ids,k)?ids[k]:null}
 /** Lower bound for recognized object footprints, never a claim about the actual game map. */
 export function observedFarmBounds(snapshot:SaveSnapshot){
@@ -69,3 +69,7 @@ export function observedObjectItem(id:string,big:string,kind:string){
  if(raw==='590')return 'observed-artifact';
  return sprinklerItem(id,false);
 }
+
+/** Factual bush collision widths from game 1.6.8; resource clumps require exact saved dimensions. */
+export function observedBushItem(size:number|null){return size===0||size===3?'observed-bush-small':size===1||size===4?'observed-bush-medium':size===2?'observed-bush-large':null}
+export function observedClumpItem(id:number|null,w:number|null,h:number|null){if(w!==2||h!==2)return null;return id===600?'observed-stump':id===602?'observed-log':id===672?'observed-boulder':id===622?'observed-meteorite':null}

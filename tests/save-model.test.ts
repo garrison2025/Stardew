@@ -28,3 +28,10 @@ test('save marker IDs and saved building footprints are explicit and class-aware
  assert.equal(observedObjectItem('450','false','Furniture'),null);
  assert.equal(observedObjectItem('UNKNOWN','false','Object'),null);
 });
+
+import {observedBushItem,observedClumpItem} from '../src/lib/save-model.ts';
+test('bush sizes and clump dimensions are explicit and fixed',()=>{
+ assert.deepEqual([0,1,2,3,4,5,null].map(observedBushItem),['observed-bush-small','observed-bush-medium','observed-bush-large','observed-bush-small','observed-bush-medium',null,null]);
+ assert.deepEqual([600,602,672,622].map(id=>observedClumpItem(id,2,2)),['observed-stump','observed-log','observed-boulder','observed-meteorite']);
+ assert.equal(observedClumpItem(600,1,2),null);assert.equal(observedClumpItem(999,2,2),null);
+});

@@ -64,6 +64,15 @@ ITEMS.push(
  {id:'observed-tree',name:'Tree trunk (saved tile)',category:'Nature',w:1,h:1,art:'tree',color:'#699b4e'},
  {id:'observed-grass',name:'Grass (clearable marker)',category:'Nature',w:1,h:1,art:'crop',color:'#88af58'}
 );
+ITEMS.push(
+ {id:'observed-bush-small',name:'Small bush (saved tile)',category:'Nature',w:1,h:1,art:'tree',color:'#649a59',fixedOrientation:true},
+ {id:'observed-bush-medium',name:'Medium bush (saved footprint)',category:'Nature',w:2,h:1,art:'tree',color:'#649a59',fixedOrientation:true},
+ {id:'observed-bush-large',name:'Large bush (saved footprint)',category:'Nature',w:3,h:1,art:'tree',color:'#649a59',fixedOrientation:true},
+ {id:'observed-stump',name:'Large stump (saved footprint)',category:'Nature',w:2,h:2,art:'rock',color:'#956d48',fixedOrientation:true},
+ {id:'observed-log',name:'Large log (saved footprint)',category:'Nature',w:2,h:2,art:'rock',color:'#866445',fixedOrientation:true},
+ {id:'observed-boulder',name:'Boulder (saved footprint)',category:'Nature',w:2,h:2,art:'rock',color:'#848b91',fixedOrientation:true},
+ {id:'observed-meteorite',name:'Meteorite (saved footprint)',category:'Nature',w:2,h:2,art:'rock',color:'#79688a',fixedOrientation:true}
+);
 export const itemById=new Map(ITEMS.map(i=>[i.id,i]));
 export const MAPS=[{id:'orchard',name:'Orchard valley',w:64,h:42},{id:'riverbend',name:'River bend',w:64,h:44},{id:'woodland',name:'Woodland clearing',w:60,h:44},{id:'hilltop',name:'Terraced hills',w:64,h:44},{id:'four-gardens',name:'Four gardens',w:64,h:64},{id:'coastal',name:'Coastal meadow',w:72,h:48},{id:'wild-grove',name:'Wild grove',w:64,h:48},{id:'pasture',name:'Pasture estate',w:68,h:48}] as const;
 export function originalMap(id:string):FarmMap{
