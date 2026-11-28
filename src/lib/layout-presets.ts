@@ -1,3 +1,4 @@
+import {builtinFarmPlan} from './builtin-farm-preview.ts';
 import {newPlan,placementError,itemById,irrigation,scarecrowCoverage,posKey,type Plan,type Placed,type Season} from './map-model.ts';
 export const LAYOUT_PRESETS=[
  {id:'crop-blocks',name:'Irrigated crop blocks',landscape:'orchard',note:'Four iridium-sprinkler crop blocks, central scarecrow and storage.'},
@@ -24,4 +25,60 @@ export function layoutReferenceSummary(plan:Plan){
  const materials:Record<string,number>={};let gold=0,priced=0,unpriced=0;
  for(const o of plan.objects){if(itemById.get(o.itemId)?.category!=='Buildings')continue;const c=costs[o.itemId];if(!c){unpriced++;continue}priced++;gold+=c.gold;for(const [name,n] of Object.entries(c.materials))materials[name]=(materials[name]??0)+n}
  return {crops:crops.length,watered:crops.filter(o=>water.has(posKey(o.x,o.y))).length,protected:crops.filter(o=>protectedTiles.has(posKey(o.x,o.y))).length,gold,materials,priced,unpriced};
+}
+
+export const REFERENCE_LAYOUT_PRESETS=[
+ {id:'ref-standard',name:'Standard · expandable crop blocks',farm:0,stage:'Expansion',buildings:['game-shed'],machines:['machine-keg','machine-jar'],blocks:2,note:'Two quality-sprinkler blocks with space for a shed and outdoor processing.'},
+ {id:'ref-riverland',name:'Riverland · fish and crops',farm:1,stage:'Early expansion',buildings:['game-fish-pond'],machines:[],blocks:1,note:'Fish pond and a compact irrigated crop block on the base terrain reference.'},
+ {id:'ref-forest',name:'Forest · mixed workshop',farm:2,stage:'Expansion',buildings:['game-shed'],machines:['machine-jar'],blocks:1,note:'Small planting area and preserves workshop. Preserve space for natural resources in game.'},
+ {id:'ref-hilltop',name:'Hill-top · ore processing',farm:3,stage:'Early expansion',buildings:['game-shed'],machines:['machine-furnace','machine-furnace'],blocks:1,note:'Furnace markers, shed and a compact crop block; actual quarry access requires checking.'},
+ {id:'ref-wilderness',name:'Wilderness · compact homestead',farm:4,stage:'Early expansion',buildings:['game-silo'],machines:['chest'],blocks:1,note:'Small irrigated plot, silo and storage marker. Night monsters are not modeled.'},
+ {id:'ref-four-corners',name:'Four Corners · production zones',farm:5,stage:'Expansion',buildings:['game-shed','game-silo'],machines:['machine-keg','machine-jar'],blocks:2,note:'Two planting blocks and separate production building markers; not an exact zoning optimizer.'},
+ {id:'ref-beach',name:'Beach · non-sand crop patch',farm:6,stage:'Early expansion',buildings:['game-fish-pond'],machines:[],blocks:1,note:'Use reference-approved irrigable soil for one block and reserve other land for buildings.'},
+ {id:'ref-meadowlands',name:'Meadowlands · livestock expansion',farm:7,stage:'Early expansion',buildings:['game-barn','game-silo'],machines:['machine-cheese','machine-mayonnaise'],blocks:1,note:'Retain the starter coop and fences, add barn, silo and small irrigated field.'}
+] as const;
+export type ReferencePresetId=typeof REFERENCE_LAYOUT_PRESETS[number]['id'];
+export type AnyPresetId=PresetId|ReferencePresetId;
+/** Deterministic editable example, not optimal or exact gameplay. Every addition uses the existing placement validator. */
+export function referenceLayoutPreset(id:ReferencePresetId,season:Season='spring'):Plan{
+ const p=REFERENCE_LAYOUT_PRESETS.find(r=>r.id===id);if(!p)throw Error('Unknown reference preset');
+ const plan=builtinFarmPlan('local-starplan-'+p.farm,season,true);
+ const {w,h}=plan.map;
+ const cells=Array.from({length:w*h},(_,i)=>({x:i%w,y:Math.floor(i/w)}));
+ const cx=Math.floor(w/2),cy=Math.floor(h/2);
+ cells.sort((a,b)=>(Math.abs(a.x-cx)+Math.abs(a.y-cy))-(Math.abs(b.x-cx)+Math.abs(b.y-cy))||a.y-b.y||a.x-b.x);
+ let counter=0;
+ const marker=(itemId:string,x:number,y:number):Placed=>({id:'ref-example-'+counter++,itemId,x,y,rotation:0});
+ function addNear(itemId:string,ax:number,ay:number){
+  const ordered=[...cells].sort((a,b)=>(Math.abs(a.x-ax)+Math.abs(a.y-ay))-(Math.abs(b.x-ax)+Math.abs(b.y-ay))||a.y-b.y||a.x-b.x);
+  for(const c of ordered){const o=marker(itemId,c.x,c.y);if(!placementError(plan.map,plan.objects,o)){plan.objects.push(o);return o}}
+  throw Error('Reference example could not place '+itemId);
+ }
+ for(let block=0;block<p.blocks;block++){
+  let placed=false;
+  for(const c of cells){
+   if(c.x<1||c.y<1||c.x>=w-1||c.y>=h-1)continue;
+   const additions:Placed[]=[marker('quality-sprinkler',c.x,c.y)];
+   for(let y=c.y-1;y<=c.y+1;y++)for(let x=c.x-1;x<=c.x+1;x++)if(x!==c.x||y!==c.y)additions.push(marker('seedling',x,y));
+   const trial=[...plan.objects];let ok=true;
+   for(const o of additions){if(placementError(plan.map,trial,o)){ok=false;break}trial.push(o)}
+   if(!ok)continue;
+   const wet=irrigation({...plan,objects:trial});if(!additions.slice(1).every(o=>wet.has(posKey(o.x,o.y))))continue;
+   // A scarecrow must actually cover all new crop markers before the block is committed.
+   const nearby=cells.filter(q=>Math.abs(q.x-c.x)<=4&&Math.abs(q.y-c.y)<=4);
+   for(const q of nearby){const guard=marker('scarecrow',q.x,q.y);if(placementError(plan.map,trial,guard))continue;
+    const complete=[...trial,guard],protectedTiles=scarecrowCoverage({...plan,objects:complete});
+    if(!additions.slice(1).every(o=>protectedTiles.has(posKey(o.x,o.y))))continue;
+    plan.objects=complete;placed=true;break;
+   }
+   if(placed)break;
+  }
+  if(!placed)throw Error('Reference example has no verified irrigated crop block');
+ }
+ let i=0;for(const building of p.buildings){addNear(building,Math.floor(w*0.7),Math.floor(h*0.55)+i*5);i++}
+ for(const machine of p.machines)addNear(machine,Math.floor(w*0.7),Math.floor(h*0.45));
+ return plan;
+}
+export function loadLayoutExample(id:AnyPresetId,season:Season='spring'){
+ return REFERENCE_LAYOUT_PRESETS.some(p=>p.id===id)?referenceLayoutPreset(id as ReferencePresetId,season):layoutPreset(id as PresetId,season);
 }

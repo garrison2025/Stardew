@@ -1,3 +1,4 @@
 import WorkspaceFrame from './WorkspaceFrame';
 import {FarmCompareTool} from './RuleTools';
-export default function FarmCompareRoute({workspace}:{workspace:boolean}){return <WorkspaceFrame workspace={workspace}><FarmCompareTool/></WorkspaceFrame>}
+import {REFERENCE_LAYOUT_PRESETS} from '../lib/layout-presets';
+export default function FarmCompareRoute({workspace}:{workspace:boolean}){return <WorkspaceFrame workspace={workspace}><FarmCompareTool/><section className="panel"><h2>Editable farm-specific layout examples</h2><p>{workspace?'Select an example in the planner, then explicitly load it to replace your current scene. Your saved scene is not changed by opening this link.':'Open a farm-specific example directly in the scene designer. Every layout is an editable reference, not an optimal or exact game layout.'}</p><div className="rules-grid">{REFERENCE_LAYOUT_PRESETS.map(p=><article className="rule-card" key={p.id}><h3>{p.name}</h3><small>{p.stage}</small><p>{p.note}</p><a href={'/?example='+p.id}>{workspace?'Select':'Open'} {p.name.split(' · ')[0]} layout example</a></article>)}</div></section></WorkspaceFrame>}
