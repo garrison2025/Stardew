@@ -1,3 +1,4 @@
+import {readQuestObservations} from './save-quests.ts';
 import {readProfessions} from './save-professions.ts';
 import {readStorage} from './storage-observations.ts';
 import {readWalnutObservation} from './walnut-observations.ts';
@@ -93,7 +94,7 @@ function readProgress(root:SaveElement,player:SaveElement|undefined,shared=true)
  const monsterKills=readMonsterCounts(player);
  if(!monsterKills)warnings.push('Specific monster kill dictionary absent or unsupported.');
  const backpack=readBackpack(player);if(!backpack)warnings.push('Player backpack absent or unsupported.');
- return {professions:readProfessions(player),walnutTasks:shared?readWalnutObservation(root):undefined,masteryXp:safeCount(readPlayerStat(player,'MasteryExp')),backpack,stepsTaken:readPlayerStat(player,'stepsTaken'),monsterKills,milestones:readSaveMilestones(root,player,shared),xp,money:read(player,'money'),lifetimeEarnings:read(player,'totalMoneyEarned'),walnutsFound,walnutsBalance,crafting,learnedCooking:cooking?.length??null,collections,warnings}
+ return {quests:readQuestObservations(root,player,shared),professions:readProfessions(player),walnutTasks:shared?readWalnutObservation(root):undefined,masteryXp:safeCount(readPlayerStat(player,'MasteryExp')),backpack,stepsTaken:readPlayerStat(player,'stepsTaken'),monsterKills,milestones:readSaveMilestones(root,player,shared),xp,money:read(player,'money'),lifetimeEarnings:read(player,'totalMoneyEarned'),walnutsFound,walnutsBalance,crafting,learnedCooking:cooking?.length??null,collections,warnings}
 }
 function parseMainSave(xml: string) {
  const {root,fields}=parseSaveXml(xml);

@@ -1,3 +1,4 @@
+import type {QuestObservations} from './save-quests.ts';
 import type {ProfessionObservation} from './save-professions.ts';
 import type {StorageObservation} from './storage-observations.ts';
 import type {WalnutObservation} from './walnut-observations.ts';
@@ -10,7 +11,7 @@ import {CATALOGS,CRAFTING} from './game-collections.ts';
 import {levelAt} from './game-rules.ts';
 export type NamedCount={name:string;count:number};
 export type ObservedCollection={done:string[];unmapped:number};
-export type SaveProgress={professions?:ProfessionObservation;walnutTasks?:WalnutObservation;masteryXp?:number|null;backpack?:Backpack;storage?:StorageObservation;stepsTaken?:number|null;monsterKills?:MonsterCounts;milestones?:SaveMilestones;bundles?:SaveBundle[];collections?:Partial<Record<'shipping'|'fishing'|'cooking'|'museum',ObservedCollection>>;xp:number[]|null;money:number|null;lifetimeEarnings:number|null;walnutsFound:number|null;walnutsBalance:number|null;crafting:{known:string[];done:string[];unmapped:number}|null;learnedCooking:number|null;warnings:string[]};
+export type SaveProgress={quests?:QuestObservations;professions?:ProfessionObservation;walnutTasks?:WalnutObservation;masteryXp?:number|null;backpack?:Backpack;storage?:StorageObservation;stepsTaken?:number|null;monsterKills?:MonsterCounts;milestones?:SaveMilestones;bundles?:SaveBundle[];collections?:Partial<Record<'shipping'|'fishing'|'cooking'|'museum',ObservedCollection>>;xp:number[]|null;money:number|null;lifetimeEarnings:number|null;walnutsFound:number|null;walnutsBalance:number|null;crafting:{known:string[];done:string[];unmapped:number}|null;learnedCooking:number|null;warnings:string[]};
 export function normalizeSkillXp(values:unknown[]):number[]|null{
  if((values.length!==5&&values.length!==6)||values.some(n=>typeof n!=='number'||!Number.isSafeInteger(n)||n<0||n>1000000000))return null;
  // Game slots: farming, fishing, foraging, mining, combat; slot 5 is unused luck.

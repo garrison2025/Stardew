@@ -10,8 +10,8 @@ function record(v:unknown):Record<string,unknown>{if(!v||typeof v!=='object'||Ar
 function playerOnly(raw:unknown):SaveObservations{
  const v=decodeSaveObservations(raw);
  // Never use farm-wide observations to calculate a particular player's progress.
- const {storage,bundles,walnutTasks,...rest}=v;
- return {...rest,walnutsFound:null,walnutsBalance:null,...(v.milestones?{milestones:{...v.milestones,obelisks:null,clock:null}}:{})};
+ const {storage,bundles,walnutTasks,quests,...rest}=v;
+ return {...rest,...(quests?.achievements?{quests:{achievements:quests.achievements}}:{}),walnutsFound:null,walnutsBalance:null,...(v.milestones?{milestones:{...v.milestones,obelisks:null,clock:null}}:{})};
 }
 function names(kind:CatalogKind,raw:unknown):string[]{
  const valid=new Set(CATALOGS[kind].map(x=>x.name));
