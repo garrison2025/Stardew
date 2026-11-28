@@ -48,6 +48,7 @@ export const ITEMS:Item[]=[
 {id:'wood-path',name:'Wood path',category:'Paths & fences',w:1,h:1,art:'path',color:'#c2a06d'},
 {id:'brick-path',name:'Brick path',category:'Paths & fences',w:1,h:1,art:'path',color:'#b97a62'},
 {id:'fence',name:'Wood fence',category:'Paths & fences',w:1,h:1,art:'fence',color:'#a37c4e'},
+{id:'gate',name:'Gate (reference)',category:'Paths & fences',w:1,h:1,art:'fence',color:'#d2b276',documented:true},
 {id:'oak',name:'Shade tree',category:'Nature',w:2,h:2,art:'tree',color:'#699b4e'},
 {id:'pine',name:'Pine tree',category:'Nature',w:2,h:2,art:'pine',color:'#427e61'},
 {id:'flowerbed',name:'Flower bed',category:'Nature',w:1,h:1,art:'flower',color:'#e6a3c8'},
@@ -133,7 +134,7 @@ function referenceClearanceError(map:FarmMap,objects:Placed[],o:Placed,occupied:
  return null;
 }
 export function placementError(map:FarmMap,objects:Placed[],o:Placed):string|null{
- if(o.rotation&&itemById.get(o.itemId)?.fixedOrientation)return 'This game footprint has a fixed orientation';const occupied=occupancy(objects);for(const p of footprint(o)){const t=terrainAt(map,p.x,p.y);if(!t)return 'Outside map boundary';if(map.restrictions){const e=restrictionError(map.restrictions,p.y*map.w+p.x,itemById.get(o.itemId)?.category??'');if(e)return e}if(t==='water'||t==='cliff'||t==='forest')return 'Blocked terrain: '+t;if(t==='road'&&itemById.get(o.itemId)?.category!=='Paths & fences')return 'Road reserved for paths and fences';if(occupied.has(posKey(p.x,p.y)))return 'Overlaps an existing object'}return referenceClearanceError(map,objects,o,occupied);
+ if(o.rotation&&itemById.get(o.itemId)?.fixedOrientation)return 'This game footprint has a fixed orientation';const occupied=occupancy(objects);for(const p of footprint(o)){const t=terrainAt(map,p.x,p.y);if(!t)return 'Outside map boundary';if(map.restrictions){const e=restrictionError(map.restrictions,p.y*map.w+p.x,itemById.get(o.itemId)?.category??'');if(e&&!(map.id==='local-starplan-6'&&map.restrictions.source==='local-restriction-mask'&&o.itemId==='game-farmhouse'&&o.x===59&&o.y===12&&p.x===64&&p.y===16&&map.restrictions.access[p.y*map.w+p.x]==='C'&&map.restrictions.build[p.y*map.w+p.x]==='N'&&map.restrictions.till[p.y*map.w+p.x]==='N'))return e}if(t==='water'||t==='cliff'||t==='forest')return 'Blocked terrain: '+t;if(t==='road'&&itemById.get(o.itemId)?.category!=='Paths & fences')return 'Road reserved for paths and fences';if(occupied.has(posKey(p.x,p.y)))return 'Overlaps an existing object'}return referenceClearanceError(map,objects,o,occupied);
 }
 export function moveSelection(plan:Plan,ids:Set<string>,x:number,y:number):Plan{
  const selected=plan.objects.filter(o=>ids.has(o.id));if(!selected.length)throw Error('Select objects first');

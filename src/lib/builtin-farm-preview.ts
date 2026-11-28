@@ -2,7 +2,7 @@
 // Source: Starplan pinned 7ee52554a2e48f47a9d99e256830d7b1b2e5954f, see docs/BUILTIN-FARM-PREVIEW.md.
 // Non-indexable, ad-free reference preview; not a commercial rights or version certificate.
 import {COMPACT_FARM_REFERENCES} from './compact-farm-identity.ts';
-import {restrictionMaskMap,type FarmMap,type Plan,type Season} from './map-model.ts';
+import {restrictionMaskMap,placementError,type Placed,type FarmMap,type Plan,type Season} from './map-model.ts';
 export const BUILTIN_FARMS=COMPACT_FARM_REFERENCES.map((row,id)=>({id:'local-starplan-'+id,name:row[1],w:row[2],h:row[3]}));
 const ALPHABET='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
 // Independently packed: two three-bit factual values per character, row-major.
@@ -16,4 +16,20 @@ export function builtinFarmMap(id:string):FarmMap{
  if(count)runs.push(String(count)+String.fromCharCode(97+current));
  return {...restrictionMaskMap(runs.join(''),f.w,f.h),id:f.id,name:f.name+' — terrain reference preview'};
 }
-export function builtinFarmPlan(id:string,season:Season):Plan{return {schema:2,map:builtinFarmMap(id),season,objects:[]}}
+// Source default-buildings.ts and farms.generated.ts: footprint coordinates, not sprite corners.
+export function starterFarmObjects(id:string):Placed[]{
+ const i=BUILTIN_FARMS.findIndex(f=>f.id===id);if(i<0)throw Error('Unknown built-in farm reference');
+ const objects:Placed[]=[];
+ const add=(itemId:string,x:number,y:number)=>objects.push({id:'starter-'+objects.length,itemId,x,y,rotation:0});
+ add('game-farmhouse',i===7?76:59,i===7?16:12);
+ add('game-greenhouse',[25,25,25,25,25,36,14,37][i],[10,10,10,10,10,29,14,19][i]);
+ add('game-shipping-bin',i===7?88:71,i===7?18:14);
+ add('game-pet-bowl',[53,53,53,53,53,49,78,91][i],[7,7,7,7,7,40,21,14][i]);
+ if(i===7){add('game-coop',54,9);add('gate',62,13);for(let x=47;x<=62;x++)add('fence',x,20);for(let y=16;y<20;y++)add('fence',47,y);for(let y=7;y<20;y++)if(y!==13)add('fence',62,y);}
+ return objects;
+}
+export function builtinFarmPlan(id:string,season:Season,withStarter=false):Plan{
+ const plan:Plan={schema:2,map:builtinFarmMap(id),season,objects:[]};
+ if(withStarter)for(const o of starterFarmObjects(id)){const error=placementError(plan.map,plan.objects,o);if(error)throw Error('Starter reference '+o.itemId+': '+error);plan.objects.push(o);}
+ return plan;
+}

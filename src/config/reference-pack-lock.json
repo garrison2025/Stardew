@@ -14,7 +14,7 @@
     },
     {
       "path": "src/lib/builtin-farm-preview.ts",
-      "gitBlob": "6debd5d6160fb07b00bf4748ebce52fa2423aaf2"
+      "gitBlob": "e243bff6c635b11f746796fcf17f56aef1943317"
     },
     {
       "path": "src/lib/bundle-data.ts",
@@ -142,7 +142,7 @@
     },
     {
       "path": "src/lib/map-model.ts",
-      "gitBlob": "766047eb60adb25f333db91c4264700f50aa7803"
+      "gitBlob": "0198ce55ecbcc12a6b5783dd7513a2ba93d12a1f"
     },
     {
       "path": "src/lib/monster-goals.ts",
@@ -265,5 +265,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r12"
+  "id": "ref-pc-1.6.15-20261128-r13"
 }
