@@ -7,6 +7,7 @@ on:
       - 'scripts/audit-public-save-reference.mjs'
       - 'scripts/public-save-story-baseline.py'
       - 'src/lib/story-observations.ts'
+      - 'src/lib/observed-farm-preview.ts'
       - 'src/lib/save-*.ts'
       - 'src/lib/map-model.ts'
       - 'src/lib/data-layers.ts'
