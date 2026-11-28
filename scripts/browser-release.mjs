@@ -95,9 +95,12 @@ async function verifyWorkspaceMigration(browser){
     assert.deepEqual({...restoredBook,revision:sourceBook.revision},sourceBook);
     assert.deepEqual(after.records['collection-v1:cooking'],savedCollection);
 
-    const targetProfile=target.locator('summary').filter({hasText:'Farm profile'});
-    if(await target.getByLabel('Open farm profile',{exact:true}).isHidden())await targetProfile.click();
-    await Promise.all([target.waitForEvent('load'),target.getByLabel('Open farm profile',{exact:true}).selectOption({label:'Default farm'})]);
+    const profilePicker=target.getByLabel('Open farm profile',{exact:true});
+    await target.getByText('Farm profile · Migration test farm',{exact:true}).waitFor();
+    if(await profilePicker.isHidden())await target.getByText('Farm profile · Migration test farm',{exact:true}).click();
+    await target.waitForFunction(()=>document.querySelector('.farm-profiles select option:checked')?.textContent==='Migration test farm');
+    assert.notEqual(await profilePicker.inputValue(),'default');
+    await Promise.all([target.waitForEvent('load'),profilePicker.selectOption('default')]);
     await target.goto(destination.origin+'/cooking/');
     await target.waitForFunction(()=>!document.querySelector('astro-island[ssr]'));
     assert.equal(await target.getByLabel('Progress Fried Egg',{exact:true}).inputValue(),'missing');
