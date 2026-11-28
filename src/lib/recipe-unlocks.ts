@@ -1,7 +1,7 @@
 // Numerical and unlock-condition facts matched against the existing recipe names.
 // References: https://stardewvalleywiki.com/Crafting and https://stardewvalleywiki.com/Cooking
 // Checked 2026-11-27. No recipe descriptions or game assets copied.
-export const UNLOCK_GROUPS=['Starter','Skill level','Mastery','Friendship','TV','Shop','Quest / milestone','Upgrade','Other'] as const;
+export const UNLOCK_GROUPS=['Starter','Skill level','Mastery','Friendship','TV','Cookbook','Shop','Quest / milestone','Upgrade','Other'] as const;
 export type UnlockGroup=typeof UNLOCK_GROUPS[number];
 export type Unlock={groups:UnlockGroup[];detail:string};
 const reference:Record<'cooking'|'crafting',Record<string,Unlock>>={
@@ -1484,6 +1484,8 @@ export const COOKING_REFERENCE_PRICES:Readonly<Record<string,number>>={
 };
 export function recipeUnlock(kind:string,name:string):Unlock|undefined{
  const lookup=kind==='cooking'?reference.cooking:kind==='crafting'?reference.crafting:null;
- return lookup&&Object.hasOwn(lookup,name)?lookup[name]:undefined;
+ const entry=lookup&&Object.hasOwn(lookup,name)?lookup[name]:undefined;
+ if(kind==='cooking'&&entry?.groups.includes('TV'))return {...entry,groups:[...entry.groups,'Cookbook'],detail:entry.detail+'; Queen Of Sauce Cookbook — Bookseller, 50,000g after finding 100 Golden Walnuts (reading teaches all TV recipes, including unaired ones).'};
+ return entry;
 }
 export function matchesUnlock(kind:string,name:string,group:string){return group==='all'||!!recipeUnlock(kind,name)?.groups.some(g=>g===group)}
