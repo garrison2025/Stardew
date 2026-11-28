@@ -53,6 +53,10 @@
       "gitBlob": "94dee577d707c87cbf86597baceacea4d7731d33"
     },
     {
+      "path": "src/lib/data-layers.ts",
+      "gitBlob": "6b36c7f3ad4ca1528e3ec10183529228537ed50d"
+    },
+    {
       "path": "src/lib/economy-recipes.ts",
       "gitBlob": "cc92aab35c2d0d5acf35656cba7608f884ba1f11"
     },
@@ -122,7 +126,7 @@
     },
     {
       "path": "src/lib/irrigation-optimizer.ts",
-      "gitBlob": "7f5a0f6dee841439746e707993c1fdaea4587de0"
+      "gitBlob": "75f079300ddcac33b6f2bece46f1420292dfa51d"
     },
     {
       "path": "src/lib/layout-presets.ts",
@@ -130,7 +134,7 @@
     },
     {
       "path": "src/lib/map-model.ts",
-      "gitBlob": "78657795784327ca0210363dce75e62e24dfbce9"
+      "gitBlob": "db0ee3de673d21d7d9ce6a89720625ccf607e111"
     },
     {
       "path": "src/lib/monster-goals.ts",
@@ -253,5 +257,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r6"
+  "id": "ref-pc-1.6.15-20261128-r7"
 }

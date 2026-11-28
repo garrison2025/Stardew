@@ -17,12 +17,14 @@
         "src/lib/indoor-model.ts",
         "src/lib/indoor-presets.ts",
         "src/lib/irrigation-optimizer.ts",
-        "src/lib/screenshot-grids.ts"
+        "src/lib/screenshot-grids.ts",
+        "src/lib/data-layers.ts"
       ],
       "sources": [
         "https://stardewvalleywiki.com/Farm_Maps",
         "https://stardewvalleywiki.com/Carpenter%27s_Shop",
-        "https://stardewvalleywiki.com/Sprinkler"
+        "https://stardewvalleywiki.com/Sprinkler",
+        "https://github.com/Pathoschild/StardewMods/tree/f804f7135d3f7c3aa663be9f78187cee0fe2f997/DataLayers"
       ],
       "sourceRights": "pending",
       "scope": "Schematic maps, private calibrated terrain and atomic rectangular masks; exact public game masks unavailable"
