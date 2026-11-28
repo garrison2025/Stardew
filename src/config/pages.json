@@ -4,7 +4,7 @@
     "path": "/",
     "h1": "Stardew Valley Farm Planner",
     "title": "Stardew Valley Farm Planner & Layout Editor | Field & Farm",
-    "description": "Design eight practice landscapes, editable farm and indoor layout ideas, building footprints, irrigation and scarecrow coverage, and export.",
+    "description": "Plan eight Stardew Valley farm terrain references, starter buildings, sprinkler and scarecrow coverage, indoor layouts, and share or export designs.",
     "primaryKeyword": "stardew valley planner",
     "volume": 8100,
     "kd": 22,
@@ -29,7 +29,7 @@
     ],
     "priority": "P0",
     "guideTitle": "Plan a layout before building",
-    "guideText": "Choose an original practice landscape or editable room examples. Check coverage and reference construction costs, then constrain irrigation suggestions by region, device stock and budget. Maps and furniture markers are schematic.",
+    "guideText": "Choose one of eight farm terrain references or original practice landscapes. Start with the matching initial buildings or an empty grid; check irrigation coverage, construction costs and budget. Reference flags are not verified live game terrain, and artwork is independent.",
     "researchClusterSize": 89,
     "searchAliases": [
       "farm layout planner",
@@ -178,7 +178,7 @@
     "path": "/tracker/",
     "h1": "Stardew Valley Save Tracker",
     "title": "Stardew Valley Save & Progress Tracker | Field & Farm",
-    "description": "Inspect save fields locally, including steps, skills, collection progress and recognized backpack, chest and fridge stock in a private workspace.",
+    "description": "Inspect Stardew Valley save data locally: steps, skills, professions, collection progress and recognized backpack, chest and fridge inventory.",
     "primaryKeyword": "stardew valley tracker",
     "volume": 320,
     "kd": 26,
@@ -196,11 +196,12 @@
       "/perfection/",
       "/bundles/",
       "/museum/",
-      "/fishing/"
+      "/fishing/",
+      "/"
     ],
     "priority": "P0",
     "guideTitle": "Inspect a save without uploading it",
-    "guideText": "Inspect recognized save observations in the private workspace, including recorded professions and positive backpack and ordinary chest/fridge stock. Unknown fields and special containers are not treated as empty.",
+    "guideText": "Inspect recognized save observations in the private workspace, including recorded professions and positive backpack and ordinary chest/fridge stock. To plan from your save, open the private farm planner and review recognized building, crop and equipment positions. Unknown fields and special containers are not treated as empty.",
     "researchClusterSize": 15,
     "searchAliases": [
       "save analyzer",
@@ -548,7 +549,7 @@
     "path": "/farm-comparison/",
     "h1": "Stardew Valley Farm Comparison",
     "title": "Stardew Valley Farm Types Comparison | Field & Farm",
-    "description": "Compare eight farm types by area, terrain, advantages, limits and playstyle. View original schematic layouts side by side and open the planner.",
+    "description": "Compare all eight Stardew Valley farm types, tillable area, building space, terrain limits and playstyles. Open the planner to design a matching farm.",
     "primaryKeyword": "farm types stardew valley",
     "volume": 720,
     "kd": 21,
@@ -568,11 +569,12 @@
     ],
     "relatedPaths": [
       "/",
-      "/crop-calculator/"
+      "/crop-calculator/",
+      "/tracker/"
     ],
     "priority": "P1",
     "guideTitle": "Choose a farm for your priorities",
-    "guideText": "Compare eight farm types, including Standard, Riverland, Forest, Hill-top, Wilderness, Four Corners, Beach and Meadowlands. Compare reference areas and schematic previews; exact map geometry is not included.",
+    "guideText": "Compare Standard, Riverland, Forest, Hill-top, Wilderness, Four Corners, Beach and Meadowlands. The planner includes eight base restriction references and separate illustrative practice maps. Reference tile counts do not establish exact current-game planting capacity.",
     "researchClusterSize": 37,
     "searchAliases": [
       "farm types",

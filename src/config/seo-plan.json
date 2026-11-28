@@ -9,7 +9,7 @@
       "priority": "P0",
       "title": "Stardew Valley Farm Planner & Layout Editor | Field & Farm",
       "h1": "Stardew Valley Farm Planner",
-      "description": "Design eight practice landscapes, editable farm and indoor layout ideas, building footprints, irrigation and scarecrow coverage, and export.",
+      "description": "Plan eight Stardew Valley farm terrain references, starter buildings, sprinkler and scarecrow coverage, indoor layouts, and share or export designs.",
       "primaryKeyword": "stardew valley planner",
       "volume": 8100,
       "kd": 22,
@@ -191,7 +191,7 @@
       "priority": "P0",
       "title": "Stardew Valley Save & Progress Tracker | Field & Farm",
       "h1": "Stardew Valley Save Tracker",
-      "description": "Inspect save fields locally, including steps, skills, collection progress and recognized backpack, chest and fridge stock in a private workspace.",
+      "description": "Inspect Stardew Valley save data locally: steps, skills, professions, collection progress and recognized backpack, chest and fridge inventory.",
       "primaryKeyword": "stardew valley tracker",
       "volume": 320,
       "kd": 26,
@@ -213,7 +213,8 @@
         "/perfection/",
         "/bundles/",
         "/museum/",
-        "/fishing/"
+        "/fishing/",
+        "/"
       ],
       "task": "存档解析、总进度及角色管理",
       "indexableAfterApproval": true,
@@ -579,7 +580,7 @@
       "priority": "P1",
       "title": "Stardew Valley Farm Types Comparison | Field & Farm",
       "h1": "Stardew Valley Farm Comparison",
-      "description": "Compare eight farm types by area, terrain, advantages, limits and playstyle. View original schematic layouts side by side and open the planner.",
+      "description": "Compare all eight Stardew Valley farm types, tillable area, building space, terrain limits and playstyles. Open the planner to design a matching farm.",
       "primaryKeyword": "farm types stardew valley",
       "volume": 720,
       "kd": 21,
@@ -603,7 +604,8 @@
       "workspacePath": "/farm-comparison/",
       "relatedPaths": [
         "/",
-        "/crop-calculator/"
+        "/crop-calculator/",
+        "/tracker/"
       ],
       "task": "农场类型比较、可用面积及地图选择",
       "indexableAfterApproval": true,
