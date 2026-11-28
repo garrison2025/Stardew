@@ -9,7 +9,7 @@
       "priority": "P0",
       "title": "Stardew Valley Farm Planner & Layout Editor | Field & Farm",
       "h1": "Stardew Valley Farm Planner",
-      "description": "Design your Stardew Valley farm with eight terrain references, sixteen editable layout ideas, sprinkler coverage, building budgets and seasonal original pixel-style artwork.",
+      "description": "Plan your Stardew Valley farm with eight farm terrain references, 16 editable layouts, sprinkler and scarecrow coverage, building costs and seasonal views.",
       "primaryKeyword": "stardew valley planner",
       "volume": 8100,
       "kd": 22,
@@ -52,7 +52,14 @@
         "interior design",
         "sprinkler optimizer",
         "irrigation budget",
-        "farm layout canvas"
+        "farm layout canvas",
+        "farm decoration",
+        "animal farm layout",
+        "forest farm layout",
+        "beginner farm layout",
+        "garden layout",
+        "standard farm layout",
+        "mobile farm planner"
       ]
     },
     {
@@ -60,7 +67,7 @@
       "priority": "P0",
       "title": "Stardew Valley Community Center Bundle Tracker | Field & Farm",
       "h1": "Stardew Valley Bundle Tracker",
-      "description": "Track standard Community Center bundles, seasonal requirements, remixed checklists and saved bundle definitions in a local workspace.",
+      "description": "Complete Community Center bundles with a standard checklist, seasonal donation hints and remixed bundle tracking in the private save workspace.",
       "primaryKeyword": "stardew bundles",
       "volume": 6600,
       "kd": 26,
@@ -98,15 +105,18 @@
         "community center item checklist",
         "standard bundle donations",
         "bundle completion",
-        "spring foraging bundle"
+        "spring foraging bundle",
+        "community center bundles",
+        "spring bundle checklist",
+        "missing bundle"
       ]
     },
     {
       "path": "/museum/",
       "priority": "P0",
-      "title": "Stardew Valley Museum Collection Tracker | Field & Farm",
+      "title": "Stardew Valley Museum Collection & Layout Tracker | Field & Farm",
       "h1": "Stardew Valley Museum Tracker",
-      "description": "Track 95 museum artifacts and minerals, filter acquisition routes, check donation rewards and arrange a practice museum display.",
+      "description": "Find all 95 museum artifacts and minerals, track donations, check rewards and arrange a practice layout. Inspect saved positions in the private workspace.",
       "primaryKeyword": "stardew valley museum",
       "volume": 4400,
       "kd": 24,
@@ -140,7 +150,11 @@
         "artifacts and minerals",
         "museum donation checklist",
         "museum collection checklist",
-        "complete museum collection"
+        "complete museum collection",
+        "complete museum",
+        "museum display layout",
+        "missing museum items",
+        "museum reward milestones"
       ]
     },
     {
@@ -148,7 +162,7 @@
       "priority": "P0",
       "title": "Stardew Valley Seed & Geode Predictor | Field & Farm",
       "h1": "Stardew Valley Seed Predictor",
-      "description": "Predict Stardew Valley geodes, Golden Coconuts, Mystery Boxes, special mine floors, Traveling Cart stock and seeded events using documented reference models.",
+      "description": "Predict geodes, Golden Coconuts, Mystery Boxes, special mine floors, Traveling Cart stock and seeded events with Stardew Valley reference models.",
       "primaryKeyword": "stardew valley seed predictor",
       "volume": 140,
       "kd": 15,
@@ -184,7 +198,13 @@
         "red cabbage seed predictor",
         "traveling cart skill books",
         "geode opening predictor",
-        "geode luck"
+        "geode luck",
+        "golden coconut predictor",
+        "mystery box predictor",
+        "golden mystery box",
+        "mine floor predictor",
+        "skull cavern dinosaur floors",
+        "seed checker"
       ]
     },
     {
@@ -192,7 +212,7 @@
       "priority": "P0",
       "title": "Stardew Valley Save & Progress Tracker | Field & Farm",
       "h1": "Stardew Valley Save Tracker",
-      "description": "Track Stardew Valley collections, skills, steps, friendship, orders, achievements, secret notes and story events using reference tools and optional private save inspection.",
+      "description": "Check Stardew Valley collection progress, skills, steps, friendship, orders and achievements. Inspect your save locally in the private workspace.",
       "primaryKeyword": "stardew valley tracker",
       "volume": 320,
       "kd": 26,
@@ -229,15 +249,20 @@
         "chest inventory",
         "fridge inventory",
         "save profession choices",
-        "saved inventory"
+        "saved inventory",
+        "steps tracker",
+        "friendship tracker",
+        "special orders",
+        "achievement tracker",
+        "secret notes"
       ]
     },
     {
       "path": "/crop-calculator/",
       "priority": "P0",
-      "title": "Stardew Valley Crop Profit Calculator & Planner | Field & Farm",
+      "title": "Stardew Valley Crop Profit Calculator | Field & Farm",
       "h1": "Stardew Valley Crop Calculator",
-      "description": "Compare seasonal crop profits, expected harvest quality, planting budgets, rotations, reinvestment and processing options.",
+      "description": "Compare profitable spring, summer and fall crops, planting budgets, harvest quality, rotations, kegs, jars, dehydrators and wine aging.",
       "primaryKeyword": "stardew crop calculator",
       "volume": 320,
       "kd": 17,
@@ -287,7 +312,13 @@
         "expected crop quality",
         "processing queue",
         "cellar wine aging",
-        "dehydrator and keg"
+        "dehydrator and keg",
+        "spring crop profit",
+        "summer crop profit",
+        "fall crop profit",
+        "crop tier list",
+        "high yield crops",
+        "most profitable crop"
       ]
     },
     {
@@ -295,7 +326,7 @@
       "priority": "P0",
       "title": "Stardew Valley Fair Grange Display Calculator | Field & Farm",
       "h1": "Stardew Valley Fair Calculator",
-      "description": "Score and optimize a nine-slot Grange Display. Browse category-based example items and confirm actual sale values, qualities and available quantities.",
+      "description": "Optimize a nine-item Stardew Valley Fair display. Compare item values, quality and categories, then calculate your Grange Display score.",
       "primaryKeyword": "stardew valley fair calculator",
       "volume": 260,
       "kd": 14,
@@ -332,7 +363,10 @@
         "nine item display",
         "grange display optimizer",
         "fair inventory",
-        "grange display inventory"
+        "grange display inventory",
+        "fair display items",
+        "9 items for fair",
+        "first place grange display"
       ]
     },
     {
@@ -340,7 +374,7 @@
       "priority": "P1",
       "title": "Stardew Valley Fish Collection Tracker | Field & Farm",
       "h1": "Stardew Valley Fish Collection",
-      "description": "Track 72 fish entries and compare sale prices, difficulty, detailed acquisition locations, seasons, times and weather.",
+      "description": "Track 72 fish collection entries and compare fishing locations, seasons, times, weather, difficulty and sale prices.",
       "primaryKeyword": "fish collection stardew",
       "volume": 880,
       "kd": 15,
@@ -369,7 +403,8 @@
         "fish difficulty",
         "fishing collection",
         "fish locations and times",
-        "fish weather checklist"
+        "fish weather checklist",
+        "fish collection checklist"
       ]
     },
     {
@@ -377,7 +412,7 @@
       "priority": "P1",
       "title": "Stardew Valley Perfection Checklist & Tracker | Field & Farm",
       "h1": "Stardew Valley Perfection Checklist",
-      "description": "Track Stardew Valley perfection goals, estimate weighted completion, compare multiplayer progress, and review individual collection items, friendship and Stardrop sources.",
+      "description": "Track the eleven Stardew Valley perfection goals, estimate weighted completion, review individual missing items and compare multiplayer progress.",
       "primaryKeyword": "stardew valley perfection checklist",
       "volume": 590,
       "kd": 12,
@@ -415,7 +450,10 @@
         "monster slayer",
         "100 percent completion checklist",
         "perfection progress tracker",
-        "100 percent completion"
+        "100 percent completion",
+        "perfection calculator",
+        "100 percent checklist",
+        "multiplayer perfection"
       ]
     },
     {
@@ -423,7 +461,7 @@
       "priority": "P1",
       "title": "Stardew Valley Crafting Recipes Checklist | Field & Farm",
       "h1": "Stardew Valley Crafting Checklist",
-      "description": "Track 149 crafting recipes, unlock sources, Trapper Crab Pot ingredients, material stock and costs, with private save stock opt-in.",
+      "description": "Track 149 crafting recipes, check unlock sources and calculate required materials. Plan crafting batches using local inventory observations.",
       "primaryKeyword": "crafting stardew valley",
       "volume": 880,
       "kd": 17,
@@ -458,7 +496,9 @@
         "recipe unlock sources",
         "crafting materials",
         "crafting resource calculator",
-        "crab pot recipe"
+        "crab pot recipe",
+        "all crafting recipes",
+        "crafting recipe materials"
       ]
     },
     {
@@ -466,7 +506,7 @@
       "priority": "P1",
       "title": "Stardew Valley Shipping Collection Checklist | Field & Farm",
       "h1": "Stardew Valley Shipping Checklist",
-      "description": "Search 154 shipping items by category and common acquisition season, review source hints and export missing items or saved progress.",
+      "description": "Check all 154 reference shipping items, find missing products by category and season, and export your collection checklist.",
       "primaryKeyword": "items shipped stardew",
       "volume": 1000,
       "kd": 25,
@@ -507,7 +547,7 @@
       "priority": "P1",
       "title": "Stardew Valley Cooking Recipes Checklist | Field & Farm",
       "h1": "Stardew Valley Cooking Checklist",
-      "description": "Track 81 cooking recipes, unlock sources and prices, select substitute ingredients and expand intermediate dishes with stock deductions.",
+      "description": "Track 81 cooking recipes, unlock sources and ingredients. Plan cooking batches, substitute ingredients and account for stock.",
       "primaryKeyword": "stardew valley cooking",
       "volume": 1300,
       "kd": 26,
@@ -540,15 +580,16 @@
         "cooking ingredient calculator",
         "recipe ingredient checklist",
         "all cooking recipes",
-        "cooking unlocks"
+        "cooking unlocks",
+        "recipe unlock checklist"
       ]
     },
     {
       "path": "/golden-walnuts/",
       "priority": "P1",
-      "title": "Stardew Valley Golden Walnut Tracker & Checklist | Field & Farm",
+      "title": "Stardew Valley Golden Walnut Tracker & Locations | Field & Farm",
       "h1": "Stardew Valley Golden Walnut Tracker",
-      "description": "Track 130 Golden Walnuts across 69 reference task groups, review regional hints, recognized save markers and island upgrade spending.",
+      "description": "Track all 130 Golden Walnuts across 69 task groups, find regional hints and known tile markers, and plan Ginger Island upgrades.",
       "primaryKeyword": "golden walnuts stardew",
       "volume": 4400,
       "kd": 18,
@@ -573,15 +614,18 @@
         "walnut locations",
         "walnut save tracker",
         "walnut task checklist",
-        "ginger island upgrade tracker"
+        "ginger island upgrade tracker",
+        "golden walnut locations",
+        "ginger island walnut checklist",
+        "golden parrot"
       ]
     },
     {
       "path": "/farm-comparison/",
       "priority": "P1",
-      "title": "Stardew Valley Farm Types Comparison | Field & Farm",
+      "title": "Stardew Valley Farm Types & Layout Comparison | Field & Farm",
       "h1": "Stardew Valley Farm Comparison",
-      "description": "Compare all eight Stardew Valley farm types, terrain flags, starter footprints, reachable reference capacity and editable farm layout ideas.",
+      "description": "Compare all eight Stardew Valley farms, terrain flags, starter capacity and layout ideas. Choose a farm for crops, fishing or livestock.",
       "primaryKeyword": "farm types stardew valley",
       "volume": 720,
       "kd": 21,
@@ -624,7 +668,9 @@
         "forest farm",
         "wilderness farm",
         "beach farm",
-        "all eight farm types"
+        "all eight farm types",
+        "all farm maps",
+        "hill top farm"
       ]
     },
     {
@@ -632,7 +678,7 @@
       "priority": "P2",
       "title": "Stardew Valley Grandpa Evaluation Calculator | Field & Farm",
       "h1": "Stardew Valley Grandpa Calculator",
-      "description": "Calculate Grandpa evaluation points from earnings, skills, friendships and milestones. Check the four-candle threshold and remaining points.",
+      "description": "Calculate Grandpa's evaluation points from earnings, skills, friendship and milestones. Check the four-candle threshold and remaining points.",
       "primaryKeyword": "stardew valley grandpa evaluation",
       "volume": 210,
       "kd": 18,
@@ -657,15 +703,17 @@
         "grandpa evaluation",
         "four candles",
         "grandpas evaluation",
-        "grandpa candle calculator"
+        "grandpa candle calculator",
+        "grandpa four candles",
+        "grandpa evaluation score"
       ]
     },
     {
       "path": "/skills/",
       "priority": "P2",
-      "title": "Stardew Valley Skills, Professions & Mastery Tracker | Field & Farm",
+      "title": "Stardew Valley Skills, Professions & Mastery | Field & Farm",
       "h1": "Stardew Valley Skills Tracker",
-      "description": "Track five skills, 30 profession effects and mastery experience. Load recognized XP and mastery stats locally in the private workspace.",
+      "description": "Compare five skills, 30 profession effects and mastery experience. Inspect recognized skill XP and profession choices in the private workspace.",
       "primaryKeyword": "stardew valley skills",
       "volume": 880,
       "kd": 19,
@@ -693,7 +741,8 @@
         "skill experience calculator",
         "mastery experience tracker",
         "profession choices",
-        "skill experience"
+        "skill experience",
+        "mastery tracker"
       ]
     }
   ]
