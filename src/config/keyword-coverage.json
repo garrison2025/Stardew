@@ -9,8 +9,8 @@
     {
       "path": "/",
       "total": 38,
-      "referenceImplemented": 0,
-      "partial": 38,
+      "referenceImplemented": 19,
+      "partial": 19,
       "mixedIntent": 0,
       "explicitlyConfigured": 9
     },
@@ -113,8 +113,8 @@
     {
       "path": "/farm-comparison/",
       "total": 26,
-      "referenceImplemented": 0,
-      "partial": 26,
+      "referenceImplemented": 17,
+      "partial": 9,
       "mixedIntent": 0,
       "explicitlyConfigured": 9
     },
@@ -143,6 +143,7 @@
     "Reassigned seven farm-map/type terms to farm comparison and three perfection tracker terms to perfection, consistent with task intent.",
     "No raw report, search volumes, full phrase list or new keyword metrics redistributed. The exact owner source remains private.",
     "US-targeted 16 primary query sample completed previously; full Google localized SERP and production approval remain pending.",
-    "Follow-up task review: two step-count queries match the existing local stepsTaken parser and observed progress display; one geode-luck query is answered by the new sourced FAQ. No other predictor or tracker task is promoted. Actual game fixtures and localized SERP validation remain pending."
+    "Follow-up task review: two step-count queries match the existing local stepsTaken parser and observed progress display; one geode-luck query is answered by the new sourced FAQ. No other predictor or tracker task is promoted. Actual game fixtures and localized SERP validation remain pending.",
+    "Follow-up after PR 79/80: reviewed all 64 farm tasks again. The 19 planner tasks are 17 explicit editor/planning variants and two crop-layout variants; the 17 comparison tasks are general type/choice/all-farms queries and unambiguous named farm types. Remaining 19 planner and nine comparison tasks conservatively retain partial status for exact map imagery/layout, mobile physical-device acceptance, decoration/setup or ambiguous mountain/map intent. Reference functionality is not actual-game certification or SERP evidence."
   ]
 }

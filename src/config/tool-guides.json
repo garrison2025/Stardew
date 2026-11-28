@@ -18,7 +18,7 @@
     "faq": [
       [
         "Can I plan a Stardew Valley farm layout on mobile?",
-        "The canvas supports tap to place, pan and pinch zoom, with compact controls."
+        "The canvas supports tap placement, pan and pinch zoom with compact controls. Automated mobile-viewport tests are not physical-device acceptance."
       ],
       [
         "Are these the exact game maps?",
@@ -26,7 +26,7 @@
       ],
       [
         "Where can I find Stardew Valley farm layout ideas?",
-        "Open map settings and select one of four editable original examples: irrigated crop blocks, an animal ranch, a river workshop or woodland retreat. Each is a schematic layout, not an exact game map."
+        "Open map settings and select one of 12 editable examples: eight farm-specific reference designs and four original practice layouts. Expand the selected preview to inspect crop coverage and added base building costs before loading. These examples are not exact game layouts or guaranteed optimal designs."
       ],
       [
         "Can I design a farmhouse interior?",
@@ -39,6 +39,10 @@
       [
         "Can I share my farm layout?",
         "Yes. Generate a compact code or public link for a built-in reference or practice map. Supported greenhouse ground changes are preserved. Linked rooms may be included by opting in. Custom terrain and oversized plans require JSON export. Codes do not contain raw saves, screenshots or project names."
+      ],
+      [
+        "How do I plan crop blocks?",
+        "Select a crop marker, choose a sprinkler and turn on the irrigation and scarecrow overlays. The reference layouts include modeled watered and protected crop blocks. Check actual terrain, crop eligibility and access in the game."
       ]
     ]
   },
@@ -478,15 +482,15 @@
     "steps": [
       [
         "Compare farm types",
-        "Select two farms to compare reference tillable and buildable counts."
+        "Select two farms to compare Wiki estimates and base reference diagrams."
       ],
       [
-        "Review constraints",
-        "Read each farm's terrain and playstyle characteristics."
+        "Switch reference layers",
+        "View access, buildability or tillability independently; sort all eight in the pinned terrain table. These flags can overlap and are not current planting capacity."
       ],
       [
-        "Open the planner",
-        "Use the farm planner to choose the matching built-in terrain reference and starter buildings, or open a separate illustrative practice layout."
+        "Open an editable layout",
+        "Choose a matching starter map, practice map or farm-specific layout example. The private workspace only preselects a linked example until you explicitly load it."
       ]
     ],
     "example": "Compare Standard with Beach using the reference tillable counts, but remember that beach sand and terrain constraints limit sprinkler use.",
@@ -502,6 +506,14 @@
       [
         "Which farm is best for my playstyle?",
         "Compare all eight choices: Standard for large planting areas, Riverland for fishing, Forest for forage, Hill-top for mining, Wilderness for combat, Four Corners for zoning, Beach for non-sandy crop space and other production, and Meadowlands for livestock. Recommendations are qualitative."
+      ],
+      [
+        "Why are Wiki counts different from the terrain-mask table?",
+        "The Wiki table lists reference estimates and additional buildable area. The independent pinned mask table counts flags over the full grid, including margins and obstacles; buildable and tillable can overlap. Neither is exact available acreage in your save."
+      ],
+      [
+        "Can I compare a Hill-top, Riverland or Four Corners layout?",
+        "Yes. Compare their characteristics, select their terrain reference and open the farm-specific editable example. Eight farm types are included; these designs do not reproduce official artwork or dynamic obstacles."
       ]
     ]
   },
