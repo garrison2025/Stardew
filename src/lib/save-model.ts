@@ -55,3 +55,17 @@ export function buildFarmImport(snapshot:SaveSnapshot,w:number,h:number,terrain?
  }
  return {plan,issues,imported:plan.objects.length,total:snapshot.records.length};
 }
+
+/** Known saved object classes and stable IDs only. Do not use localized display names. */
+export function observedObjectItem(id:string,big:string,kind:string){
+ const raw=id.replace(/^\(O\)|^\(BC\)/,'');
+ if(kind==='Chest'&&(big==='true'||id.startsWith('(BC)'))&&['130','BigChest','BigStoneChest','232'].includes(raw))return 'chest';
+ if(kind&&kind!=='Object')return null;
+ if(big==='true'||id.startsWith('(BC)'))return null;
+ if(big!=='false'&&!id.startsWith('(O)'))return null;
+ if(['674','675','784'].includes(raw))return 'observed-weeds';
+ if(['294','295'].includes(raw))return 'observed-twig';
+ if(['75','343','450','668','670','751'].includes(raw))return 'observed-stone';
+ if(raw==='590')return 'observed-artifact';
+ return sprinklerItem(id,false);
+}

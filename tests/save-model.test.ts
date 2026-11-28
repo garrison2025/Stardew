@@ -15,3 +15,16 @@ test('all eight vanilla farm grid dimensions use independent 1.6.15 map layer re
  const larger=suggestedFarmGrid({...base,records:[...base.records,{kind:'object',itemId:'basic-sprinkler',x:100,y:80}]});assert.equal(larger.w,101);assert.equal(larger.h,81);assert.equal(larger.exceedsReference,true);
  assert.equal(suggestedFarmGrid({...base,farmType:8}).reference,undefined);assert.equal(suggestedFarmGrid({...base,version:'1.7.0'}).reference,undefined);
 });
+
+import {observedObjectItem} from '../src/lib/save-model.ts';
+test('save marker IDs and saved building footprints are explicit and class-aware',()=>{
+ assert.equal(buildingItem('Farmhouse'),'game-farmhouse');assert.equal(buildingItem('Greenhouse'),'game-greenhouse');
+ for(const id of ['674','675','784'])assert.equal(observedObjectItem(id,'false','Object'),'observed-weeds');
+ for(const id of ['294','295'])assert.equal(observedObjectItem(id,'false',''),'observed-twig');
+ for(const id of ['75','343','450','668','670','751'])assert.equal(observedObjectItem(id,'false','Object'),'observed-stone');
+ assert.equal(observedObjectItem('590','false','Object'),'observed-artifact');
+ assert.equal(observedObjectItem('130','true','Chest'),'chest');
+ assert.equal(observedObjectItem('(BC)450','true','Object'),null);
+ assert.equal(observedObjectItem('450','false','Furniture'),null);
+ assert.equal(observedObjectItem('UNKNOWN','false','Object'),null);
+});

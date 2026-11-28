@@ -22,3 +22,8 @@ test('typed island or cabin fridge recognized and unknown machine not traversed'
  const result=parseSave(root('<GameLocation xsi:type="IslandFarmHouse"><name>IslandHouse</name><fridge><playerChest>true</playerChest>'+items+'</fridge></GameLocation><GameLocation xsi:type="Cabin"><fridge><playerChest>true</playerChest>'+items+'</fridge></GameLocation>')).progress!.storage!;
  assert.equal(result.containers,2);assert.equal(result.stacks[0].quantity,6);
 });
+
+test('saved tree trunks, grass and debris map to separate editable planning markers',()=>{
+ const fixture=root('<GameLocation xsi:type="Farm"><name>Farm</name><objects><item><key><Vector2><X>1</X><Y>1</Y></Vector2></key><value><Object><itemId>675</itemId><bigCraftable>false</bigCraftable></Object></value></item></objects><terrainFeatures><item><key><Vector2><X>2</X><Y>2</Y></Vector2></key><value><TerrainFeature xsi:type="Tree"/></value></item><item><key><Vector2><X>3</X><Y>3</Y></Vector2></key><value><TerrainFeature xsi:type="Grass"/></value></item></terrainFeatures></GameLocation>');
+ assert.deepEqual(parseSave(fixture).records.map(r=>r.itemId),['observed-weeds','observed-tree','observed-grass']);
+});

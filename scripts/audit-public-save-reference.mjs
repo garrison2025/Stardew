@@ -20,6 +20,6 @@ try{
  assert.ok(b&&storage);assert.equal(b.stacks.length,1);assert.equal(b.unmapped,4);assert.equal(b.stacks.reduce((n,x)=>n+x.quantity,0),1);
  assert.equal(storage.containers,3);assert.equal(storage.skippedContainers,0);assert.equal(storage.unmapped,6);assert.equal(storage.stacks.length,12);assert.equal(storage.stacks.reduce((n,x)=>n+x.quantity,0),175);
  const grid=suggestedFarmGrid(s);assert.equal(grid.w,80);assert.equal(grid.h,65);assert.equal(grid.exceedsReference,false);
- const result=buildFarmImport(s,grid.w,grid.h);assert.equal(result.total,620);assert.equal(result.imported+result.issues.length,result.total);
+ const result=buildFarmImport(s,grid.w,grid.h);assert.equal(result.total,620);assert.equal(result.imported+result.issues.length,result.total);assert.ok(result.imported>=500,'Expected improved coverage of observed farm records');
  console.log('Pinned public 1.6.8 save: metadata, 620 farm records, backpack, three local storage roots and coordinate frame passed. Mapped '+result.imported+' records; '+result.issues.length+' deliberately unmapped. No raw XML, player identity or item-level payload emitted. Not 1.6.15 gameplay or full map validation.');
 }catch{console.error('Pinned public save reference check failed; inspect source locally. No raw save details emitted.');process.exitCode=1}

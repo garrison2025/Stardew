@@ -130,7 +130,7 @@
     },
     {
       "path": "src/lib/map-model.ts",
-      "gitBlob": "f786412173aa0d9d7e14c40c9358882bb11b7ca1"
+      "gitBlob": "d1cd63f7cab666c17949a4b6a1dcb16f367e877f"
     },
     {
       "path": "src/lib/monster-goals.ts",
@@ -194,7 +194,7 @@
     },
     {
       "path": "src/lib/save-model.ts",
-      "gitBlob": "a6fe076b39b658b7381bd66d52669dc152e4f97d"
+      "gitBlob": "d8e21a337e3720efeec19e112ad7605f9d3ad0e9"
     },
     {
       "path": "src/lib/save-observations.ts",
@@ -202,7 +202,7 @@
     },
     {
       "path": "src/lib/save-parser-core.ts",
-      "gitBlob": "308e595de984a03810afe334e1c83e1c35a89b88"
+      "gitBlob": "9c7ab09b23e120503b08b5e95e72a90dee4a448d"
     },
     {
       "path": "src/lib/save-professions.ts",
