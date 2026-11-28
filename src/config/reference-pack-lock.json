@@ -110,7 +110,7 @@
     },
     {
       "path": "src/lib/game-rules.ts",
-      "gitBlob": "7dc489ee46a6424f3fce97c0414019370de84568"
+      "gitBlob": "273083cdb277f514b854c61a259bb516b33b19b6"
     },
     {
       "path": "src/lib/geode-prediction.ts",
@@ -242,7 +242,7 @@
     },
     {
       "path": "src/lib/team-perfection.ts",
-      "gitBlob": "df2d02d181768bf6ccf63552b2f9cff2f0996ae9"
+      "gitBlob": "69bfaa4485eb8c8d86d913482a47c6618d24ca79"
     },
     {
       "path": "src/lib/walnut-data.ts",
@@ -257,5 +257,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r7"
+  "id": "ref-pc-1.6.15-20261128-r8"
 }

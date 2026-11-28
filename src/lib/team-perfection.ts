@@ -1,4 +1,4 @@
-import {PERFECTION,perfection} from './game-rules.ts';
+import {PERFECTION,perfection,perfectionDisplay} from './game-rules.ts';
 import {decodePlayerRoster,playerCounts} from './player-observations.ts';
 import {decodeSaveObservations} from './save-observations.ts';
 export const SHARED_GOALS=['obelisks','clock','walnuts'] as const;
@@ -18,7 +18,7 @@ export function teamPerfection(s:TeamScenario,minimumOnly=false){
   winners[goal.id]=shared?[]:known.filter(x=>x.n===best).map(x=>x.i);
  }
  const lower=perfection(low,s.waivers),upper=perfection(high,s.waivers);
- return {lower:lower.score,upper:upper.score,baseLower:lower.base,baseUpper:upper.base,parts:lower.parts.map((p,i)=>({...p,upperCount:high[p.id],upperScore:upper.parts[i].score,players:winners[p.id],shared:SHARED_GOALS.some(id=>id===p.id)}))};
+ return {lower:lower.score,upper:upper.score,displayLower:perfectionDisplay(low,s.waivers),displayUpper:perfectionDisplay(high,s.waivers),baseLower:lower.base,baseUpper:upper.base,parts:lower.parts.map((p,i)=>({...p,upperCount:high[p.id],upperScore:upper.parts[i].score,players:winners[p.id],shared:SHARED_GOALS.some(id=>id===p.id)}))};
 }
 export function observedTeamScenario(roster:unknown,sharedObservation:unknown):TeamScenario{
  const r=decodePlayerRoster(roster),o=decodeSaveObservations(sharedObservation);
