@@ -62,11 +62,13 @@ export function buildFarmImport(snapshot:SaveSnapshot,w:number,h:number,terrain?
 }
 
 /** Known saved object classes and stable IDs only. Do not use localized display names. */
+const placedBigCraftables:Readonly<Record<string,string>>={"8":"scarecrow","10":"bee-house","12":"machine-keg","13":"machine-furnace","15":"machine-jar","16":"machine-cheese","17":"machine-loom","19":"machine-oil","24":"machine-mayonnaise","167":"deluxe-scarecrow","Dehydrator":"machine-dehydrator"};
 export function observedObjectItem(id:string,big:string,kind:string){
  const raw=id.replace(/^\(O\)|^\(BC\)/,'');
  if(kind==='Chest'&&(big==='true'||id.startsWith('(BC)'))&&['130','BigChest','BigStoneChest','232'].includes(raw))return 'chest';
  if(kind&&kind!=='Object')return null;
- if(big==='true'||id.startsWith('(BC)'))return null;
+ if(id.startsWith('(O)')&&big==='true'||id.startsWith('(BC)')&&big==='false')return null;
+ if(big==='true'||id.startsWith('(BC)'))return Object.hasOwn(placedBigCraftables,raw)?placedBigCraftables[raw]:null;
  if(big!=='false'&&!id.startsWith('(O)'))return null;
  if(['674','675','784'].includes(raw))return 'observed-weeds';
  if(['294','295'].includes(raw))return 'observed-twig';

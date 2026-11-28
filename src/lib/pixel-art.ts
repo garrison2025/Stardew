@@ -167,6 +167,7 @@ export function sprite(o:Placed,season:Season):HTMLCanvasElement|null{
  if(starterStructure(c,o.itemId,w,h,season)){}
  else if(i.art==='magical')magicalStructure(c,o.itemId,w,h,i.color,season);
  else if(i.art==='house'||i.art==='glass')house(c,w,h,o.itemId,i.color,i.art==='glass',season);
+ else if(i.art==='machine'){const body=i.color,dark=shade(body,-35),light=shade(body,38);oval(c,1,12,14,3,'#35473355');rect(c,2,4,12,10,dark);rect(c,3,4,10,8,body);rect(c,3,3,10,2,light);if(o.itemId==='machine-keg'){rect(c,3,5,10,2,'#72543a');rect(c,3,10,10,2,'#72543a');rect(c,10,8,3,2,'#e4c77b')}else if(o.itemId==='machine-jar'){rect(c,4,2,8,3,'#d6bba0');rect(c,5,6,6,5,'#d99472')}else if(o.itemId==='machine-furnace'){rect(c,5,7,6,5,'#453c36');rect(c,7,9,3,2,'#f0a14b')}else if(o.itemId==='machine-loom'){rect(c,4,5,2,7,'#d5c2a1');rect(c,9,5,2,7,'#d5c2a1');for(let y=6;y<12;y+=2)rect(c,5,y,5,1,'#ead8b1')}else if(o.itemId==='machine-dehydrator'){for(let y=5;y<13;y+=2)rect(c,4,y,8,1,'#e1bd9c')}else{rect(c,5,6,6,4,light);rect(c,7,10,2,2,'#4f5143')}}
  else if(i.art==='bee-house'){rect(c,2,12,12,2,'#60482f');rect(c,3,4,10,8,'#805a36');for(let y=5;y<12;y+=3)rect(c,4,y,8,2,'#d4ab67');rect(c,2,2,12,3,'#e8c88c');rect(c,6,9,4,2,'#503b2e')}
  else if(i.art==='fruit-sapling'){rect(c,7,6,2,8,'#765b40');rect(c,4,5,4,3,'#68964e');rect(c,8,3,4,4,'#97bd67');rect(c,5,2,4,3,'#b5d080')}
  else if(i.art==='tree'||i.art==='pine')foliage(c,0,0,w,h,season,i.art==='pine',17);

@@ -34,10 +34,11 @@
         "https://stardew.gs/buildings/",
         "https://stardewvalleywiki.com/Junimo_Hut",
         "https://stardewvalleywiki.com/Bee_House",
-        "https://stardewvalleywiki.com/Fruit_Trees"
+        "https://stardewvalleywiki.com/Fruit_Trees",
+        "https://stardewvalleywiki.com/Modding:Recipe_data"
       ],
       "sourceRights": "pending",
-      "scope": "Eight built-in property-derived terrain reference previews using original schematic art, separate practice maps, local screenshot and compact import; source patch and dynamic game parity unverified; Junimo Hut geometric harvest range preview, not actual harvesting.; advisory bee flower range and immature fruit sapling clearance."
+      "scope": "Eight built-in property-derived terrain reference previews using original schematic art, separate practice maps, local screenshot and compact import; source patch and dynamic game parity unverified; Junimo Hut geometric harvest range preview, not actual harvesting.; advisory bee flower range and immature fruit sapling clearance.; recognized outdoor machine markers without processing state."
     },
     {
       "path": "/bundles/",
@@ -108,10 +109,11 @@
         "https://stardewvalleywiki.com/Saves",
         "https://stardewvalleywiki.com/Modding:Console_commands",
         "https://stardewvalleywiki.com/Modding:Stats",
-        "https://stardew.gs/buildings/"
+        "https://stardew.gs/buildings/",
+        "https://stardewvalleywiki.com/Modding:Recipe_data"
       ],
       "sourceRights": "pending",
-      "scope": "Structural 1.6.x observations; not full compatibility; separate read-only latest player observations, not stable player identity or aggregate multiplayer rules"
+      "scope": "Structural 1.6.x observations; not full compatibility; separate read-only latest player observations, not stable player identity or aggregate multiplayer rules; recognized outdoor machine markers without processing state."
     },
     {
       "path": "/crop-calculator/",

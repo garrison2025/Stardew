@@ -116,7 +116,9 @@ function inspectSaveRoot({root, fields, player, version}:ReturnType<typeof parse
  const id=text(o,'itemId')||text(o,'parentSheetIndex'),big=text(o,'bigCraftable');
  const itemId=o&&xsi(o,'nil')!=='true'?observedObjectItem(id,big,xsi(o,'type')):null;
  // Base sprinkler geometry only. A nonempty attachment is not interpreted.
- const hasAttachment=itemId!=='chest'&&['heldObject','attachments'].some(key=>{const attachment=child(o,key);return !!attachment&&xsi(attachment,'nil')!=='true'&&(attachment.children.length>0||!!attachment.textContent?.trim())});
+ // Recognized production machines retain their placement marker, never the held product or processing state.
+ const geometryOnlyMachine=!!itemId&&(itemId.startsWith('machine-')||itemId==='bee-house');
+ const hasAttachment=itemId!=='chest'&&!geometryOnlyMachine&&['heldObject','attachments'].some(key=>{const attachment=child(o,key);return !!attachment&&xsi(attachment,'nil')!=='true'&&(attachment.children.length>0||!!attachment.textContent?.trim())});
  records.push({kind:'object',itemId:hasAttachment?null:itemId,...keyPoint,...(hasAttachment?{reason:'Attachment or held object not mapped'}:!itemId?{reason:'Unmapped placed object'}:{})});
  }
  for(const entry of dictionary(child(farm,'terrainFeatures'))){
