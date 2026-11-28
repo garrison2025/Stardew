@@ -14,7 +14,7 @@ test('eight farm-specific examples retain starter structures, are valid, irrigat
   assert.ok(p.objects.some(o=>o.id.startsWith('starter-')&&o.itemId==='game-greenhouse'));
   assert.equal(p.objects.filter(o=>o.id.startsWith('ref-example-')&&o.itemId==='quality-sprinkler').length,spec.blocks);
   for(const b of spec.buildings)assert.ok(p.objects.some(o=>o.id.startsWith('ref-example-')&&o.itemId===b));
-  const accepted=[];for(const o of p.objects){assert.equal(placementError(p.map,accepted,o),null,spec.id+' '+o.itemId);accepted.push(o)}
+  const accepted:Plan['objects']=[];for(const o of p.objects){assert.equal(placementError(p.map,accepted,o),null,spec.id+' '+o.itemId);accepted.push(o)}
   assert.deepEqual(decodePlan(JSON.parse(JSON.stringify(p))),p);
   assert.deepEqual(referenceLayoutPreset(spec.id,'autumn'),p);
  }
