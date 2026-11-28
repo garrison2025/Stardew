@@ -181,6 +181,10 @@
       "gitBlob": "3fa488072650d94878b3866a11c9923527bdaed7"
     },
     {
+      "path": "src/lib/observed-farm-preview.ts",
+      "gitBlob": "f642bae19319200245b6139dbab7d51c8ddb172a"
+    },
+    {
       "path": "src/lib/outdoor-cashflow.ts",
       "gitBlob": "eaf4e9f5d2fedb029ea1cfa53c0685e0ea7686d5"
     },
@@ -301,5 +305,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r29"
+  "id": "ref-pc-1.6.15-20261128-r30"
 }

@@ -23,7 +23,8 @@
         "src/lib/compact-farm-identity.ts",
         "src/lib/farm-access.ts",
         "src/lib/junimo-coverage.ts",
-        "src/lib/garden-diagnostics.ts"
+        "src/lib/garden-diagnostics.ts",
+        "src/lib/observed-farm-preview.ts"
       ],
       "sources": [
         "https://stardewvalleywiki.com/Farm_Maps",
@@ -38,7 +39,7 @@
         "https://stardewvalleywiki.com/Modding:Recipe_data"
       ],
       "sourceRights": "pending",
-      "scope": "Eight built-in property-derived terrain reference previews using original schematic art, separate practice maps, local screenshot and compact import; source patch and dynamic game parity unverified; Junimo Hut geometric harvest range preview, not actual harvesting.; advisory bee flower range and immature fruit sapling clearance.; recognized outdoor machine markers without processing state."
+      "scope": "Eight built-in property-derived terrain reference previews using original schematic art, separate practice maps, local screenshot and compact import; source patch and dynamic game parity unverified; Junimo Hut geometric harvest range preview, not actual harvesting.; advisory bee flower range and immature fruit sapling clearance.; recognized outdoor machine markers without processing state.; read-only observed save coordinates including rejected editable placements"
     },
     {
       "path": "/bundles/",
