@@ -1,4 +1,4 @@
-import {chromium, firefox, webkit} from 'playwright';
+import {chromium, devices, firefox, webkit} from 'playwright';
 import {createServer} from 'node:http';
 import {readFile,stat} from 'node:fs/promises';
 import {resolve,join,extname,sep} from 'node:path';
@@ -25,12 +25,94 @@ async function serve(dir){
   await new Promise(r=>server.listen(0,'127.0.0.1',r));
   return {server,origin:'http://127.0.0.1:'+server.address().port};
 }
+await import('./audit-production-rehearsal.mjs');
 const publicSite=await serve('dist');
 const privateSite=await serve('dist-workspace');
+
+async function verifyMobile(browser, device, testAndroidPinch){
+  const context=await browser.newContext(devices[device]);
+  try{
+    const page=await context.newPage();
+    const errors=[];
+    page.on('pageerror',error=>errors.push(String(error)));
+    await page.goto(publicSite.origin+'/?landscape=orchard');
+    await page.waitForFunction(()=>!document.querySelector('astro-island[ssr]'));
+    await page.getByRole('heading',{name:'Farm designer',exact:true}).waitFor();
+    await page.getByRole('button',{name:'Toggle object library'}).tap();
+    await page.getByLabel('Search objects').fill('Seedling');
+    await page.getByRole('button',{name:'Place Seedling',exact:true}).tap();
+    const closeCatalog=page.getByRole('button',{name:'Toggle object library'});
+    if(await closeCatalog.getAttribute('aria-expanded')==='true')await closeCatalog.tap();
+    await page.getByRole('button',{name:'Fit',exact:true}).tap();
+    const viewport=page.locator('.map-viewport');
+    const counter=page.locator('[data-scene-count]');
+    const initial=Number(await counter.getAttribute('data-scene-count'));
+    await viewport.scrollIntoViewIfNeeded();
+    const box=await viewport.boundingBox();
+    assert.ok(box,'map viewport missing');
+    const scale=Number(await viewport.getAttribute('data-camera-scale'));
+    const x=box.x+Number(await viewport.getAttribute('data-camera-x'))+10.5*16*scale;
+    const y=box.y+Number(await viewport.getAttribute('data-camera-y'))+19.5*16*scale;
+    await page.touchscreen.tap(x,y);
+    await counter.and(page.locator('[data-scene-count="'+(initial+1)+'"]')).waitFor();
+    await page.getByRole('button',{name:'Undo',exact:true}).tap();
+    await counter.and(page.locator('[data-scene-count="'+initial+'"]')).waitFor();
+    const beforeZoom=Number(await viewport.getAttribute('data-camera-scale'));
+    await page.getByRole('button',{name:'Zoom in map',exact:true}).tap();
+    await page.waitForFunction(before=>Number(document.querySelector('.map-viewport').dataset.cameraScale)>before,beforeZoom);
+
+    await page.locator('.map-project-menu summary').tap();
+    await page.locator('.map-project-menu[open]').waitFor({timeout:8000});
+    await page.getByRole('button',{name:'Share layout',exact:true}).tap();
+    await page.getByRole('button',{name:'Copy share link',exact:true}).tap();
+    const shareUrl=await page.getByLabel('Public share link').inputValue();
+    assert.match(new URL(shareUrl).hash,/^#layout=ff[234]\./);
+    const receiver=await context.newPage();
+    await receiver.goto(shareUrl);
+    await receiver.getByRole('img',{name:/Shared farm map/}).waitFor();
+    await receiver.getByRole('button',{name:'Open shared layout',exact:true}).tap();
+    await receiver.locator('[data-scene-count="'+initial+'"]').waitFor();
+    await receiver.close();
+
+    if(testAndroidPinch){
+      await viewport.scrollIntoViewIfNeeded();
+      const rect=await viewport.boundingBox();
+      const cx=rect.x+rect.width/2,cy=rect.y+rect.height/2;
+      const cdp=await context.newCDPSession(page);
+      try{
+        await cdp.send('Emulation.setTouchEmulationEnabled',{enabled:true,maxTouchPoints:2});
+        const before=Number(await viewport.getAttribute('data-camera-scale'));
+        await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:cx-20,y:cy,id:1},{x:cx+20,y:cy,id:2}]});
+        await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:cx-50,y:cy,id:1},{x:cx+50,y:cy,id:2}]});
+        await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+        await page.waitForFunction(old=>Number(document.querySelector('.map-viewport').dataset.cameraScale)>old,before);
+        const oldX=Number(await viewport.getAttribute('data-camera-x'));
+        await cdp.send('Input.dispatchTouchEvent',{type:'touchStart',touchPoints:[{x:cx,y:cy,id:1}]});
+        await cdp.send('Input.dispatchTouchEvent',{type:'touchMove',touchPoints:[{x:cx+35,y:cy,id:1}]});
+        await cdp.send('Input.dispatchTouchEvent',{type:'touchEnd',touchPoints:[]});
+        await page.waitForFunction(old=>Number(document.querySelector('.map-viewport').dataset.cameraX)>old,oldX);
+        assert.equal(Number(await counter.getAttribute('data-scene-count')),initial);
+      }finally{await cdp.detach();}
+    }
+
+    await page.goto(privateSite.origin+'/tracker/');
+    await page.waitForFunction(()=>!document.querySelector('astro-island[ssr]'));
+    await page.getByLabel('Choose main save file',{exact:true}).setInputFiles({
+      name:'mobile-validation.xml',mimeType:'text/xml',
+      buffer:Buffer.from('<SaveGame><gameVersion>1.6.15</gameVersion><currentSeason>spring</currentSeason><player/></SaveGame>'),
+    });
+    await page.getByText('1.6.15',{exact:true}).first().waitFor();
+    assert.deepEqual(errors,[],device+' browser runtime errors');
+    console.log(device+' emulation: touch placement, undo, zoom, shared layout and local file import passed'+(testAndroidPinch?' (pinch and drag also passed)':''));
+  }finally{await context.close();}
+}
+
 try{
   for(const [name,engine] of Object.entries({chromium,firefox,webkit})){
     const browser=await engine.launch({headless:true});
     try{
+      if(name==='chromium')await verifyMobile(browser,'Pixel 7',true);
+      if(name==='webkit')await verifyMobile(browser,'iPhone 13',false);
       for(const [site,isPrivate] of [[publicSite,false],[privateSite,true]]){
         const context=await browser.newContext({viewport:{width:390,height:844}});
         const violations=[],errors=[],failedRequests=[];
