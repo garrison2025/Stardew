@@ -20,3 +20,29 @@ test('independent keg and jar price, duration and input-count examples',()=>{
  const jar=estimateProcessing({...input,crop:'amaranth',stock:1,minutes:4000,kegs:0,jars:1,quality:1,tiller:true,artisan:true});
  assert.equal(jar.raw,205);assert.equal(jar.totalRevenue,490);
 });
+
+import {extraProcessing,wineAging} from '../src/lib/extra-processing.ts';
+import {dailyRecipes} from '../src/lib/economy-recipes.ts';
+import {SEASON_CROPS,OWNED_CROPS} from '../src/lib/crop-data.ts';
+test('all supported crop recipes share prices and input/output units across calculators',()=>{
+ for(const crop of [...SEASON_CROPS,...OWNED_CROPS])for(const artisan of [false,true]){
+  const rs=dailyRecipes(crop,1600,artisan);
+  for(const recipe of rs){
+   if(recipe.machine==='Keg'||recipe.machine==='Preserves jar'){
+    const row=estimateProcessing({...input,crop:crop.id,stock:recipe.inputs,minutes:20000,kegs:recipe.machine==='Keg'?1:0,jars:recipe.machine==='Preserves jar'?1:0,artisan}).rows.find(r=>r.machine===recipe.machine)!;
+    assert.equal(row.price,recipe.price,crop.id);assert.equal(row.inputs,recipe.inputs);assert.equal(row.outputs,recipe.outputs);
+   }else{
+    const row=extraProcessing({crop:crop.id,stock:recipe.inputs,days:1,dehydrators:1,mill:true,quality:0,tiller:false,artisan}).alternatives.find(r=>r.label===recipe.product)!;
+    assert.equal(row.unitPrice,recipe.price,crop.id);assert.equal(row.used,recipe.inputs);assert.equal(row.output,recipe.outputs);
+   }
+  }
+ }
+});
+test('published artisan prices, mill yields and cask targets are preserved',()=>{
+ const juice=estimateProcessing({...input,crop:'amaranth',stock:1,minutes:6000,kegs:1,jars:0,artisan:true,tiller:true,quality:1});
+ assert.equal(juice.raw,205);assert.equal(juice.totalRevenue,471);
+ const extra=(crop:string,stock:number,artisan:boolean)=>extraProcessing({crop,stock,days:1,dehydrators:1,mill:true,quality:0,tiller:false,artisan}).alternatives[0];
+ assert.equal(extra('grape',5,true).revenue,840);assert.equal(extra('blueberry',5,true).revenue,560);
+ assert.equal(extra('beet',1,true).revenue,150);assert.equal(extra('wheat',1,true).revenue,50);assert.equal(extra('unmilled-rice',1,true).revenue,100);
+ assert.equal(wineAging(2250,1,1,56,true).find(r=>r.quality==='Iridium')!.revenue,6300);
+});
