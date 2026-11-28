@@ -43,11 +43,11 @@
     },
     {
       "path": "src/lib/crop-data.ts",
-      "gitBlob": "169ee44dceb35c67e17b15412e83bf4e81c626f6"
+      "gitBlob": "c80952b9b46c3be6a3718d962fc43157e9b4c6fa"
     },
     {
       "path": "src/lib/crop-growth.ts",
-      "gitBlob": "d882126eec600f72bed5ec8b1d74070a872e361c"
+      "gitBlob": "a0cb9c83ac51457ce9eac9974a1907a0cd21e477"
     },
     {
       "path": "src/lib/crop-scenarios.ts",
@@ -159,7 +159,7 @@
     },
     {
       "path": "src/lib/processing.ts",
-      "gitBlob": "076dbe5808f9e29ca2d8437c1cc6b030a316251e"
+      "gitBlob": "27b8b2e9276e14208f9c44c970a7cb68491a9326"
     },
     {
       "path": "src/lib/protected-cashflow.ts",
@@ -223,7 +223,7 @@
     },
     {
       "path": "src/lib/season-crops.ts",
-      "gitBlob": "1b094c751abd71986b8265a10fbdada1e9aed377"
+      "gitBlob": "d7e1497e5f8b487592eee445c24e35e3d9c851d9"
     },
     {
       "path": "src/lib/shipping-reference.ts",
