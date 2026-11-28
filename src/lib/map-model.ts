@@ -53,6 +53,26 @@ export const ITEMS:Item[]=[
 {id:'rock',name:'Decorative rock',category:'Nature',w:1,h:1,art:'rock',color:'#8f9992'}
 ];
 ITEMS.push(...GAME_CROPS.map(c=>({id:'crop-'+c.id,name:c.name+' (crop)',category:'Crops',w:1,h:1,art:c.trellis?'trellis':'crop',color:c.color,documented:true})));
+// Save-observed footprints are editable planning markers, not game sprites or collision geometry.
+ITEMS.push(
+ {id:'game-farmhouse',name:'Farmhouse (saved footprint)',category:'Buildings',w:9,h:5,art:'house',color:'#a45d46',fixedOrientation:true,documented:true},
+ {id:'game-greenhouse',name:'Greenhouse (saved footprint)',category:'Buildings',w:7,h:6,art:'glass',color:'#a9d1ac',fixedOrientation:true,documented:true},
+ {id:'observed-weeds',name:'Weeds (clearable marker)',category:'Nature',w:1,h:1,art:'crop',color:'#6e9c55'},
+ {id:'observed-twig',name:'Twig (clearable marker)',category:'Nature',w:1,h:1,art:'rock',color:'#9a7655'},
+ {id:'observed-stone',name:'Stone / ore rock (clearable marker)',category:'Nature',w:1,h:1,art:'rock',color:'#969a99'},
+ {id:'observed-artifact',name:'Artifact spot (marker)',category:'Nature',w:1,h:1,art:'flower',color:'#bba27c'},
+ {id:'observed-tree',name:'Tree trunk (saved tile)',category:'Nature',w:1,h:1,art:'tree',color:'#699b4e'},
+ {id:'observed-grass',name:'Grass (clearable marker)',category:'Nature',w:1,h:1,art:'crop',color:'#88af58'}
+);
+ITEMS.push(
+ {id:'observed-bush-small',name:'Small bush (saved tile)',category:'Nature',w:1,h:1,art:'tree',color:'#649a59',fixedOrientation:true},
+ {id:'observed-bush-medium',name:'Medium bush (saved footprint)',category:'Nature',w:2,h:1,art:'tree',color:'#649a59',fixedOrientation:true},
+ {id:'observed-bush-large',name:'Large bush (saved footprint)',category:'Nature',w:3,h:1,art:'tree',color:'#649a59',fixedOrientation:true},
+ {id:'observed-stump',name:'Large stump (saved footprint)',category:'Nature',w:2,h:2,art:'rock',color:'#956d48',fixedOrientation:true},
+ {id:'observed-log',name:'Large log (saved footprint)',category:'Nature',w:2,h:2,art:'rock',color:'#866445',fixedOrientation:true},
+ {id:'observed-boulder',name:'Boulder (saved footprint)',category:'Nature',w:2,h:2,art:'rock',color:'#848b91',fixedOrientation:true},
+ {id:'observed-meteorite',name:'Meteorite (saved footprint)',category:'Nature',w:2,h:2,art:'rock',color:'#79688a',fixedOrientation:true}
+);
 export const itemById=new Map(ITEMS.map(i=>[i.id,i]));
 export const MAPS=[{id:'orchard',name:'Orchard valley',w:64,h:42},{id:'riverbend',name:'River bend',w:64,h:44},{id:'woodland',name:'Woodland clearing',w:60,h:44},{id:'hilltop',name:'Terraced hills',w:64,h:44},{id:'four-gardens',name:'Four gardens',w:64,h:64},{id:'coastal',name:'Coastal meadow',w:72,h:48},{id:'wild-grove',name:'Wild grove',w:64,h:48},{id:'pasture',name:'Pasture estate',w:68,h:48}] as const;
 export function originalMap(id:string):FarmMap{
@@ -77,7 +97,7 @@ export function originalMap(id:string):FarmMap{
  }return {...m,tiles,source:'original'}
 }
 export type Placed={id:string;itemId:string;x:number;y:number;rotation:0|1;interior?:Interior};
-export function roomForItem(itemId:string):RoomId|null{switch(itemId){case 'shed':case 'game-shed':return 'shed';case 'barn':case 'game-barn':return 'barn';case 'coop':case 'game-coop':return 'coop';case 'greenhouse':return 'greenhouse';default:return null}}
+export function roomForItem(itemId:string):RoomId|null{switch(itemId){case 'shed':case 'game-shed':return 'shed';case 'barn':case 'game-barn':return 'barn';case 'coop':case 'game-coop':return 'coop';case 'greenhouse':case 'game-greenhouse':return 'greenhouse';default:return null}}
 export function attachInterior(plan:Plan,buildingId:string,input:Interior):Plan{const b=plan.objects.find(o=>o.id===buildingId),room=decodeInterior(input);if(!b||roomForItem(b.itemId)!==room.room)throw Error('Room does not match this building');return {...plan,objects:plan.objects.map(o=>o.id===buildingId?{...o,interior:room}:o)}}
 export type Plan={schema:2;map:FarmMap;season:Season;objects:Placed[]};
 export type Point={x:number;y:number};

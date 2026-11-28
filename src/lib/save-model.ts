@@ -4,7 +4,22 @@ export type RecordKind='building'|'object'|'terrain';
 export type FarmRecord={kind:RecordKind;itemId:string|null;x:number|null;y:number|null;width?:number;height?:number;reason?:string};
 export type SaveSnapshot={version:string;farmType:number|null;year:number|null;day:number|null;season:Season|null;fields:number;records:FarmRecord[];farmFound:boolean;fingerprint?:string|null;progress?:SaveProgress;farmhands?:SaveProgress[]};
 export const supportedVersion=(v:string)=>/^1\.6\.\d+(?:\.\d+)?$/.test(v);
-export function buildingItem(type:string){const names:Record<string,string>={'Barn':'game-barn','Big Barn':'game-barn','Deluxe Barn':'game-barn','Coop':'game-coop','Big Coop':'game-coop','Deluxe Coop':'game-coop','Shed':'game-shed','Big Shed':'game-shed','Silo':'game-silo',"Fish Pond":"game-fish-pond","Mill":"game-mill","Slime Hutch":"game-slime-hutch","Stable":"game-stable","Well":"game-well","Cabin":"game-cabin","Shipping Bin":"game-shipping-bin","Pet Bowl":"game-pet-bowl"};return Object.hasOwn(names,type)?names[type]:null}
+// Vanilla tilemap dimensions only, independently checked against the 1.6.15 data tables.
+// No claim about passability, buildability, tillability, map variants or modded terrain.
+export const VANILLA_FARM_GRIDS=[
+ {id:0,name:'Standard',w:80,h:65}, {id:1,name:'Riverland',w:80,h:65},
+ {id:2,name:'Forest',w:80,h:65}, {id:3,name:'Hill-top',w:80,h:65},
+ {id:4,name:'Wilderness',w:80,h:65}, {id:5,name:'Four Corners',w:80,h:80},
+ {id:6,name:'Beach',w:110,h:110}, {id:7,name:'Meadowlands',w:100,h:75}
+] as const;
+export function vanillaFarmGrid(farmType:number|null){return VANILLA_FARM_GRIDS.find(g=>g.id===farmType)}
+/** Prefer the documented vanilla frame; never silently truncate larger observed footprints. */
+export function suggestedFarmGrid(snapshot:SaveSnapshot){
+ const bounds=observedFarmBounds(snapshot),reference=supportedVersion(snapshot.version)&&snapshot.farmFound?vanillaFarmGrid(snapshot.farmType):undefined;
+ if(!reference)return {w:bounds.w,h:bounds.h,reference:undefined,exceedsReference:false};
+ return {w:Math.max(reference.w,bounds.w),h:Math.max(reference.h,bounds.h),reference,exceedsReference:bounds.w>reference.w||bounds.h>reference.h||bounds.outsideLimit>0};
+}
+export function buildingItem(type:string){const names:Record<string,string>={'Barn':'game-barn','Big Barn':'game-barn','Deluxe Barn':'game-barn','Coop':'game-coop','Big Coop':'game-coop','Deluxe Coop':'game-coop','Shed':'game-shed','Big Shed':'game-shed','Silo':'game-silo',"Fish Pond":"game-fish-pond","Mill":"game-mill","Slime Hutch":"game-slime-hutch","Stable":"game-stable","Well":"game-well","Cabin":"game-cabin","Shipping Bin":"game-shipping-bin","Pet Bowl":"game-pet-bowl","Farmhouse":"game-farmhouse","Farm House":"game-farmhouse","Greenhouse":"game-greenhouse"};return Object.hasOwn(names,type)?names[type]:null}
 export function sprinklerItem(id:string,big:boolean){if(big||!/^\(O\)\d+$|^\d+$/.test(id))return null;const ids:Record<string,string>={'599':'basic-sprinkler','621':'quality-sprinkler','645':'iridium-sprinkler'};const k=id.replace(/^\(O\)/,'');return Object.hasOwn(ids,k)?ids[k]:null}
 /** Lower bound for recognized object footprints, never a claim about the actual game map. */
 export function observedFarmBounds(snapshot:SaveSnapshot){
@@ -40,3 +55,21 @@ export function buildFarmImport(snapshot:SaveSnapshot,w:number,h:number,terrain?
  }
  return {plan,issues,imported:plan.objects.length,total:snapshot.records.length};
 }
+
+/** Known saved object classes and stable IDs only. Do not use localized display names. */
+export function observedObjectItem(id:string,big:string,kind:string){
+ const raw=id.replace(/^\(O\)|^\(BC\)/,'');
+ if(kind==='Chest'&&(big==='true'||id.startsWith('(BC)'))&&['130','BigChest','BigStoneChest','232'].includes(raw))return 'chest';
+ if(kind&&kind!=='Object')return null;
+ if(big==='true'||id.startsWith('(BC)'))return null;
+ if(big!=='false'&&!id.startsWith('(O)'))return null;
+ if(['674','675','784'].includes(raw))return 'observed-weeds';
+ if(['294','295'].includes(raw))return 'observed-twig';
+ if(['75','343','450','668','670','751'].includes(raw))return 'observed-stone';
+ if(raw==='590')return 'observed-artifact';
+ return sprinklerItem(id,false);
+}
+
+/** Factual bush collision widths from game 1.6.8; resource clumps require exact saved dimensions. */
+export function observedBushItem(size:number|null){return size===0||size===3?'observed-bush-small':size===1||size===4?'observed-bush-medium':size===2?'observed-bush-large':null}
+export function observedClumpItem(id:number|null,w:number|null,h:number|null){if(w!==2||h!==2)return null;return id===600?'observed-stump':id===602?'observed-log':id===672?'observed-boulder':id===622?'observed-meteorite':null}

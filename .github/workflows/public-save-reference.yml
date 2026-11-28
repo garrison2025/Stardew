@@ -1,0 +1,27 @@
+name: Pinned public save reference
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/public-save-reference.yml'
+      - 'scripts/audit-public-save-reference.mjs'
+permissions:
+  contents: read
+jobs:
+  public-save-reference:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+      - run: npm ci --no-audit --no-fund
+      - name: Verify pinned external fixture without retaining its contents
+        shell: bash
+        run: |
+          set -euo pipefail
+          tmp="$(mktemp)"
+          trap 'rm -f "$tmp"' EXIT
+          curl --fail --silent --show-error --location --retry 2 --max-time 90 'https://raw.githubusercontent.com/colecrouter/stardew-save-editor/6e97efd6c20c75b8664972c1bac7c2f9949e9102/tests/TestSave' -o "$tmp"
+          node --experimental-strip-types scripts/audit-public-save-reference.mjs "$tmp"
