@@ -59,6 +59,12 @@ ITEMS.push(...GAME_CROPS.map(c=>({id:'crop-'+c.id,name:c.name+' (crop)',category
 ITEMS.push(
  {id:'game-farmhouse',name:'Farmhouse (saved footprint)',category:'Buildings',w:9,h:5,art:'house',color:'#a45d46',fixedOrientation:true,documented:true},
  {id:'game-greenhouse',name:'Greenhouse (saved footprint)',category:'Buildings',w:7,h:6,art:'glass',color:'#a9d1ac',fixedOrientation:true,documented:true},
+{"id":"game-earth-obelisk","name":"Earth Obelisk (game footprint)","category":"Buildings","w":3,"h":2,"art":"magical","color":"#7c9a71","fixedOrientation":true,"documented":true},
+{"id":"game-water-obelisk","name":"Water Obelisk (game footprint)","category":"Buildings","w":3,"h":2,"art":"magical","color":"#5e9aae","fixedOrientation":true,"documented":true},
+{"id":"game-desert-obelisk","name":"Desert Obelisk (game footprint)","category":"Buildings","w":3,"h":2,"art":"magical","color":"#c3a36c","fixedOrientation":true,"documented":true},
+{"id":"game-island-obelisk","name":"Island Obelisk (game footprint)","category":"Buildings","w":3,"h":2,"art":"magical","color":"#b17b60","fixedOrientation":true,"documented":true},
+{"id":"game-gold-clock","name":"Gold Clock (game footprint)","category":"Buildings","w":3,"h":2,"art":"magical","color":"#d6b54e","fixedOrientation":true,"documented":true},
+{"id":"game-junimo-hut","name":"Junimo Hut (game footprint)","category":"Buildings","w":3,"h":2,"art":"magical","color":"#7e9e55","fixedOrientation":true,"documented":true},
  {id:'observed-weeds',name:'Weeds (clearable marker)',category:'Nature',w:1,h:1,art:'crop',color:'#6e9c55'},
  {id:'observed-twig',name:'Twig (clearable marker)',category:'Nature',w:1,h:1,art:'rock',color:'#9a7655'},
  {id:'observed-stone',name:'Stone / ore rock (clearable marker)',category:'Nature',w:1,h:1,art:'rock',color:'#969a99'},
