@@ -183,6 +183,10 @@
       [
         "Can I import my farm layout from a save?",
         "Use the farm planner in the private workspace. It can inspect recognized 1.6.x main Farm records, preview compatible building footprints, crop and equipment positions, and report unsupported or conflicting records before applying the partial layout. The save stays on your device."
+      ],
+      [
+        "Can I track special orders, achievements and secret notes?",
+        "Open the private save workspace, inspect a supported main save and review recognized positive order, achievement, note and story IDs. Merge to load the latest observations in the perfection view. The public reference checklists do not read private progress. Active-order objective counts are snapshots, not guaranteed current eligibility."
       ]
     ]
   },
@@ -339,6 +343,10 @@
       [
         "How can I find what I still need for perfection?",
         "Review the goal-gap table and open the individual collection checklist for shipping, fishing, cooking or crafting. Local positive completions are marked as recorded; items without a positive record remain unconfirmed, not necessarily missing. Manual category counts do not mark individual items complete."
+      ],
+      [
+        "How are alternative Stardrop records treated?",
+        "The level-100 mine chest-consumed marker can confirm that reference source without double-counting the mail flag. A maximum-stamina completion flag is displayed separately; it does not identify every source or override the conservative score."
       ]
     ]
   },
