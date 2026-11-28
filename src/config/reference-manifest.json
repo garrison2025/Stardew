@@ -82,17 +82,20 @@
         "src/lib/cart-forecast.ts",
         "src/lib/cart-stock.ts",
         "src/lib/cart-stock-reference.ts",
-        "src/lib/geode-targets.ts"
+        "src/lib/geode-targets.ts",
+        "src/lib/extra-predictions.ts"
       ],
       "sources": [
         "https://stardewvalleywiki.com/Traveling_Cart",
         "https://stardewvalleywiki.com/Geode",
         "https://stardewvalleywiki.com/Desert_Festival",
         "https://stardewvalleywiki.com/Night_Market",
-        "https://stardewvalleywiki.com/Luck"
+        "https://stardewvalleywiki.com/Luck",
+        "https://github.com/MouseyPounds/stardew-predictor/blob/master/stardew-predictor.js",
+        "https://stardewvalleywiki.com/Golden_Coconut"
       ],
       "sourceRights": "pending",
-      "scope": "PC 1.6.15 numerical reference; exact save-day and game fixtures pending; cross-container alternative and stock-bounded greedy target planning"
+      "scope": "PC 1.6.15 numerical reference; exact save-day and game fixtures pending; cross-container alternative and stock-bounded greedy target planning; coconut, three mystery box scenarios and mine floor candidates"
     },
     {
       "path": "/tracker/",
