@@ -38,7 +38,7 @@
       ],
       [
         "Can I share my farm layout?",
-        "Yes. Generate a compact layout code or public link for a built-in reference or original practice map. Supported greenhouse ground changes are preserved. Custom terrain and linked room layouts require JSON export. A share link contains object types and positions, not a raw save or screenshot."
+        "Yes. Generate a compact code or public link for a built-in reference or practice map. Supported greenhouse ground changes are preserved. Linked rooms may be included by opting in. Custom terrain and oversized plans require JSON export. Codes do not contain raw saves, screenshots or project names."
       ]
     ]
   },
