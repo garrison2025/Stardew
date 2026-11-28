@@ -167,6 +167,8 @@ export function sprite(o:Placed,season:Season):HTMLCanvasElement|null{
  if(starterStructure(c,o.itemId,w,h,season)){}
  else if(i.art==='magical')magicalStructure(c,o.itemId,w,h,i.color,season);
  else if(i.art==='house'||i.art==='glass')house(c,w,h,o.itemId,i.color,i.art==='glass',season);
+ else if(i.art==='bee-house'){rect(c,2,12,12,2,'#60482f');rect(c,3,4,10,8,'#805a36');for(let y=5;y<12;y+=3)rect(c,4,y,8,2,'#d4ab67');rect(c,2,2,12,3,'#e8c88c');rect(c,6,9,4,2,'#503b2e')}
+ else if(i.art==='fruit-sapling'){rect(c,7,6,2,8,'#765b40');rect(c,4,5,4,3,'#68964e');rect(c,8,3,4,4,'#97bd67');rect(c,5,2,4,3,'#b5d080')}
  else if(i.art==='tree'||i.art==='pine')foliage(c,0,0,w,h,season,i.art==='pine',17);
  else if(i.art==='pond'){oval(c,0,1,w,h-2,'#806d50');oval(c,2,2,w-4,h-5,'#c6b78c');oval(c,5,5,w-10,h-11,i.color);rect(c,w*.23,h*.3,w*.4,1,'#b1d7d6');rect(c,w*.4,h*.57,w*.3,1,'#a2cbd3')}
  else if(i.art==='path')surface(c,o.itemId,i.color);

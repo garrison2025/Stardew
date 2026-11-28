@@ -9,6 +9,13 @@ export type Season=typeof SEASONS[number];
 export type FarmMap={id:string;name:string;w:number;h:number;tiles:Terrain[];source:'original'|'local';restrictions?:TileRestrictions};
 export type Item={id:string;name:string;category:string;w:number;h:number;art:string;color:string;radius?:number;pattern?:'cross'|'square';fixedOrientation?:boolean;documented?:boolean};
 export const ITEMS:Item[]=[
+{"id":"flower-tulip","name":"Tulip","category":"Crops","w":1,"h":1,"art":"flower","color":"#dc859d","fixedOrientation":true,"documented":true},
+{"id":"flower-blue-jazz","name":"Blue Jazz","category":"Crops","w":1,"h":1,"art":"flower","color":"#728ad0","fixedOrientation":true,"documented":true},
+{"id":"flower-poppy","name":"Poppy","category":"Crops","w":1,"h":1,"art":"flower","color":"#e56e5a","fixedOrientation":true,"documented":true},
+{"id":"flower-summer-spangle","name":"Summer Spangle","category":"Crops","w":1,"h":1,"art":"flower","color":"#dfb75f","fixedOrientation":true,"documented":true},
+{"id":"flower-fairy-rose","name":"Fairy Rose","category":"Crops","w":1,"h":1,"art":"flower","color":"#c77cb1","fixedOrientation":true,"documented":true},
+{"id":"bee-house","name":"Bee House","category":"Equipment","w":1,"h":1,"art":"bee-house","color":"#d1a365","fixedOrientation":true,"documented":true},
+{"id":"fruit-sapling","name":"Fruit tree sapling","category":"Nature","w":1,"h":1,"art":"fruit-sapling","color":"#8aaa65","fixedOrientation":true,"documented":true},
 {id:'seedling',name:'Seedling',category:'Crops',w:1,h:1,art:'crop',color:'#9cc85a'},
 {id:'berry',name:'Berry bush',category:'Crops',w:1,h:1,art:'crop',color:'#ca5375'},
 {id:'sunflower',name:'Sunflower',category:'Crops',w:1,h:1,art:'flower',color:'#f5cc58'},

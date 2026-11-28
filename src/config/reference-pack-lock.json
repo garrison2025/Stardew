@@ -125,6 +125,10 @@
       "gitBlob": "273083cdb277f514b854c61a259bb516b33b19b6"
     },
     {
+      "path": "src/lib/garden-diagnostics.ts",
+      "gitBlob": "bc066ba39745ca462b5afa827eb4fabd4ba30528"
+    },
+    {
       "path": "src/lib/geode-prediction.ts",
       "gitBlob": "cfd88fd9053bde454db2cb9433024ab05aea30f5"
     },
@@ -150,7 +154,7 @@
     },
     {
       "path": "src/lib/map-model.ts",
-      "gitBlob": "5eb8cc1225e00ab4b93c7e10730aa3314da9be95"
+      "gitBlob": "37d06e2d7e29d945ca8d7c268b63673954b28d00"
     },
     {
       "path": "src/lib/monster-goals.ts",
@@ -273,5 +277,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r17"
+  "id": "ref-pc-1.6.15-20261128-r18"
 }
