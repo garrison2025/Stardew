@@ -1,0 +1,32 @@
+name: Legacy Data Layers compatibility
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/legacy-data-layers.yml'
+      - 'scripts/audit-legacy-data-layers.mjs'
+      - 'src/lib/data-layers.ts'
+permissions:
+  contents: read
+jobs:
+  legacy-map-layers:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+      - name: Verify pinned external exports without bundling them
+        shell: bash
+        run: |
+          set -euo pipefail
+          tmp="$(mktemp -d)"
+          trap 'rm -rf "$tmp"' EXIT
+          for map in regular fishing foraging mining combat fourcorners beach; do
+            for layer in accessible buildable tillable; do
+              file="${map}_${layer}.json"
+              curl --fail --silent --show-error --location --retry 2 --max-time 45 "https://raw.githubusercontent.com/hpeinar/stardewplanner/f6c8dd5fba513d78b95d491a8aa77d6532c55ee6/public/planner/js/data/layer-information/$file" -o "$tmp/$file"
+            done
+          done
+          node --experimental-strip-types scripts/audit-legacy-data-layers.mjs "$tmp"
