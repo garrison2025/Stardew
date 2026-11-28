@@ -190,7 +190,7 @@
               "conditional": false
             },
             {
-              "name": "Blue Armchair",
+              "name": "Mega Bomb",
               "quantity": 5,
               "conditional": false
             }
@@ -390,7 +390,7 @@
               "conditional": false
             },
             {
-              "name": "Blue Armchair",
+              "name": "Mega Bomb",
               "quantity": 5,
               "conditional": false
             }
@@ -420,7 +420,7 @@
           "opening": 14,
           "items": [
             {
-              "name": "Walnut Dresser",
+              "name": "Hardwood",
               "quantity": 10,
               "conditional": false
             },
@@ -505,7 +505,7 @@
               "conditional": false
             },
             {
-              "name": "Blue Armchair",
+              "name": "Mega Bomb",
               "quantity": 5,
               "conditional": false
             },
@@ -1651,7 +1651,7 @@
               "conditional": false
             },
             {
-              "name": "Blue Armchair",
+              "name": "Mega Bomb",
               "quantity": 5,
               "conditional": false
             },
@@ -1666,7 +1666,7 @@
           "opening": 7,
           "items": [
             {
-              "name": "Walnut Dresser",
+              "name": "Hardwood",
               "quantity": 10,
               "conditional": false
             },
@@ -1746,7 +1746,7 @@
           "opening": 11,
           "items": [
             {
-              "name": "Walnut Dresser",
+              "name": "Hardwood",
               "quantity": 10,
               "conditional": false
             },
