@@ -11,7 +11,7 @@ import {readBundleDefinition, type SaveBundle} from './save-bundles.ts';
 import type {GeodeInput} from './geode-prediction.ts';
 import {parseSaveXml, MAX_SAVE_BYTES, type SaveElement} from './save-xml.ts';
 import {SEASONS,type Season} from './map-model.ts';
-import {buildingItem,observedObjectItem,observedBushItem,observedClumpItem,supportedVersion,type FarmRecord,type SaveSnapshot} from './save-model.ts';
+import {parseVanillaFarmType,buildingItem,observedObjectItem,observedBushItem,observedClumpItem,supportedVersion,type FarmRecord,type SaveSnapshot} from './save-model.ts';
 import {normalizeSkillXp,normalizeCrafting,normalizeObjectCollection,safeCount,type SaveProgress,type NamedCount} from './save-progress.ts';
 const child=(el:SaveElement|undefined|null,name:string)=>el?Array.from(el.children).find(c=>c.localName===name):undefined;
 const text=(el:SaveElement|undefined|null,name:string)=>child(el,name)?.textContent?.trim()??'';
@@ -89,7 +89,7 @@ function inspectSaveRoot({root, fields, player, version}:ReturnType<typeof parse
  const farmLocations=Array.from(child(root,'locations')?.children??[]).filter(e=>e.localName==='GameLocation'&&text(e,'name')==='Farm');
  const farm=farmLocations.length===1?farmLocations[0]:undefined;
  const records:FarmRecord[]=[];
- const snapshot:SaveSnapshot={version,farmType:num(text(root,'whichFarm')),year:num(text(root,'year')),day:num(text(root,'dayOfMonth')),season,fields,records,farmFound:!!farm};
+ const snapshot:SaveSnapshot={version,farmType:parseVanillaFarmType(text(root,'whichFarm')),year:num(text(root,'year')),day:num(text(root,'dayOfMonth')),season,fields,records,farmFound:!!farm};
  if(supportedVersion(version)) {
   snapshot.progress=readProgress(root,player);
   snapshot.progress.storage=readStorage(root);

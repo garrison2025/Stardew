@@ -32,3 +32,10 @@ test('large bushes and resource clumps retain saved anchors; mismatched or unkno
  const fixture=root('<GameLocation xsi:type="Farm"><name>Farm</name><largeTerrainFeatures><LargeTerrainFeature xsi:type="Bush"><tilePosition><X>2</X><Y>3</Y></tilePosition><size>2</size></LargeTerrainFeature><LargeTerrainFeature xsi:type="Bush"><tilePosition><X>6</X><Y>3</Y></tilePosition><size>9</size></LargeTerrainFeature></largeTerrainFeatures><resourceClumps><ResourceClump><width>2</width><height>2</height><parentSheetIndex>600</parentSheetIndex><tile><X>8</X><Y>4</Y></tile></ResourceClump><ResourceClump><width>1</width><height>2</height><parentSheetIndex>602</parentSheetIndex><tile><X>11</X><Y>4</Y></tile></ResourceClump></resourceClumps></GameLocation>');
  const r=parseSave(fixture).records;assert.deepEqual(r.map(x=>[x.itemId,x.x,x.y]),[['observed-bush-large',2,3],[null,6,3],['observed-stump',8,4],[null,11,4]]);
 });
+
+test('Meadowlands uses its literal saved farm ID rather than the runtime additional-farm slot',()=>{
+ const body='<GameLocation xsi:type="Farm"><name>Farm</name></GameLocation>';
+ for(const [id,expected] of [['MeadowlandsFarm',7],['0',0],['6',6],['7',null],['CustomFarm',null]] as const){
+  const xml=root(body).replace('<player>','<whichFarm>'+id+'</whichFarm><player>');assert.equal(parseSave(xml).farmType,expected);
+ }
+});
