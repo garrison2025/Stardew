@@ -10,7 +10,7 @@ import {SAVE_COLLECTION_IDS} from './save-collection-ids.ts';
 import {CATALOGS,CRAFTING} from './game-collections.ts';
 import {levelAt} from './game-rules.ts';
 export type NamedCount={name:string;count:number};
-export type ObservedCollection={done:string[];unmapped:number};
+export type ObservedCollection={done:string[];unmapped:number;outsideTarget?:string[]};
 export type SaveProgress={quests?:QuestObservations;professions?:ProfessionObservation;walnutTasks?:WalnutObservation;masteryXp?:number|null;backpack?:Backpack;storage?:StorageObservation;stepsTaken?:number|null;monsterKills?:MonsterCounts;milestones?:SaveMilestones;bundles?:SaveBundle[];collections?:Partial<Record<'shipping'|'fishing'|'cooking'|'museum',ObservedCollection>>;xp:number[]|null;money:number|null;lifetimeEarnings:number|null;walnutsFound:number|null;walnutsBalance:number|null;crafting:{known:string[];done:string[];unmapped:number}|null;learnedCooking:number|null;warnings:string[]};
 export function normalizeSkillXp(values:unknown[]):number[]|null{
  if((values.length!==5&&values.length!==6)||values.some(n=>typeof n!=='number'||!Number.isSafeInteger(n)||n<0||n>1000000000))return null;
@@ -27,7 +27,16 @@ export function skillTotal(xp:number[]|null){return xp===null?null:xp.reduce((n,
 
 export function normalizeObjectCollection(kind:keyof typeof SAVE_COLLECTION_IDS,rows:NamedCount[]):ObservedCollection{
  const map:Record<string,string>=SAVE_COLLECTION_IDS[kind],done=new Set<string>(),unmapped=new Set<string>();
+ const outsideTarget=new Set<string>();
  const validNames=kind==='museum'?null:new Set(CATALOGS[kind].map(i=>i.name));
- for(const {name,count} of rows){if(!Number.isSafeInteger(count)||count<0||typeof name!=='string'||name.length>160)throw Error('Invalid object observation');if(count===0)continue;const key=name.startsWith('(O)')?name.slice(3):name;if(!Object.hasOwn(map,key)){unmapped.add(key);continue}const value=map[key];if(validNames&&!validNames.has(value)){unmapped.add(key);continue}done.add(value)}
- return {done:[...done],unmapped:unmapped.size}
+ const fish:Record<string,string>=SAVE_COLLECTION_IDS.fishing;
+ for(const {name,count} of rows){
+  if(!Number.isSafeInteger(count)||count<0||typeof name!=='string'||name.length>160)throw Error('Invalid object observation');
+  if(count===0)continue;
+  const key=name.startsWith('(O)')?name.slice(3):name;
+  if(Object.hasOwn(map,key)&&(!validNames||validNames.has(map[key])))done.add(map[key]);
+  else if(kind==='shipping'&&Object.hasOwn(fish,key))outsideTarget.add(fish[key]);
+  else unmapped.add(key);
+ }
+ return {done:[...done],unmapped:unmapped.size,...(outsideTarget.size?{outsideTarget:[...outsideTarget]}:{})};
 }

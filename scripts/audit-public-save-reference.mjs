@@ -1,3 +1,5 @@
+import {SAVE_COLLECTION_IDS} from '../src/lib/save-collection-ids.ts';
+import {CATALOGS} from '../src/lib/game-collections.ts';
 import {observedFarmPreview} from '../src/lib/observed-farm-preview.ts';
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
@@ -28,6 +30,34 @@ try{
  // Independent XML extraction, not another call to the project's parser.
  const plotted=observedFarmPreview(s,result.plan,result.issues);assert.equal(plotted.plotted.length,698);assert.equal(plotted.unlocated,0);assert.equal(plotted.editable,result.imported);assert.equal(plotted.observedOnly,result.issues.length);console.log('Observed coordinate review: '+plotted.plotted.length+' plotted; '+plotted.editable+' editable; '+plotted.observedOnly+' observed-only. No placement override.');
  const raw=JSON.parse(execFileSync('python3',['scripts/public-save-story-baseline.py',process.argv[2]],{encoding:'utf8',maxBuffer:2*1024*1024,stdio:['ignore','pipe','pipe']}));
+ for(const kind of ['shipping','museum']){
+  const ids=raw[kind],actual=s.progress.collections?.[kind];
+  if(ids===null){assert.equal(actual,undefined);console.log('Independent XML '+kind+': no readable dictionary.');continue}
+  const map=SAVE_COLLECTION_IDS[kind],names=kind==='shipping'?new Set(CATALOGS.shipping.map(row=>row.name)):null;
+  const recognized=new Set(),outsideTarget=new Set();let unknown=0;
+  for(const id of ids){
+   if(Object.hasOwn(map,id)&&(!names||names.has(map[id])))recognized.add(map[id]);
+   else if(kind==='shipping'&&Object.hasOwn(SAVE_COLLECTION_IDS.fishing,id))outsideTarget.add(SAVE_COLLECTION_IDS.fishing[id]);
+   else unknown++;
+  }
+  assert.deepEqual([...actual.done].sort(),[...recognized].sort());
+  assert.equal(actual.unmapped,unknown);
+  assert.deepEqual([...(actual.outsideTarget??[])].sort(),[...outsideTarget].sort());
+  if(kind==='shipping'){
+   assert.deepEqual([...actual.done].sort(),['Daffodil','Fiber','Leek']);
+   assert.deepEqual([...actual.outsideTarget].sort(),['Clam','Oyster','Sunfish']);
+  }
+  console.log('Independent XML '+kind+': '+recognized.size+' positive entries, '+outsideTarget.size+' known outside checklist, '+unknown+' unmatched IDs.');
+ }
+ let bundleFlags=0;
+ for(const [id,slots] of Object.entries(raw.bundle_donations)){
+  if(!slots.length)continue;
+  const bundle=s.progress.bundles?.find(row=>row.id===Number(id));
+  assert.ok(bundle);
+  assert.deepEqual(bundle.slots.flatMap((slot,i)=>slot.donated===true?[i]:[]),slots);
+  bundleFlags+=slots.length;
+ }
+ console.log('Independent XML Community Center: '+bundleFlags+' positive donation flags compared.');
  const q=s.progress.quests,story=q?.story;
  const pairs=[
   ['notes',raw.notes,story?.notes,[...NOTE_IDS,...JOURNAL_IDS],story?.unknownNotes],

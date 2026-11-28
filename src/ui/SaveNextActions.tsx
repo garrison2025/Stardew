@@ -27,6 +27,11 @@ export default function SaveNextActions({progress, season}: {progress: SaveProgr
   const bundles = progress.bundles ?? [];
   const openBundles = bundles.filter(bundle => !bundle.slots.every(slot => slot.donated !== null) || bundle.slots.filter(slot => slot.donated).length < bundle.needed);
 
+  const collectionFollowUps = [
+    {kind: 'museum', label: 'Museum donations', entries: MUSEUM_ITEMS},
+    {kind: 'shipping', label: 'Shipping collection', entries: CATALOGS.shipping},
+  ] as const;
+
   return <section aria-label="Next actions from this save">
     <h3>What to check next</h3>
     <p className="muted">Based on this file only. Confirm entries in game before marking completion. Unrecognized or absent records stay unknown.</p>
@@ -57,6 +62,20 @@ export default function SaveNextActions({progress, season}: {progress: SaveProgr
       <ul>{learned.map(name => <li key={name}>{name}</li>)}</ul>
       <a href="/crafting/">Open recipe and material planner</a>
     </details>}
+    {collectionFollowUps.map(({kind, label, entries}) => {
+      const observed = progress.collections?.[kind];
+      if (!observed) return null;
+      const done = new Set(observed.done);
+      const candidates = entries.filter(entry => !done.has(entry.name));
+      return <details key={kind}>
+        <summary>{label} · {candidates.length} reference entries to check</summary>
+        <p className="muted">These entries have no recognized positive record in this save. Verify uncertain entries in game.</p>
+        {!!observed.outsideTarget?.length && <p>Fish recorded in shipping history and excluded from the 1.6 Full Shipment checklist: {observed.outsideTarget.join(', ')}.</p>}
+        {observed.unmapped > 0 && <p>{observed.unmapped} distinct saved item IDs could not be matched.</p>}
+        {candidates.length > 0 && <ul>{candidates.map(entry => <li key={entry.name}>{entry.name}</li>)}</ul>}
+        <a href={'/' + kind + '/'}>Open {label.toLowerCase()} tracker</a>
+      </details>;
+    })}
     <div className="rules-grid">
       {links.map(([kind, label]) => {
         const observed = kind === 'crafting' ? progress.crafting : progress.collections?.[kind];
