@@ -4,7 +4,7 @@ import {TILE,rect,sprite,drawTerrainArt} from './pixel-art';
 import {OUTDOOR,OUTDOOR_TILES,drawPackTile} from './art-packs';
 export {TILE,drawLighting} from './pixel-art';
 export type {Light} from './pixel-art';
-export function drawTerrain(c:CanvasRenderingContext2D,map:FarmMap,season:Season){drawTerrainArt(c,map,season)}
+export function drawTerrain(c:CanvasRenderingContext2D,map:FarmMap,season:Season){drawTerrainArt(c,map,season);if(map.restrictions?.source==='local-restriction-mask'&&/^local-starplan-[0-7]$/.test(map.id)){c.save();c.fillStyle='#3b4649';for(let i=0;i<map.restrictions.access.length;i++)if(map.restrictions.access[i]==='N')c.fillRect((i%map.w)*TILE,Math.floor(i/map.w)*TILE,TILE,TILE);c.restore()}}
 export function drawItem(c:CanvasRenderingContext2D,o:Placed,season:Season,selected=false,atlas:HTMLImageElement|null=null){
  const image=sprite(o,season);if(!image)return;const d=dimensions(o),x=o.x*TILE,y=o.y*TILE,w=d.w*TILE,h=d.h*TILE;c.save();c.imageSmoothingEnabled=false;const tile=OUTDOOR_TILES[o.itemId];if(!atlas||!tile||((o.itemId==='oak'||o.itemId==='pine'||o.itemId==='flowerbed')&&(season==='autumn'||season==='winter'))||!drawPackTile(c,atlas,OUTDOOR,tile,x,y,w,h))c.drawImage(image,x,y);
  if(selected){c.strokeStyle='#fff2a1';c.lineWidth=1.5;c.strokeRect(x+.75,y+.75,w-1.5,h-1.5)}c.restore();

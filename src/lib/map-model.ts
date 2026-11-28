@@ -48,6 +48,7 @@ export const ITEMS:Item[]=[
 {id:'wood-path',name:'Wood path',category:'Paths & fences',w:1,h:1,art:'path',color:'#c2a06d'},
 {id:'brick-path',name:'Brick path',category:'Paths & fences',w:1,h:1,art:'path',color:'#b97a62'},
 {id:'fence',name:'Wood fence',category:'Paths & fences',w:1,h:1,art:'fence',color:'#a37c4e'},
+{id:'gate',name:'Gate (reference)',category:'Paths & fences',w:1,h:1,art:'fence',color:'#d2b276',documented:true},
 {id:'oak',name:'Shade tree',category:'Nature',w:2,h:2,art:'tree',color:'#699b4e'},
 {id:'pine',name:'Pine tree',category:'Nature',w:2,h:2,art:'pine',color:'#427e61'},
 {id:'flowerbed',name:'Flower bed',category:'Nature',w:1,h:1,art:'flower',color:'#e6a3c8'},
@@ -107,13 +108,62 @@ export function footprint(o:Placed):Point[]{const d=dimensions(o),out:Point[]=[]
 export const posKey=(x:number,y:number)=>x+','+y;
 export function occupancy(objects:Placed[]){const out=new Map<string,Placed>();for(const o of objects)for(const p of footprint(o))out.set(posKey(p.x,p.y),o);return out}
 export function terrainAt(map:FarmMap,x:number,y:number):Terrain|undefined{return x>=0&&y>=0&&x<map.w&&y<map.h?map.tiles[y*map.w+x]:undefined}
+// Confirmed external placement geometry from Starplan's game-derived reference.
+// This is construction clearance, NOT the complete original CollisionMap.
+function referenceClearance(o:Placed):{x:number;y:number;passableOnly:boolean}[]{
+ if(o.itemId==='game-farmhouse')return [{x:o.x+9,y:o.y+4,passableOnly:false},{x:o.x+5,y:o.y+5,passableOnly:true}];
+ if(o.itemId==='game-greenhouse')return Array.from({length:6},(_,i)=>({x:o.x+2+i%3,y:o.y+6+Math.floor(i/3),passableOnly:true}));
+ return [];
+}
+function referencePath(o:Placed){return ['stone-path','wood-path','brick-path'].includes(o.itemId)}
+function referenceClearanceError(map:FarmMap,objects:Placed[],o:Placed,occupied:Map<string,Placed>){
+ // Only the identified compact reference maps opt into the new rules. Older saved plans remain unchanged.
+ if(map.restrictions?.source!=='local-restriction-mask'||!/^local-starplan-[0-7]$/.test(map.id))return null;
+ for(const p of referenceClearance(o)){
+  const t=terrainAt(map,p.x,p.y);if(!t)return 'Building clearance extends outside map boundary';
+  if(['water','cliff','forest'].includes(t))return 'Building clearance is blocked';
+  const index=p.y*map.w+p.x,r=map.restrictions;
+  if(r.access[index]!=='C'||(!p.passableOnly&&r.build[index]!=='B'))return 'Building clearance is blocked by reference terrain';
+  const other=occupied.get(posKey(p.x,p.y));if(other&&(!p.passableOnly||!referencePath(other)))return 'Building clearance overlaps an existing object';
+ }
+ const own=footprint(o);
+ for(const b of objects)for(const p of referenceClearance(b)){
+  if(own.some(t=>t.x===p.x&&t.y===p.y)&&(!p.passableOnly||!referencePath(o)))return 'Tile reserved for building clearance';
+  if(referenceClearance(o).some(t=>t.x===p.x&&t.y===p.y&&(!t.passableOnly||!p.passableOnly)))return 'Building clearance areas conflict';
+ }
+ return null;
+}
 export function placementError(map:FarmMap,objects:Placed[],o:Placed):string|null{
- if(o.rotation&&itemById.get(o.itemId)?.fixedOrientation)return 'This game footprint has a fixed orientation';const occupied=occupancy(objects);for(const p of footprint(o)){const t=terrainAt(map,p.x,p.y);if(!t)return 'Outside map boundary';if(map.restrictions){const e=restrictionError(map.restrictions,p.y*map.w+p.x,itemById.get(o.itemId)?.category??'');if(e)return e}if(t==='water'||t==='cliff'||t==='forest')return 'Blocked terrain: '+t;if(t==='road'&&itemById.get(o.itemId)?.category!=='Paths & fences')return 'Road reserved for paths and fences';if(occupied.has(posKey(p.x,p.y)))return 'Overlaps an existing object'}return null;
+ if(o.rotation&&itemById.get(o.itemId)?.fixedOrientation)return 'This game footprint has a fixed orientation';const occupied=occupancy(objects);for(const p of footprint(o)){const t=terrainAt(map,p.x,p.y);if(!t)return 'Outside map boundary';if(map.restrictions){const e=restrictionError(map.restrictions,p.y*map.w+p.x,itemById.get(o.itemId)?.category??'');if(e&&!(map.id==='local-starplan-6'&&map.restrictions.source==='local-restriction-mask'&&o.itemId==='game-farmhouse'&&o.x===59&&o.y===12&&p.x===64&&p.y===16&&map.restrictions.access[p.y*map.w+p.x]==='C'&&map.restrictions.build[p.y*map.w+p.x]==='N'&&map.restrictions.till[p.y*map.w+p.x]==='N'))return e}if(t==='water'||t==='cliff'||t==='forest')return 'Blocked terrain: '+t;if(t==='road'&&itemById.get(o.itemId)?.category!=='Paths & fences')return 'Road reserved for paths and fences';if(occupied.has(posKey(p.x,p.y)))return 'Overlaps an existing object'}return referenceClearanceError(map,objects,o,occupied);
+}
+// Pinned Starplan greenhouse-dirt property transition. Only known base cells are changed.
+const greenhouseGround:Record<string,{x:number;y:number;base:string;fourCorners?:boolean}>={
+ 'local-starplan-0':{x:25,y:10,base:'004444444004444446004444446004444446000444444000044444'},
+ 'local-starplan-3':{x:25,y:10,base:'000444466004444444004444444004444444000444444000044444'},
+ 'local-starplan-4':{x:25,y:10,base:'004444466004444444004444444004444444000444444000044444'},
+ 'local-starplan-5':{x:36,y:29,base:'444444444000044444004444444004444444004444444000444444',fourCorners:true},
+};
+/** The first successful departure from the original greenhouse location changes its base ground.
+ * The new immutable map is part of the scene snapshot, so save/undo/redo retain the transition.
+ * Never apply to imported, replaced or manually modified reference areas that differ from the pinned mask.
+ */
+export function applyGreenhouseGroundTransition(before:Plan,after:Plan):Plan{
+ if(before.map!==after.map)return after;
+ const map=before.map,area=greenhouseGround[map.id],r=map.restrictions;
+ if(!area||!r||r.source!=='local-restriction-mask'||map.w!==80||map.h!==(area.fourCorners?80:65))return after;
+ const atHome=(o:Placed)=>o.itemId==='game-greenhouse'&&o.x===area.x&&o.y===area.y;
+ if(!before.objects.some(atHome)||after.objects.some(atHome))return after;
+ const indices=Array.from({length:54},(_,i)=>(area.y+Math.floor(i/9))*map.w+area.x+i%9);
+ const bits=indices.map(i=>String((r.access[i]==='C'?0:1)|(r.build[i]==='B'?0:2)|(r.till[i]==='T'?0:4))).join('');
+ if(bits!==area.base||indices.some(i=>!['grass','soil'].includes(map.tiles[i])))return after;
+ const access=[...r.access],build=[...r.build],till=[...r.till],tiles=map.tiles.slice();
+ indices.forEach((i,j)=>{access[i]='C';build[i]='B';till[i]=area.fourCorners&&j<6?'N':'T';tiles[i]=till[i]==='T'?'soil':'grass'});
+ return {...after,map:{...map,tiles,restrictions:{...r,access:access.join(''),build:build.join(''),till:till.join('')}}};
 }
 export function moveSelection(plan:Plan,ids:Set<string>,x:number,y:number):Plan{
  const selected=plan.objects.filter(o=>ids.has(o.id));if(!selected.length)throw Error('Select objects first');
  const dx=x-Math.min(...selected.map(o=>o.x)),dy=y-Math.min(...selected.map(o=>o.y));
- const result=plan.objects.filter(o=>!ids.has(o.id));for(const o of selected){const next={...o,x:o.x+dx,y:o.y+dy};const error=placementError(plan.map,result,next);if(error)throw Error(error);result.push(next)}return {...plan,objects:result}
+ const result=plan.objects.filter(o=>!ids.has(o.id));for(const o of selected){const next={...o,x:o.x+dx,y:o.y+dy};const error=placementError(plan.map,result,next);if(error)throw Error(error);result.push(next)}return applyGreenhouseGroundTransition(plan,{...plan,objects:result})
 }
 export function irrigation(plan:Plan){const out=new Set<string>(),occupied=occupancy(plan.objects);for(const o of plan.objects){const i=itemById.get(o.itemId),r=i?.radius;if(!r)continue;for(let y=o.y-r;y<=o.y+r;y++)for(let x=o.x-r;x<=o.x+r;x++){const dx=Math.abs(x-o.x),dy=Math.abs(y-o.y);if(dx+dy===0||(i?.pattern==='cross'&&dx+dy!==1))continue;const t=terrainAt(plan.map,x,y),target=occupied.get(posKey(x,y));if((t==='grass'||t==='soil')&&(!plan.map.restrictions||!restrictionError(plan.map.restrictions,y*plan.map.w+x,'Crops'))&&(!target||itemById.get(target.itemId)?.category==='Crops'))out.add(posKey(x,y))}}return out}
 export function newPlan(id='orchard'):Plan{return {schema:2,map:originalMap(id),season:'spring',objects:[]}}

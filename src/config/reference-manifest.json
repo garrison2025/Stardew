@@ -18,16 +18,19 @@
         "src/lib/indoor-presets.ts",
         "src/lib/irrigation-optimizer.ts",
         "src/lib/screenshot-grids.ts",
-        "src/lib/data-layers.ts"
+        "src/lib/data-layers.ts",
+        "src/lib/builtin-farm-preview.ts",
+        "src/lib/compact-farm-identity.ts"
       ],
       "sources": [
         "https://stardewvalleywiki.com/Farm_Maps",
         "https://stardewvalleywiki.com/Carpenter%27s_Shop",
         "https://stardewvalleywiki.com/Sprinkler",
-        "https://github.com/Pathoschild/StardewMods/tree/f804f7135d3f7c3aa663be9f78187cee0fe2f997/DataLayers"
+        "https://github.com/Pathoschild/StardewMods/tree/f804f7135d3f7c3aa663be9f78187cee0fe2f997/DataLayers",
+        "https://github.com/StephenFluin/starplan/tree/7ee52554a2e48f47a9d99e256830d7b1b2e5954f/public/assets/restrictions"
       ],
       "sourceRights": "pending",
-      "scope": "Schematic maps, private calibrated terrain and atomic rectangular masks; exact public game masks unavailable"
+      "scope": "Eight built-in property-derived terrain reference previews using original schematic art, separate practice maps, local screenshot and compact import; source patch and dynamic game parity unverified"
     },
     {
       "path": "/bundles/",

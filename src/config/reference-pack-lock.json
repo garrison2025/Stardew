@@ -13,6 +13,10 @@
       "gitBlob": "42e97ef1f7c873ed02a3fe31168403783a4e1c1f"
     },
     {
+      "path": "src/lib/builtin-farm-preview.ts",
+      "gitBlob": "e243bff6c635b11f746796fcf17f56aef1943317"
+    },
+    {
       "path": "src/lib/bundle-data.ts",
       "gitBlob": "231af21e160b0edf17074d58d54b1c2cd8b27fef"
     },
@@ -35,6 +39,10 @@
     {
       "path": "src/lib/cart-stock.ts",
       "gitBlob": "4c09a86a8b0ff80eec11e5c1bb8fe1ee0a7c98d1"
+    },
+    {
+      "path": "src/lib/compact-farm-identity.ts",
+      "gitBlob": "b3aceaf0a558661f133a364e351f9595ecf27da4"
     },
     {
       "path": "src/lib/cooking-expansion.ts",
@@ -134,7 +142,7 @@
     },
     {
       "path": "src/lib/map-model.ts",
-      "gitBlob": "49287c246da43cb4bc7d0e2eec4f8605fc598e2e"
+      "gitBlob": "83ac6668ebcb68e62751d8f5d9d6157841701e4c"
     },
     {
       "path": "src/lib/monster-goals.ts",
@@ -257,5 +265,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r10"
+  "id": "ref-pc-1.6.15-20261128-r14"
 }

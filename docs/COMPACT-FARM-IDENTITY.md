@@ -1,0 +1,3 @@
+# Compact terrain file identification
+
+Eight fixed external Starplan file Git-blob fingerprints are independently checked by the reference CI workflow. Local file bytes are hashed in the browser before selecting dimensions. Exact matches automatically identify the eight farm types. Unknown files remain usable with the manually selected grid. A same-sized but different known farm reference is refused when previewing a recognized vanilla save. A saved label is advisory, not a cryptographic certificate of edited data. No network download is performed by the app; external directory is linked for user-initiated access. Version, commercial rights, actual runtime and full collision remain unverified. No maps, game images or third-party implementation bundled.
