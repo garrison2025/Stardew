@@ -1,6 +1,9 @@
 import assert from 'node:assert/strict';
 import {readFile} from 'node:fs/promises';
 import {createHash} from 'node:crypto';
+import {execFileSync} from 'node:child_process';
+import {TOWN_ORDERS,QI_ORDERS,ACHIEVEMENTS} from '../src/lib/save-quests.ts';
+import {NOTE_IDS,JOURNAL_IDS,HEART_EVENT_ROWS} from '../src/lib/story-observations.ts';
 import {parseSave} from '../src/lib/save-parser-core.ts';
 import {suggestedFarmGrid,buildFarmImport} from '../src/lib/save-model.ts';
 // Public test file referenced by an independent save editor, not bundled or uploaded by this project.
@@ -21,5 +24,20 @@ try{
  assert.equal(storage.containers,3);assert.equal(storage.skippedContainers,0);assert.equal(storage.unmapped,6);assert.equal(storage.stacks.length,12);assert.equal(storage.stacks.reduce((n,x)=>n+x.quantity,0),175);
  const grid=suggestedFarmGrid(s);assert.equal(grid.w,80);assert.equal(grid.h,65);assert.equal(grid.exceedsReference,false);
  const result=buildFarmImport(s,grid.w,grid.h);assert.equal(result.total,698);assert.equal(result.imported+result.issues.length,result.total);assert.ok(result.imported>=697,'Pinned 1.6.8 save mapping must not regress below 697/698');assert.ok(result.issues.length<=1);if(result.issues.length===1){const issue=result.issues[0];assert.equal(issue.kind,'object');assert.equal(s.records[issue.index].itemId,'chest');assert.equal(issue.reason,'Overlaps an existing object');const chest=s.records[issue.index];const buildings=s.records.filter(b=>b.kind==='building'&&b.x!==null&&b.y!==null&&chest.x!==null&&chest.y!==null&&chest.x>=b.x&&chest.y>=b.y&&chest.x<b.x+b.width&&chest.y<b.y+b.height);assert.equal(buildings.length,1);const b=buildings[0];assert.equal(b.itemId,'game-farmhouse');assert.deepEqual([b.width,b.height],[9,5]);assert.deepEqual([chest.x-b.x,chest.y-b.y],[1,3]);console.log('Remaining conflict verified: Farmhouse 9x5, building-relative tile (1,3), chest. No absolute coordinates or player details emitted.');}assert.equal(s.records.filter(x=>x.itemId?.startsWith('observed-bush-')).length,54);assert.equal(s.records.filter(x=>['observed-stump','observed-log','observed-boulder'].includes(x.itemId)).length,24);assert.equal(s.records.filter(x=>!x.itemId).length,0);
+ // Independent XML extraction, not another call to the project's parser.
+ const raw=JSON.parse(execFileSync('python3',['scripts/public-save-story-baseline.py',process.argv[2]],{encoding:'utf8',maxBuffer:2*1024*1024,stdio:['ignore','pipe','pipe']}));
+ const q=s.progress.quests,story=q?.story;
+ const pairs=[
+  ['notes',raw.notes,story?.notes,[...NOTE_IDS,...JOURNAL_IDS],story?.unknownNotes],
+  ['events',raw.events,story?.events,[...new Set(HEART_EVENT_ROWS.map(r=>r.id)),'520702','2120303','191393'],story?.unknownEvents],
+  ['achievements',raw.achievements,q?.achievements?.ids,Object.keys(ACHIEVEMENTS),q?.achievements?.unmapped],
+  ['orders',raw.orders,q?.orders?.ids,Object.keys({...TOWN_ORDERS,...QI_ORDERS}),q?.orders?.unmapped],
+ ];
+ let observedGroups=0;
+ for(const [name,source,actual,keys,unknown] of pairs){
+  if(source===null){assert.equal(actual,undefined);console.log('Independent XML '+name+': absent/unsupported, no completion inferred.');continue}
+  const expected=keys.filter(id=>source.includes(id));assert.deepEqual(actual,expected);assert.equal(unknown,source.filter(id=>!keys.includes(id)).length);observedGroups++;console.log('Independent XML '+name+': '+expected.length+' recognized; '+unknown+' unsupported IDs. Structural agreement only.');
+ }
+ console.log('Independent XML story comparison: '+observedGroups+' readable groups; no raw IDs emitted. Empty lists do not validate positive completion.');
  console.log('Pinned public 1.6.8 save: metadata, 698 farm records, backpack, three local storage roots and coordinate frame passed. Mapped '+result.imported+' records; '+result.issues.length+' unresolved by placement validation. No raw XML, player identity or item-level payload emitted. Not 1.6.15 gameplay or full map validation.');
 }catch{console.error('Pinned public save reference check failed; inspect source locally. No raw save details emitted.');process.exitCode=1}

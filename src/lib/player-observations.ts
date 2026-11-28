@@ -11,7 +11,7 @@ function playerOnly(raw:unknown):SaveObservations{
  const v=decodeSaveObservations(raw);
  // Never use farm-wide observations to calculate a particular player's progress.
  const {storage,bundles,walnutTasks,quests,...rest}=v;
- return {...rest,...(quests?.achievements?{quests:{achievements:quests.achievements}}:{}),walnutsFound:null,walnutsBalance:null,...(v.milestones?{milestones:{...v.milestones,obelisks:null,clock:null}}:{})};
+ return {...rest,...(quests&&(quests.achievements||quests.story)?{quests:{...(quests.achievements?{achievements:quests.achievements}:{}),...(quests.story?{story:quests.story}:{})}}:{}),walnutsFound:null,walnutsBalance:null,...(v.milestones?{milestones:{...v.milestones,obelisks:null,clock:null}}:{})};
 }
 function names(kind:CatalogKind,raw:unknown):string[]{
  const valid=new Set(CATALOGS[kind].map(x=>x.name));

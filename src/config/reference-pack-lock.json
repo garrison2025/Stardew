@@ -178,7 +178,7 @@
     },
     {
       "path": "src/lib/player-observations.ts",
-      "gitBlob": "9b313e4f288adb8d623298606e3e69a809e74a36"
+      "gitBlob": "ec41dc77331d988f02aaa9aae4c09af74429cce3"
     },
     {
       "path": "src/lib/private-saved-counts.ts",
@@ -242,7 +242,7 @@
     },
     {
       "path": "src/lib/save-quests.ts",
-      "gitBlob": "f3079b334cce5e6a89a95e682ba8fc38fda8f7b4"
+      "gitBlob": "21b14392fbb91dcca9b3031a72a7b1876deb5f64"
     },
     {
       "path": "src/lib/save-stats.ts",
@@ -269,6 +269,10 @@
       "gitBlob": "08eae092c1dcd97882d9e940bb71a459d56e1e7e"
     },
     {
+      "path": "src/lib/story-observations.ts",
+      "gitBlob": "0494d8d5d39a225df07275bc1429837287302111"
+    },
+    {
       "path": "src/lib/team-perfection.ts",
       "gitBlob": "69bfaa4485eb8c8d86d913482a47c6618d24ca79"
     },
@@ -285,5 +289,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r26"
+  "id": "ref-pc-1.6.15-20261128-r27"
 }
