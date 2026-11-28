@@ -1,3 +1,4 @@
+import {restrictionError} from './data-layers.ts';
 import {itemById,occupancy,terrainAt,irrigation,posKey,placementError,type Plan,type Placed} from './map-model.ts';
 export const sprinklerIds=['basic-sprinkler','quality-sprinkler','iridium-sprinkler','nozzle-basic','nozzle-quality','nozzle-iridium'] as const;
 export type SprinklerId=typeof sprinklerIds[number];
@@ -20,7 +21,7 @@ export function proposeIrrigation(plan:Plan,itemId:SprinklerId,limit:number,opti
  const byCell=new Map<string,Candidate>(),deadline=performance.now()+1800;
  for(const crop of crops){const target=posKey(crop.x,crop.y);if(!missing.has(target))continue;
  for(let dy=-radius;dy<=radius;dy++)for(let dx=-radius;dx<=radius;dx++){if(dx===0&&dy===0||item.pattern==='cross'&&Math.abs(dx)+Math.abs(dy)!==1)continue;
- const x=crop.x+dx,y=crop.y+dy,k=posKey(x,y),t=terrainAt(plan.map,x,y);if(!inside(x,y)||(t!=='grass'&&t!=='soil')||occupied.has(k))continue;
+ const x=crop.x+dx,y=crop.y+dy,k=posKey(x,y),t=terrainAt(plan.map,x,y);if(!inside(x,y)||(t!=='grass'&&t!=='soil')||occupied.has(k)||(plan.map.restrictions&&restrictionError(plan.map.restrictions,y*plan.map.w+x,'Equipment')))continue;
  let c=byCell.get(k);if(!c){c={x,y,targets:new Set()};byCell.set(k,c)}c.targets.add(target);
  }}
  const candidates=[...byCell.values()].sort((a,b)=>a.y-b.y||a.x-b.x);

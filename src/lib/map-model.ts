@@ -1,3 +1,4 @@
+import {decodeTileRestrictions,importDataLayers,restrictionError,type TileRestrictions} from './data-layers.ts';
 // Independently authored terrain and object model. None of these maps or footprints are official game data.
 import {GAME_CROPS} from './crop-data.ts';
 import {decodeInterior,type Interior,type RoomId} from './indoor-model.ts';
@@ -5,7 +6,7 @@ export const TERRAIN=['grass','soil','water','cliff','forest','road'] as const;
 export type Terrain=typeof TERRAIN[number];
 export const SEASONS=['spring','summer','autumn','winter'] as const;
 export type Season=typeof SEASONS[number];
-export type FarmMap={id:string;name:string;w:number;h:number;tiles:Terrain[];source:'original'|'local'};
+export type FarmMap={id:string;name:string;w:number;h:number;tiles:Terrain[];source:'original'|'local';restrictions?:TileRestrictions};
 export type Item={id:string;name:string;category:string;w:number;h:number;art:string;color:string;radius?:number;pattern?:'cross'|'square';fixedOrientation?:boolean;documented?:boolean};
 export const ITEMS:Item[]=[
 {id:'seedling',name:'Seedling',category:'Crops',w:1,h:1,art:'crop',color:'#9cc85a'},
@@ -107,14 +108,14 @@ export const posKey=(x:number,y:number)=>x+','+y;
 export function occupancy(objects:Placed[]){const out=new Map<string,Placed>();for(const o of objects)for(const p of footprint(o))out.set(posKey(p.x,p.y),o);return out}
 export function terrainAt(map:FarmMap,x:number,y:number):Terrain|undefined{return x>=0&&y>=0&&x<map.w&&y<map.h?map.tiles[y*map.w+x]:undefined}
 export function placementError(map:FarmMap,objects:Placed[],o:Placed):string|null{
- if(o.rotation&&itemById.get(o.itemId)?.fixedOrientation)return 'This game footprint has a fixed orientation';const occupied=occupancy(objects);for(const p of footprint(o)){const t=terrainAt(map,p.x,p.y);if(!t)return 'Outside map boundary';if(t==='water'||t==='cliff'||t==='forest')return 'Blocked terrain: '+t;if(t==='road'&&itemById.get(o.itemId)?.category!=='Paths & fences')return 'Road reserved for paths and fences';if(occupied.has(posKey(p.x,p.y)))return 'Overlaps an existing object'}return null;
+ if(o.rotation&&itemById.get(o.itemId)?.fixedOrientation)return 'This game footprint has a fixed orientation';const occupied=occupancy(objects);for(const p of footprint(o)){const t=terrainAt(map,p.x,p.y);if(!t)return 'Outside map boundary';if(map.restrictions){const e=restrictionError(map.restrictions,p.y*map.w+p.x,itemById.get(o.itemId)?.category??'');if(e)return e}if(t==='water'||t==='cliff'||t==='forest')return 'Blocked terrain: '+t;if(t==='road'&&itemById.get(o.itemId)?.category!=='Paths & fences')return 'Road reserved for paths and fences';if(occupied.has(posKey(p.x,p.y)))return 'Overlaps an existing object'}return null;
 }
 export function moveSelection(plan:Plan,ids:Set<string>,x:number,y:number):Plan{
  const selected=plan.objects.filter(o=>ids.has(o.id));if(!selected.length)throw Error('Select objects first');
  const dx=x-Math.min(...selected.map(o=>o.x)),dy=y-Math.min(...selected.map(o=>o.y));
  const result=plan.objects.filter(o=>!ids.has(o.id));for(const o of selected){const next={...o,x:o.x+dx,y:o.y+dy};const error=placementError(plan.map,result,next);if(error)throw Error(error);result.push(next)}return {...plan,objects:result}
 }
-export function irrigation(plan:Plan){const out=new Set<string>(),occupied=occupancy(plan.objects);for(const o of plan.objects){const i=itemById.get(o.itemId),r=i?.radius;if(!r)continue;for(let y=o.y-r;y<=o.y+r;y++)for(let x=o.x-r;x<=o.x+r;x++){const dx=Math.abs(x-o.x),dy=Math.abs(y-o.y);if(dx+dy===0||(i?.pattern==='cross'&&dx+dy!==1))continue;const t=terrainAt(plan.map,x,y),target=occupied.get(posKey(x,y));if((t==='grass'||t==='soil')&&(!target||itemById.get(target.itemId)?.category==='Crops'))out.add(posKey(x,y))}}return out}
+export function irrigation(plan:Plan){const out=new Set<string>(),occupied=occupancy(plan.objects);for(const o of plan.objects){const i=itemById.get(o.itemId),r=i?.radius;if(!r)continue;for(let y=o.y-r;y<=o.y+r;y++)for(let x=o.x-r;x<=o.x+r;x++){const dx=Math.abs(x-o.x),dy=Math.abs(y-o.y);if(dx+dy===0||(i?.pattern==='cross'&&dx+dy!==1))continue;const t=terrainAt(plan.map,x,y),target=occupied.get(posKey(x,y));if((t==='grass'||t==='soil')&&(!plan.map.restrictions||!restrictionError(plan.map.restrictions,y*plan.map.w+x,'Crops'))&&(!target||itemById.get(target.itemId)?.category==='Crops'))out.add(posKey(x,y))}}return out}
 export function newPlan(id='orchard'):Plan{return {schema:2,map:originalMap(id),season:'spring',objects:[]}}
 export function demoPlan(id='orchard'):Plan{
  const p=newPlan(id);let count=0;
@@ -125,7 +126,7 @@ export function demoPlan(id='orchard'):Plan{
 }
 export function decodeMap(input:unknown):FarmMap{
  const v=input as Partial<FarmMap>|null;if(!v||typeof v.id!=='string'||v.id.length>80||typeof v.name!=='string'||!v.name.trim()||v.name.length>100||!Number.isInteger(v.w)||!Number.isInteger(v.h)||v.w!<8||v.h!<8||v.w!>160||v.h!>160||!Array.isArray(v.tiles)||v.tiles.length!==v.w!*v.h!||v.tiles.some(t=>!TERRAIN.includes(t)))throw Error('Invalid map package: expected 8–160 tiles per dimension and known terrain codes.');
- return {id:v.id,name:v.name,w:v.w!,h:v.h!,tiles:[...v.tiles],source:'local'}
+ return {id:v.id,name:v.name,w:v.w!,h:v.h!,tiles:[...v.tiles],source:'local',...(v.restrictions!==undefined?{restrictions:decodeTileRestrictions(v.restrictions,v.w!,v.h!)}:{})}
 }
 export function decodePlan(input:unknown):Plan{
  const v=input as Partial<Plan>|null;if(!v||v.schema!==2||!v.map||!SEASONS.includes(v.season as Season)||!Array.isArray(v.objects)||v.objects.length>4096)throw Error('Invalid scene plan');
@@ -172,4 +173,10 @@ export function paintTerrainRect(plan:Plan,rect:{x:number;y:number;w:number;h:nu
  const tiles=[...plan.map.tiles];for(let y=rect.y;y<rect.y+rect.h;y++)for(let x=rect.x;x<rect.x+rect.w;x++)tiles[y*plan.map.w+x]=tile;
  const next={...plan.map,tiles};for(const o of plan.objects){const error=placementError(next,[],o);if(error)throw Error('Terrain change would invalidate an existing object: '+error)}
  return {...plan,map:next};
+}
+
+/** Symbolic local preview. A blocked tile is not assumed to be water or a cliff. */
+export function dataLayersMap(raw:readonly unknown[],w:number,h:number):FarmMap{
+ const restrictions=importDataLayers(raw,w,h),map=blankLocalMap(w,h,'Data Layers snapshot');
+ return {...map,id:'local-data-layers',tiles:[...restrictions.till].map(t=>t==='T'||t==='D'?'soil':'grass'),restrictions};
 }

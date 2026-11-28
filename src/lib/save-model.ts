@@ -12,6 +12,11 @@ export const VANILLA_FARM_GRIDS=[
  {id:4,name:'Wilderness',w:80,h:65}, {id:5,name:'Four Corners',w:80,h:80},
  {id:6,name:'Beach',w:110,h:110}, {id:7,name:'Meadowlands',w:100,h:75}
 ] as const;
+// SaveGame stores additional farm IDs as strings; 7 is the runtime custom-farm slot, not a unique saved ID.
+export function parseVanillaFarmType(raw:string):number|null{
+ if(raw==='MeadowlandsFarm')return 7;
+ return /^[0-6]$/.test(raw)?Number(raw):null;
+}
 export function vanillaFarmGrid(farmType:number|null){return VANILLA_FARM_GRIDS.find(g=>g.id===farmType)}
 /** Prefer the documented vanilla frame; never silently truncate larger observed footprints. */
 export function suggestedFarmGrid(snapshot:SaveSnapshot){

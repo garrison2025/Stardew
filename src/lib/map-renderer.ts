@@ -1,3 +1,4 @@
+import type {RestrictionLayer} from './data-layers';
 import {dimensions,itemById,irrigation,type FarmMap,type Season,type Plan,type Placed} from './map-model';
 import {TILE,rect,sprite,drawTerrainArt} from './pixel-art';
 import {OUTDOOR,OUTDOOR_TILES,drawPackTile} from './art-packs';
@@ -18,4 +19,10 @@ export function drawObjects(c:CanvasRenderingContext2D,plan:Plan,selected:Set<st
  if(showGrid){c.strokeStyle='#324a3544';c.lineWidth=.4;c.beginPath();for(let x=0;x<=plan.map.w;x++){c.moveTo(x*TILE,0);c.lineTo(x*TILE,plan.map.h*TILE)}for(let y=0;y<=plan.map.h;y++){c.moveTo(0,y*TILE);c.lineTo(plan.map.w*TILE,y*TILE)}c.stroke()}
  for(const o of sorted)if(selected.has(o.id)){const d=dimensions(o);c.strokeStyle='#fff2a1';c.lineWidth=1.5;c.strokeRect(o.x*TILE+.75,o.y*TILE+.75,d.w*TILE-1.5,d.h*TILE-1.5)}
  if(ghost){const d=dimensions(ghost);if(valid){c.save();c.globalAlpha=.65;drawItem(c,ghost,plan.season,false,atlas);c.restore()}rect(c,ghost.x*TILE,ghost.y*TILE,d.w*TILE,d.h*TILE,valid?'#cbe98d45':'#d9545480');c.strokeStyle=valid?'#f1ffd1':'#ffb5a8';c.lineWidth=1;c.strokeRect(ghost.x*TILE+.5,ghost.y*TILE+.5,d.w*TILE-1,d.h*TILE-1)}
+}
+
+export function drawRestrictionLayer(c:CanvasRenderingContext2D,map:FarmMap,layer:RestrictionLayer){
+ if(!map.restrictions)return;
+ const mask=map.restrictions[layer],colors:Record<string,string>={C:'#69ad7650',B:'#69ad7650',T:'#69ad7650',D:'#a880c980',O:'#e6a34d99',N:'#41495199',W:'#527ebcaa'};
+ c.save();for(let i=0;i<mask.length;i++){c.fillStyle=colors[mask[i]];c.fillRect(i%map.w*TILE,Math.floor(i/map.w)*TILE,TILE,TILE)}c.restore();
 }
