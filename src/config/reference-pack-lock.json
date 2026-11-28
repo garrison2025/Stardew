@@ -174,7 +174,7 @@
     },
     {
       "path": "src/lib/recipe-unlocks.ts",
-      "gitBlob": "a5ecde2d0bc18a679402e603ef17d0f2672508a1"
+      "gitBlob": "57176a70a00b1c4c0e7c0fbe47c8615b16798944"
     },
     {
       "path": "src/lib/remixed-bundles.ts",
@@ -257,5 +257,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r8"
+  "id": "ref-pc-1.6.15-20261128-r9"
 }

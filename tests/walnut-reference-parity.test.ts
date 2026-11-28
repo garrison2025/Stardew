@@ -1,0 +1,10 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {readFileSync} from 'node:fs';import {TASK_MAP,TASKS} from '../src/lib/walnut-data.ts';import {FULL_WALNUT_KEYS,LIMITED_WALNUT_KEYS,readWalnutObservation} from '../src/lib/walnut-observations.ts';import {parseSaveXml} from '../src/lib/save-xml.ts';
+const f=JSON.parse(readFileSync(new URL('./fixtures/walnut-checkup-reference.json',import.meta.url),'utf8')) as {full:Record<string,number>;limited:Record<string,number>;coconut:number};
+const entry=(k:string,n:number)=>'<item><key><string>'+k+'</string></key><value><int>'+n+'</int></value></item>';
+const observe=(flags:string[],drops:string[],coconut=false)=>readWalnutObservation(parseSaveXml('<SaveGame><collectedNutTracker>'+flags.map(k=>'<string>'+k+'</string>').join('')+'</collectedNutTracker><limitedNutDrops>'+drops.join('')+'</limitedNutDrops><goldenCoconutCracked>'+coconut+'</goldenCoconutCracked></SaveGame>').root)!.found;
+test('all 68 tracker keys and counts match pinned independent Checkup; coconut is separate',()=>{
+ assert.deepEqual(Object.keys(f.full).sort(),Object.values(FULL_WALNUT_KEYS).sort());assert.deepEqual(Object.keys(f.limited).sort(),Object.values(LIMITED_WALNUT_KEYS).sort());
+ for(const [id,k] of Object.entries(FULL_WALNUT_KEYS)){assert.equal(TASK_MAP.get(id)!.count,f.full[k]);assert.deepEqual(observe([k],[]),{[id]:f.full[k]});assert.deepEqual(observe([],[entry(k,f.full[k])]),{});}
+ for(const [id,k] of Object.entries(LIMITED_WALNUT_KEYS)){const task=TASK_MAP.get(id)!;assert.equal(task.count,f.limited[k]);assert.deepEqual(observe([],[entry(k,9999)]),{[id]:task.count});assert.deepEqual(observe([k],[]),{});for(let n=0;n<=task.count;n++)assert.deepEqual(observe([],[entry(k,n)]),n>0&&(task.partial||n===task.count)?{[id]:n}:{});}
+ const all=observe(Object.keys(f.full),Object.entries(f.limited).map(([k,n])=>entry(k,n)),true);assert.equal(Object.keys(all).length,69);assert.equal(Object.values(all).reduce((a,b)=>a+b,0),130);assert.deepEqual(all,Object.fromEntries(TASKS.map(t=>[t.id,t.count])));
+});
