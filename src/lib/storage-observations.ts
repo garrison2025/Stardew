@@ -15,20 +15,48 @@ export function readStorage(root:SaveElement):StorageObservation|undefined{
  const locations=child(root,'locations');if(!locations||xsi(locations,'nil')==='true')return undefined;
  const records=new Map<string,BackpackStack>();let containers=0,skippedContainers=0,unmapped=0;
  const seen=new Set<SaveElement>(),seenLocations=new Set<SaveElement>();
- function take(e:SaveElement,fridge=false){
+ const nil=(e:SaveElement)=>['true','1'].includes(xsi(e,'nil')??'');
+ type ContainerKind='placed'|'fridge'|'auto-grabber'|'building';
+ function take(e:SaveElement,kind:ContainerKind){
   if(seen.has(e))return;seen.add(e);if(seen.size>10000)throw Error('Storage observation limit');
-  if(xsi(e,'nil')==='true')return;
-  const special=text(e,'SpecialChestType')||text(e,'specialChestType');
-  if((!fridge&&xsi(e,'type')!=='Chest')||text(e,'playerChest')!=='true'||(special&&special!=='None'&&special!=='0')||text(e,'isGlobalInventory')==='true'||text(e,'globalInventoryId')){skippedContainers++;return}
+  if(nil(e))return;
+  const special=text(e,'specialChestType')||text(e,'SpecialChestType');
+  // Only these are local item lists. Never add global, linked, gift or shipping inventories.
+  const localKind=!special||['None','0','BigChest'].includes(special);
+  const typed=xsi(e,'type');
+  const localOwner=kind==='placed'||kind==='fridge'?text(e,'playerChest')==='true':true;
+  if((typed&&typed!=='Chest')||!localKind||!localOwner||text(e,'isGlobalInventory')==='true'||text(e,'globalInventoryId')||text(e,'giftbox')==='true'||text(e,'giftboxIsStarterGift')==='true'){skippedContainers++;return}
   const b=readBackpack(e);if(!b){skippedContainers++;return}
   containers++;unmapped+=b.unmapped;
   for(const s of b.stacks){const k=s.id+':'+s.quality,n=(records.get(k)?.quantity??0)+s.quantity;if(n>1000000||(!records.has(k)&&records.size>=4096)){unmapped++;continue}records.set(k,{...s,quantity:n})}
  }
  function scan(loc:SaveElement,depth=0){
-  if(depth>16||seenLocations.has(loc)||xsi(loc,'nil')==='true')return;seenLocations.add(loc);
-  for(const e of child(loc,'objects')?.children??[]){if(e.localName!=='item')continue;const obj=child(child(e,'value'),'Object');if(obj&&xsi(obj,'type')==='Chest')take(obj)}
-  const f=child(loc,'fridge');if(f)take(f,true);
-  for(const b of child(loc,'buildings')?.children??[]){const indoors=child(b,'indoors');if(indoors){const nested=child(indoors,'GameLocation');scan(nested??indoors,depth+1)}}
+  if(seenLocations.has(loc)||nil(loc))return;
+  if(depth>16||seenLocations.size>=10000)throw Error('Location observation limit');
+  seenLocations.add(loc);
+  for(const e of child(loc,'objects')?.children??[]){
+   if(e.localName!=='item')continue;const obj=child(child(e,'value'),'Object');if(!obj||nil(obj))continue;
+   if(xsi(obj,'type')==='Chest'){take(obj,'placed');continue}
+   const held=child(obj,'heldObject');
+   if(held&&!nil(held)&&xsi(held,'type')==='Chest'){
+    const id=text(obj,'itemId')||text(obj,'parentSheetIndex');
+    if((!xsi(obj,'type')||xsi(obj,'type')==='Object')&&(id==='(BC)165'||(id==='165'&&text(obj,'bigCraftable')==='true')))take(held,'auto-grabber');
+    else skippedContainers++;
+   }
+  }
+  const f=child(loc,'fridge');
+  if(f&&!nil(f)){
+   if(['FarmHouse','Cabin','IslandFarmHouse'].includes(xsi(loc,'type')??'')||['FarmHouse','Cabin','IslandFarmHouse'].includes(text(loc,'name')))take(f,'fridge');
+   else skippedContainers++;
+  }
+  for(const b of child(loc,'buildings')?.children??[]){
+   if(b.localName!=='Building'||nil(b))continue;
+   for(const c of child(b,'buildingChests')?.children??[]){
+    if(c.localName==='Chest'||xsi(c,'type')==='Chest')take(c,'building');
+    else if(!nil(c))skippedContainers++;
+   }
+   const indoors=child(b,'indoors');if(indoors&&!nil(indoors)){const nested=child(indoors,'GameLocation');scan(nested??indoors,depth+1)}
+  }
  }
  try{for(const loc of locations.children)if(loc.localName==='GameLocation')scan(loc);return containers||skippedContainers?decodeStorage({scope:'recognized-location-storage',containers,skippedContainers,unmapped,stacks:[...records.values()]}):undefined}catch{return undefined}
 }
