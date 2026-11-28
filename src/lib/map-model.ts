@@ -107,8 +107,33 @@ export function footprint(o:Placed):Point[]{const d=dimensions(o),out:Point[]=[]
 export const posKey=(x:number,y:number)=>x+','+y;
 export function occupancy(objects:Placed[]){const out=new Map<string,Placed>();for(const o of objects)for(const p of footprint(o))out.set(posKey(p.x,p.y),o);return out}
 export function terrainAt(map:FarmMap,x:number,y:number):Terrain|undefined{return x>=0&&y>=0&&x<map.w&&y<map.h?map.tiles[y*map.w+x]:undefined}
+// Confirmed external placement geometry from Starplan's game-derived reference.
+// This is construction clearance, NOT the complete original CollisionMap.
+function referenceClearance(o:Placed):{x:number;y:number;passableOnly:boolean}[]{
+ if(o.itemId==='game-farmhouse')return [{x:o.x+9,y:o.y+4,passableOnly:false},{x:o.x+5,y:o.y+5,passableOnly:true}];
+ if(o.itemId==='game-greenhouse')return Array.from({length:6},(_,i)=>({x:o.x+2+i%3,y:o.y+6+Math.floor(i/3),passableOnly:true}));
+ return [];
+}
+function referencePath(o:Placed){return ['stone-path','wood-path','brick-path'].includes(o.itemId)}
+function referenceClearanceError(map:FarmMap,objects:Placed[],o:Placed,occupied:Map<string,Placed>){
+ // Only the identified compact reference maps opt into the new rules. Older saved plans remain unchanged.
+ if(map.restrictions?.source!=='local-restriction-mask'||!/^local-starplan-[0-7]$/.test(map.id))return null;
+ for(const p of referenceClearance(o)){
+  const t=terrainAt(map,p.x,p.y);if(!t)return 'Building clearance extends outside map boundary';
+  if(['water','cliff','forest'].includes(t))return 'Building clearance is blocked';
+  const index=p.y*map.w+p.x,r=map.restrictions;
+  if(r.access[index]!=='C'||(!p.passableOnly&&r.build[index]!=='B'))return 'Building clearance is blocked by reference terrain';
+  const other=occupied.get(posKey(p.x,p.y));if(other&&(!p.passableOnly||!referencePath(other)))return 'Building clearance overlaps an existing object';
+ }
+ const own=footprint(o);
+ for(const b of objects)for(const p of referenceClearance(b)){
+  if(own.some(t=>t.x===p.x&&t.y===p.y)&&(!p.passableOnly||!referencePath(o)))return 'Tile reserved for building clearance';
+  if(referenceClearance(o).some(t=>t.x===p.x&&t.y===p.y&&(!t.passableOnly||!p.passableOnly)))return 'Building clearance areas conflict';
+ }
+ return null;
+}
 export function placementError(map:FarmMap,objects:Placed[],o:Placed):string|null{
- if(o.rotation&&itemById.get(o.itemId)?.fixedOrientation)return 'This game footprint has a fixed orientation';const occupied=occupancy(objects);for(const p of footprint(o)){const t=terrainAt(map,p.x,p.y);if(!t)return 'Outside map boundary';if(map.restrictions){const e=restrictionError(map.restrictions,p.y*map.w+p.x,itemById.get(o.itemId)?.category??'');if(e)return e}if(t==='water'||t==='cliff'||t==='forest')return 'Blocked terrain: '+t;if(t==='road'&&itemById.get(o.itemId)?.category!=='Paths & fences')return 'Road reserved for paths and fences';if(occupied.has(posKey(p.x,p.y)))return 'Overlaps an existing object'}return null;
+ if(o.rotation&&itemById.get(o.itemId)?.fixedOrientation)return 'This game footprint has a fixed orientation';const occupied=occupancy(objects);for(const p of footprint(o)){const t=terrainAt(map,p.x,p.y);if(!t)return 'Outside map boundary';if(map.restrictions){const e=restrictionError(map.restrictions,p.y*map.w+p.x,itemById.get(o.itemId)?.category??'');if(e)return e}if(t==='water'||t==='cliff'||t==='forest')return 'Blocked terrain: '+t;if(t==='road'&&itemById.get(o.itemId)?.category!=='Paths & fences')return 'Road reserved for paths and fences';if(occupied.has(posKey(p.x,p.y)))return 'Overlaps an existing object'}return referenceClearanceError(map,objects,o,occupied);
 }
 export function moveSelection(plan:Plan,ids:Set<string>,x:number,y:number):Plan{
  const selected=plan.objects.filter(o=>ids.has(o.id));if(!selected.length)throw Error('Select objects first');
