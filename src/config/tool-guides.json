@@ -14,7 +14,7 @@
         "Copy a share link for a supported map or export editable JSON or PNG. Recipients can preview the shared map before opening it. Personal screenshots, saves and persistent local projects require the separate private workspace."
       ]
     ],
-    "example": "Place nine crop markers around an iridium sprinkler on an unobstructed practice grid. Turn on water coverage to see which crop cells are reached; the sprinkler occupies its own tile.",
+    "example": "Place an iridium sprinkler in the center of a 5 × 5 patch on a practice map. Add crop markers to the other 24 tiles and enable irrigation coverage. The 24 crop tiles are in range; the sprinkler occupies the center tile.",
     "faq": [
       [
         "Can I plan a Stardew Valley farm layout on mobile?",
@@ -61,7 +61,7 @@
         "Filter incomplete bundles by season and export the checklist."
       ]
     ],
-    "example": "If a bundle requires any three of five candidates, three fully donated qualifying slots complete it. Partial quantities do not complete a slot.",
+    "example": "In the standard Spring Crops Bundle, mark Parsnip, Green Bean and Cauliflower. The bundle still needs Potato. Only complete donations count toward a slot.",
     "faq": [
       [
         "Do I need every optional bundle item?",
@@ -96,7 +96,7 @@
         "Review donation milestones, arrange a practice display grid and export progress."
       ]
     ],
-    "example": "Mark one newly found mineral as Found only. The ready-to-donate count increases but the museum donation total does not. Mark Donated after delivering it.",
+    "example": "Set a mineral to Found. The ready-to-donate count increases, while the donation count stays the same. Set it to Donated after handing it in; the donation count increases by one.",
     "faq": [
       [
         "How many museum donations are tracked?",
@@ -127,7 +127,7 @@
         "Use target search to compare geode alternatives and a stock-bounded sequence. Check conditional rewards, mine-floor candidates and your museum donations before acting."
       ]
     ],
-    "example": "With zero geodes previously opened, opening 1 is the first candidate. Compare the five geode types, check Golden Coconut separately, and use the independent Mystery Box count for its three reward scenarios.",
+    "example": "Enter zero previously opened geodes. The first candidate should be opening 1. Changing the container type compares alternatives for that opening; use a separate count for Mystery Boxes.",
     "faq": [
       [
         "Can I enter my own game IDs?",
@@ -174,7 +174,7 @@
         "Check matched standard bundle donations and collection totals; load recorded professions, XP or earnings in related calculators and export a local backup."
       ]
     ],
-    "example": "A recognized cooked recipe with a positive count can mark the recipe complete. A missing field does not prove zero completion.",
+    "example": "Use the private workspace to inspect a supported save with a positive Fried Egg cooking record. After merging recognized progress, Fried Egg is complete in Cooking. A missing cooking field leaves that record unknown.",
     "faq": [
       [
         "Does a game save leave my device?",
@@ -217,7 +217,7 @@
         "Enter available machines and cash assumptions to inspect a simplified daily economy."
       ]
     ],
-    "example": "One parsnip seed costs 20g and sells at 35g normal quality. Planting on day 1 yields a day 5 harvest and 15g net before other costs.",
+    "example": "Take one 20g Parsnip Seed planted on Spring 1. With normal growth and a normal-quality sale on Spring 5, it earns 35g gross and 15g after the seed cost.",
     "faq": [
       [
         "Which crop is most profitable?",
@@ -268,7 +268,7 @@
         "Apply the suggested selection, inspect category and item points, and adjust manually."
       ]
     ],
-    "example": "One active normal-quality item worth 400g earns six item points. Without a recognized category bonus the displayed reference score is 14 − 7 + 6 = 13.",
+    "example": "Enter one normal-quality item worth 400g and leave the other eight slots empty. With no recognized category bonus, the reference score is 14 − 7 + 6 = 13 points.",
     "faq": [
       [
         "How many points win first place?",
@@ -299,7 +299,7 @@
         "Review incomplete fish and export the collection record."
       ]
     ],
-    "example": "Filter by spring and search for a fish name; total collection progress remains independent of the visible list.",
+    "example": "Search for Catfish and compare its Spring catch conditions with the selected fishing location. Changing the filters narrows the visible list and leaves collection progress unchanged.",
     "faq": [
       [
         "Does this list include Legendary Fish II?",
@@ -334,7 +334,7 @@
         "Use the related collection trackers and load saved manual counts in the private workspace."
       ]
     ],
-    "example": "77 of 154 shipping entries contribute 7.5 of 15 percentage points under the reference formula. Unrecorded categories remain unknown.",
+    "example": "Suppose your Full Shipment checklist shows 77 of 154 entries. Half of the 15 percentage points available for shipping contributes 7.5 points to the reference total.",
     "faq": [
       [
         "Does this calculate exact in-game perfection?",
@@ -377,7 +377,7 @@
         "Enter owned materials and optional prices; export the shortages and ingredient plan."
       ]
     ],
-    "example": "For two identical crafting batches, every direct ingredient quantity is doubled. Output quantity may be greater than two if a recipe produces multiple units.",
+    "example": "Plan two regular Chest crafts. Each chest requires 50 Wood, so the material total is 100 Wood before subtracting stock.",
     "faq": [
       [
         "Does learning a crafting recipe count toward completion?",
@@ -412,7 +412,7 @@
         "Filter incomplete entries and export the record."
       ]
     ],
-    "example": "Finding a Parsnip alone does not complete the shipping entry; mark it complete after the relevant shipping action.",
+    "example": "Find Parsnip in the collection. Harvesting it leaves its checklist entry open. Mark the entry complete after shipping it through the farm shipping bin.",
     "faq": [
       [
         "How many items are tracked?",
@@ -443,7 +443,7 @@
         "Compare stock with requirements and record dishes actually cooked."
       ]
     ],
-    "example": "Two Fried Egg batches require two eggs. Owning the recipe alone does not complete the cooking record.",
+    "example": "Plan two Fried Egg batches with no finished portions in stock. Each batch uses one Egg, so the ingredient total is two Eggs.",
     "faq": [
       [
         "How many cooking recipes are listed?",
@@ -482,7 +482,7 @@
         "Use the balance ledger; lifetime walnuts and spendable balance are different."
       ]
     ],
-    "example": "If you have found 30 lifetime walnuts and spent 10, the available balance is 20 under that manual ledger.",
+    "example": "Record 30 lifetime Golden Walnuts found and 10 spent in the manual ledger. The balance is 20 walnuts, while the lifetime total stays at 30.",
     "faq": [
       [
         "How many Golden Walnuts are in the reference target?",
@@ -521,7 +521,7 @@
         "Choose a matching starter map, practice map or farm-specific layout example. The private workspace only preselects a linked example until you explicitly load it."
       ]
     ],
-    "example": "Compare Standard with Beach using the reference tillable counts, but remember that beach sand and terrain constraints limit sprinkler use.",
+    "example": "Compare Standard Farm and Beach Farm. Review their reference tillable counts, then check the Beach description before choosing an irrigation layout because sprinklers do not work on sand.",
     "faq": [
       [
         "Which farm has the most tillable tiles in the reference table?",
@@ -560,7 +560,7 @@
         "Inspect the score and remaining points to four candles."
       ]
     ],
-    "example": "A lifetime earnings input of 1,000,000g contributes seven income points in the reference calculation.",
+    "example": "Enter 1,000,000g in lifetime earnings. The income category contributes seven points. Four candles require at least 12 points across all categories.",
     "faq": [
       [
         "How many points earn four candles?",
@@ -587,7 +587,7 @@
         "Record mastery points independently; export or save local progress."
       ]
     ],
-    "example": "At 15,000 skill XP, the reference threshold table reports level 10.",
+    "example": "Enter 15,000 XP for a skill to reach level 10 in the threshold table. Use the profession selector separately to compare choices.",
     "faq": [
       [
         "How many base skills are there?",

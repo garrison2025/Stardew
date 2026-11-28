@@ -1,0 +1,157 @@
+{
+  "referenceVersion": "1.6.15",
+  "tools": {
+    "": {
+      "limitations": "Built-in terrain maps illustrate pinned restrictions; they do not reproduce every dynamic obstruction.",
+      "sources": [
+        {
+          "label": "Farm maps and sprinkler coverage",
+          "url": "https://stardewvalleywiki.com/Farm_Maps"
+        },
+        {
+          "label": "Sprinkler range",
+          "url": "https://stardewvalleywiki.com/Sprinkler"
+        }
+      ]
+    },
+    "bundles": {
+      "limitations": "Remixed bundles can change the requirements. Saved donations are applied to a standard bundle only when its full definition matches.",
+      "sources": [
+        {
+          "label": "Community Center bundles",
+          "url": "https://stardewvalleywiki.com/Bundles"
+        }
+      ]
+    },
+    "museum": {
+      "limitations": "The display is a practice grid. Exact Museum room geometry is outside its scope.",
+      "sources": [
+        {
+          "label": "Museum donations and rewards",
+          "url": "https://stardewvalleywiki.com/Museum"
+        }
+      ]
+    },
+    "predictor": {
+      "limitations": "Offer and event predictions depend on the input seed, the opening count or the game date. Exact results for every save are unverified.",
+      "sources": [
+        {
+          "label": "Geode opening rules",
+          "url": "https://stardewvalleywiki.com/Geode"
+        },
+        {
+          "label": "Traveling Cart reference",
+          "url": "https://stardewvalleywiki.com/Traveling_Cart"
+        }
+      ]
+    },
+    "tracker": {
+      "limitations": "Personal saves are processed in the separate workspace. Supported observations vary with the file and game version.",
+      "sources": [
+        {
+          "label": "Save file locations and format",
+          "url": "https://stardewvalleywiki.com/Saves"
+        }
+      ]
+    },
+    "crop-calculator": {
+      "limitations": "The example excludes other costs, speed bonuses and processing. Multi-crop scenarios depend on budget, seed price, quality and machine capacity.",
+      "sources": [
+        {
+          "label": "Crop growth and sale prices",
+          "url": "https://stardewvalleywiki.com/Crops"
+        }
+      ]
+    },
+    "fair-calculator": {
+      "limitations": "Results depend on the entered sale price, quality, category and which items are active in the display.",
+      "sources": [
+        {
+          "label": "Grange Display scoring",
+          "url": "https://stardewvalleywiki.com/Stardew_Valley_Fair"
+        }
+      ]
+    },
+    "fishing": {
+      "limitations": "The collection table uses location-specific references. Alternate sources and special bait can change catch conditions.",
+      "sources": [
+        {
+          "label": "Fish locations and catch conditions",
+          "url": "https://stardewvalleywiki.com/Fish"
+        }
+      ]
+    },
+    "perfection": {
+      "limitations": "The result is a reference estimate. Unrecorded save categories remain unknown, and the game’s tracker is the reference for an in-game score.",
+      "sources": [
+        {
+          "label": "Perfection scoring and requirements",
+          "url": "https://stardewvalleywiki.com/Perfection"
+        }
+      ]
+    },
+    "crafting": {
+      "limitations": "Direct materials, unlocks and profession substitutions depend on the selected recipe. The result covers the supported recipe catalogue.",
+      "sources": [
+        {
+          "label": "Crafting recipes and unlocks",
+          "url": "https://stardewvalleywiki.com/Crafting"
+        }
+      ]
+    },
+    "shipping": {
+      "limitations": "This checklist covers the items for Full Shipment. Season and acquisition hints may omit some valid sources.",
+      "sources": [
+        {
+          "label": "Full Shipment checklist",
+          "url": "https://stardewvalleywiki.com/Shipping"
+        }
+      ]
+    },
+    "cooking": {
+      "limitations": "Owning an unlocked recipe does not count as cooking it. Ingredient alternatives and intermediate stock can affect other recipes.",
+      "sources": [
+        {
+          "label": "Cooking recipes and ingredients",
+          "url": "https://stardewvalleywiki.com/Cooking"
+        }
+      ]
+    },
+    "golden-walnuts": {
+      "limitations": "The guide groups walnut sources and provides documented coordinate hints. It uses a schematic plot for location guidance.",
+      "sources": [
+        {
+          "label": "Golden Walnut sources and uses",
+          "url": "https://stardewvalleywiki.com/Golden_Walnut"
+        }
+      ]
+    },
+    "farm-comparison": {
+      "limitations": "The counts depend on the reference terrain flags and modeled starter occupancy. Use them for planning comparisons.",
+      "sources": [
+        {
+          "label": "Farm types and terrain",
+          "url": "https://stardewvalleywiki.com/Farm_Maps"
+        }
+      ]
+    },
+    "grandpa-calculator": {
+      "limitations": "The score depends on the milestones you enter. Community Center restoration and its ceremony have separate inputs.",
+      "sources": [
+        {
+          "label": "Grandpa’s evaluation scoring",
+          "url": "https://stardewvalleywiki.com/Grandpa"
+        }
+      ]
+    },
+    "skills": {
+      "limitations": "Experience determines the displayed skill level. Profession choices and mastery use separate data.",
+      "sources": [
+        {
+          "label": "Skill XP and professions",
+          "url": "https://stardewvalleywiki.com/Skills"
+        }
+      ]
+    }
+  }
+}

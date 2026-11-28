@@ -2,6 +2,7 @@
 import pages from '../config/pages.json';
 import release from '../config/release.json';
 import toolGuides from '../config/tool-guides.json';
+import toolEvidence from '../config/tool-evidence.json';
 import seoTasks from '../config/seo-task-links.json';
 import CropRoute from '../ui/CropRoute';
 import TrackerRoute from '../ui/TrackerRoute';
@@ -23,6 +24,7 @@ import '../styles/field-journal.css';
 export function getStaticPaths(){return pages.map(page=>({params:{route:page.slug||undefined},props:{page}}))}
 const {page}=Astro.props;
 const guide=toolGuides[page.slug as keyof typeof toolGuides];
+const evidence=toolEvidence.tools[page.slug as keyof typeof toolEvidence.tools];
 const nextTasks=seoTasks[page.slug as keyof typeof seoTasks];
 const catalogue=['crafting','cooking','shipping','fishing'].includes(page.slug)?CATALOGS[page.slug as CatalogKind]:undefined;
 const workspace=import.meta.env.MODE==='workspace';
@@ -96,8 +98,12 @@ const related=pages.filter(p=>p.path!==page.path && (page.relatedPaths||[]).incl
 {page.slug==='farm-comparison'&&<FarmCompareRoute workspace={workspace} client:load/>}
 {page.slug==='skills'&&<SkillsRoute workspace={workspace} client:load/>}
 {page.slug==='perfection'&&<PerfectionRoute workspace={workspace} client:load/>}
-<details class="journal-preview-note"><summary>{approvedPublic?'Data and limitations':'Preview data and limitations'}</summary><p>The planner includes eight pinned base terrain restriction references and eight independent practice scenes, all using original or credited free artwork. Game-derived reference flags and dynamic terrain compatibility have not been fully verified. Rules and game data may have incomplete coverage. Game version and tool-specific limitations appear in the tool guide.</p></details>
-<div class="journal-reading">{catalogue&&<section class="guide"><details><summary>Complete reference catalogue ({catalogue.length} entries)</summary><p>All item names are searchable in the interactive planner above. This compact reference list does not record progress.</p><ul>{catalogue.map(item=><li><strong>{item.name}</strong>{item.ingredients?.length?` — ${item.ingredients.map(i=>`${i.quantity} × ${i.name}`).join(" · ")}`:""}{item.hint?` — ${item.hint}`:""}</li>)}</ul></details></section>}<section class="guide"><div class="guide-header"><h2>{page.guideTitle}</h2><p>{page.guideText}</p></div><div class="guide-steps">{guide.steps.map(([heading,body])=><div><h3>{heading}</h3><p>{body}</p></div>)}</div><div class="tool-example"><h3>Worked example</h3><p>{guide.example}</p></div><div class="tool-faq"><h3>Frequently asked questions</h3>{guide.faq.map(([question,answer])=><details><summary>{question}</summary><p>{answer}</p></details>)}</div><details class="version-details"><summary>Game version &amp; preview limitations</summary><p>1.6: {release.adapters['1.6']}. 1.7: {release.adapters['1.7']}. {approvedPublic?'See the tool-specific supported version and limitations.':'Approved data and independent test fixtures are required before production release.'}</p></details></section>
+<div class="journal-reading">{catalogue&&<section class="guide"><details><summary>Complete reference catalogue ({catalogue.length} entries)</summary><p>All item names are searchable in the interactive planner above. This compact reference list does not record progress.</p><ul>{catalogue.map(item=><li><strong>{item.name}</strong>{item.ingredients?.length?` — ${item.ingredients.map(i=>`${i.quantity} × ${i.name}`).join(" · ")}`:""}{item.hint?` — ${item.hint}`:""}</li>)}</ul></details></section>}<section class="guide"><div class="guide-header"><h2>{page.guideTitle}</h2><p>{page.guideText}</p></div><div class="guide-steps">{guide.steps.map(([heading,body])=><div><h3>{heading}</h3><p>{body}</p></div>)}</div><div class="tool-example" id="worked-example">
+  <h3>Worked example</h3>
+  <p>{guide.example}</p>
+  <p>{evidence.limitations}</p>
+  <p>Game references: {evidence.sources.map(({label,url},index)=><>{index>0&&' · '}<a href={url}>{label}</a></>)}. Tool reference: Stardew Valley {toolEvidence.referenceVersion}.</p>
+</div><div class="tool-faq"><h3>Frequently asked questions</h3>{guide.faq.map(([question,answer])=><details><summary>{question}</summary><p>{answer}</p></details>)}</div><details class="version-details"><summary>Game version &amp; preview limitations</summary><p>1.6: {release.adapters['1.6']}. 1.7: {release.adapters['1.7']}. {approvedPublic?'See the tool-specific supported version and limitations.':'Approved data and independent test fixtures are required before production release.'}</p></details></section>
 <section class="guide" aria-labelledby="next-task-heading"><div class="guide-header"><h2 id="next-task-heading">What to do next</h2></div><div class="guide-steps">{nextTasks.map(([heading,body,href])=><div><h3><a href={href}>{heading}</a></h3><p>{body}</p></div>)}</div></section>
 <section class="related"><h2>Related tools</h2><div class="related-grid">{(related.length?related:pages.filter(p=>p.group===page.group&&p.slug!==page.slug)).map(p=><a href={p.path}><span class="related-icon"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d={icons[p.slug]||icons['']}/></svg></span><div><strong>{short(p)}</strong><small>{p.description}</small></div><span aria-hidden="true">↗</span></a>)}</div></section>
 <footer><div>Field &amp; Farm · Independent fan-tool development project.</div><p>Stardew Valley belongs to ConcernedApe. This independent fan-tool is not affiliated with or endorsed by ConcernedApe. No original game artwork or third-party advertising scripts. <a href="/art/credits.html">Artwork credits</a> · <a href="/privacy/">Privacy</a> · <a href="/about/">About</a> · <a href="/contact/">Contact</a> · <a href="/terms/">Terms</a></p></footer>

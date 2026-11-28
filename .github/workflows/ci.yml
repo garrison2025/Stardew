@@ -50,6 +50,43 @@ jobs:
       - run: npm run audit:assets -- dist-workspace
       - run: node scripts/audit-route-entries.mjs dist-workspace
       - run: node scripts/audit-size.mjs dist-workspace
+      - name: Website Starter Standard SEO and GEO audits
+        run: |
+          set -euo pipefail
+          python3 scripts/audit-search-build.py --site-dir dist --origin https://stardew-67b.pages.dev --mode preview --output search-evidence/public-preview
+          python3 scripts/audit-search-build.py --site-dir dist-workspace --origin https://stardew-local-workspace.pages.dev --mode preview --output search-evidence/workspace
+
+          # Exercise real production output in a disposable checkout using test-only approvals.
+          rehearsal=$(mktemp -d)
+          git archive HEAD | tar -x -C "$rehearsal"
+          ln -s "$PWD/node_modules" "$rehearsal/node_modules"
+          (
+            cd "$rehearsal"
+            node --input-type=module <<'NODE'
+          import { readFileSync, writeFileSync } from 'node:fs';
+          const releasePath = 'src/config/release.json';
+          const pagesPath = 'src/config/pages.json';
+          const release = JSON.parse(readFileSync(releasePath, 'utf8'));
+          const pages = JSON.parse(readFileSync(pagesPath, 'utf8'));
+          const pageRules = JSON.parse(readFileSync('src/config/tool-evidence.json', 'utf8'));
+          writeFileSync(releasePath, JSON.stringify({
+            ...release, status: 'production-approved', rightsApproved: true,
+            dataApproved: true, fixturesApproved: true, serpApproved: true,
+            gameVersions: [pageRules.referenceVersion],
+          }));
+          writeFileSync(pagesPath, JSON.stringify(pages.map(page => ({
+            ...page, releaseStatus: 'approved', indexable: true,
+          }))));
+          NODE
+            PUBLIC_SITE_ORIGIN=https://example.org PUBLIC_WORKSPACE_ORIGIN=https://app.example.org npm run build:production
+          )
+          python3 scripts/audit-search-build.py --site-dir "$rehearsal/dist-production" --origin https://example.org --mode production --output search-evidence/production-rehearsal
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: seo-geo-offline-evidence
+          path: search-evidence/
+          if-no-files-found: ignore
       - run: npx playwright install --with-deps chromium firefox webkit
       - run: npm run test:browser
       - run: node scripts/browser-release.mjs
