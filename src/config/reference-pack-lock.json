@@ -54,7 +54,7 @@
     },
     {
       "path": "src/lib/data-layers.ts",
-      "gitBlob": "6a601c5defd57a94a4ad68e900e333b2974b07a5"
+      "gitBlob": "27677e002a2bf8fdb9c5763580f1c5410eff240a"
     },
     {
       "path": "src/lib/economy-recipes.ts",
@@ -134,7 +134,7 @@
     },
     {
       "path": "src/lib/map-model.ts",
-      "gitBlob": "db0ee3de673d21d7d9ce6a89720625ccf607e111"
+      "gitBlob": "49287c246da43cb4bc7d0e2eec4f8605fc598e2e"
     },
     {
       "path": "src/lib/monster-goals.ts",
@@ -257,5 +257,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r9"
+  "id": "ref-pc-1.6.15-20261128-r10"
 }

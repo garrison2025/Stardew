@@ -1,7 +1,7 @@
 // Independent reader for Pathoschild Data Layers JSON exports. No bundled game maps.
 // Status codes retain occupied/warp/tilled instead of guessing terrain materials.
 export type RestrictionLayer='access'|'build'|'till';
-export type TileRestrictions={schema:1;source:'local-data-layers';access:string;build:string;till:string};
+export type TileRestrictions={schema:1;source:'local-data-layers'|'local-restriction-mask';access:string;build:string;till:string};
 const groups={
  access:{'accessible.clear':'C','accessible.occupied':'O','accessible.impassable':'N','accessible.warp':'W'},
  build:{'buildable.buildable':'B','buildable.occupied':'O','buildable.not-buildable':'N'},
@@ -40,15 +40,25 @@ export function importDataLayers(raw:readonly unknown[],w:number,h:number):TileR
 }
 export function decodeTileRestrictions(raw:unknown,w:number,h:number):TileRestrictions{
  const n=dimensions(w,h),v=raw as TileRestrictions;
- if(!v||v.schema!==1||v.source!=='local-data-layers'||typeof v.access!=='string'||typeof v.build!=='string'||typeof v.till!=='string'||v.access.length!==n||v.build.length!==n||v.till.length!==n||!/^[CONW]+$/.test(v.access)||!/^[BON]+$/.test(v.build)||!/^[TDON]+$/.test(v.till))throw Error('Invalid saved Data Layers restrictions.');
- return {schema:1,source:'local-data-layers',access:v.access,build:v.build,till:v.till}
+ if(!v||v.schema!==1||(v.source!=='local-data-layers'&&v.source!=='local-restriction-mask')||typeof v.access!=='string'||typeof v.build!=='string'||typeof v.till!=='string'||v.access.length!==n||v.build.length!==n||v.till.length!==n||!/^[CONW]+$/.test(v.access)||!/^[BON]+$/.test(v.build)||!/^[TDON]+$/.test(v.till))throw Error('Invalid saved Data Layers restrictions.');
+ return {schema:1,source:v.source,access:v.access,build:v.build,till:v.till}
 }
 export function restrictionCounts(r:TileRestrictions){return {clear:[...r.access].filter(x=>x==='C').length,buildable:[...r.build].filter(x=>x==='B').length,tillable:[...r.till].filter(x=>x==='T'||x==='D').length,occupied:[...r.access].filter(x=>x==='O').length,warp:[...r.access].filter(x=>x==='W').length}}
+/** Strict independent decoder for a user-selected compact 3-bit terrain reference, not a live game export. */
+export function importRestrictionMask(raw:string,w:number,h:number):TileRestrictions{
+ const n=dimensions(w,h),s=raw.trim();if(!s||s.length>200000)throw Error('Invalid restriction mask size.');
+ let offset=0,total=0,access='',build='',till='';
+ const runs=/([1-9][0-9]*)([a-h])/gy;
+ while(offset<s.length){runs.lastIndex=offset;const m=runs.exec(s);if(!m)throw Error('Malformed restriction mask.');const len=Number(m[1]),bits=m[2].charCodeAt(0)-97;if(!Number.isSafeInteger(len)||len>n-total)throw Error('Restriction mask exceeds selected grid.');total+=len;offset=runs.lastIndex;access+=(bits&1?'N':'C').repeat(len);build+=(bits&2?'N':'B').repeat(len);till+=(bits&4?'N':'T').repeat(len);}
+ if(total!==n)throw Error('Restriction mask must cover the complete selected grid.');
+ return decodeTileRestrictions({schema:1,source:'local-restriction-mask',access,build,till},w,h);
+}
 /** Conservative planning from a snapshot; passability is not a verified general object-placement rule. */
 export function restrictionError(r:TileRestrictions,i:number,category:string){
- if(r.access[i]==='W')return 'Data Layers: warp/door tile';
- if(r.access[i]==='O')return 'Data Layers: occupied in exported snapshot';
- if(category==='Buildings')return r.build[i]==='B'?null:'Data Layers: not freely buildable';
- if(category==='Crops')return r.access[i]==='C'&&(r.till[i]==='T'||r.till[i]==='D')?null:'Data Layers: not freely tillable';
- return r.access[i]==='C'?null:'Data Layers: not freely accessible';
+ const prefix=r.source==='local-data-layers'?'Data Layers: ':'Reference mask: ';
+ if(r.access[i]==='W')return prefix+'warp/door tile';
+ if(r.access[i]==='O')return prefix+'occupied in exported snapshot';
+ if(category==='Buildings')return r.build[i]==='B'?null:prefix+'not freely buildable';
+ if(category==='Crops')return r.access[i]==='C'&&(r.till[i]==='T'||r.till[i]==='D')?null:prefix+'not freely tillable';
+ return r.access[i]==='C'?null:prefix+'not freely accessible';
 }

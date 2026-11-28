@@ -1,0 +1,31 @@
+name: Starplan compact restriction reference
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/starplan-reference.yml'
+      - 'scripts/audit-starplan-reference.mjs'
+      - 'src/lib/data-layers.ts'
+      - 'src/lib/map-model.ts'
+permissions:
+  contents: read
+jobs:
+  starplan-reference:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: '.nvmrc'
+      - run: npm ci --no-audit --no-fund
+      - name: Decode pinned external masks without retaining contents
+        shell: bash
+        run: |
+          set -euo pipefail
+          tmp="$(mktemp -d)"
+          trap 'rm -rf "$tmp"' EXIT
+          for id in regular fishing foraging mining combat fourcorners beach ranching; do
+            curl --fail --silent --show-error --location --retry 2 --max-time 60 "https://raw.githubusercontent.com/StephenFluin/starplan/7ee52554a2e48f47a9d99e256830d7b1b2e5954f/public/assets/restrictions/$id.txt" -o "$tmp/$id.txt"
+          done
+          node --experimental-strip-types scripts/audit-starplan-reference.mjs "$tmp"
