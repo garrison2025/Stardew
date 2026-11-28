@@ -50,6 +50,12 @@ The normal production build rejected the current preview config. The same build 
 
 The additional [public co-op sample](https://forums.stardewvalley.net/threads/stardew-valley-1-6-co-op-game-crash-issue.37528/) has a 1.6.15 main save and backup from year 2. Both show zero golden walnuts, so they cannot supply a game-screen Perfection reading.
 
+## Workspace and link migration rehearsal
+
+[PR #98](https://github.com/garrison2025/Stardew/pull/98) and its [passing CI run](https://github.com/garrison2025/Stardew/actions/runs/46131961008) exercised two migrations in Chromium. The workspace downloaded a backup JSON from one test origin, restored it into a dedicated farm profile on a second origin, and exported it again. The active layout, project book and cooking record matched after accounting for the new project revision. The source and target's default farm retained their original data.
+
+A test HTTP 301 preserved an old crop calculator path and its percent-encoded query. The browser also retained the fragment in an old shared layout URL and opened the layout at the destination. Production-domain checks and a paired Cloudflare rollback remain open.
+
 ## Open release checks
 
 | Item | Evidence to record |
