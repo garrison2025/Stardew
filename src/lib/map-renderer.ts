@@ -4,7 +4,26 @@ import {TILE,rect,sprite,drawTerrainArt} from './pixel-art';
 import {OUTDOOR,OUTDOOR_TILES,drawPackTile} from './art-packs';
 export {TILE,drawLighting} from './pixel-art';
 export type {Light} from './pixel-art';
-export function drawTerrain(c:CanvasRenderingContext2D,map:FarmMap,season:Season){drawTerrainArt(c,map,season);if(map.restrictions?.source==='local-restriction-mask'&&/^local-starplan-[0-7]$/.test(map.id)){c.save();c.fillStyle='#3b4649';for(let i=0;i<map.restrictions.access.length;i++)if(map.restrictions.access[i]==='N')c.fillRect((i%map.w)*TILE,Math.floor(i/map.w)*TILE,TILE,TILE);c.restore()}}
+export function drawTerrain(c:CanvasRenderingContext2D,map:FarmMap,season:Season){
+ drawTerrainArt(c,map,season);
+ const r=map.restrictions;if(r?.source!=='local-restriction-mask'||!/^local-starplan-[0-7]$/.test(map.id))return;
+ // Restriction classes, not inferred lakes, rocks or game artwork. Draw readable boundaries at all zooms.
+ const blocked=(x:number,y:number)=>x>=0&&y>=0&&x<map.w&&y<map.h&&r.access[y*map.w+x]==='N';
+ const dark=season==='winter'?'#697a7e':'#3e5351',edge=season==='winter'?'#a0b0ad':'#82958a';
+ c.save();
+ for(let i=0;i<r.access.length;i++){
+  const x=i%map.w,y=Math.floor(i/map.w),px=x*TILE,py=y*TILE;
+  if(r.access[i]==='N'){
+   rect(c,px,py,TILE,TILE,dark);
+   if((x+y)%3===0){rect(c,px+4,py+5,3,1,'#ffffff12');rect(c,px+9,py+11,4,1,'#00000018')}
+   if(!blocked(x-1,y))rect(c,px,py,2,TILE,edge);if(!blocked(x+1,y))rect(c,px+14,py,2,TILE,edge);
+   if(!blocked(x,y-1))rect(c,px,py,TILE,2,edge);if(!blocked(x,y+1))rect(c,px,py+14,TILE,2,edge);
+  }else if(r.build[i]!=='B'&&r.till[i]!=='T'){
+   rect(c,px,py,TILE,TILE,'#b4c1b14a');rect(c,px+3,py+11,4,1,'#4d625554');
+  }
+ }
+ c.restore();
+}
 export function drawItem(c:CanvasRenderingContext2D,o:Placed,season:Season,selected=false,atlas:HTMLImageElement|null=null){
  const image=sprite(o,season);if(!image)return;const d=dimensions(o),x=o.x*TILE,y=o.y*TILE,w=d.w*TILE,h=d.h*TILE;c.save();c.imageSmoothingEnabled=false;const tile=OUTDOOR_TILES[o.itemId];if(!atlas||!tile||((o.itemId==='oak'||o.itemId==='pine'||o.itemId==='flowerbed')&&(season==='autumn'||season==='winter'))||!drawPackTile(c,atlas,OUTDOOR,tile,x,y,w,h))c.drawImage(image,x,y);
  if(selected){c.strokeStyle='#fff2a1';c.lineWidth=1.5;c.strokeRect(x+.75,y+.75,w-1.5,h-1.5)}c.restore();

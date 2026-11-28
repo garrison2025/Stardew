@@ -93,7 +93,7 @@ function house(c:Ctx,w:number,h:number,id:string,color:string,glass:boolean,seas
  const barn=id.includes('barn'),coop=id.includes('coop'),shed=id.includes('shed'),doorW=w*(barn?.32:shed?.25:.17),dx=(w-doorW)/2,dy=h*.64;
  rect(c,dx-2,dy-2,doorW+4,h*.27+2,dark);rect(c,dx,dy,doorW,h*.26,barn?'#a76c49':'#79583c');if(barn||shed){rect(c,w*.5,dy,1,h*.26,'#d2a879');rect(c,dx+2,dy+3,doorW-4,1,'#d6ac7c')}
  for(const xx of [w*.19,w*.7]){const ww=Math.max(6,w*.12),yy=h*.62;rect(c,xx-1,yy-1,ww+2,10,dark);rect(c,xx,yy,ww,8,'#517c87');rect(c,xx+1,yy+1,ww-2,2,'#a3c4ba');rect(c,xx+ww/2,yy,1,8,'#e6c78e');rect(c,xx,yy+4,ww,1,'#e6c78e')}
- if(coop){rect(c,w*.12,h*.83,w*.18,3,'#b78e5f');for(let j=0;j<4;j++)rect(c,w*.12+j*2,h*.88+j,2,2,'#806044')}if(barn){rect(c,w*.43,ry+rh*.45,w*.14,Math.max(5,h*.08),dark);rect(c,w*.46,ry+rh*.47,w*.08,Math.max(3,h*.04),'#d7b680')}if(shed){rect(c,w*.12,h*.78,w*.17,h*.1,'#7a9b91');rect(c,w*.13,h*.78,w*.15,1,'#c4d5bb')}if(id==='cottage'){rect(c,w*.74,ry-3,w*.09,h*.16,'#8d6c53');rect(c,w*.72,ry-3,w*.13,3,'#c3a18a');rect(c,w*.39,h*.9,w*.23,3,'#ac946b')}
+ if(coop){rect(c,w*.12,h*.83,w*.18,3,'#b78e5f');for(let j=0;j<4;j++)rect(c,w*.12+j*2,h*.88+j,2,2,'#806044')}if(barn){rect(c,w*.43,ry+rh*.45,w*.14,Math.max(5,h*.08),dark);rect(c,w*.46,ry+rh*.47,w*.08,Math.max(3,h*.04),'#d7b680')}if(shed){rect(c,w*.12,h*.78,w*.17,h*.1,'#7a9b91');rect(c,w*.13,h*.78,w*.15,1,'#c4d5bb')}if(id==='cottage'||id==='game-farmhouse'){rect(c,w*.74,ry-3,w*.09,h*.16,'#8d6c53');rect(c,w*.72,ry-3,w*.13,3,'#c3a18a');rect(c,w*.39,h*.9,w*.23,3,'#ac946b')}
  if(glass){rect(c,w*.15,h*.16,w*.7,h*.31,'#7aafb1');for(let j=0;j<6;j++)rect(c,w*.16+j*w*.115,h*.16,1,h*.31,'#e2eee1');rect(c,w*.15,h*.3,w*.7,2,'#d7e8dd')}
  if(season==='winter'){rect(c,w*.15,ry,w*.7,3,'#e9f0e6');rect(c,w*.22,ry+3,w*.5,2,'#d1e1df')}
 }
@@ -112,11 +112,40 @@ function surface(c:Ctx,id:string,color:string){
  else if(id==='brick-path'){for(let j=0;j<4;j++)for(let k=-1;k<3;k++){const x=k*8+(j%2)*4;rect(c,x+1,j*4+1,7,3,color);rect(c,x+1,j*4+1,7,1,shade(color,15))}}
  else{for(let j=0;j<3;j++)for(let k=0;k<3;k++){const x=k*5,y=j*5;rect(c,x+1,y+1,4,4,shade(color,Math.round(hash(k,j)*18)-8));rect(c,x+1,y+1,3,1,shade(color,26))}}
 }
+// Independent silhouettes for frequently encountered starting structures.
+function starterStructure(c:Ctx,id:string,w:number,h:number,season:Season):boolean{
+ const snow=season==='winter';
+ if(id==='gate'){
+  rect(c,1,2,3,13,'#654a32');rect(c,12,2,3,13,'#654a32');
+  rect(c,4,4,8,2,'#c9a46c');rect(c,4,10,8,2,'#ad854d');
+  for(let i=0;i<7;i++)rect(c,5+i,5+i*.65,2,2,'#93643f');
+  rect(c,3,4,2,2,'#c9d0c3');rect(c,10,8,2,2,'#e4d8a6');return true;
+ }
+ if(id==='game-shipping-bin'){
+  oval(c,1,h*.65,w-2,h*.32,'#30433255');rect(c,2,3,w-4,h-4,'#63482f');rect(c,4,5,w-8,h-7,'#b88953');
+  rect(c,3,2,w-6,5,'#d3ad77');rect(c,4,7,w-8,2,'#865b37');for(let x=7;x<w-5;x+=6)rect(c,x,9,1,h-10,'#795332');
+  rect(c,w*.44,8,w*.12,3,'#e8c86c');if(snow)rect(c,4,2,w-8,2,'#dfe9e5');return true;
+ }
+ if(id==='game-pet-bowl'){
+  oval(c,2,h*.58,w-4,h*.34,'#30433255');oval(c,w*.12,h*.22,w*.76,h*.60,'#4b6065');oval(c,w*.18,h*.19,w*.64,h*.45,'#c3d8d2');oval(c,w*.25,h*.26,w*.50,h*.28,'#4e96b0');rect(c,w*.34,h*.30,w*.22,2,'#a7dce4');rect(c,w*.34,h*.65,w*.32,2,'#e6e1c6');return true;
+ }
+ if(id==='game-greenhouse'||id==='greenhouse'){
+  oval(c,0,h*.80,w,h*.19,'#253d2c55');rect(c,w*.08,h*.22,w*.84,h*.70,'#435a55');rect(c,w*.12,h*.26,w*.76,h*.62,'#82b5b1');
+  for(let y=Math.round(h*.12);y<h*.32;y++){const inset=Math.round(w*.28*(1-(y-h*.12)/(h*.20)));rect(c,inset,y,w-2*inset,1,y%4===0?'#b5dfd3':'#6a9f9f')}
+  for(let x=w*.13;x<w*.9;x+=w*.15)rect(c,x,h*.29,2,h*.54,'#d8e8d7');
+  for(let y=h*.43;y<h*.84;y+=h*.17)rect(c,w*.10,y,w*.80,2,'#d8e8d7');
+  for(let x=w*.20;x<w*.82;x+=w*.18)oval(c,x,h*.58,w*.10,h*.12,'#507e55');
+  rect(c,w*.43,h*.68,w*.14,h*.24,'#3b605c');rect(c,w*.47,h*.71,w*.06,h*.17,'#aed3c3');
+  rect(c,w*.07,h*.87,w*.86,h*.05,'#b3a08a');if(snow)rect(c,w*.28,h*.12,w*.44,3,'#e9f2eb');return true;
+ }
+ return false;
+}
 const cache=new Map<string,HTMLCanvasElement>();
 export function sprite(o:Placed,season:Season):HTMLCanvasElement|null{
  if(typeof document==='undefined')return null;const i=itemById.get(o.itemId);if(!i)return null;const k=[o.itemId,o.rotation,season].join('|');const old=cache.get(k);if(old)return old;
  const d=dimensions(o),w=d.w*TILE,h=d.h*TILE,canvas=document.createElement('canvas');canvas.width=w;canvas.height=h;const c=canvas.getContext('2d');if(!c)return null;c.imageSmoothingEnabled=false;
- if(i.art==='house'||i.art==='glass')house(c,w,h,o.itemId,i.color,i.art==='glass',season);
+ if(starterStructure(c,o.itemId,w,h,season)){}
+ else if(i.art==='house'||i.art==='glass')house(c,w,h,o.itemId,i.color,i.art==='glass',season);
  else if(i.art==='tree'||i.art==='pine')foliage(c,0,0,w,h,season,i.art==='pine',17);
  else if(i.art==='pond'){oval(c,0,1,w,h-2,'#806d50');oval(c,2,2,w-4,h-5,'#c6b78c');oval(c,5,5,w-10,h-11,i.color);rect(c,w*.23,h*.3,w*.4,1,'#b1d7d6');rect(c,w*.4,h*.57,w*.3,1,'#a2cbd3')}
  else if(i.art==='path')surface(c,o.itemId,i.color);
