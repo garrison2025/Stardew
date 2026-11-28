@@ -7,23 +7,16 @@ import React,{useEffect,useState} from 'react';
 import {farmMachines} from '../lib/farm-economy';
 import {SEASON_CROPS,cropById,type CropSeason} from '../lib/crop-data';
 import {cycles,eligible,harvestLabel,plantingHorizon,optimizeSeason,type SeasonInput} from '../lib/season-crops';
-import {decodePlan,itemById} from '../lib/map-model';
+import {decodePlan,itemById,SEASONS,type Plan,type Season} from '../lib/map-model';
 import {readLocal,download} from '../lib/local';
 import FarmEconomy from './FarmEconomy';
 const initial:SeasonInput={season:'spring',start:1,plots:20,budget:1000,replant:true,strawberry:false,trellis:false};
 const money=(n:number)=>n.toLocaleString('en-US')+'g';
 export default function SeasonalCropTool({workspace}:{workspace:boolean}){
- const [input,setInput]=useState(initial),[result,setResult]=useState(()=>optimizeSeason(initial)),[validResult,setValidResult]=useState(true),[error,setError]=useState(''),[status,setStatus]=useState(''),[loading,setLoading]=useState(false),[layout,setLayout]=useState<{total:number;known:number;counts:{name:string;count:number}[];machines:ReturnType<typeof farmMachines>}|null>(null);
+ const [input,setInput]=useState(initial),[result,setResult]=useState(()=>optimizeSeason(initial)),[validResult,setValidResult]=useState(true),[error,setError]=useState(''),[status,setStatus]=useState(''),[loading,setLoading]=useState(false),[layout,setLayout]=useState<{total:number;known:number;counts:{name:string;count:number}[];machines:ReturnType<typeof farmMachines>;source:'saved'|'example';name?:string}|null>(null);
  function change<K extends keyof SeasonInput>(key:K,value:SeasonInput[K]){setInput(v=>({...v,[key]:value,...(key==='season'?{fertilizer:undefined}:{})}));setValidResult(false);setError('')}
  function calculate(){try{setResult(optimizeSeason(input));setValidResult(true);setError('')}catch(e){setError(String(e));setValidResult(false)}}
- async function loadLayout(){
-  setLoading(true);
-  setLayout(null);
-  setStatus('');
-  try {
-   const stored=await readLocal<unknown>('scene-plan-v2');
-   if(stored===undefined)throw Error('Save a scene in the private farm designer first.');
-   const plan=decodePlan(stored);
+ function applyLayout(plan:Plan,source:'saved'|'example',name?:string){
    const markers=plan.objects.filter(object=>itemById.get(object.itemId)?.category==='Crops');
    const counts=new Map<string,number>();
    let known=0;
@@ -34,17 +27,32 @@ export default function SeasonalCropTool({workspace}:{workspace:boolean}){
     counts.set(crop.name,(counts.get(crop.name)??0)+1);
     known++;
    }
-   setLayout({total:markers.length,known,counts:[...counts].map(([name,count])=>({name,count})),machines:farmMachines(plan)});
+   setLayout({total:markers.length,known,counts:[...counts].map(([name,count])=>({name,count})),machines:farmMachines(plan),source,name});
    setInput(previous=>({...previous,season:plan.season,fertilizer:undefined,plots:Math.min(markers.length,100)}));
    setValidResult(false);
-   setStatus(markers.length>100
+   setStatus(source==='example'?'Loaded editable layout example. Choose the planting day and budget, then optimize. No saved scene was changed.':markers.length>100
     ? 'Loaded this farm. The calculator uses 100 of its '+markers.length+' marked crop tiles per scenario.'
     : 'Loaded this farm’s season, marked crop tiles and modeled indoor/outdoor machine counts. Choose the planting day and budget, then optimize.');
+ }
+ async function loadLayout(){
+  setLoading(true);
+  setLayout(null);
+  setStatus('');
+  try {
+   const stored=await readLocal<unknown>('scene-plan-v2');
+   if(stored===undefined)throw Error('Save a scene in the private farm designer first.');
+   const plan=decodePlan(stored);
+   applyLayout(plan,'saved');
    setError('');
   }catch(e){setError(String(e))}finally{setLoading(false)}
  }
  useEffect(()=>{
-  if(workspace&&new URLSearchParams(location.search).get('farm')==='saved')void loadLayout();
+  const params=new URLSearchParams(location.search),id=params.get('example');
+  if(id){let active=true;setLoading(true);setLayout(null);setStatus('');
+   void (async()=>{try{const m=await import('../lib/layout-presets');const spec=[...m.REFERENCE_LAYOUT_PRESETS,...m.LAYOUT_PRESETS].find(p=>p.id===id);const season=params.get('season')??'spring';if(!spec||!SEASONS.some(s=>s===season))throw Error('Unknown layout example or season.');const plan=m.loadLayoutExample(spec.id,season as Season);if(active){applyLayout(plan,'example',spec.name);setError('')}}catch(e){if(active)setError(String(e))}finally{if(active)setLoading(false)}})();
+   return()=>{active=false};
+  }
+  if(workspace&&params.get('farm')==='saved')void loadLayout();
  },[workspace]);
  const growth=input.growth??{fertilizer:'none',agriculturist:false,irrigated:false,cost:0} satisfies GrowthSettings;
  function changeGrowth<K extends keyof GrowthSettings>(key:K,value:GrowthSettings[K]){change('growth',{...growth,[key]:value})}
@@ -52,7 +60,7 @@ export default function SeasonalCropTool({workspace}:{workspace:boolean}){
  const horizon=plantingHorizon(input);
  let ranking:ReturnType<typeof cycles>[number][]=[];try{ranking=eligible(input).flatMap(c=>cycles(c,input.start,input.replant,input).slice(-1)).sort((a,b)=>b.profit-a.profit||a.crop.name.localeCompare(b.crop.name))}catch{}
  return <><section className="panel seasonal-crops"><div className="tool-heading"><span className="studio-symbol" aria-hidden="true">🌱</span><div><h2>Seasonal crop planner</h2><span className="muted">{SEASON_CROPS.length} shop-price reference crops · guaranteed base yield</span></div></div><p className="muted">Plan outdoor plantings with daily watering. Reserve seed and fertilizer costs up front. Harvest counts use guaranteed yield. Quality and accelerated growth are explicit scenario inputs.</p>
- {workspace&&<div className="crop-link-panel"><button disabled={loading} onClick={()=>void loadLayout()}>Load saved farm crop count</button><a href="/">Open farm designer</a>{status&&<p role="status">{status}</p>}{layout&&<><p>{layout.total} crop markers · {layout.known} named · {layout.machines.kegs} modeled kegs · {layout.machines.jars} modeled jars · {layout.machines.dehydrators} modeled dehydrators (room entry / outdoor walking reference). Existing growth stages are not known; this is a new planting scenario, not a harvest prediction.</p>{layout.counts.map(c=><span className="crop-count-tag" key={c.name}>{c.name}: {c.count}</span>)}</>}</div>}
+ {(workspace||layout?.source==='example'||loading)&&<div className="crop-link-panel">{workspace&&<button disabled={loading} onClick={()=>void loadLayout()}>Load saved farm crop count</button>}<a href="/">Open farm designer</a>{status&&<p role="status">{status}</p>}{layout&&<><p>{layout.source==='example'?'Example: '+layout.name:'Saved farm scene'}</p><p>{layout.total} crop markers · {layout.known} named · {layout.machines.kegs} modeled kegs · {layout.machines.jars} modeled jars · {layout.machines.dehydrators} modeled dehydrators (room entry / outdoor walking reference). Existing growth stages are not known; this is a new planting scenario, not a harvest prediction.</p>{layout.counts.map(c=><span className="crop-count-tag" key={c.name}>{c.name}: {c.count}</span>)}</>}</div>}
  <div className="journal-crop-workbench"><div className="journal-crop-inputs">
  <div className="crop-season-tabs" role="group" aria-label="Season">{(['spring','summer','autumn','winter'] as CropSeason[]).map(s=><button key={s} aria-pressed={input.season===s} onClick={()=>change('season',s)}>{s}</button>)}</div>
  <div className="formgrid"><label>Planting day<input type="number" min={1} max={28} value={input.start} onChange={e=>change('start',Number(e.target.value))}/></label><label>Planting tiles<input type="number" min={0} max={100} value={input.plots} onChange={e=>change('plots',Number(e.target.value))}/></label><label>Total planting budget (g)<input type="number" min={0} max={20000} value={input.budget} onChange={e=>change('budget',Number(e.target.value))}/></label></div>
