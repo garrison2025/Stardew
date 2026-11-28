@@ -29,9 +29,13 @@ export function analyzeFarmAccess(plan:Plan,origin:Point,goal?:Point){
   const distances=targets.map(index).filter(i=>i>=0&&distance[i]>=0).map(i=>distance[i]);
   return {id:o.id,name:itemById.get(o.itemId)!.name,x:o.x,y:o.y,approach:o.itemId==='game-farmhouse'||o.itemId==='game-greenhouse'?'entrance approach':'perimeter',distance:distances.length?Math.min(...distances):null};
  });
+ const equipment=plan.objects.filter(o=>['machine-keg','machine-jar','machine-dehydrator'].includes(o.itemId)).map(o=>{
+  const adjacent=[{x:o.x-1,y:o.y},{x:o.x+1,y:o.y},{x:o.x,y:o.y-1},{x:o.x,y:o.y+1}].map(index).filter(i=>i>=0&&distance[i]>=0);
+  return {id:o.id,itemId:o.itemId,distance:adjacent.length?Math.min(...adjacent.map(i=>distance[i])):null};
+ });
  const path:Point[]=[];let goalStatus:'none'|'blocked'|'unreachable'|'reachable'='none';
  if(goal){const end=index(goal);goalStatus=end<0||!open[end]?'blocked':distance[end]<0?'unreachable':'reachable';
  if(goalStatus==='reachable'){for(let i=end;i>=0;i=parent[i])path.push({x:i%w,y:Math.floor(i/w)});path.reverse();}}
  const total=open.reduce((n,v)=>n+v,0);
- return {reachable:tail,open:total,disconnected:total-tail,buildings,goalStatus,path};
+ return {reachable:tail,open:total,disconnected:total-tail,buildings,equipment,goalStatus,path};
 }

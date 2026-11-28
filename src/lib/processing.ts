@@ -23,7 +23,7 @@ export function scheduledBatches(minutes:number,duration:number,pickup:PickupSch
  return batches;
 }
 export type ProcessInput={crop:string;stock:number;minutes:number;quality:0|1|2|3;artisan:boolean;tiller:boolean;kegs:number;jars:number;pickup?:PickupSchedule};
-export function availableMachines(layout:Interior){const blocked=new Set(analyze(layout).inaccessible);let kegs=0,jars=0,blockedKegs=0,blockedJars=0;for(const [k,d] of Object.entries(layout.cells)){if(d==='keg'){if(blocked.has(Number(k)))blockedKegs++;else kegs++}if(d==='jar'){if(blocked.has(Number(k)))blockedJars++;else jars++}}return {kegs,jars,blockedKegs,blockedJars}}
+export function availableMachines(layout:Interior){const blocked=new Set(analyze(layout).inaccessible);let kegs=0,jars=0,blockedKegs=0,blockedJars=0,dehydrators=0,blockedDehydrators=0;for(const [k,d] of Object.entries(layout.cells)){if(d==='keg'){if(blocked.has(Number(k)))blockedKegs++;else kegs++}if(d==='jar'){if(blocked.has(Number(k)))blockedJars++;else jars++}if(d==='dehydrator'){if(blocked.has(Number(k)))blockedDehydrators++;else dehydrators++}}return {kegs,jars,blockedKegs,blockedJars,dehydrators,blockedDehydrators}}
 export function estimateProcessing(input:ProcessInput){
  const c=PROCESS_CROPS.find(v=>v.id===input.crop);if(!c)throw Error('Unsupported processing crop');
  if(!Number.isInteger(input.stock)||input.stock<0||input.stock>1000000||!Number.isInteger(input.minutes)||input.minutes<0||input.minutes>1600000||![0,1,2,3].includes(input.quality)||![input.kegs,input.jars].every(n=>Number.isInteger(n)&&n>=0&&n<=10000))throw Error('Invalid inventory, time, quality or device count');
