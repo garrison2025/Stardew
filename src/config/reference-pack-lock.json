@@ -90,7 +90,7 @@
     },
     {
       "path": "src/lib/farm-access.ts",
-      "gitBlob": "315d864725b7e0d4530c85401929bda9bcd3be28"
+      "gitBlob": "6f88cba21b2560198776e3f4b86d01073533ddf7"
     },
     {
       "path": "src/lib/farm-details.ts",
@@ -98,7 +98,7 @@
     },
     {
       "path": "src/lib/farm-economy.ts",
-      "gitBlob": "ac010e938b65c8ba0474f9ffe08936f347868302"
+      "gitBlob": "33e72dcecea12b39e60bc3820a73fc776b8c9a20"
     },
     {
       "path": "src/lib/farm-templates.ts",
@@ -182,7 +182,7 @@
     },
     {
       "path": "src/lib/processing.ts",
-      "gitBlob": "27b8b2e9276e14208f9c44c970a7cb68491a9326"
+      "gitBlob": "9516be92ea5f5a9342900d7b3624b059adab2828"
     },
     {
       "path": "src/lib/protected-cashflow.ts",
@@ -277,5 +277,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r19"
+  "id": "ref-pc-1.6.15-20261128-r20"
 }
