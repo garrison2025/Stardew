@@ -1,4 +1,4 @@
-import test from 'node:test';import assert from 'node:assert/strict';import {simulateEconomy,farmMachines,compareFarmEconomy,type EconomySettings} from '../src/lib/farm-economy.ts';import {cycles,optimizeSeason,type SeasonInput} from '../src/lib/season-crops.ts';import {cropById} from '../src/lib/crop-data.ts';import {demoPlan,attachInterior} from '../src/lib/map-model.ts';import {emptyInterior} from '../src/lib/indoor-model.ts';
+import test from 'node:test';import assert from 'node:assert/strict';import {simulateEconomy,farmMachines,compareFarmEconomy,type EconomySettings} from '../src/lib/farm-economy.ts';import {cycles,optimizeSeason,type SeasonInput} from '../src/lib/season-crops.ts';import {cropById} from '../src/lib/crop-data.ts';import {demoPlan,attachInterior,newPlan,blankLocalMap,type Plan,type Placed} from '../src/lib/map-model.ts';import {emptyInterior} from '../src/lib/indoor-model.ts';
 const input:SeasonInput={season:'summer',start:1,plots:1,budget:80,replant:false,strawberry:false,trellis:false};
 const a=[{cycle:cycles(cropById.get('blueberry')!,1,false)[0],tiles:1}];
 const settings:EconomySettings={initialCash:80,kegs:0,jars:1,minutesPerDay:1440,tailDays:7,artisan:false,tiller:false,strategy:'process'};
@@ -53,4 +53,22 @@ test('real recipe types avoid flowers and support special keg/mill output counts
  assert.equal(recipes('beet').find(r=>r.machine==='Mill')!.outputs,3);
  const i:SeasonInput={...input,season:'autumn',budget:20,oasis:true};const alloc=[{cycle:cycles(cropById.get('beet')!,1,false)[0],tiles:1}];
  const r=simulateEconomy(i,alloc,{...settings,initialCash:20,jars:0,millDailyLimit:1});assert.equal(r.totalProcessed,1);assert.equal(r.totalSales,150);assert.equal(r.ledger.find(d=>d.processedSold)!.processedSold,3);
+});
+
+test('outdoor capacity uses one connected walking component; a gate restores access',()=>{
+ const obj=(itemId:string,x:number,y:number):Placed=>({id:itemId+'-'+x+'-'+y,itemId,x,y,rotation:0});
+ const p:Plan={...newPlan(),map:blankLocalMap(8,8),objects:[obj('machine-keg',1,1),obj('machine-jar',5,2),obj('machine-dehydrator',2,4),...Array.from({length:8},(_,y)=>obj('fence',3,y))]};
+ const a=farmMachines(p);assert.deepEqual(a.outdoor,{kegs:1,jars:0,dehydrators:1});assert.deepEqual(a.outdoorExcluded,{kegs:0,jars:1,dehydrators:0});assert.equal(a.jars,0);
+ p.objects=p.objects.map(o=>o.itemId==='fence'&&o.y===4?obj('gate',3,4):o);
+ const b=farmMachines(p);assert.equal(b.jars,1);assert.equal(b.kegs,1);assert.equal(b.dehydrators,1);
+ const result=simulateEconomy(input,[{cycle:cycles(cropById.get('blueberry')!,1,false)[0],tiles:1}],{...settings,kegs:b.kegs,jars:b.jars,dehydrators:b.dehydrators});
+ assert.ok(result.totalProcessed>0);assert.equal(result.totalHarvest,result.totalProcessed+result.totalRawSold);
+ p.map.tiles.fill('water');const c=farmMachines(p);assert.equal(c.origin,null);assert.equal(c.kegs+c.jars+c.dehydrators,0);assert.equal(c.outdoorExcluded.jars,1);
+});
+test('linked room dehydrators included; inaccessible devices excluded',()=>{
+ const p=demoPlan(),b=p.objects.find(o=>o.itemId==='barn')!;
+ const room={...emptyInterior('barn'),cells:{'12':'dehydrator' as const,'13':'keg' as const}};
+ const next=attachInterior(p,b.id,room),m=farmMachines(next);
+ assert.equal(m.indoor.dehydrators+m.blockedDehydrators,1);assert.equal(m.indoor.kegs+m.blockedKegs,1);
+ assert.equal(m.dehydrators,m.indoor.dehydrators+m.outdoor.dehydrators);
 });
