@@ -1,0 +1,2675 @@
+{
+  "schema": 1,
+  "source": "MouseyPounds/stardew-predictor stardew-predictor.js blob f84c2b30a32a04c3485ddabfba2be57cb0cde596; cs-random.js 1c2b41217246103c66ac5db8a7623055328dcfad; xxhash.min.js 113912c3b12c6569ef4964b37debf832cc3757c9",
+  "cases": [
+    {
+      "scenario": {
+        "gameID": 123456789,
+        "mp_ids": [
+          "987654321"
+        ],
+        "useLegacyRandom": false,
+        "gotMysteryBook": false,
+        "quarryUnlocked": true,
+        "hardmodeMines": false
+      },
+      "coconuts": [
+        {
+          "opening": 1,
+          "name": "Mango Sapling",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 2,
+          "name": "Iridium Ore",
+          "quantity": 5,
+          "hat": false,
+          "qi": true
+        },
+        {
+          "opening": 3,
+          "name": "Mango Sapling",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 4,
+          "name": "Pineapple Seeds",
+          "quantity": 5,
+          "hat": true,
+          "qi": false
+        },
+        {
+          "opening": 5,
+          "name": "Taro Tuber",
+          "quantity": 5,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 6,
+          "name": "Banana Sapling",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 7,
+          "name": "Banana Sapling",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 8,
+          "name": "Mango Sapling",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 9,
+          "name": "Taro Tuber",
+          "quantity": 5,
+          "hat": true,
+          "qi": false
+        },
+        {
+          "opening": 10,
+          "name": "Iridium Ore",
+          "quantity": 5,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 11,
+          "name": "Fossilized Skull",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 12,
+          "name": "Mahogany Seed",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 13,
+          "name": "Iridium Ore",
+          "quantity": 5,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 14,
+          "name": "Mango Sapling",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 15,
+          "name": "Pineapple Seeds",
+          "quantity": 5,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 16,
+          "name": "Mango Sapling",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 17,
+          "name": "Mango Sapling",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 18,
+          "name": "Banana Sapling",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 19,
+          "name": "Fossilized Skull",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 20,
+          "name": "Mahogany Seed",
+          "quantity": 1,
+          "hat": true,
+          "qi": false
+        }
+      ],
+      "mystery": [
+        {
+          "opening": 1,
+          "items": [
+            {
+              "name": "Deluxe Speed-Gro",
+              "quantity": 10,
+              "conditional": false
+            },
+            {
+              "name": "Life Elixir",
+              "quantity": 2,
+              "conditional": false
+            },
+            {
+              "name": "Stardew Valley Almanac",
+              "quantity": 1,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 2,
+          "items": [
+            {
+              "name": "Coffee",
+              "quantity": 3,
+              "conditional": false
+            },
+            {
+              "name": "Lucky Lunch",
+              "quantity": 2,
+              "conditional": false
+            },
+            {
+              "name": "Blue Armchair",
+              "quantity": 5,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 3,
+          "items": [
+            {
+              "name": "Mixed Flower Seeds",
+              "quantity": 10,
+              "conditional": false
+            },
+            {
+              "name": "Life Elixir",
+              "quantity": 2,
+              "conditional": false
+            },
+            {
+              "name": "Life Elixir",
+              "quantity": 2,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 4,
+          "items": [
+            {
+              "name": "Mixed Flower Seeds",
+              "quantity": 10,
+              "conditional": false
+            },
+            {
+              "name": "Mystery Box",
+              "quantity": 3,
+              "conditional": false
+            },
+            {
+              "name": "Warp Totem: Farm",
+              "quantity": 3,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 5,
+          "items": [
+            {
+              "name": "Deluxe Speed-Gro",
+              "quantity": 10,
+              "conditional": false
+            },
+            {
+              "name": "Mystery Box",
+              "quantity": 3,
+              "conditional": false
+            },
+            {
+              "name": "Deluxe Speed-Gro",
+              "quantity": 20,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 6,
+          "items": [
+            {
+              "name": "Sturdy Ring",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Warp Totem: Farm",
+              "quantity": 3,
+              "conditional": false
+            },
+            {
+              "name": "Seasonal Seeds",
+              "quantity": 20,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 7,
+          "items": [
+            {
+              "name": "Warp Totem: Farm",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Warp Totem: Farm",
+              "quantity": 3,
+              "conditional": false
+            },
+            {
+              "name": "Lucky Lunch",
+              "quantity": 2,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 8,
+          "items": [
+            {
+              "name": "Warp Totem: Farm",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Dressed Spinner",
+              "quantity": 1,
+              "conditional": true
+            },
+            {
+              "name": "Quality Fertilizer",
+              "quantity": 20,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 9,
+          "items": [
+            {
+              "name": "Mixed Seeds",
+              "quantity": 10,
+              "conditional": false
+            },
+            {
+              "name": "Raccoon Seeds",
+              "quantity": 8,
+              "conditional": false
+            },
+            {
+              "name": "Raccoon Seeds",
+              "quantity": 8,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 10,
+          "items": [
+            {
+              "name": "Mixed Seeds",
+              "quantity": 10,
+              "conditional": false
+            },
+            {
+              "name": "Triple Shot Espresso",
+              "quantity": 3,
+              "conditional": false
+            },
+            {
+              "name": "Triple Shot Espresso",
+              "quantity": 3,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 11,
+          "items": [
+            {
+              "name": "Fish Stew",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Lucky Lunch",
+              "quantity": 2,
+              "conditional": false
+            },
+            {
+              "name": "Seasonal Seeds",
+              "quantity": 20,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 12,
+          "items": [
+            {
+              "name": "Warp Totem: Mountains",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Triple Shot Espresso",
+              "quantity": 3,
+              "conditional": false
+            },
+            {
+              "name": "Blue Armchair",
+              "quantity": 5,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 13,
+          "items": [
+            {
+              "name": "Lucky Lunch",
+              "quantity": 2,
+              "conditional": false
+            },
+            {
+              "name": "Mystery Wallpaper",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Mystery Shirt",
+              "quantity": 1,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 14,
+          "items": [
+            {
+              "name": "Walnut Dresser",
+              "quantity": 10,
+              "conditional": false
+            },
+            {
+              "name": "Warp Totem: Farm",
+              "quantity": 3,
+              "conditional": false
+            },
+            {
+              "name": "Deluxe Speed-Gro",
+              "quantity": 20,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 15,
+          "items": [
+            {
+              "name": "Stuffing",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Raccoon Seeds",
+              "quantity": 8,
+              "conditional": false
+            },
+            {
+              "name": "Quality Fertilizer",
+              "quantity": 20,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 16,
+          "items": [
+            {
+              "name": "Mystery Wallpaper",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Mystery Shirt",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Mystery Hat",
+              "quantity": 1,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 17,
+          "items": [
+            {
+              "name": "Life Elixir",
+              "quantity": 2,
+              "conditional": false
+            },
+            {
+              "name": "Triple Shot Espresso",
+              "quantity": 3,
+              "conditional": false
+            },
+            {
+              "name": "Emerald Ring",
+              "quantity": 1,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 18,
+          "items": [
+            {
+              "name": "Warp Totem: Beach",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Blue Armchair",
+              "quantity": 5,
+              "conditional": false
+            },
+            {
+              "name": "Ruby Ring",
+              "quantity": 1,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 19,
+          "items": [
+            {
+              "name": "Mystery Box",
+              "quantity": 2,
+              "conditional": false
+            },
+            {
+              "name": "Warp Totem: Farm",
+              "quantity": 3,
+              "conditional": false
+            },
+            {
+              "name": "Deluxe Speed-Gro",
+              "quantity": 20,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 20,
+          "items": [
+            {
+              "name": "Seasonal Seeds",
+              "quantity": 8,
+              "conditional": false
+            },
+            {
+              "name": "Quality Sprinkler",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Triple Shot Espresso",
+              "quantity": 3,
+              "conditional": false
+            }
+          ]
+        }
+      ],
+      "mines": [
+        {
+          "day": 1,
+          "mushroom": [
+            99
+          ],
+          "monster": [
+            6
+          ],
+          "slime": [
+            46
+          ],
+          "quarry": [
+            79,
+            82,
+            103,
+            113
+          ],
+          "dinosaur": [
+            37,
+            47,
+            110,
+            126,
+            149,
+            162,
+            204,
+            206,
+            216,
+            307,
+            334,
+            371,
+            416,
+            466
+          ]
+        },
+        {
+          "day": 2,
+          "mushroom": [],
+          "monster": [],
+          "slime": [],
+          "quarry": [
+            44,
+            47,
+            54,
+            89,
+            114
+          ],
+          "dinosaur": [
+            33,
+            178,
+            204,
+            349,
+            403,
+            410
+          ]
+        },
+        {
+          "day": 3,
+          "mushroom": [],
+          "monster": [
+            17,
+            21
+          ],
+          "slime": [],
+          "quarry": [
+            28,
+            48,
+            83,
+            91
+          ],
+          "dinosaur": [
+            12,
+            123,
+            176,
+            206,
+            236,
+            300,
+            345,
+            493
+          ]
+        },
+        {
+          "day": 4,
+          "mushroom": [
+            84
+          ],
+          "monster": [],
+          "slime": [
+            13
+          ],
+          "quarry": [
+            32,
+            48
+          ],
+          "dinosaur": [
+            56,
+            71,
+            83,
+            189,
+            221,
+            258,
+            295,
+            345,
+            467
+          ]
+        },
+        {
+          "day": 5,
+          "mushroom": [],
+          "monster": [],
+          "slime": [
+            54,
+            57,
+            58
+          ],
+          "quarry": [
+            6,
+            32,
+            93
+          ],
+          "dinosaur": [
+            38,
+            102,
+            119,
+            141,
+            149,
+            153,
+            185,
+            204,
+            208,
+            238,
+            267
+          ]
+        },
+        {
+          "day": 6,
+          "mushroom": [],
+          "monster": [],
+          "slime": [
+            58
+          ],
+          "quarry": [
+            32,
+            111
+          ],
+          "dinosaur": [
+            22,
+            70,
+            82,
+            85,
+            162,
+            186,
+            197,
+            388,
+            439
+          ]
+        },
+        {
+          "day": 7,
+          "mushroom": [],
+          "monster": [
+            26
+          ],
+          "slime": [],
+          "quarry": [
+            62,
+            91,
+            93,
+            107,
+            113
+          ],
+          "dinosaur": [
+            57,
+            103,
+            151,
+            166,
+            168,
+            172,
+            185,
+            274,
+            373,
+            378,
+            401,
+            402,
+            406,
+            439,
+            465
+          ]
+        },
+        {
+          "day": 8,
+          "mushroom": [
+            91
+          ],
+          "monster": [
+            48
+          ],
+          "slime": [],
+          "quarry": [
+            29,
+            33,
+            36,
+            72,
+            82,
+            99,
+            109
+          ],
+          "dinosaur": [
+            16,
+            79,
+            140,
+            168,
+            221,
+            238,
+            371,
+            473
+          ]
+        },
+        {
+          "day": 9,
+          "mushroom": [
+            88
+          ],
+          "monster": [],
+          "slime": [
+            56,
+            86,
+            89
+          ],
+          "quarry": [
+            3,
+            79,
+            117
+          ],
+          "dinosaur": [
+            70,
+            177,
+            227,
+            230,
+            267,
+            272,
+            314,
+            327,
+            415,
+            420,
+            433,
+            451
+          ]
+        },
+        {
+          "day": 10,
+          "mushroom": [],
+          "monster": [
+            7,
+            29,
+            89
+          ],
+          "slime": [
+            11,
+            66,
+            87
+          ],
+          "quarry": [
+            9,
+            27,
+            28,
+            103
+          ],
+          "dinosaur": [
+            28,
+            175,
+            182,
+            191,
+            245,
+            283,
+            313,
+            323,
+            393,
+            466
+          ]
+        },
+        {
+          "day": 11,
+          "mushroom": [
+            86
+          ],
+          "monster": [
+            28
+          ],
+          "slime": [
+            66
+          ],
+          "quarry": [
+            87,
+            104
+          ],
+          "dinosaur": [
+            27,
+            45,
+            94,
+            201,
+            219,
+            338,
+            352,
+            387,
+            411,
+            452,
+            474
+          ]
+        },
+        {
+          "day": 12,
+          "mushroom": [
+            101,
+            109
+          ],
+          "monster": [
+            52,
+            57,
+            108
+          ],
+          "slime": [
+            24,
+            28
+          ],
+          "quarry": [
+            21,
+            59,
+            62,
+            89,
+            91
+          ],
+          "dinosaur": [
+            45,
+            66,
+            67,
+            135,
+            154,
+            238,
+            273,
+            319,
+            340,
+            341,
+            447
+          ]
+        },
+        {
+          "day": 13,
+          "mushroom": [],
+          "monster": [],
+          "slime": [
+            97
+          ],
+          "quarry": [
+            2,
+            44,
+            66,
+            98
+          ],
+          "dinosaur": [
+            9,
+            21,
+            91,
+            102,
+            104,
+            115,
+            230,
+            274,
+            285,
+            292,
+            293,
+            345,
+            356,
+            455
+          ]
+        },
+        {
+          "day": 14,
+          "mushroom": [],
+          "monster": [
+            9,
+            91
+          ],
+          "slime": [],
+          "quarry": [
+            28,
+            103
+          ],
+          "dinosaur": [
+            59,
+            81,
+            86,
+            111,
+            114,
+            205,
+            308,
+            342,
+            343,
+            383,
+            424,
+            485
+          ]
+        },
+        {
+          "day": 15,
+          "mushroom": [
+            116
+          ],
+          "monster": [],
+          "slime": [],
+          "quarry": [
+            9,
+            11,
+            66,
+            73,
+            93
+          ],
+          "dinosaur": [
+            88,
+            306,
+            348,
+            389,
+            393,
+            402,
+            408
+          ]
+        },
+        {
+          "day": 16,
+          "mushroom": [
+            82
+          ],
+          "monster": [
+            61
+          ],
+          "slime": [
+            67
+          ],
+          "quarry": [
+            24,
+            37,
+            97,
+            98
+          ],
+          "dinosaur": [
+            105,
+            120,
+            176,
+            355,
+            391,
+            396
+          ]
+        },
+        {
+          "day": 17,
+          "mushroom": [
+            98,
+            111
+          ],
+          "monster": [
+            97
+          ],
+          "slime": [
+            11
+          ],
+          "quarry": [
+            39,
+            53,
+            87,
+            89,
+            106
+          ],
+          "dinosaur": [
+            56,
+            225,
+            246,
+            339,
+            392,
+            434
+          ]
+        },
+        {
+          "day": 18,
+          "mushroom": [],
+          "monster": [
+            13,
+            29,
+            109
+          ],
+          "slime": [
+            23,
+            93
+          ],
+          "quarry": [
+            4,
+            27,
+            34,
+            68,
+            78,
+            83,
+            89
+          ],
+          "dinosaur": [
+            35,
+            45,
+            46,
+            97,
+            217,
+            301,
+            320,
+            335,
+            356,
+            385,
+            458,
+            485
+          ]
+        },
+        {
+          "day": 19,
+          "mushroom": [
+            93,
+            117
+          ],
+          "monster": [
+            6
+          ],
+          "slime": [
+            63,
+            89
+          ],
+          "quarry": [
+            8,
+            16,
+            17,
+            59,
+            88
+          ],
+          "dinosaur": [
+            33,
+            81,
+            83,
+            96,
+            127,
+            184,
+            229,
+            323,
+            382,
+            491
+          ]
+        },
+        {
+          "day": 20,
+          "mushroom": [
+            84
+          ],
+          "monster": [
+            89
+          ],
+          "slime": [],
+          "quarry": [
+            3,
+            9,
+            23,
+            28,
+            43,
+            97
+          ],
+          "dinosaur": [
+            225,
+            246,
+            254,
+            256,
+            357,
+            361,
+            371,
+            424,
+            476,
+            483
+          ]
+        },
+        {
+          "day": 21,
+          "mushroom": [
+            92,
+            116
+          ],
+          "monster": [],
+          "slime": [
+            109
+          ],
+          "quarry": [
+            26,
+            38,
+            87,
+            118
+          ],
+          "dinosaur": [
+            31,
+            41,
+            198,
+            346,
+            388,
+            403,
+            436,
+            440
+          ]
+        },
+        {
+          "day": 22,
+          "mushroom": [
+            82,
+            101,
+            107
+          ],
+          "monster": [
+            22,
+            109
+          ],
+          "slime": [
+            87
+          ],
+          "quarry": [
+            32,
+            36,
+            66
+          ],
+          "dinosaur": [
+            66,
+            102,
+            132,
+            146,
+            172,
+            255,
+            293,
+            304,
+            402,
+            407,
+            423,
+            496
+          ]
+        },
+        {
+          "day": 23,
+          "mushroom": [
+            81,
+            116
+          ],
+          "monster": [
+            29,
+            62
+          ],
+          "slime": [
+            102
+          ],
+          "quarry": [
+            53,
+            78
+          ],
+          "dinosaur": [
+            8,
+            33,
+            227,
+            264,
+            267,
+            334,
+            373,
+            404,
+            456
+          ]
+        },
+        {
+          "day": 24,
+          "mushroom": [],
+          "monster": [
+            7
+          ],
+          "slime": [],
+          "quarry": [
+            23,
+            52,
+            118
+          ],
+          "dinosaur": [
+            14,
+            26,
+            33,
+            37,
+            126,
+            155,
+            163,
+            216,
+            277,
+            298,
+            306,
+            326,
+            458
+          ]
+        },
+        {
+          "day": 25,
+          "mushroom": [],
+          "monster": [
+            103
+          ],
+          "slime": [],
+          "quarry": [
+            44,
+            66
+          ],
+          "dinosaur": [
+            10,
+            97,
+            141,
+            177,
+            180,
+            338,
+            354,
+            400,
+            431
+          ]
+        },
+        {
+          "day": 26,
+          "mushroom": [
+            86,
+            98
+          ],
+          "monster": [
+            24
+          ],
+          "slime": [],
+          "quarry": [
+            34,
+            77
+          ],
+          "dinosaur": [
+            18,
+            38,
+            61,
+            67,
+            94,
+            102,
+            190,
+            193,
+            219,
+            222,
+            239,
+            320,
+            343,
+            368,
+            394,
+            421,
+            477
+          ]
+        },
+        {
+          "day": 27,
+          "mushroom": [
+            82,
+            104
+          ],
+          "monster": [
+            86
+          ],
+          "slime": [
+            13,
+            69,
+            108
+          ],
+          "quarry": [
+            26,
+            38,
+            102,
+            119
+          ],
+          "dinosaur": [
+            14,
+            26,
+            35,
+            37,
+            81,
+            130,
+            136,
+            142,
+            254,
+            400,
+            416,
+            429,
+            453,
+            465,
+            473,
+            475,
+            477
+          ]
+        },
+        {
+          "day": 28,
+          "mushroom": [
+            97
+          ],
+          "monster": [
+            51,
+            86
+          ],
+          "slime": [
+            106
+          ],
+          "quarry": [
+            33,
+            69,
+            72,
+            79,
+            104,
+            116
+          ],
+          "dinosaur": [
+            28,
+            156,
+            209,
+            242,
+            257,
+            315,
+            327,
+            384,
+            416,
+            474,
+            499
+          ]
+        }
+      ]
+    },
+    {
+      "scenario": {
+        "gameID": 246801357,
+        "mp_ids": [
+          "-123456789"
+        ],
+        "useLegacyRandom": true,
+        "gotMysteryBook": true,
+        "quarryUnlocked": false,
+        "hardmodeMines": true
+      },
+      "coconuts": [
+        {
+          "opening": 1,
+          "name": "Mango Sapling",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 2,
+          "name": "Pineapple Seeds",
+          "quantity": 5,
+          "hat": false,
+          "qi": true
+        },
+        {
+          "opening": 3,
+          "name": "Iridium Ore",
+          "quantity": 5,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 4,
+          "name": "Fossilized Skull",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 5,
+          "name": "Banana Sapling",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 6,
+          "name": "Iridium Ore",
+          "quantity": 5,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 7,
+          "name": "Fossilized Skull",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 8,
+          "name": "Pineapple Seeds",
+          "quantity": 5,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 9,
+          "name": "Mango Sapling",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 10,
+          "name": "Taro Tuber",
+          "quantity": 5,
+          "hat": false,
+          "qi": true
+        },
+        {
+          "opening": 11,
+          "name": "Banana Sapling",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 12,
+          "name": "Fossilized Skull",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 13,
+          "name": "Fossilized Skull",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 14,
+          "name": "Taro Tuber",
+          "quantity": 5,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 15,
+          "name": "Pineapple Seeds",
+          "quantity": 5,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 16,
+          "name": "Iridium Ore",
+          "quantity": 5,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 17,
+          "name": "Mahogany Seed",
+          "quantity": 1,
+          "hat": false,
+          "qi": true
+        },
+        {
+          "opening": 18,
+          "name": "Mahogany Seed",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 19,
+          "name": "Mango Sapling",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        },
+        {
+          "opening": 20,
+          "name": "Mango Sapling",
+          "quantity": 1,
+          "hat": false,
+          "qi": false
+        }
+      ],
+      "mystery": [
+        {
+          "opening": 1,
+          "items": [
+            {
+              "name": "Seasonal Seeds",
+              "quantity": 8,
+              "conditional": false
+            },
+            {
+              "name": "Deluxe Speed-Gro",
+              "quantity": 20,
+              "conditional": false
+            },
+            {
+              "name": "Dressed Spinner",
+              "quantity": 1,
+              "conditional": true
+            }
+          ]
+        },
+        {
+          "opening": 2,
+          "items": [
+            {
+              "name": "Coffee",
+              "quantity": 3,
+              "conditional": false
+            },
+            {
+              "name": "Mystery Hat",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Golden Pumpkin",
+              "quantity": 1,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 3,
+          "items": [
+            {
+              "name": "Quality Fertilizer",
+              "quantity": 10,
+              "conditional": false
+            },
+            {
+              "name": "Seasonal Seeds",
+              "quantity": 20,
+              "conditional": false
+            },
+            {
+              "name": "Ruby Ring",
+              "quantity": 1,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 4,
+          "items": [
+            {
+              "name": "Seasonal Seeds",
+              "quantity": 8,
+              "conditional": false
+            },
+            {
+              "name": "Deluxe Speed-Gro",
+              "quantity": 20,
+              "conditional": false
+            },
+            {
+              "name": "Bait And Bobber",
+              "quantity": 1,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 5,
+          "items": [
+            {
+              "name": "Hashbrowns",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Prismatic Shard",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Pomegranate Sapling",
+              "quantity": 1,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 6,
+          "items": [
+            {
+              "name": "Warp Totem: Mountains",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Blue Armchair",
+              "quantity": 5,
+              "conditional": false
+            },
+            {
+              "name": "Life Elixir",
+              "quantity": 2,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 7,
+          "items": [
+            {
+              "name": "Walnut Dresser",
+              "quantity": 10,
+              "conditional": false
+            },
+            {
+              "name": "Dish O' The Sea",
+              "quantity": 2,
+              "conditional": false
+            },
+            {
+              "name": "Quality Sprinkler",
+              "quantity": 1,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 8,
+          "items": [
+            {
+              "name": "Warp Totem: Mountains",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Quality Fertilizer",
+              "quantity": 20,
+              "conditional": false
+            },
+            {
+              "name": "Deluxe Speed-Gro",
+              "quantity": 20,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 9,
+          "items": [
+            {
+              "name": "Mixed Seeds",
+              "quantity": 10,
+              "conditional": false
+            },
+            {
+              "name": "Seasonal Seeds",
+              "quantity": 20,
+              "conditional": false
+            },
+            {
+              "name": "Ossified Blade",
+              "quantity": 1,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 10,
+          "items": [
+            {
+              "name": "Coffee",
+              "quantity": 3,
+              "conditional": false
+            },
+            {
+              "name": "Ruby Ring",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Quality Sprinkler",
+              "quantity": 1,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 11,
+          "items": [
+            {
+              "name": "Walnut Dresser",
+              "quantity": 10,
+              "conditional": false
+            },
+            {
+              "name": "Apple Sapling",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Bait And Bobber",
+              "quantity": 1,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 12,
+          "items": [
+            {
+              "name": "Coffee",
+              "quantity": 3,
+              "conditional": false
+            },
+            {
+              "name": "Book of Mysteries",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Treasure Chest",
+              "quantity": 1,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 13,
+          "items": [
+            {
+              "name": "Seasonal Seeds",
+              "quantity": 8,
+              "conditional": false
+            },
+            {
+              "name": "Cork Bobber",
+              "quantity": 1,
+              "conditional": true
+            },
+            {
+              "name": "Triple Shot Espresso",
+              "quantity": 3,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 14,
+          "items": [
+            {
+              "name": "Crab Cakes",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Quality Sprinkler",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Deluxe Speed-Gro",
+              "quantity": 20,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 15,
+          "items": [
+            {
+              "name": "Coffee",
+              "quantity": 3,
+              "conditional": false
+            },
+            {
+              "name": "Treasure Chest",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Apricot Sapling",
+              "quantity": 1,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 16,
+          "items": [
+            {
+              "name": "Warp Totem: Mountains",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Raccoon Seeds",
+              "quantity": 8,
+              "conditional": false
+            },
+            {
+              "name": "Warp Totem: Farm",
+              "quantity": 3,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 17,
+          "items": [
+            {
+              "name": "Glowstone Ring",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Lucky Lunch",
+              "quantity": 2,
+              "conditional": false
+            },
+            {
+              "name": "Pomegranate Sapling",
+              "quantity": 1,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 18,
+          "items": [
+            {
+              "name": "Warp Totem: Mountains",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Deluxe Speed-Gro",
+              "quantity": 20,
+              "conditional": false
+            },
+            {
+              "name": "Life Elixir",
+              "quantity": 2,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 19,
+          "items": [
+            {
+              "name": "Quality Fertilizer",
+              "quantity": 20,
+              "conditional": false
+            },
+            {
+              "name": "Warp Totem: Farm",
+              "quantity": 3,
+              "conditional": false
+            },
+            {
+              "name": "Triple Shot Espresso",
+              "quantity": 3,
+              "conditional": false
+            }
+          ]
+        },
+        {
+          "opening": 20,
+          "items": [
+            {
+              "name": "Ice Cream",
+              "quantity": 1,
+              "conditional": false
+            },
+            {
+              "name": "Mystery Box",
+              "quantity": 4,
+              "conditional": false
+            },
+            {
+              "name": "Ossified Blade",
+              "quantity": 1,
+              "conditional": false
+            }
+          ]
+        }
+      ],
+      "mines": [
+        {
+          "day": 1,
+          "mushroom": [
+            114
+          ],
+          "monster": [
+            28,
+            61
+          ],
+          "slime": [
+            94
+          ],
+          "quarry": [],
+          "dinosaur": [
+            40,
+            77,
+            110,
+            139,
+            176,
+            209,
+            275,
+            308,
+            345,
+            374,
+            378,
+            407,
+            444
+          ]
+        },
+        {
+          "day": 2,
+          "mushroom": [],
+          "monster": [
+            63
+          ],
+          "slime": [
+            96
+          ],
+          "quarry": [],
+          "dinosaur": [
+            9,
+            46,
+            75,
+            108,
+            145,
+            244,
+            314,
+            343,
+            413,
+            479
+          ]
+        },
+        {
+          "day": 3,
+          "mushroom": [
+            88
+          ],
+          "monster": [],
+          "slime": [
+            69,
+            98,
+            102
+          ],
+          "quarry": [],
+          "dinosaur": [
+            15,
+            44,
+            81,
+            114,
+            180,
+            213,
+            250,
+            279,
+            283,
+            312,
+            349,
+            382,
+            448
+          ]
+        },
+        {
+          "day": 4,
+          "mushroom": [
+            91,
+            106
+          ],
+          "monster": [
+            67
+          ],
+          "slime": [
+            104
+          ],
+          "quarry": [],
+          "dinosaur": [
+            50,
+            149,
+            219,
+            248,
+            318,
+            384,
+            417,
+            454,
+            483,
+            487
+          ]
+        },
+        {
+          "day": 5,
+          "mushroom": [
+            94,
+            109
+          ],
+          "monster": [
+            7
+          ],
+          "slime": [
+            106
+          ],
+          "quarry": [],
+          "dinosaur": [
+            19,
+            85,
+            89,
+            118,
+            155,
+            184,
+            188,
+            254,
+            287,
+            353,
+            423,
+            452
+          ]
+        },
+        {
+          "day": 6,
+          "mushroom": [
+            112
+          ],
+          "monster": [
+            9
+          ],
+          "slime": [
+            108
+          ],
+          "quarry": [],
+          "dinosaur": [
+            25,
+            54,
+            124,
+            223,
+            293,
+            322,
+            359,
+            388,
+            392,
+            458,
+            491
+          ]
+        },
+        {
+          "day": 7,
+          "mushroom": [],
+          "monster": [],
+          "slime": [
+            11,
+            48
+          ],
+          "quarry": [],
+          "dinosaur": [
+            23,
+            60,
+            93,
+            159,
+            192,
+            229,
+            258,
+            291,
+            328,
+            427,
+            497
+          ]
+        },
+        {
+          "day": 8,
+          "mushroom": [
+            86
+          ],
+          "monster": [
+            17,
+            46
+          ],
+          "slime": [
+            13
+          ],
+          "quarry": [],
+          "dinosaur": [
+            29,
+            128,
+            165,
+            198,
+            227,
+            264,
+            297,
+            363,
+            396,
+            433,
+            462,
+            495
+          ]
+        },
+        {
+          "day": 9,
+          "mushroom": [
+            89,
+            104,
+            119
+          ],
+          "monster": [],
+          "slime": [
+            52
+          ],
+          "quarry": [],
+          "dinosaur": [
+            64,
+            97,
+            134,
+            163,
+            196,
+            233,
+            332,
+            402,
+            431,
+            468
+          ]
+        },
+        {
+          "day": 10,
+          "mushroom": [
+            92,
+            107
+          ],
+          "monster": [
+            21
+          ],
+          "slime": [
+            54,
+            87
+          ],
+          "quarry": [],
+          "dinosaur": [
+            33,
+            70,
+            103,
+            132,
+            169,
+            202,
+            268,
+            301,
+            338,
+            367,
+            371,
+            400,
+            437
+          ]
+        },
+        {
+          "day": 11,
+          "mushroom": [],
+          "monster": [
+            23,
+            93
+          ],
+          "slime": [
+            56,
+            89
+          ],
+          "quarry": [],
+          "dinosaur": [
+            39,
+            138,
+            237,
+            307,
+            336,
+            406,
+            472
+          ]
+        },
+        {
+          "day": 12,
+          "mushroom": [],
+          "monster": [],
+          "slime": [
+            29,
+            58,
+            62,
+            91
+          ],
+          "quarry": [],
+          "dinosaur": [
+            8,
+            74,
+            107,
+            173,
+            177,
+            206,
+            243,
+            272,
+            276,
+            342,
+            375,
+            441
+          ]
+        },
+        {
+          "day": 13,
+          "mushroom": [
+            84
+          ],
+          "monster": [
+            27,
+            97
+          ],
+          "slime": [
+            64
+          ],
+          "quarry": [],
+          "dinosaur": [
+            43,
+            113,
+            142,
+            212,
+            311,
+            377,
+            381,
+            410,
+            447,
+            476,
+            480
+          ]
+        },
+        {
+          "day": 14,
+          "mushroom": [
+            87,
+            102,
+            117
+          ],
+          "monster": [],
+          "slime": [
+            66
+          ],
+          "quarry": [],
+          "dinosaur": [
+            12,
+            49,
+            78,
+            82,
+            111,
+            148,
+            181,
+            247,
+            280,
+            317,
+            346,
+            416
+          ]
+        },
+        {
+          "day": 15,
+          "mushroom": [],
+          "monster": [
+            101
+          ],
+          "slime": [
+            68
+          ],
+          "quarry": [],
+          "dinosaur": [
+            18,
+            47,
+            117,
+            216,
+            253,
+            286,
+            315,
+            352,
+            385,
+            451,
+            484
+          ]
+        },
+        {
+          "day": 16,
+          "mushroom": [
+            108
+          ],
+          "monster": [
+            103,
+            107
+          ],
+          "slime": [
+            8
+          ],
+          "quarry": [],
+          "dinosaur": [
+            53,
+            86,
+            152,
+            185,
+            222,
+            251,
+            284,
+            321,
+            420,
+            457,
+            490
+          ]
+        },
+        {
+          "day": 17,
+          "mushroom": [],
+          "monster": [
+            6,
+            109
+          ],
+          "slime": [],
+          "quarry": [],
+          "dinosaur": [
+            22,
+            121,
+            158,
+            191,
+            220,
+            257,
+            290,
+            356,
+            389,
+            426,
+            455,
+            488
+          ]
+        },
+        {
+          "day": 18,
+          "mushroom": [
+            82
+          ],
+          "monster": [],
+          "slime": [
+            12
+          ],
+          "quarry": [],
+          "dinosaur": [
+            57,
+            90,
+            127,
+            156,
+            226,
+            325,
+            395,
+            424,
+            461,
+            494
+          ]
+        },
+        {
+          "day": 19,
+          "mushroom": [],
+          "monster": [],
+          "slime": [
+            14,
+            47
+          ],
+          "quarry": [],
+          "dinosaur": [
+            26,
+            63,
+            96,
+            162,
+            195,
+            261,
+            265,
+            294,
+            331,
+            360,
+            364,
+            430
+          ]
+        },
+        {
+          "day": 20,
+          "mushroom": [
+            88,
+            103,
+            118
+          ],
+          "monster": [
+            53,
+            86
+          ],
+          "slime": [
+            16,
+            49
+          ],
+          "quarry": [],
+          "dinosaur": [
+            32,
+            131,
+            201,
+            230,
+            300,
+            399,
+            465,
+            469,
+            498
+          ]
+        },
+        {
+          "day": 21,
+          "mushroom": [
+            106
+          ],
+          "monster": [
+            18,
+            88
+          ],
+          "slime": [
+            22,
+            51
+          ],
+          "quarry": [],
+          "dinosaur": [
+            67,
+            100,
+            137,
+            166,
+            170,
+            199,
+            236,
+            269,
+            335,
+            405,
+            434
+          ]
+        },
+        {
+          "day": 22,
+          "mushroom": [],
+          "monster": [
+            57
+          ],
+          "slime": [
+            24
+          ],
+          "quarry": [],
+          "dinosaur": [
+            36,
+            106,
+            135,
+            205,
+            304,
+            341,
+            370,
+            374,
+            403,
+            440,
+            473
+          ]
+        },
+        {
+          "day": 23,
+          "mushroom": [],
+          "monster": [
+            92
+          ],
+          "slime": [
+            26,
+            96
+          ],
+          "quarry": [],
+          "dinosaur": [
+            42,
+            71,
+            75,
+            141,
+            174,
+            240,
+            273,
+            310,
+            339,
+            409
+          ]
+        },
+        {
+          "day": 24,
+          "mushroom": [
+            83,
+            113
+          ],
+          "monster": [
+            61,
+            94
+          ],
+          "slime": [
+            28,
+            98
+          ],
+          "quarry": [],
+          "dinosaur": [
+            11,
+            110,
+            209,
+            246,
+            279,
+            308,
+            345,
+            378,
+            444,
+            477
+          ]
+        },
+        {
+          "day": 25,
+          "mushroom": [
+            86,
+            101,
+            116
+          ],
+          "monster": [
+            63,
+            67
+          ],
+          "slime": [],
+          "quarry": [],
+          "dinosaur": [
+            46,
+            79,
+            145,
+            178,
+            215,
+            244,
+            314,
+            413,
+            450,
+            483
+          ]
+        },
+        {
+          "day": 26,
+          "mushroom": [
+            104,
+            119
+          ],
+          "monster": [
+            69
+          ],
+          "slime": [
+            102
+          ],
+          "quarry": [],
+          "dinosaur": [
+            15,
+            52,
+            85,
+            114,
+            151,
+            184,
+            250,
+            283,
+            349,
+            353,
+            382,
+            419,
+            448
+          ]
+        },
+        {
+          "day": 27,
+          "mushroom": [],
+          "monster": [
+            108
+          ],
+          "slime": [
+            104
+          ],
+          "quarry": [],
+          "dinosaur": [
+            21,
+            50,
+            83,
+            120,
+            219,
+            289,
+            318,
+            388,
+            454,
+            487
+          ]
+        },
+        {
+          "day": 28,
+          "mushroom": [],
+          "monster": [],
+          "slime": [
+            7,
+            106
+          ],
+          "quarry": [],
+          "dinosaur": [
+            19,
+            56,
+            89,
+            155,
+            188,
+            225,
+            254,
+            258,
+            287,
+            324,
+            357,
+            423,
+            493
+          ]
+        }
+      ]
+    }
+  ]
+}
