@@ -46,3 +46,19 @@ test('published artisan prices, mill yields and cask targets are preserved',()=>
  assert.equal(extra('beet',1,true).revenue,150);assert.equal(extra('wheat',1,true).revenue,50);assert.equal(extra('unmilled-rice',1,true).revenue,100);
  assert.equal(wineAging(2250,1,1,56,true).find(r=>r.quality==='Iridium')!.revenue,6300);
 });
+
+import {scheduledBatches} from '../src/lib/processing.ts';
+test('processing collection schedules respect overnight clock and horizon',()=>{
+ assert.equal(scheduledBatches(1600,120,'instant'),13);
+ assert.equal(scheduledBatches(1600,120,'morning'),1);
+ assert.equal(scheduledBatches(1600,120,'four-times'),4);
+ assert.equal(scheduledBatches(10000,10000,'morning'),0);
+ assert.equal(scheduledBatches(11200,10000,'morning'),1);
+ assert.equal(scheduledBatches(8000,4000,'instant'),2);
+ assert.equal(scheduledBatches(8000,4000,'morning'),1);
+ assert.equal(scheduledBatches(4280,4000,'four-times'),1);
+ assert.equal(scheduledBatches(4279,4000,'four-times'),0);
+ for(const d of [120,1750,2250,4000,6000,10000])for(const h of [0,1,1600,4280,8000,16000])assert.ok(scheduledBatches(h,d,'morning')<=scheduledBatches(h,d,'four-times')&&scheduledBatches(h,d,'four-times')<=scheduledBatches(h,d,'instant'));
+ const r=estimateProcessing({...input,crop:'coffee-bean',stock:20,minutes:1600,kegs:1,jars:0,pickup:'four-times'});
+ assert.equal(r.processed,20);assert.equal(r.totalRevenue,600);
+});
