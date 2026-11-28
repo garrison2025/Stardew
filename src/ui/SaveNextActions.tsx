@@ -70,6 +70,7 @@ export default function SaveNextActions({progress, season}: {progress: SaveProgr
       return <details key={kind}>
         <summary>{label} · {candidates.length} reference entries to check</summary>
         <p className="muted">These entries have no recognized positive record in this save. Verify uncertain entries in game.</p>
+        {!!observed.outsideTarget?.length && <p>Fish recorded in shipping history and excluded from the 1.6 Full Shipment checklist: {observed.outsideTarget.join(', ')}.</p>}
         {observed.unmapped > 0 && <p>{observed.unmapped} distinct saved item IDs could not be matched.</p>}
         {candidates.length > 0 && <ul>{candidates.map(entry => <li key={entry.name}>{entry.name}</li>)}</ul>}
         <a href={'/' + kind + '/'}>Open {label.toLowerCase()} tracker</a>

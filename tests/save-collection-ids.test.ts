@@ -1,3 +1,8 @@
 import test from 'node:test';import assert from 'node:assert/strict';import {SAVE_COLLECTION_IDS} from '../src/lib/save-collection-ids.ts';import {normalizeObjectCollection} from '../src/lib/save-progress.ts';import {CATALOGS} from '../src/lib/game-collections.ts';import {ITEM_MAP} from '../src/lib/museum-data.ts';
 test('reference ID maps are unique and cover existing catalogues',()=>{for(const k of ['shipping','fishing','cooking'] as const){const names=Object.values(SAVE_COLLECTION_IDS[k]);assert.equal(names.length,CATALOGS[k].length);assert.deepEqual(new Set(names),new Set(CATALOGS[k].map(i=>i.name)))}assert.equal(Object.keys(SAVE_COLLECTION_IDS.museum).length,95);assert.deepEqual(new Set(Object.values(SAVE_COLLECTION_IDS.museum)),new Set(ITEM_MAP.keys()))});
 test('qualified ids, positive observations, zero and unknown excluded',()=>{assert.deepEqual(normalizeObjectCollection('shipping',[{name:'(O)24',count:2},{name:'24',count:1},{name:'390',count:0},{name:'mod-unknown',count:1}]),{done:['Parsnip'],unmapped:1});assert.deepEqual(normalizeObjectCollection('fishing',[{name:'(O)145',count:1}]),{done:['Sunfish'],unmapped:0});assert.deepEqual(normalizeObjectCollection('cooking',[{name:'194',count:1}]),{done:['Fried Egg'],unmapped:0});assert.deepEqual(normalizeObjectCollection('museum',[{name:'126',count:1},{name:'127',count:1}]),{done:['strange-doll-green','strange-doll-yellow'],unmapped:0})});
+
+test('shipped fish are explained without adding to Full Shipment progress',()=>{
+ const rows=[{name:'(O)372',count:2},{name:'372',count:1},{name:'145',count:1},{name:'814',count:1},{name:'mod-unknown',count:1}];
+ assert.deepEqual(normalizeObjectCollection('shipping',rows),{done:['Squid Ink'],unmapped:1,outsideTarget:['Clam','Sunfish']});
+});

@@ -262,7 +262,7 @@
     },
     {
       "path": "src/lib/save-progress.ts",
-      "gitBlob": "32e1a1749dc3bbd9dec1ab1e632de7f0697e7207"
+      "gitBlob": "e612f950aab054cbbb7d34b69c42e3d04ec2a3a4"
     },
     {
       "path": "src/lib/save-quests.ts",
@@ -313,5 +313,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r32"
+  "id": "ref-pc-1.6.15-20261128-r33"
 }

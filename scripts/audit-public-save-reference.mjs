@@ -34,13 +34,20 @@ try{
   const ids=raw[kind],actual=s.progress.collections?.[kind];
   if(ids===null){assert.equal(actual,undefined);console.log('Independent XML '+kind+': no readable dictionary.');continue}
   const map=SAVE_COLLECTION_IDS[kind],names=kind==='shipping'?new Set(CATALOGS.shipping.map(row=>row.name)):null;
-  const recognized=new Set();let unknown=0;
+  const recognized=new Set(),outsideTarget=new Set();let unknown=0;
   for(const id of ids){
-   if(Object.hasOwn(map,id)&&(!names||names.has(map[id])))recognized.add(map[id]);else unknown++;
+   if(Object.hasOwn(map,id)&&(!names||names.has(map[id])))recognized.add(map[id]);
+   else if(kind==='shipping'&&Object.hasOwn(SAVE_COLLECTION_IDS.fishing,id))outsideTarget.add(SAVE_COLLECTION_IDS.fishing[id]);
+   else unknown++;
   }
   assert.deepEqual([...actual.done].sort(),[...recognized].sort());
   assert.equal(actual.unmapped,unknown);
-  console.log('Independent XML '+kind+': '+recognized.size+' positive entries, '+unknown+' unmatched IDs.');
+  assert.deepEqual([...(actual.outsideTarget??[])].sort(),[...outsideTarget].sort());
+  if(kind==='shipping'){
+   assert.deepEqual([...actual.done].sort(),['Daffodil','Fiber','Leek']);
+   assert.deepEqual([...actual.outsideTarget].sort(),['Clam','Snail','Sunfish']);
+  }
+  console.log('Independent XML '+kind+': '+recognized.size+' positive entries, '+outsideTarget.size+' known outside checklist, '+unknown+' unmatched IDs.');
  }
  let bundleFlags=0;
  for(const [id,slots] of Object.entries(raw.bundle_donations)){
