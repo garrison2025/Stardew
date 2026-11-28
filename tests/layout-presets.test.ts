@@ -1,7 +1,21 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {LAYOUT_PRESETS,layoutPreset,layoutReferenceSummary} from '../src/lib/layout-presets.ts';
+import {LAYOUT_PRESETS,layoutPreset,layoutReferenceSummary,REFERENCE_LAYOUT_PRESETS,referenceLayoutPreset} from '../src/lib/layout-presets.ts';
 import {blankLocalMap,scarecrowCoverage,decodePlan,placementError,itemById,type Plan} from '../src/lib/map-model.ts';
 import {buildingItem} from '../src/lib/save-model.ts';
 test('four distinct original presets are valid, editable and deterministic',()=>{const plans=LAYOUT_PRESETS.map(p=>layoutPreset(p.id,'summer'));assert.equal(plans.length,4);for(const p of plans){assert.ok(p.objects.length>5);assert.deepEqual(decodePlan(JSON.parse(JSON.stringify(p))),p);assert.equal(p.season,'summer')}assert.equal(new Set(plans.map(p=>p.map.id)).size,4);assert.deepEqual(layoutPreset('crop-blocks','summer'),plans[0]);});
 test('deluxe range 888, clipped on boundaries',()=>{const p:Plan={schema:2,map:blankLocalMap(40,40),season:'spring',objects:[{id:'d',itemId:'deluxe-scarecrow',x:20,y:20,rotation:0}]};assert.equal(scarecrowCoverage(p).size,888);assert.ok(scarecrowCoverage({...p,objects:[{...p.objects[0],x:1,y:1}]}).size<888);});
 test('new documented building footprints and construction costs',()=>{const p:Plan={schema:2,map:blankLocalMap(30,30),season:'spring',objects:[{id:'a',itemId:'game-fish-pond',x:1,y:1,rotation:0},{id:'b',itemId:'game-mill',x:7,y:1,rotation:0}]};assert.equal(buildingItem('Fish Pond'),'game-fish-pond');assert.equal(itemById.get('game-fish-pond')?.w,5);assert.equal(itemById.get('game-mill')?.h,2);assert.match(placementError(p.map,[],{...p.objects[1],rotation:1})!,/fixed orientation/);const s=layoutReferenceSummary(p);assert.equal(s.gold,7500);assert.equal(s.materials.Stone,250);assert.equal(s.priced,2)});
+
+test('eight farm-specific examples retain starter structures, are valid, irrigated and protected',()=>{
+ for(const spec of REFERENCE_LAYOUT_PRESETS){
+  const p=referenceLayoutPreset(spec.id,'autumn');assert.equal(p.map.id,'local-starplan-'+spec.farm);assert.equal(p.season,'autumn');
+  const s=layoutReferenceSummary(p);assert.equal(s.crops,spec.blocks*8);assert.equal(s.watered,s.crops);assert.equal(s.protected,s.crops);
+  assert.ok(p.objects.some(o=>o.id.startsWith('starter-')&&o.itemId==='game-farmhouse'));
+  assert.ok(p.objects.some(o=>o.id.startsWith('starter-')&&o.itemId==='game-greenhouse'));
+  assert.equal(p.objects.filter(o=>o.id.startsWith('ref-example-')&&o.itemId==='quality-sprinkler').length,spec.blocks);
+  for(const b of spec.buildings)assert.ok(p.objects.some(o=>o.id.startsWith('ref-example-')&&o.itemId===b));
+  const accepted=[];for(const o of p.objects){assert.equal(placementError(p.map,accepted,o),null,spec.id+' '+o.itemId);accepted.push(o)}
+  assert.deepEqual(decodePlan(JSON.parse(JSON.stringify(p))),p);
+  assert.deepEqual(referenceLayoutPreset(spec.id,'autumn'),p);
+ }
+});

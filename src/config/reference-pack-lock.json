@@ -150,7 +150,7 @@
     },
     {
       "path": "src/lib/layout-presets.ts",
-      "gitBlob": "170a2ebd5268e575405b5ebb2cbdd8b2cd1ae175"
+      "gitBlob": "41403dfe37d147bb0b0bab2890caaee2a13be527"
     },
     {
       "path": "src/lib/map-model.ts",
@@ -277,5 +277,5 @@
       "gitBlob": "82f03cb8e496ef429736f978a12c815418318e5a"
     }
   ],
-  "id": "ref-pc-1.6.15-20261128-r22"
+  "id": "ref-pc-1.6.15-20261128-r23"
 }
