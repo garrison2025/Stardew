@@ -13,7 +13,7 @@ export function schemaFor(page,origin){
  const canonical=canonicalFor(page,origin),site=origin+'/#website',application=canonical+'#application',webpage=canonical+'#webpage';
  const graph=[
  {'@type':'WebSite','@id':site,name:'Field & Farm',url:origin+'/',inLanguage:'en'},
- {'@type':'WebPage','@id':webpage,url:canonical,name:page.h1,description:page.description,inLanguage:'en',isPartOf:{'@id':site},mainEntity:{'@id':application}},
+ {'@type':'WebPage','@id':webpage,url:canonical,name:page.h1,description:page.description,inLanguage:'en',isPartOf:{'@id':site},mainEntity:{'@id':application},...(page.path==='/'?{}:{breadcrumb:{'@id':canonical+'#breadcrumb'}})},
  {'@type':'WebApplication','@id':application,name:page.h1,url:canonical,description:page.description,applicationCategory:'GameApplication',operatingSystem:'Any',browserRequirements:'Requires JavaScript',offers:{'@type':'Offer',price:0,priceCurrency:'USD'}}
  ];
  if(page.path!=='/')graph.push({'@type':'BreadcrumbList','@id':canonical+'#breadcrumb',itemListElement:[{'@type':'ListItem',position:1,name:'Tools',item:origin+'/'},{'@type':'ListItem',position:2,name:page.h1.replace('Stardew Valley ',''),item:canonical}]});
