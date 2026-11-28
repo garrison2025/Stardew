@@ -1,0 +1,21 @@
+name: Local TMX reference compiler
+on:
+  push:
+    paths:
+      - 'scripts/extract-local-farm-masks.py'
+      - 'tests/test_local_farm_masks.py'
+      - '.github/workflows/local-tmx-reference.yml'
+  pull_request:
+    paths:
+      - 'scripts/extract-local-farm-masks.py'
+      - 'tests/test_local_farm_masks.py'
+      - '.github/workflows/local-tmx-reference.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  compiler:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 tests/test_local_farm_masks.py
