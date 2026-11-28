@@ -59,7 +59,7 @@ test('outdoor capacity uses one connected walking component; a gate restores acc
  const obj=(itemId:string,x:number,y:number):Placed=>({id:itemId+'-'+x+'-'+y,itemId,x,y,rotation:0});
  const p:Plan={...newPlan(),map:blankLocalMap(8,8),objects:[obj('machine-keg',1,1),obj('machine-jar',5,2),obj('machine-dehydrator',2,4),...Array.from({length:8},(_,y)=>obj('fence',3,y))]};
  const a=farmMachines(p);assert.deepEqual(a.outdoor,{kegs:1,jars:0,dehydrators:1});assert.deepEqual(a.outdoorExcluded,{kegs:0,jars:1,dehydrators:0});assert.equal(a.jars,0);
- p.objects=p.objects.map(o=>o.itemId==='fence'&&o.y===4?obj('gate',3,4):o);
+ p.objects=p.objects.map(o=>o.itemId==='fence'&&o.y===5?obj('gate',3,5):o);
  const b=farmMachines(p);assert.equal(b.jars,1);assert.equal(b.kegs,1);assert.equal(b.dehydrators,1);
  const result=simulateEconomy(input,[{cycle:cycles(cropById.get('blueberry')!,1,false)[0],tiles:1}],{...settings,kegs:b.kegs,jars:b.jars,dehydrators:b.dehydrators});
  assert.ok(result.totalProcessed>0);assert.equal(result.totalHarvest,result.totalProcessed+result.totalRawSold);
