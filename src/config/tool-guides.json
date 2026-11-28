@@ -136,6 +136,10 @@
       [
         "Can I predict train times or green rain?",
         "The 28-day calendar shows seeded railroad, green rain and overnight event candidates. Farm state and reload behavior can change actual outcomes."
+      ],
+      [
+        "Does luck affect what comes out of a geode?",
+        "For ordinary, Frozen, Magma and Omni Geodes, daily luck and temporary luck bonuses do not change the contents. Luck can affect the chance of finding geodes, which is a separate mechanic. The opening reference uses the game and farmer IDs, opening count, mine progress and applicable randomization settings."
       ]
     ]
   },

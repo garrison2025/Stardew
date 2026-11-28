@@ -33,16 +33,16 @@
     {
       "path": "/predictor/",
       "total": 6,
-      "referenceImplemented": 0,
-      "partial": 6,
+      "referenceImplemented": 1,
+      "partial": 5,
       "mixedIntent": 0,
       "explicitlyConfigured": 6
     },
     {
       "path": "/tracker/",
       "total": 5,
-      "referenceImplemented": 0,
-      "partial": 5,
+      "referenceImplemented": 2,
+      "partial": 3,
       "mixedIntent": 0,
       "explicitlyConfigured": 5
     },
@@ -142,6 +142,7 @@
     "Excluded two setup terms with no target in owner plan and one unrelated map predictor/navigation term.",
     "Reassigned seven farm-map/type terms to farm comparison and three perfection tracker terms to perfection, consistent with task intent.",
     "No raw report, search volumes, full phrase list or new keyword metrics redistributed. The exact owner source remains private.",
-    "US-targeted 16 primary query sample completed previously; full Google localized SERP and production approval remain pending."
+    "US-targeted 16 primary query sample completed previously; full Google localized SERP and production approval remain pending.",
+    "Follow-up task review: two step-count queries match the existing local stepsTaken parser and observed progress display; one geode-luck query is answered by the new sourced FAQ. No other predictor or tracker task is promoted. Actual game fixtures and localized SERP validation remain pending."
   ]
 }
