@@ -35,3 +35,7 @@ export function assertProductionPage(html,page,origin){
  assert.ok(!/aggregateRating|reviewRating/.test(ld[0][1]),page.path+' unsupported rating');
  return canonical;
 }
+
+// Generic allow covers Googlebot, Bingbot and OAI-SearchBot without a crawler-specific content variant.
+// Only call for an already approved public build, never the workspace or preview.
+export function publicRobotsFor(origin){const u=new URL(origin);assert.ok(u.protocol==='https:'&&u.origin===origin&&!u.hostname.endsWith('.pages.dev'),'Approved custom HTTPS origin required');return 'User-agent: *\nAllow: /\nSitemap: '+origin+'/sitemap.xml\n'}
